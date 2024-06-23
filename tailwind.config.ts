@@ -29,6 +29,7 @@ const config: Config = {
           'Segoe UI Symbol',
           'sans-serif',
         ],
+        designer: ['var(--font-designer)', 'system-ui', 'Roboto', 'sans-serif'],
       },
     },
     colors: customColors,

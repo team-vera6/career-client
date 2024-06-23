@@ -4,6 +4,7 @@ export default function Home() {
       <div className="bg-state-caution w-11 h-11" />
 
       <p className="font-title-16">폰트 테스트</p>
+      <p className="font-designer">designer font test 012012</p>
     </main>
   );
 }
