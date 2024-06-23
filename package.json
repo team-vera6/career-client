@@ -33,7 +33,6 @@
     "@storybook/react": "^8.1.10",
     "@storybook/test": "^8.1.10",
     "@titicaca/eslint-config-triple": "^5.1.1",
-    "@titicaca/prettier-config-triple": "^1.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

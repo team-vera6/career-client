@@ -52,9 +52,6 @@ devDependencies:
   '@titicaca/eslint-config-triple':
     specifier: ^5.1.1
     version: 5.1.1(eslint-plugin-n@16.6.2)(eslint@8.0.0)(typescript@5.0.2)
-  '@titicaca/prettier-config-triple':
-    specifier: ^1.1.0
-    version: 1.1.0(prettier@3.3.2)
   '@types/node':
     specifier: ^20
     version: 20.0.0
@@ -3591,14 +3588,6 @@ packages:
       - eslint-plugin-n
       - supports-color
       - typescript
-    dev: true
-
-  /@titicaca/prettier-config-triple@1.1.0(prettier@3.3.2):
-    resolution: {integrity: sha512-x60OvydMgeUkTijFOWLef4KaFYGNS/90M5SGNiyqgUqZ2w4TyeIvsE85woUIwExo0GAgMBQY8LRGEUjchWN+zg==}
-    peerDependencies:
-      prettier: ^2.0.0 || ^3.0.0
-    dependencies:
-      prettier: 3.3.2
     dev: true
 
   /@types/aria-query@5.0.4:
