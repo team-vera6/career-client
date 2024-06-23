@@ -1,6 +1,8 @@
 import type { Config } from 'tailwindcss'
 
 import customColors from './src/styles/colors'
+import { PluginAPI } from 'tailwindcss/types/config'
+import typos from './src/styles/typographys'
 
 const config: Config = {
   content: [
@@ -15,8 +17,31 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        pretendard: [
+          'var(--font-pretendard)',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'system-ui',
+          'Roboto',
+          'Helvetica Neue',
+          'Segoe UI',
+          'Apple SD Gothic Neo',
+          'Noto Sans KR',
+          'Malgun Gothic',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+          'Segoe UI Symbol',
+          'sans-serif',
+        ],
+      },
     },
     colors: customColors,
   },
+  plugins: [
+    ({ addUtilities }: { addUtilities: PluginAPI['addUtilities'] }) => {
+      addUtilities(typos)
+    },
+  ],
 }
 export default config
