@@ -56,6 +56,6 @@ const typos = {
     fontSize: '12px',
     lineHeight: '16px',
   },
-}
+};
 
-export default typos
+export default typos;

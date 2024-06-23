@@ -39,6 +39,6 @@ const colors = {
     caution: '#FFD02A',
     negative: '#E20000',
   },
-}
+};
 
-export default colors
+export default colors;
