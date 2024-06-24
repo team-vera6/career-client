@@ -1,4 +1,44 @@
-const colors = {
+const globalColors = {
+  neutral: {
+    95: '#1C1D1E',
+    90: '#292A2D',
+    80: '#4D4F52',
+    70: '#66696E',
+    60: '#808389',
+    50: '#999CA1',
+    40: '#B3B5B8',
+    30: '#CECECE',
+    20: '#E1E1E1',
+    10: '#EFEFEF',
+    white: '#FFFFFF',
+  },
+  red: {
+    90: '#451305',
+    80: '#7F270F',
+    70: '#C02C02',
+    60: '#E33302',
+    50: '#FF3D0D',
+    40: '#FF5C37',
+    30: '#FF8A70',
+    20: '#FFB8A9',
+    10: '#FFDDD4',
+    5: '#FFF2EF',
+  },
+  green: {
+    90: '#1C4B00',
+    80: '#245F00',
+    70: '#348700',
+    60: '#43B000',
+    50: '#5FD915',
+    40: '#7FFF30',
+    30: '#ADFF7B',
+    20: '#C4FFA0',
+    10: '#DBFFC5',
+    5: '#F2FFEA',
+  },
+};
+
+const semanticColors = {
   text: {
     strong: '#292A2D',
     normal: '#66696E',
@@ -39,6 +79,11 @@ const colors = {
     caution: '#FFD02A',
     negative: '#E20000',
   },
+};
+
+const colors = {
+  ...globalColors,
+  ...semanticColors,
 };
 
 export default colors;
