@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 import { PluginAPI } from 'tailwindcss/types/config';
 
+import buttons from './src/styles/buttons';
 import customColors from './src/styles/colors';
 import typos from './src/styles/typographys';
 
@@ -35,8 +36,15 @@ const config: Config = {
     colors: customColors,
   },
   plugins: [
-    ({ addUtilities }: { addUtilities: PluginAPI['addUtilities'] }) => {
+    ({
+      addUtilities,
+      addComponents,
+    }: {
+      addUtilities: PluginAPI['addUtilities'];
+      addComponents: PluginAPI['addComponents'];
+    }) => {
       addUtilities(typos);
+      addComponents(buttons);
     },
   ],
 };
