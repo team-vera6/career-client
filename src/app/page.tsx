@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import Input from '@/components/inputs/Input';
 import NumberInput from '@/components/inputs/NumberInput';
+import Textarea from '@/components/inputs/Textarea';
 
 export default function Home() {
   const [value, setValue] = useState('');
@@ -23,6 +24,11 @@ export default function Home() {
       <div>
         <p>Number input</p>
         <NumberInput value={value} onChange={(e) => setValue(e.currentTarget.value)} />
+      </div>
+
+      <div>
+        <p>Textarea</p>
+        <Textarea />
       </div>
     </main>
   );
