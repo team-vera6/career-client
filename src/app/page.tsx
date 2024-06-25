@@ -3,8 +3,8 @@
 import { useState } from 'react';
 
 import Input from '@/components/inputs/Input';
+import LineInput from '@/components/inputs/LineInput';
 import NumberInput from '@/components/inputs/NumberInput';
-import Textarea from '@/components/inputs/Textarea';
 
 export default function Home() {
   const [value, setValue] = useState('');
@@ -27,8 +27,8 @@ export default function Home() {
       </div>
 
       <div>
-        <p>Textarea</p>
-        <Textarea />
+        <p>Line input</p>
+        <LineInput errorText="hiei" />
       </div>
     </main>
   );
