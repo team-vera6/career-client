@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 
-import CheckboxInput from '@/components/inputs/CheckboxInput';
-import Input from '@/components/inputs/Input';
-import LineInput from '@/components/inputs/LineInput';
-import NumberInput from '@/components/inputs/NumberInput';
+import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
+import Input from '@/components/inputs/input/Input';
+import LineInput from '@/components/inputs/line/LineInput';
+import NumberInput from '@/components/inputs/number/NumberInput';
 
 export default function Home() {
   const [value, setValue] = useState('');
