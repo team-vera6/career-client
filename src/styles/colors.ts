@@ -36,6 +36,7 @@ const globalColors = {
     10: '#DBFFC5',
     5: '#F2FFEA',
   },
+  transparent: 'transparent',
 };
 
 const semanticColors = {

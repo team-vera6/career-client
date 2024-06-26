@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import CheckboxInput from '@/components/inputs/CheckboxInput';
 import Input from '@/components/inputs/Input';
 import LineInput from '@/components/inputs/LineInput';
 import NumberInput from '@/components/inputs/NumberInput';
@@ -11,11 +12,6 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="bg-state-caution w-11 h-11" />
-
-      <p className="font-title-16">폰트 테스트</p>
-      <p className="font-designer">designer font test 012012</p>
-
       <div>
         <p>Normal input</p>
         <Input placeholder="typing..." />
@@ -28,7 +24,12 @@ export default function Home() {
 
       <div>
         <p>Line input</p>
-        <LineInput errorText="hiei" />
+        <LineInput />
+      </div>
+
+      <div>
+        <p>Checkbox input</p>
+        <CheckboxInput />
       </div>
     </main>
   );
