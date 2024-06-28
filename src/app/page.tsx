@@ -9,6 +9,8 @@ export default function Home() {
       <StarIcon size={20} />
       <p className="font-title-16">폰트 테스트</p>
       <p className="font-designer">designer font test 012012</p>
+
+      <button className="button-primary button-large">버튼 테스트</button>
     </main>
   );
 }
