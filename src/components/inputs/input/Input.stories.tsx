@@ -14,6 +14,7 @@ export const Default: Story = {
   args: {
     placeholder: '',
     disabled: false,
+    readOnly: false,
     errorText: '',
     size: 20,
   },
