@@ -13,6 +13,7 @@ module.exports = {
   ],
   plugins: ['unused-imports', 'simple-import-sort'],
   rules: {
+    '@typescript-eslint/no-use-before-define': 'off',
     'react/no-unescaped-entities': 'off',
     '@next/next/no-page-custom-font': 'off',
     'react/self-closing-comp': [
