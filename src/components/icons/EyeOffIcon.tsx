@@ -1,11 +1,11 @@
-import { IconProps } from '@/types/icon';
+import { SVGIconProps } from '@/types/icon';
 
 const EyeOffIcon = ({
   size = 20,
   stroke = '#999CA1',
   fill = 'none',
-  ...props
-}: IconProps): JSX.Element => {
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -13,7 +13,7 @@ const EyeOffIcon = ({
       viewBox="0 0 20 20"
       fill={fill}
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...rest}
     >
       <circle
         cx="10"

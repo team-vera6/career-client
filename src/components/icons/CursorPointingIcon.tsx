@@ -1,11 +1,11 @@
-import { IconProps } from '@/types/icon';
+import { SVGIconProps } from '@/types/icon';
 
 const CursorPointingIcon = ({
   size = 20,
   stroke = 'black',
   fill = 'white',
-  ...props
-}: IconProps): JSX.Element => {
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -13,7 +13,7 @@ const CursorPointingIcon = ({
       viewBox="0 0 20 21"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...rest}
     >
       <rect width="15" height="16" transform="translate(2 1)" fill={fill} fillOpacity="0.01" />
       <g filter="url(#filter0_d_577_9119)">

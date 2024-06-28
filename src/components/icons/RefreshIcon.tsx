@@ -1,6 +1,6 @@
-import { IconProps } from '@/types/icon';
+import { SVGIconProps } from '@/types/icon';
 
-const RefreshIcon = ({ size = 20, stroke = '#999CA1', ...props }: IconProps): JSX.Element => {
+const RefreshIcon = ({ size = 20, stroke = '#999CA1', ...rest }: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -8,7 +8,7 @@ const RefreshIcon = ({ size = 20, stroke = '#999CA1', ...props }: IconProps): JS
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...rest}
     >
       <path
         d="M5.49989 9.50021L3.99989 6.50021L1 8.00024L5.49989 9.50021Z"

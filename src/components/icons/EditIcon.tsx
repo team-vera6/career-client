@@ -1,6 +1,6 @@
-import { IconProps } from '@/types/icon';
+import { SVGIconProps } from '@/types/icon';
 
-const EditIcon = ({ size = 20, stroke = '#999CA1', ...props }: IconProps): JSX.Element => {
+const EditIcon = ({ size = 20, stroke = '#999CA1', ...rest }: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -8,7 +8,7 @@ const EditIcon = ({ size = 20, stroke = '#999CA1', ...props }: IconProps): JSX.E
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...rest}
     >
       <path
         d="M9 4H4C2.89543 4 2 4.89543 2 6V16C2 17.1046 2.89543 18 4 18H14C15.1046 18 16 17.1046 16 16V11"

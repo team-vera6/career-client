@@ -1,10 +1,10 @@
-import { IconProps } from '@/types/icon';
+import { SVGIconProps } from '@/types/icon';
 
 const ChevronRight20Icon = ({
   size = 20,
   stroke = '#999CA1',
-  ...props
-}: IconProps): JSX.Element => {
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -12,7 +12,7 @@ const ChevronRight20Icon = ({
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...rest}
     >
       <path
         d="M7.5 3.5L14.5 10.5L7.5 17.5"

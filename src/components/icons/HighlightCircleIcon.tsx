@@ -1,10 +1,10 @@
-import { IconProps } from '@/types/icon';
+import { SVGIconProps } from '@/types/icon';
 
 const HighlightCircleIcon = ({
   size = 24,
   stroke = '#FF3D0D',
-  ...props
-}: IconProps): JSX.Element => {
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -12,7 +12,7 @@ const HighlightCircleIcon = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...rest}
     >
       <rect x="6" y="6" width="12" height="12" rx="6" fill={stroke} />
       <circle

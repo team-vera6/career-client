@@ -1,5 +1,5 @@
-export interface IconType extends React.SVGProps<SVGSVGElement> {
+interface IconType extends React.SVGProps<SVGSVGElement> {
   size: number;
 }
 
-export type IconProps = Partial<IconType>;
+export type SVGIconProps = Partial<IconType>;

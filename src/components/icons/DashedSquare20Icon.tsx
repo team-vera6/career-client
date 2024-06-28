@@ -1,11 +1,11 @@
-import { IconProps } from '@/types/icon';
+import { SVGIconProps } from '@/types/icon';
 
 const DashedSquare20Icon = ({
   size = 20,
   stroke = '#CECECE',
   fill = 'none',
-  ...props
-}: IconProps): JSX.Element => {
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -13,7 +13,7 @@ const DashedSquare20Icon = ({
       viewBox="0 0 20 20"
       fill={fill}
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...rest}
     >
       <rect
         x="2"

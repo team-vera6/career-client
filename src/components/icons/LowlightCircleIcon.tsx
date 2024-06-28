@@ -1,10 +1,10 @@
-import { IconProps } from '@/types/icon';
+import { SVGIconProps } from '@/types/icon';
 
 const LowlightCircleIcon = ({
   size = 24,
   stroke = '#999CA1',
-  ...props
-}: IconProps): JSX.Element => {
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -12,7 +12,7 @@ const LowlightCircleIcon = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...rest}
     >
       <circle
         cx="12"

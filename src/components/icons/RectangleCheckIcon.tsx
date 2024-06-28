@@ -1,11 +1,11 @@
-import { IconProps } from '@/types/icon';
+import { SVGIconProps } from '@/types/icon';
 
 const RectangleCheckIcon = ({
   size = 20,
   stroke = 'white',
   fill = '#FF5C37',
-  ...props
-}: IconProps): JSX.Element => {
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -13,7 +13,7 @@ const RectangleCheckIcon = ({
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...rest}
     >
       <rect width={size} height={size} rx="4" fill={fill} />
       <path
