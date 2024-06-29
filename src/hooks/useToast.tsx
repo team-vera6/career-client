@@ -10,19 +10,11 @@ const useToast = () => {
   const idCounter = useAtomValue(toastIdAtom);
 
   const addToast = useCallback(
-    ({
-      message,
-      type,
-      alertType,
-    }: {
-      message: string;
-      type: ToastProps['type'];
-      alertType?: ToastProps['alertType'];
-    }) => {
+    ({ message, iconType }: { message: string; iconType?: ToastProps['iconType'] }) => {
       const id = idCounter;
       setIdCounter((prevId) => prevId + 1);
 
-      setToasts((prevToasts) => [{ id, message, type, alertType }, ...prevToasts]);
+      setToasts((prevToasts) => [{ id, message, iconType }, ...prevToasts]);
 
       setTimeout(() => {
         setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));

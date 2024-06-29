@@ -12,14 +12,11 @@ export default function Home() {
 
       <button
         className="button-primary button-large"
-        onClick={() => addToast({ message: 'Success!', type: 'alert', alertType: 'error' })}
+        onClick={() => addToast({ message: 'Success!', iconType: 'error' })}
       >
         버튼 테스트
       </button>
-      <button
-        className="button-primary button-large"
-        onClick={() => addToast({ message: 'you!', type: 'text' })}
-      >
+      <button className="button-primary button-large" onClick={() => addToast({ message: 'you!' })}>
         버튼 테스트
       </button>
 

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { ToastIcon, ToastProps } from './toastType';
 
-const Toast = ({ id, message, alertType }: ToastProps) => {
+const Toast = ({ id, message, iconType }: ToastProps) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Toast = ({ id, message, alertType }: ToastProps) => {
         show ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
       }`}
     >
-      {alertType && ToastIcon[alertType]}
+      {iconType && ToastIcon[iconType]}
       {message}
     </div>
   );
