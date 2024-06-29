@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import Alert from '@/components/modal/Alert';
+import RightActionSheetContainer from '@/components/action-sheets/Container';
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -17,18 +17,15 @@ export default function Home() {
       <button onClick={() => setOpen((prev) => !prev)}>open modal</button>
 
       {open && (
-        <Alert
-          closeAlert={() => setOpen(false)}
-          title="정말로 삭제하시겠어요?"
-          buttons={{
-            left: {
-              text: '버튼',
-            },
-            right: {
-              text: '버튼',
-            },
-          }}
-        />
+        <RightActionSheetContainer
+          closeActionSheet={() => setOpen(false)}
+          buttons={[
+            { text: '취소', onClick: () => setOpen(false) },
+            { text: '저장', onClick: () => setOpen(false) },
+          ]}
+        >
+          <p>hihii</p>
+        </RightActionSheetContainer>
       )}
     </main>
   );
