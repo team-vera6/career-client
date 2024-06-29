@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 import { PluginAPI } from 'tailwindcss/types/config';
 
+import { animation, keyframes } from './src/styles/animations';
 import buttons from './src/styles/buttons';
 import customColors from './src/styles/colors';
 import typos from './src/styles/typographys';
@@ -49,30 +50,8 @@ const config: Config = {
         4.5: '1.125rem',
         5.5: '1.375rem',
       },
-      keyframes: {
-        fadeUp: {
-          from: {
-            opacity: '0',
-            transform: 'translateY(1.5rem)',
-          },
-          to: {
-            opacity: '1',
-            transform: 'translateY(0)',
-          },
-        },
-        slideInRight: {
-          from: {
-            transform: 'translateX(37.5rem)',
-          },
-          to: {
-            transform: 'translateX(0)',
-          },
-        },
-      },
-      animation: {
-        'fade-up': 'fadeUp 0.5s ease-out',
-        'slide-in-right': 'slideInRight 0.3s ease-in-out',
-      },
+      keyframes,
+      animation,
     },
     colors: customColors,
   },
