@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import Modal from '@/components/modal/Modal';
+import Alert from '@/components/modal/Alert';
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -17,8 +17,8 @@ export default function Home() {
       <button onClick={() => setOpen((prev) => !prev)}>open modal</button>
 
       {open && (
-        <Modal
-          closeModal={() => setOpen(false)}
+        <Alert
+          closeAlert={() => setOpen(false)}
           title="정말로 삭제하시겠어요?"
           buttons={{
             left: {
