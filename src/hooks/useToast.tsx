@@ -1,12 +1,13 @@
 import { toastAtom, toastIdAtom } from '@/stores/toastAtom';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 import { ToastProps } from '@/components/toast/toastType';
-import { useAtom } from 'jotai';
 import { useCallback } from 'react';
 
 const useToast = () => {
-  const [toasts, setToasts] = useAtom<ToastProps[]>(toastAtom);
-  const [idCounter, setIdCounter] = useAtom(toastIdAtom);
+  const setToasts = useSetAtom(toastAtom);
+  const setIdCounter = useSetAtom(toastIdAtom);
+  const idCounter = useAtomValue(toastIdAtom);
 
   const addToast = useCallback(
     ({
@@ -27,11 +28,10 @@ const useToast = () => {
         setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
       }, 3000);
     },
-    [idCounter],
+    [idCounter, setIdCounter, setToasts],
   );
 
   return {
-    toasts,
     addToast,
   };
 };
