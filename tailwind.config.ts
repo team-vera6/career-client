@@ -10,6 +10,7 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/styles/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -48,17 +49,26 @@ const config: Config = {
         4.5: '1.125rem',
         5.5: '1.375rem',
       },
+      keyframes: {
+        fadeUp: {
+          from: {
+            opacity: '0',
+            transform: 'translateY(1.5rem)',
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+      },
+      animation: {
+        'fade-up': 'fadeUp 0.5s ease-out',
+      },
     },
     colors: customColors,
   },
   plugins: [
-    ({
-      addUtilities,
-      addComponents,
-    }: {
-      addUtilities: PluginAPI['addUtilities'];
-      addComponents: PluginAPI['addComponents'];
-    }) => {
+    ({ addUtilities, addComponents }: PluginAPI) => {
       addUtilities(typos);
       addComponents(buttons);
     },
