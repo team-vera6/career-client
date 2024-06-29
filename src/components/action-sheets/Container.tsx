@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import CloseIcon from '../icons/CloseIcon';
 
@@ -9,12 +9,15 @@ interface Button {
 }
 
 interface Props {
-  children: ReactNode;
   closeActionSheet: () => void;
   buttons: Button[];
 }
 
-const RightActionSheetContainer = ({ children, closeActionSheet, buttons }: Props) => {
+const RightActionSheetContainer = ({
+  children,
+  closeActionSheet,
+  buttons,
+}: PropsWithChildren<Props>) => {
   return (
     <div className="w-screen h-screen relative">
       {/* background dimmer */}
