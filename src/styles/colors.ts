@@ -57,7 +57,7 @@ const semanticColors = {
     invert: '#1C1D1E',
     strong: '#E33302',
     normal: '#FF3D0D',
-    light: '#FF5C37',
+    light: '#FFDDD4',
     blank: 'transparent',
     dimmer: '#00000080',
     assistive: '#00000014',
