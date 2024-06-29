@@ -12,16 +12,18 @@ const ProgressChip = ({ percentage }: Props) => {
           <circle className="fill-none stroke-transparent" cx={8} cy={8} r={6} strokeWidth={1.5} />
 
           {/* circle bar */}
-          <circle
-            className="fill-none stroke-text-primary"
-            cx={8}
-            cy={8}
-            r={6}
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            strokeDasharray={2 * Math.PI * 6.5}
-            strokeDashoffset={2 * Math.PI * 6.5 * (1 - percentage / 100)}
-          />
+          {percentage > 0 && (
+            <circle
+              className="fill-none stroke-text-primary"
+              cx={8}
+              cy={8}
+              r={6}
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              strokeDasharray={2 * Math.PI * 5.9}
+              strokeDashoffset={2 * Math.PI * 5.9 * (1 - percentage / 100)}
+            />
+          )}
         </svg>
 
         {/* center area */}
