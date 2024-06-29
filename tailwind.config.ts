@@ -60,9 +60,18 @@ const config: Config = {
             transform: 'translateY(0)',
           },
         },
+        slideInRight: {
+          from: {
+            transform: 'translateX(37.5rem)',
+          },
+          to: {
+            transform: 'translateX(0)',
+          },
+        },
       },
       animation: {
         'fade-up': 'fadeUp 0.5s ease-out',
+        'slide-in-right': 'slideInRight 0.3s ease-in-out',
       },
     },
     colors: customColors,
