@@ -1,18 +1,17 @@
 import { toastAtom, toastIdAtom } from '@/stores/toastAtom';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 
 import { ToastProps } from '@/components/toast/toastType';
 import { useCallback } from 'react';
 
 const useToast = () => {
   const setToasts = useSetAtom(toastAtom);
-  const setIdCounter = useSetAtom(toastIdAtom);
-  const idCounter = useAtomValue(toastIdAtom);
+  const [toastId, setToastId] = useAtom(toastIdAtom);
 
   const addToast = useCallback(
     ({ message, iconType }: { message: string; iconType?: ToastProps['iconType'] }) => {
-      const id = idCounter;
-      setIdCounter((prevId) => prevId + 1);
+      const id = toastId;
+      setToastId((prevId) => prevId + 1);
 
       setToasts((prevToasts) => [{ id, message, iconType }, ...prevToasts]);
 
@@ -20,7 +19,7 @@ const useToast = () => {
         setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
       }, 3000);
     },
-    [idCounter, setIdCounter, setToasts],
+    [toastId, setToastId, setToasts],
   );
 
   return {
