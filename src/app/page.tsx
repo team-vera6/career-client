@@ -3,9 +3,11 @@
 import { useState } from 'react';
 
 import Alert from '@/components/modal/Alert';
+import ScorePicker from '@/components/score-picker/ScorePicker';
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const [score, setScore] = useState(0);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -15,6 +17,8 @@ export default function Home() {
       <p className="font-designer">designer font test 012012</p>
 
       <button onClick={() => setOpen((prev) => !prev)}>open modal</button>
+
+      <ScorePicker score={score} setScore={setScore} />
 
       {open && (
         <Alert

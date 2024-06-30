@@ -16,19 +16,6 @@ const ScorePicker = ({ score = 0, setScore }: Props) => {
           {point !== 7 && <Connection active={score > point} />}
         </Fragment>
       ))}
-      {/* <Checkpoint active />
-      <Connection active />
-      <Checkpoint active />
-      <Connection />
-      <Checkpoint />
-      <Connection />
-      <Checkpoint />
-      <Connection />
-      <Checkpoint />
-      <Connection />
-      <Checkpoint />
-      <Connection />
-      <Checkpoint /> */}
     </div>
   );
 };
