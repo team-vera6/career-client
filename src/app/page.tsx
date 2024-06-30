@@ -1,9 +1,14 @@
 'use client';
 
-import StarIcon from '@/components/icons/StarIcon';
+import { useState } from 'react';
+
+import Alert from '@/components/modal/Alert';
+
 import useToast from '../hooks/useToast';
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+
   const { addToast } = useToast();
 
   return (
@@ -20,10 +25,35 @@ export default function Home() {
         버튼 테스트
       </button>
 
-      <StarIcon width={100} height={100} fill="red" stroke="blue" />
-      <StarIcon size={20} />
+      <button
+        className="button-primary button-large"
+        onClick={() => addToast({ message: 'Success!', iconType: 'error' })}
+      >
+        버튼 테스트
+      </button>
+      <button className="button-primary button-large" onClick={() => addToast({ message: 'you!' })}>
+        버튼 테스트
+      </button>
+
       <p className="font-title-16">폰트 테스트</p>
       <p className="font-designer">designer font test 012012</p>
+
+      <button onClick={() => setOpen((prev) => !prev)}>open modal</button>
+
+      {open && (
+        <Alert
+          closeAlert={() => setOpen(false)}
+          title="정말로 삭제하시겠어요?"
+          buttons={{
+            left: {
+              text: '버튼',
+            },
+            right: {
+              text: '버튼',
+            },
+          }}
+        />
+      )}
     </main>
   );
 }

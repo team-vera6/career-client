@@ -10,6 +10,7 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/styles/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -32,17 +33,42 @@ const config: Config = {
         ],
         designer: ['var(--font-designer)', 'system-ui', 'Roboto', 'sans-serif'],
       },
+      opacity: {
+        blank: '0',
+        8: '0.08',
+        16: '0.16',
+        24: '0.24',
+        50: '0.5',
+        70: '0.7',
+      },
+      spacing: {
+        0.5: '0.125rem',
+        1.5: '0.375rem',
+        2.5: '0.625rem',
+        3.5: '0.875rem',
+        4.5: '1.125rem',
+        5.5: '1.375rem',
+      },
+      keyframes: {
+        fadeUp: {
+          from: {
+            opacity: '0',
+            transform: 'translateY(1.5rem)',
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+      },
+      animation: {
+        'fade-up': 'fadeUp 0.5s ease-out',
+      },
     },
     colors: customColors,
   },
   plugins: [
-    ({
-      addUtilities,
-      addComponents,
-    }: {
-      addUtilities: PluginAPI['addUtilities'];
-      addComponents: PluginAPI['addComponents'];
-    }) => {
+    ({ addUtilities, addComponents }: PluginAPI) => {
       addUtilities(typos);
       addComponents(buttons);
     },
