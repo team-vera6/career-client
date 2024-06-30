@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ToastIcon, ToastProps } from './toastType';
+
+import { ToastIcon, ToastProps } from '@/types/toast';
 
 const Toast = ({ id, message, iconType }: ToastProps) => {
   const [show, setShow] = useState(false);

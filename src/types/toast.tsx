@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
-import AlertIcon from '../icons/AlertIcon';
-import CircleCheckIcon from '../icons/CircleCheckIcon';
+
+import AlertIcon from '@/components/icons/AlertIcon';
+import CircleCheckIcon from '@/components/icons/CircleCheckIcon';
 
 type IconType = 'success' | 'error';
 

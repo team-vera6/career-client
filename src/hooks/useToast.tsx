@@ -1,8 +1,8 @@
-import { toastAtom, toastIdAtom } from '@/stores/toastAtom';
 import { useAtom, useSetAtom } from 'jotai';
-
-import { ToastProps } from '@/components/toast/toastType';
 import { useCallback } from 'react';
+
+import { toastAtom, toastIdAtom } from '@/stores/toastAtom';
+import { ToastProps } from '@/types/toast';
 
 const useToast = () => {
   const setToasts = useSetAtom(toastAtom);

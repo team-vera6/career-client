@@ -1,8 +1,10 @@
 'use client';
 
-import { toastAtom } from '@/stores/toastAtom';
 import { useAtomValue } from 'jotai';
 import { createPortal } from 'react-dom';
+
+import { toastAtom } from '@/stores/toastAtom';
+
 import Toast from './Toast';
 
 const ToastContainer = () => {
