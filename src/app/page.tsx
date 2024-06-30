@@ -25,16 +25,6 @@ export default function Home() {
         버튼 테스트
       </button>
 
-      <button
-        className="button-primary button-large"
-        onClick={() => addToast({ message: 'Success!', iconType: 'error' })}
-      >
-        버튼 테스트
-      </button>
-      <button className="button-primary button-large" onClick={() => addToast({ message: 'you!' })}>
-        버튼 테스트
-      </button>
-
       <p className="font-title-16">폰트 테스트</p>
       <p className="font-designer">designer font test 012012</p>
 
