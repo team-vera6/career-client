@@ -39,6 +39,7 @@ const RightActionSheetContainer = ({
             <div className="flex gap-2">
               {buttons.map(({ text, onClick, type = 'primary', disabled = false }) => (
                 <button
+                  type="button"
                   key={text}
                   className={
                     type === 'line' ? 'button-line button-medium' : 'button-primary button-medium'
