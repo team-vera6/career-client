@@ -32,7 +32,8 @@ const buttonStyles = {
     color: colors.text.strong,
 
     '&:hover': {
-      backgroundColor: colors.surface.blank,
+      backgroundColor: colors.surface.assistive,
+      opacity: 0.8,
     },
     '&:disabled': {
       backgroundColor: colors.surface.blank,
