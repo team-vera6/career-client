@@ -7,7 +7,7 @@ interface Props {
   setScore: (score: number) => void;
 }
 
-const ScorePicker = ({ score = 0, setScore }: Props) => {
+const ScorePicker = ({ score, setScore }: Props) => {
   return (
     <div className="flex items-center gap-2">
       {breakPoints.map((point) => (
