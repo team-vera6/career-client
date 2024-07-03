@@ -1,16 +1,17 @@
 import type { PropsWithChildren } from 'react';
 
+import { Button } from '@/types/button';
+
 import CloseIcon from '../icons/CloseIcon';
 
-interface Button {
-  text: string;
-  onClick: () => void;
+interface ActionSheetButton extends Button {
   type?: 'primary' | 'line';
+  disabled?: boolean;
 }
 
 interface Props {
   closeActionSheet: () => void;
-  buttons: Button[];
+  buttons: ActionSheetButton[];
 }
 
 const RightActionSheetContainer = ({
@@ -36,13 +37,14 @@ const RightActionSheetContainer = ({
 
             {/* header buttons */}
             <div className="flex gap-2">
-              {buttons.map(({ text, onClick, type = 'primary' }) => (
+              {buttons.map(({ text, onClick, type = 'primary', disabled = false }) => (
                 <button
                   key={text}
                   className={
                     type === 'line' ? 'button-line button-medium' : 'button-primary button-medium'
                   }
                   onClick={onClick}
+                  disabled={disabled}
                 >
                   {text}
                 </button>
