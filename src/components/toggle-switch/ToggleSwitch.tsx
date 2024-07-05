@@ -31,8 +31,8 @@ const ToggleSwitch = ({ initialState = false, onChange }: ToggleSwitchProps) => 
       <div
         className={
           isOn
-            ? 'w-3.5 h-3.5 bg-surface-foreground rounded-full transform transition-transform duration-300 translate-x-[.9rem]'
-            : 'w-3.5 h-3.5 bg-surface-foreground rounded-full transform transition-transform duration-300 translate-x-0'
+            ? 'w-3.5 h-3.5 bg-surface-foreground rounded-full duration-300 translate-x-[.9rem]'
+            : 'w-3.5 h-3.5 bg-surface-foreground rounded-full duration-300 translate-x-0'
         }
       />
     </button>
