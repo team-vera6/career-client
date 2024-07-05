@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import Alert from '@/components/modal/Alert';
 import ScorePicker from '@/components/score-picker/ScorePicker';
+import ToggleSwitch from '@/components/toggle-switch/ToggleSwitch';
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -12,6 +13,8 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="bg-state-caution w-11 h-11" />
+
+      <ToggleSwitch />
 
       <p className="font-title-16">폰트 테스트</p>
       <p className="font-designer">designer font test 012012</p>
