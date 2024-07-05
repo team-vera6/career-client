@@ -1,8 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
-import { ToastIcon, ToastProps } from '@/types/toast';
+import { ToastIconType, ToastProps } from '@/types/toast';
+
+import AlertIcon from '../icons/AlertIcon';
+import CircleCheckIcon from '../icons/CircleCheckIcon';
+
+export const ToastIcon: { [key in ToastIconType]: ReactNode } = {
+  success: <CircleCheckIcon />,
+  error: <AlertIcon />,
+};
 
 const Toast = ({ id, message, iconType }: ToastProps) => {
   const [show, setShow] = useState(false);
