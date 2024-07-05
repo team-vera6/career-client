@@ -3,11 +3,14 @@
 import { useState } from 'react';
 
 import Alert from '@/components/modal/Alert';
+import ScorePicker from '@/components/score-picker/ScorePicker';
+import ToggleSwitch from '@/components/toggle-switch/ToggleSwitch';
 
 import useToast from '../hooks/useToast';
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const [score, setScore] = useState(0);
 
   const { addToast } = useToast();
 
@@ -24,11 +27,14 @@ export default function Home() {
       <button className="button-primary button-large" onClick={() => addToast({ message: 'you!' })}>
         버튼 테스트
       </button>
+      <ToggleSwitch />
 
       <p className="font-title-16">폰트 테스트</p>
       <p className="font-designer">designer font test 012012</p>
 
       <button onClick={() => setOpen((prev) => !prev)}>open modal</button>
+
+      <ScorePicker score={score} setScore={setScore} />
 
       {open && (
         <Alert
