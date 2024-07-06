@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import ProgressChip from './ProgressChip';
+import ProgressBar from './ProgressBar';
 
 const meta = {
   title: 'Components/Progress',
-  component: ProgressChip,
+  component: ProgressBar,
   argTypes: {
     percentage: {
       control: {
@@ -14,12 +14,12 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof ProgressChip>;
+} satisfies Meta<typeof ProgressBar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Chip: Story = {
+export const Bar: Story = {
   args: {
     percentage: 30,
   },

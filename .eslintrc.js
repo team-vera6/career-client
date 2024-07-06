@@ -47,6 +47,7 @@ module.exports = {
     'unused-imports/no-unused-imports': ['warn'],
     'comma-spacing': ['error', { before: false, after: true }],
     'space-before-function-paren': ['error', 'never'],
+    'multiline-ternary': 'off',
   },
   parserOptions: {
     sourceType: 'module',

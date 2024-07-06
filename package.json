@@ -36,6 +36,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "chromatic": "^11.5.4",
     "commitizen": "^4.3.0",
     "cz-customizable": "^7.0.0",
     "eslint": "^8.0.0",
