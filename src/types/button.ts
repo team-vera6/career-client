@@ -1,4 +1,5 @@
-export interface Button {
+import { ButtonHTMLAttributes } from 'react';
+
+export interface Button extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
-  onClick?: () => void;
 }

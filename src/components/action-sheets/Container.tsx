@@ -5,8 +5,7 @@ import { Button } from '@/types/button';
 import CloseIcon from '../icons/CloseIcon';
 
 interface ActionSheetButton extends Button {
-  type?: 'primary' | 'line';
-  disabled?: boolean;
+  buttonStyle?: 'primary' | 'line';
 }
 
 interface Props {
@@ -37,19 +36,24 @@ const RightActionSheetContainer = ({
 
             {/* header buttons */}
             <div className="flex gap-2">
-              {buttons.map(({ text, onClick, type = 'primary', disabled = false }) => (
-                <button
-                  type="button"
-                  key={text}
-                  className={
-                    type === 'line' ? 'button-line button-medium' : 'button-primary button-medium'
-                  }
-                  onClick={onClick}
-                  disabled={disabled}
-                >
-                  {text}
-                </button>
-              ))}
+              {buttons.map(
+                ({ text, onClick, buttonStyle = 'primary', disabled = false, ...rest }) => (
+                  <button
+                    type="button"
+                    key={text}
+                    className={
+                      buttonStyle === 'line'
+                        ? 'button-line button-medium'
+                        : 'button-primary button-medium'
+                    }
+                    onClick={onClick}
+                    disabled={disabled}
+                    {...rest}
+                  >
+                    {text}
+                  </button>
+                ),
+              )}
             </div>
           </div>
 
