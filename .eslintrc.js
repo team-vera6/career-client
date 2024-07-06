@@ -25,7 +25,7 @@ module.exports = {
     ],
     'react/jsx-first-prop-new-line': 'error',
     'comma-dangle': [
-      'error',
+      'warn',
       {
         arrays: 'always-multiline',
         objects: 'always-multiline',
