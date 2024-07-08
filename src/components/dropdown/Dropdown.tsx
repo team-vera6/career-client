@@ -39,7 +39,7 @@ const Dropdown = ({
         flex items-center justify-between
         focus:outline-none focus:border-line-focus hover:border-line-normalHover
         disabled:bg-surface-base disabled:cursor-not-allowed disabled:hover:border-line-normal"
-        onClick={() => setShowOptions((prev) => !prev)}
+        onClickCapture={() => setShowOptions((prev) => !prev)}
       >
         <span>{selectedItem.name}</span>
         <ChevronDown20Icon />
