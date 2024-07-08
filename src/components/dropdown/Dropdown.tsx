@@ -1,9 +1,10 @@
 'use client';
 
-import ChevronDown20Icon from '../icons/ChevronDown20Icon';
-import { useState } from 'react';
+import { CSSProperties, useState } from 'react';
 
-interface DropdownItem {
+import ChevronDown20Icon from '../icons/ChevronDown20Icon';
+
+interface DropdownItem extends CSSProperties {
   name: string;
   value: string | number;
 }
@@ -14,7 +15,12 @@ interface Props {
   items: Array<DropdownItem>;
 }
 
-const Dropdown = ({ id, initialItem = { name: '선택하세요', value: '' }, items }: Props) => {
+const Dropdown = ({
+  id,
+  initialItem = { name: '선택하세요', value: '' },
+  items,
+  ...rest
+}: Props) => {
   const [showOptions, setShowOptions] = useState(false);
   const [selectedItem, setSelectedItem] = useState(initialItem);
 
@@ -24,7 +30,7 @@ const Dropdown = ({ id, initialItem = { name: '선택하세요', value: '' }, it
   };
 
   return (
-    <div className="relative w-[15.188rem] h-[2.75rem]">
+    <div className="relative w-full h-[2.75rem]" {...rest}>
       <button
         type="button"
         id={id}
@@ -38,6 +44,7 @@ const Dropdown = ({ id, initialItem = { name: '선택하세요', value: '' }, it
         <span>{selectedItem.name}</span>
         <ChevronDown20Icon />
       </button>
+
       {showOptions && (
         <ul
           className="absolute w-full top-[2.75rem] left-0 py-1 z-10 cursor-pointer
@@ -51,7 +58,10 @@ const Dropdown = ({ id, initialItem = { name: '선택하세요', value: '' }, it
               className="h-[2.75rem] py-3 px-5 hover:bg-surface-background"
               key={item.value}
               value={item.value}
-              onClick={() => onClickItem(item)}
+              onClick={(e) => {
+                e.stopPropagation();
+                onClickItem(item);
+              }}
             >
               {item.name}
             </li>
