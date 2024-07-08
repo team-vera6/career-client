@@ -16,6 +16,9 @@
     "commit": "cz"
   },
   "dependencies": {
+    "@tiptap/pm": "^2.4.0",
+    "@tiptap/react": "^2.4.0",
+    "@tiptap/starter-kit": "^2.4.0",
     "axios": "^1.7.2",
     "jotai": "^2.8.3",
     "next": "14.2.4",
