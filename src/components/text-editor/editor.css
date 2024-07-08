@@ -1,6 +1,8 @@
 .tiptap {
   padding: 16px 0;
   outline: none;
+  font-size: 0.875rem;
+  font-weight: 400;
 
   &:first-child {
     margin-top: 0;
@@ -48,30 +50,37 @@
   }
 
   h1 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 2.125rem;
   }
 
   h2 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.75rem;
   }
 
   h3 {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
   }
 
   h4,
   h5,
   h6 {
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
 
   /* Code and preformatted text styles */
   code {
-    background-color: gainsboro;
-    border-radius: 0.4rem;
-    color: var(--black);
-    font-size: 0.85rem;
-    padding: 0.25em 0.3em;
+    background-color: #efefef;
+    border-radius: 4px;
+    color: #66696e;
+    font-size: 0.8125rem;
+    padding: 0.0625rem 0.5rem;
+    margin: 0 0.25rem;
   }
 
   pre {
