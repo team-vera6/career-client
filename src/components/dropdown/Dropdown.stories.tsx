@@ -12,6 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const DropMenu: Story = {
   args: {
+    id: '팀베라',
     items: [
       { name: '이유림', value: '이유림' },
       { name: '김종훈', value: '김종훈' },
