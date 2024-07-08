@@ -39,7 +39,7 @@ const Dropdown = ({
         flex items-center justify-between
         focus:outline-none focus:border-line-focus hover:border-line-normalHover
         disabled:bg-surface-base disabled:cursor-not-allowed disabled:hover:border-line-normal"
-        onClickCapture={() => setShowOptions((prev) => !prev)}
+        onClick={() => setShowOptions((prev) => !prev)}
       >
         <span>{selectedItem.name}</span>
         <ChevronDown20Icon />
@@ -52,6 +52,7 @@ const Dropdown = ({
           style={{
             boxShadow: '0px 8px 20px 0px #00000014, 0px 0px 2px 0px #0000000D',
           }}
+          onClick={() => setShowOptions((prev) => !prev)}
         >
           {items.map((item) => (
             <li
@@ -59,8 +60,8 @@ const Dropdown = ({
               key={item.value}
               value={item.value}
               onClick={(e) => {
-                e.stopPropagation();
                 onClickItem(item);
+                e.stopPropagation();
               }}
             >
               {item.name}
