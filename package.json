@@ -20,9 +20,11 @@
     "@tiptap/react": "^2.4.0",
     "@tiptap/starter-kit": "^2.4.0",
     "axios": "^1.7.2",
+    "date-fns": "^3.6.0",
     "jotai": "^2.8.3",
     "next": "14.2.4",
     "react": "^18",
+    "react-date-range": "^2.0.1",
     "react-dom": "^18"
   },
   "devDependencies": {
@@ -38,6 +40,7 @@
     "@titicaca/eslint-config-triple": "^5.1.1",
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-date-range": "^1.4.9",
     "@types/react-dom": "^18",
     "chromatic": "^11.5.4",
     "commitizen": "^4.3.0",
