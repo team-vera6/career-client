@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 'use client';
 
 import 'react-date-range/dist/styles.css';
@@ -13,7 +12,6 @@ import { DateRange, Range } from 'react-date-range';
 import colors from '@/styles/colors';
 
 const DatePicker = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [date, setDate] = useState<Range[]>([
     {
       startDate: new Date(),
