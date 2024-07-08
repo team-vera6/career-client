@@ -1,8 +1,9 @@
 import './globals.css';
 
-import ToastContainer from '@/components/toast/ToastContainer';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+
+import ToastContainer from '@/components/toast/ToastContainer';
 
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
@@ -28,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={`${pretendard.variable} ${designer.variable} font-pretendard`}>
         {children}
         <ToastContainer />
