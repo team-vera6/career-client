@@ -52,17 +52,13 @@ const Dropdown = ({
           style={{
             boxShadow: '0px 8px 20px 0px #00000014, 0px 0px 2px 0px #0000000D',
           }}
-          onClick={() => setShowOptions((prev) => !prev)}
         >
           {items.map((item) => (
             <li
               className="h-[2.75rem] py-3 px-5 hover:bg-surface-background"
               key={item.value}
               value={item.value}
-              onClick={(e) => {
-                onClickItem(item);
-                e.stopPropagation();
-              }}
+              onClick={() => onClickItem(item)}
             >
               {item.name}
             </li>
