@@ -1,8 +1,10 @@
 'use client';
 
-import BookmarkIcon from '../icons/BookmarkIcon';
-import colors from '@/styles/colors';
 import { useState } from 'react';
+
+import colors from '@/styles/colors';
+
+import BookmarkIcon from '../icons/BookmarkIcon';
 
 interface Props {
   isBookmark: boolean;
@@ -16,10 +18,10 @@ const MemoBottom = ({ isBookmark = false, date }: Props) => {
     <div className="w-full flex items-center justify-between">
       <p className="font-body-12 text-text-neutral">{date}</p>
       <BookmarkIcon
-        cursor="pointer"
         onClick={() => setIsMark((prev) => !prev)}
         fill={isMark ? colors.line.focus : 'none'}
         stroke={isMark ? colors.line.focus : colors.text.neutral}
+        className="cursor-pointer"
       />
     </div>
   );

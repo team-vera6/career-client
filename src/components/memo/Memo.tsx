@@ -1,4 +1,4 @@
-import MemoBottom from './MemoBototm';
+import MemoBottom from './MemoBottom';
 
 interface Props {
   isBookmark?: boolean;
