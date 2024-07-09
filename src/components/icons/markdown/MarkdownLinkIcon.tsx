@@ -1,6 +1,10 @@
 import { SVGIconProps } from '@/types/icon';
 
-const LinkIcon = ({ size = 24, stroke = '#66696E', ...rest }: SVGIconProps): JSX.Element => {
+const MarkdownLinkIcon = ({
+  size = 24,
+  stroke = '#66696E',
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -21,4 +25,4 @@ const LinkIcon = ({ size = 24, stroke = '#66696E', ...rest }: SVGIconProps): JSX
   );
 };
 
-export default LinkIcon;
+export default MarkdownLinkIcon;
