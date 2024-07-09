@@ -1,8 +1,10 @@
 import './globals.css';
 
-import ToastContainer from '@/components/toast/ToastContainer';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+
+import Header from '@/components/header/Header';
+import ToastContainer from '@/components/toast/ToastContainer';
 
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
@@ -30,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${pretendard.variable} ${designer.variable} font-pretendard`}>
+        <Header />
         {children}
         <ToastContainer />
       </body>
