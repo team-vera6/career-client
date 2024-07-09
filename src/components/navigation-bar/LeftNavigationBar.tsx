@@ -24,7 +24,7 @@ const LeftNavigationBar = () => {
   const currentPathname = usePathname();
 
   return (
-    <nav className="absolute left-12 h-full">
+    <nav className="absolute left-12 h-full w-[132px] bg-surface-background">
       <ul className="flex flex-col gap-3">
         {menus.map((menu) => (
           <Link key={menu.path} href={menu.path} className="flex items-center gap-2">
