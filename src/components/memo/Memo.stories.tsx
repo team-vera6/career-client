@@ -1,9 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react';
+
 import MemoComponent from './Memo';
 
 const meta: Meta = {
   title: 'Components',
   component: MemoComponent,
+  argTypes: {
+    memo: { control: 'text' },
+    date: { control: 'text' },
+  },
 } satisfies Meta<typeof MemoComponent>;
 
 export default meta;
