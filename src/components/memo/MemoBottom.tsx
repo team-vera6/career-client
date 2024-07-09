@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import colors from '@/styles/colors';
 
@@ -13,6 +13,10 @@ interface Props {
 
 const MemoBottom = ({ isBookmark = false, date }: Props) => {
   const [isMark, setIsMark] = useState(isBookmark);
+
+  useEffect(() => {
+    setIsMark(isBookmark);
+  }, [isBookmark]);
 
   return (
     <div className="w-full flex items-center justify-between">
