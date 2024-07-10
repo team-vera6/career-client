@@ -2,7 +2,7 @@ import TextLogo from '@/components/icons/TextLogo';
 
 const Header = () => {
   return (
-    <header className="h-[4.875rem] w-full sticky top-0 left-0 right-0 bg-surface-invert flex items-center justify-center">
+    <header className="h-[4.875rem] w-full sticky top-0 left-0 right-0 bg-surface-invert flex items-center justify-center z-10">
       <div className="w-full max-w-[1696px] flex items-center justify-between px-12">
         <TextLogo />
 
