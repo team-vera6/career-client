@@ -3,7 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-import Header from '@/components/header/Header';
+import LeftNavigationBar from '@/components/navigation-bar/LeftNavigationBar';
 import ToastContainer from '@/components/toast/ToastContainer';
 
 const pretendard = localFont({
@@ -31,10 +31,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${pretendard.variable} ${designer.variable} font-pretendard`}>
-        <Header />
-        {children}
-        <ToastContainer />
+      <body
+        className={`${pretendard.variable} ${designer.variable} font-pretendard bg-surface-background`}
+      >
+        <div className="w-full h-full px-12 max-w-[1696px] mx-auto pt-[138px] relative">
+          <LeftNavigationBar />
+          {children}
+          <ToastContainer />
+        </div>
       </body>
     </html>
   );
