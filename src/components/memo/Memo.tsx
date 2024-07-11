@@ -2,8 +2,8 @@ import MemoBottom from './MemoBottom';
 
 interface Props {
   isBookmark?: boolean;
-  memo: string; // 마크다운 적용 후 수정 필요
-  date: string; // date 형식 조정 필요
+  memo: string; // TODO: 마크다운 적용 후 수정 필요
+  date: string; // FIXME: date 형식 조정 필요
 }
 
 const Memo = ({ isBookmark = false, memo, date }: Props) => {
