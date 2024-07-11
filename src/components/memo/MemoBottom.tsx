@@ -11,7 +11,7 @@ interface Props {
   date: string;
 }
 
-const MemoBottom = ({ isBookmark = false, date }: Props) => {
+const MemoBottom = ({ isBookmark, date }: Props) => {
   const [isMark, setIsMark] = useState(isBookmark);
 
   useEffect(() => {
