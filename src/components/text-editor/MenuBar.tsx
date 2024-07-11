@@ -27,7 +27,7 @@ const MenuBar = ({ editor }: Props) => {
       <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleItalic().run()}>
         <ItalicIcon size={20} />
       </button>
-      <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleStrike().run()}>
+      <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleUnderline().run()}>
         <UnderlineIcon size={20} />
       </button>
       <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleCode().run()}>
