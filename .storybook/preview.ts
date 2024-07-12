@@ -10,6 +10,27 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    backgrounds: {
+      default: 'surface-background',
+      values: [
+        {
+          name: 'clear',
+          value: 'transparent',
+        },
+        {
+          name: 'surface-background',
+          value: '#f5f5f5',
+        },
+        {
+          name: 'surface-foreground',
+          value: '#ffffff',
+        },
+        {
+          name: 'surface-foregroundOn',
+          value: '#f0f0f0',
+        },
+      ],
+    },
   },
 };
 
