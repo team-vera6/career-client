@@ -50,6 +50,7 @@ const semanticColors = {
   },
   surface: {
     foreground: '#FFFFFF',
+    foregroundOn: '#F7F7F7',
     background: '#EFEFEF',
     base: '#E1E1E1',
     accent: '#999CA1',
