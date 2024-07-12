@@ -1,6 +1,8 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
+// eslint-disable-next-line camelcase
+import { Chakra_Petch } from 'next/font/google';
 import localFont from 'next/font/local';
 
 import Header from '@/components/header/Header';
@@ -14,10 +16,11 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
-const designer = localFont({
-  src: '../assets/fonts/Designer.otf',
+export const chakraPetch = Chakra_Petch({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
   display: 'swap',
-  variable: '--font-designer',
+  variable: '--font-chakra',
 });
 
 export const metadata: Metadata = {
@@ -31,10 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body
-        className={`${pretendard.variable} ${designer.variable} font-pretendard bg-surface-background`}
-      >
+    <html lang="ko" className={`${pretendard.variable} ${chakraPetch.variable} `}>
+      <body className="font-pretendard bg-surface-background">
         <Header />
 
         <div className="w-full h-full px-12 max-w-[1696px] mx-auto pt-[60px] relative">
