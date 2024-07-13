@@ -1,26 +1,12 @@
-import { HTMLAttributes } from 'react';
+import ModalContainer, { ModalProps } from './ModalContainer';
 
-import { Button } from '@/types/button';
-
-import ModalContainer from './ModalContainer';
-
-interface AlertButton extends Button {
-  className?: HTMLAttributes<HTMLButtonElement>['className'];
-}
-
-interface Props {
-  title: string;
+interface Props extends ModalProps {
   contents?: string;
-  buttons: {
-    left: AlertButton;
-    right: AlertButton;
-  };
-  closeAlert: () => void;
 }
 
-const Alert = ({ title, contents, buttons, closeAlert }: Props) => {
+const Alert = ({ contents, ...rest }: Props) => {
   return (
-    <ModalContainer title={title} closeModal={closeAlert} buttons={buttons}>
+    <ModalContainer {...rest}>
       <p className="font-title-14 text-text-strong mt-6">{contents}</p>
     </ModalContainer>
   );

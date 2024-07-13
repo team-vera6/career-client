@@ -8,7 +8,7 @@ interface ModalButton extends Button {
   className?: HTMLAttributes<HTMLButtonElement>['className'];
 }
 
-interface Props {
+export interface ModalProps {
   title?: string;
   buttons?: {
     left: ModalButton;
@@ -17,7 +17,12 @@ interface Props {
   closeModal: () => void;
 }
 
-const ModalContainer = ({ title, buttons, closeModal, children }: PropsWithChildren<Props>) => {
+const ModalContainer = ({
+  title,
+  buttons,
+  closeModal,
+  children,
+}: PropsWithChildren<ModalProps>) => {
   return (
     <div className="w-screen h-screen fixed top-0 bottom-0 left-0 right-0">
       {/* background */}
