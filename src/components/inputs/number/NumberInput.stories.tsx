@@ -12,7 +12,6 @@ type Story = StoryObj<typeof meta>;
 
 export const NumberOnly: Story = {
   args: {
-    value: '',
     errorText: '',
   },
 };

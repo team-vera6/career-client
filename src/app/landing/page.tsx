@@ -10,19 +10,13 @@ export default function LandingPage() {
     <main className="h-full min-h-screen">
       <header className="p-10 bg-surface-foreground">
         <div className="w-full h-full relative flex items-center justify-center">
-          <Image
-            src={PitstopLogo}
-            alt="pitstop logo"
-            width={164}
-            height={25}
-            className="cursor-pointer"
-          />
+          <Image src={PitstopLogo} alt="pitstop logo" width={164} height={25} priority />
 
           <button className="button-large button-primary absolute right-0">시작하기</button>
         </div>
       </header>
 
-      <section className="px-[11.25rem] pt-20 mb-[120px]">
+      <section className="px-[11.25rem] pt-20 mb-[7.5rem]">
         <div className="w-full h-[25.1875rem] bg-neutral-30 flex items-center justify-center mb-[11.875rem] rounded-[50rem]">
           캐치 프레이즈 영역
         </div>

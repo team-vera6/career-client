@@ -37,7 +37,7 @@ export default function RootLayout({
       >
         <Header />
 
-        <div className="w-full h-full px-12 max-w-[1696px] mx-auto pt-[60px] relative">
+        <div className="w-full h-full px-12 max-w-[1696px] mx-auto pt-[3.75rem] relative">
           <LeftNavigationBar />
           {children}
           <ToastContainer />

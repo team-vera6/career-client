@@ -56,7 +56,8 @@ const config: Config = {
     colors: customColors,
   },
   plugins: [
-    ({ addUtilities, addComponents }: PluginAPI) => {
+    ({ addBase, addUtilities, addComponents }: PluginAPI) => {
+      addBase({ html: { fontSize: '16px' } });
       addUtilities(typos);
       addComponents(buttons);
     },
