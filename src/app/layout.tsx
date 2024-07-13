@@ -40,9 +40,10 @@ export default function RootLayout({
 
         <div className="w-full h-full px-12 max-w-[1696px] mx-auto pt-[3.75rem] relative">
           <LeftNavigationBar />
-          {children}
-          <ToastContainer />
+          <div className="flex justify-center ml-[132px]">{children}</div>
         </div>
+
+        <ToastContainer />
       </body>
     </html>
   );
