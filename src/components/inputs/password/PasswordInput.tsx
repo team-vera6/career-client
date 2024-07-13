@@ -24,10 +24,7 @@ const PasswordInput = ({ errorText, ...rest }: Props) => {
         {...rest}
       />
 
-      <button
-        onClick={() => setShowPassword((prev) => !prev)}
-        className="absolute right-3 top-3"
-      >
+      <button onClick={() => setShowPassword((prev) => !prev)} className="absolute right-3 top-3">
         {showPassword ? <EyeOnIcon size={20} /> : <EyeOffIcon size={20} />}
       </button>
 

@@ -3,7 +3,7 @@ import { ChangeEventHandler } from 'react';
 import colors from '@/styles/colors';
 
 interface Props {
-  value: string;
+  value?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   errorText?: string;
 }
