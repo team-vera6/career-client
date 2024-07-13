@@ -51,8 +51,8 @@ const ModalContainer = ({ title, buttons, closeModal, children }: PropsWithChild
             <div className="flex items-center gap-2.5 justify-end">
               <button
                 className={buttons.left.className ?? 'button-secondary button-medium'}
-                onClick={() => {
-                  buttons.left.onClick?.();
+                onClick={(event) => {
+                  buttons.left.onClick?.(event);
                   closeModal();
                 }}
               >
@@ -60,8 +60,8 @@ const ModalContainer = ({ title, buttons, closeModal, children }: PropsWithChild
               </button>
               <button
                 className={buttons.right.className ?? 'button-primary button-medium'}
-                onClick={() => {
-                  buttons.right.onClick?.();
+                onClick={(event) => {
+                  buttons.right.onClick?.(event);
                   closeModal();
                 }}
               >
