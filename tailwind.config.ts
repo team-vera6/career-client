@@ -32,7 +32,7 @@ const config: Config = {
           'Segoe UI Symbol',
           'sans-serif',
         ],
-        designer: ['var(--font-designer)', 'system-ui', 'Roboto', 'sans-serif'],
+        chakra: ['var(--font-chakra)', 'sans-serif'],
       },
       opacity: {
         blank: '0',
