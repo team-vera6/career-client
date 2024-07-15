@@ -1,3 +1,9 @@
+import WeeklyMemo from './(components)/WeeklyMemo';
+
 export default function ReviewPage() {
-  return <div />;
+  return (
+    <div className="w-100 h-full pt-[3.75rem] flex gap-[13.5rem]">
+      <WeeklyMemo />
+    </div>
+  );
 }
