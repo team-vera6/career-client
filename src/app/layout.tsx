@@ -5,10 +5,6 @@ import type { Metadata } from 'next';
 import { Chakra_Petch } from 'next/font/google';
 import localFont from 'next/font/local';
 
-import Header from '@/components/header/Header';
-import LeftNavigationBar from '@/components/navigation-bar/LeftNavigationBar';
-import ToastContainer from '@/components/toast/ToastContainer';
-
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
   display: 'swap',
@@ -16,7 +12,7 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
-export const chakraPetch = Chakra_Petch({
+const chakraPetch = Chakra_Petch({
   subsets: ['latin'],
   weight: ['400', '600', '700'],
   display: 'swap',
@@ -35,16 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable} ${chakraPetch.variable} `}>
-      <body className="font-pretendard bg-surface-background">
-        <Header />
-
-        <div className="w-full h-full px-12 max-w-[1696px] mx-auto pt-[3.75rem] relative">
-          <LeftNavigationBar />
-          <div className="flex justify-center ml-[132px]">{children}</div>
-        </div>
-
-        <ToastContainer />
-      </body>
+      <body className="font-pretendard bg-surface-background">{children}</body>
     </html>
   );
 }
