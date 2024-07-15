@@ -8,7 +8,6 @@ export default function AuthLayout({
   return (
     <div className="w-full h-full flex justify-center pt-60">
       <div className="flex flex-col items-center">
-        {/* 컴포넌트로 변경 후 수정 필요 */}
         <TextLogo />
         {children}
       </div>
