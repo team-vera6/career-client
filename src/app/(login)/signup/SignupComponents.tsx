@@ -14,13 +14,13 @@ const SignupComponents = () => {
       <button
         type="button"
         className="button-primary h-12 rounded-xl w-full"
-        onClick={() => router.push('/auth/email_certification')}
+        onClick={() => router.push('/email_certification')}
       >
         메일인증
       </button>
       <div className="font-body-14 flex gap-2 text-text-strong">
         <p>이미 계정이 있으신가요?</p>
-        <Link href="/auth/login" style={{ fontWeight: 700 }}>
+        <Link href="/login" style={{ fontWeight: 700 }}>
           로그인
         </Link>
       </div>

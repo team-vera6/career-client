@@ -21,7 +21,7 @@ const EmailCertificationComponents = () => {
       <button
         type="button"
         className="button-secondary h-12 rounded-xl w-full"
-        onClick={() => router.push('/auth/password')}
+        onClick={() => router.push('/password')}
       >
         확인
       </button>
