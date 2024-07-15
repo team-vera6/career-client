@@ -1,5 +1,4 @@
-import LeftNavigationBar from '@/components/navigation-bar/LeftNavigationBar';
-import ToastContainer from '@/components/toast/ToastContainer';
+import TextLogo from '@/components/icons/TextLogo';
 
 export default function ReviewLayout({
   children,
@@ -7,10 +6,10 @@ export default function ReviewLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-full h-full px-12 max-w-[1696px] mx-auto pt-[3.75rem] relative">
-      <LeftNavigationBar />
+    <div className="w-full h-full px-12 max-w-[106rem] min-w-[74.25rem] mx-auto pt-10">
+      <TextLogo />
+
       <main>{children}</main>
-      <ToastContainer />
     </div>
   );
 }
