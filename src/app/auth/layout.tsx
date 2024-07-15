@@ -6,11 +6,11 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="w-full h-full flex justify-center pt-60">
+    <div className="w-full h-full flex justify-center pt-60">
       <div className="flex flex-col items-center">
         <TextLogo />
-        {children}
+        <main>{children}</main>
       </div>
-    </section>
+    </div>
   );
 }
