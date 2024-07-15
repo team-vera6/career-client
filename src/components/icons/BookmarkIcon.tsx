@@ -4,7 +4,6 @@ const BookmarkIcon = ({
   size = 20,
   stroke = '#999CA1',
   fill = 'none',
-  onClick,
   ...rest
 }: SVGIconProps): JSX.Element => {
   return (

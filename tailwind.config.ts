@@ -32,7 +32,7 @@ const config: Config = {
           'Segoe UI Symbol',
           'sans-serif',
         ],
-        designer: ['var(--font-designer)', 'system-ui', 'Roboto', 'sans-serif'],
+        chakra: ['var(--font-chakra)', 'sans-serif'],
       },
       opacity: {
         blank: '0',
@@ -56,7 +56,8 @@ const config: Config = {
     colors: customColors,
   },
   plugins: [
-    ({ addUtilities, addComponents }: PluginAPI) => {
+    ({ addBase, addUtilities, addComponents }: PluginAPI) => {
+      addBase({ html: { fontSize: '16px' } });
       addUtilities(typos);
       addComponents(buttons);
     },

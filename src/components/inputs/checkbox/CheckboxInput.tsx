@@ -4,7 +4,7 @@ import RectangleCheckIcon from '@/components/icons/RectangleCheckIcon';
 import colors from '@/styles/colors';
 
 interface Props {
-  value: string;
+  value?: string;
   onChange: (value: string) => void;
   checked: boolean;
   onClickCheckbox: () => void;
