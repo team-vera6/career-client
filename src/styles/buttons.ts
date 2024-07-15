@@ -56,35 +56,38 @@ const buttonStyles = {
 
 const buttonSizes = {
   '.button-large': {
-    borderRadius: '12px',
-    padding: '12px 20px',
+    borderRadius: '.75rem',
+    padding: '.75rem 1.25rem',
+    height: '3rem',
 
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '8px',
+    gap: '.5rem',
 
     ...typos['.font-title-16'],
   },
   '.button-medium': {
-    borderRadius: '10px',
-    padding: '12px 16px',
+    borderRadius: '.625rem',
+    padding: '.75rem 1rem',
+    height: '2.75rem',
 
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '6px',
+    gap: '.375rem',
 
     ...typos['.font-body-14'],
   },
   '.button-small': {
-    borderRadius: '8px',
-    padding: '6px 12px',
+    borderRadius: '.5rem',
+    padding: '.375rem .75rem',
+    height: '2rem',
 
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '4px',
+    gap: '.25rem',
 
     ...typos['.font-body-13'],
   },
