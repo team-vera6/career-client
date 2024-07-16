@@ -1,4 +1,4 @@
-import PasswordComponents from './PasswordComponents';
+import PasswordComponents from './components';
 
 const PasswordPage = () => {
   return (

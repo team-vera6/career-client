@@ -1,4 +1,4 @@
-import EmailCertificationComponents from './EmailComponents';
+import EmailCertificationComponents from './components';
 
 const EmailPage = () => {
   return (
