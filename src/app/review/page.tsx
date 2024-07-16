@@ -1,3 +1,4 @@
+import WeekInfo from './(components)/WeekInfo';
 import WeeklyMemo from './(components)/WeeklyMemo';
 
 export default function ReviewPage() {
@@ -8,7 +9,9 @@ export default function ReviewPage() {
         <WeeklyMemo />
       </aside>
 
-      <div className="h-full w-[44.25rem] flex flex-col mx-auto">컨텐츠</div>
+      <div className="h-full w-[44.25rem] flex flex-col mx-auto">
+        <WeekInfo />
+      </div>
     </div>
   );
 }
