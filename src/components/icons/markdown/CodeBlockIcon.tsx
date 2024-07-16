@@ -10,20 +10,20 @@ const CodeBlockIcon = ({ size = 24, stroke = '#66696E', ...rest }: SVGIconProps)
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
     >
-      <path d="M10 18L14 6" stroke={stroke} stroke-width="1.5" stroke-linecap="round" />
+      <path d="M10 18L14 6" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" />
       <path
         d="M7.29286 8.46447L3.75732 12L7.29286 15.5355"
         stroke={stroke}
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16.9498 15.5355L20.4854 12L16.9498 8.46447"
         stroke={stroke}
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
