@@ -28,7 +28,7 @@ const LoginComponents = () => {
         <button
           type="button"
           className="button-line h-12 rounded-xl"
-          onClick={() => onClickButton('/auth/signup')}
+          onClick={() => onClickButton('/auth/sign-up')}
         >
           회원가입
         </button>

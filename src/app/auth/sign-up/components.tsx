@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import Input from '@/components/inputs/input/Input';
 
-const SignupComponents = () => {
+const SignUpComponents = () => {
   const router = useRouter();
 
   return (
@@ -28,4 +28,4 @@ const SignupComponents = () => {
   );
 };
 
-export default SignupComponents;
+export default SignUpComponents;
