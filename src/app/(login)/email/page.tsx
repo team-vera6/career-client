@@ -1,6 +1,6 @@
-import EmailCertificationComponents from './EmailCertificationComponents';
+import EmailCertificationComponents from './EmailComponents';
 
-const EmailCertificationPage = () => {
+const EmailPage = () => {
   return (
     <div className="w-[25rem] flex flex-col items-center pt-[3.75rem]">
       <p className="font-body-14 mb-12 text-text-strong">
@@ -16,4 +16,4 @@ const EmailCertificationPage = () => {
   );
 };
 
-export default EmailCertificationPage;
+export default EmailPage;

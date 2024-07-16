@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import NumberInput from '@/components/inputs/number/NumberInput';
 
-const EmailCertificationComponents = () => {
+const EmailComponents = () => {
   const router = useRouter();
 
   return (
@@ -29,4 +29,4 @@ const EmailCertificationComponents = () => {
   );
 };
 
-export default EmailCertificationComponents;
+export default EmailComponents;

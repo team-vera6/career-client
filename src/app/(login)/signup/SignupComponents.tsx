@@ -14,7 +14,7 @@ const SignupComponents = () => {
       <button
         type="button"
         className="button-primary h-12 rounded-xl w-full"
-        onClick={() => router.push('/email_certification')}
+        onClick={() => router.push('/email')}
       >
         메일인증
       </button>
