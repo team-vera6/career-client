@@ -20,7 +20,7 @@ const EmailComponents = () => {
       <p className="font-body-14">4:55</p>
       <button
         type="button"
-        className="button-secondary h-12 rounded-xl w-full"
+        className="button-primary h-12 rounded-xl w-full"
         onClick={() => router.push('/auth/password')}
       >
         확인
