@@ -12,7 +12,7 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
-export const chakraPetch = Chakra_Petch({
+const chakraPetch = Chakra_Petch({
   subsets: ['latin'],
   weight: ['400', '600', '700'],
   display: 'swap',
