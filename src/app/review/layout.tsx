@@ -6,9 +6,10 @@ export default function ReviewLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-full h-full px-12 max-w-[106rem] min-w-[74.25rem] mx-auto pt-10">
-      <TextLogo />
-
+    <div className="w-full h-full px-12 max-w-[106rem] min-w-[74.25rem] pt-10">
+      <header>
+        <TextLogo />
+      </header>
       <main>{children}</main>
     </div>
   );
