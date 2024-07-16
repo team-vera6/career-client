@@ -16,7 +16,7 @@ const SignUpComponents = () => {
         className="button-primary h-12 rounded-xl w-full"
         onClick={() => router.push('/auth/email')}
       >
-        메일인증
+        메일 인증
       </button>
       <div className="font-body-14 flex gap-2 text-text-strong">
         <p>이미 계정이 있으신가요?</p>
