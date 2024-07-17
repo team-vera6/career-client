@@ -17,6 +17,7 @@ const TextEditor = () => {
   return (
     <>
       <MenuBar editor={editor} />
+      <div className="w-full bg-line-assistive h-[1px]" />
       <EditorContent editor={editor} />
     </>
   );
