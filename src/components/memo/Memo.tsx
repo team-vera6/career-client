@@ -2,11 +2,12 @@ import MemoBottom from './MemoBottom';
 
 interface Props {
   isBookmark?: boolean;
+  title?: string;
   memo: string; // TODO: 마크다운 적용 후 수정 필요
   date: string; // FIXME: date 형식 조정 필요
 }
 
-const Memo = ({ isBookmark = false, memo, date }: Props) => {
+const Memo = ({ isBookmark = false, title, memo, date }: Props) => {
   return (
     <div
       className="w-[15.75rem] h-[8.75rem] rounded-lg pt-5 pr-4 pb-2.5 pl-5
@@ -16,15 +17,17 @@ const Memo = ({ isBookmark = false, memo, date }: Props) => {
       }}
     >
       <div
-        className="w-full h-full pr-1 break-keep font-body-14 overflow-hidden whitespace-pre-wrap"
+        className="w-full h-full pr-1 break-keep overflow-hidden whitespace-pre-wrap"
         style={{
           display: '-webkit-box',
           WebkitLineClamp: 4,
           WebkitBoxOrient: 'vertical',
         }}
       >
-        {memo}
+        {title && <p className="font-title-14 text-text-strong">{title}</p>}
+        <p className="font-body-14 text-text-strong">{memo}</p>
       </div>
+
       <MemoBottom isBookmark={isBookmark} date={date} />
     </div>
   );

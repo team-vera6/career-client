@@ -1,4 +1,6 @@
-import { ReactNode } from 'react';
+'use client';
+
+import { ReactNode, useCallback } from 'react';
 
 import RectangleCheckIcon from '@/components/icons/RectangleCheckIcon';
 import colors from '@/styles/colors';
@@ -10,7 +12,7 @@ interface Props {
   onClickCheckbox: () => void;
   width?: string;
   buttons?: ReactNode;
-  disabled?: boolean;
+  category?: 'dashboard' | 'review';
 }
 
 const CheckboxInput = ({
@@ -20,28 +22,38 @@ const CheckboxInput = ({
   onClickCheckbox,
   width,
   buttons,
-  disabled,
+  category = 'dashboard',
 }: Props) => {
+  const getContainerStyle = useCallback(() => {
+    if (category === 'dashboard') {
+      return `px-3 py-3.5 flex items-center justify-between rounded-lg h-12 bg-surface-foreground 
+      focus-within:outline focus-within:outline-1 focus-within:outline-text-primary
+      hover:bg-[#EBEBEB]
+      `;
+    }
+    return `px-3 py-3.5 flex items-center justify-between h-12 bg-surface-foreground box-border border-b border-transparent
+    focus-within:outline-none focus-within:border-b focus-within:border-text-primary`;
+  }, [category]);
   return (
     <div
-      className="px-3 py-3.5 flex items-center justify-between rounded-lg h-12 focus-within:outline focus-within:outline-1 focus-within:outline-text-primary bg-surface-foreground"
+      className={getContainerStyle()}
       style={{
         width: width ?? '100%',
-        boxShadow: '0px 4px 12px 0px rgba(0, 0, 0, 0.08)',
-        backgroundColor: disabled ? colors.surface.assistive : '',
-        opacity: disabled ? 0.8 : 1,
+        boxShadow: category === 'dashboard' ? '0px 4px 12px 0px rgba(0, 0, 0, 0.08)' : 'none',
       }}
     >
       <div className="flex items-center gap-2">
-        <div onClick={onClickCheckbox}>
+        <button type="button" onClick={onClickCheckbox}>
           {checked ? <RectangleCheckIcon size={20} /> : <UnCheckedIcon />}
-        </div>
+        </button>
         <input
           type="text"
-          className="w-full font-body-16 text-text-strong outline-none bg-transparent"
-          disabled={disabled}
+          className="w-full font-body-16 outline-none bg-transparent"
           value={value}
           onChange={(e) => onChange(e.currentTarget.value)}
+          style={{
+            color: checked ? colors.text.normal : colors.text.strong,
+          }}
         />
       </div>
 

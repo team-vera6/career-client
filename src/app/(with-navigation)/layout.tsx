@@ -11,9 +11,9 @@ export default function CommonLayout({
     <div>
       <Header />
 
-      <div className="w-full h-full px-12 max-w-[1696px] mx-auto pt-[3.75rem] relative">
+      <div className="w-full h-full px-12 max-w-[1696px] min-w-[1440px] mx-auto pt-[3.75rem] relative">
         <LeftNavigationBar />
-        <main>{children}</main>
+        <main className="flex justify-center ml-[132px]">{children}</main>
         <ToastContainer />
       </div>
     </div>
