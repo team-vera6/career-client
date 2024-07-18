@@ -1,8 +1,13 @@
+'use client';
+
 import { useState } from 'react';
 
 import Input from '@/components/inputs/input/Input';
+import useToast from '@/hooks/useToast';
 
 const SettingProfile = () => {
+  const { addToast } = useToast();
+
   const [nickname, setNickname] = useState('');
 
   return (
@@ -12,10 +17,27 @@ const SettingProfile = () => {
         <Input value="hkjkjklj@gmail.com" readOnly />
       </div>
 
-      <form>
-        <p className="font-body-14 text-text-strong mb-2">닉네임</p>
-        <div className="flex gap-2">
-          <Input value={nickname} onChange={(e) => setNickname(e.currentTarget.value)} readOnly />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          addToast({
+            message: '닉네임이 변경되었어요.',
+            iconType: 'success',
+          });
+        }}
+      >
+        <label htmlFor="nickname" className="font-body-14 text-text-strong">
+          닉네임
+        </label>
+        <div className="flex gap-2 mt-2">
+          <Input
+            id="nickname"
+            name="nickname"
+            autoComplete="off"
+            value={nickname}
+            onChange={(e) => setNickname(e.currentTarget.value)}
+          />
           <button type="submit" className="button-primary button-medium shrink-0">
             저장
           </button>
