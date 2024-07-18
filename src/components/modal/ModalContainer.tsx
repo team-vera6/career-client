@@ -24,7 +24,6 @@ const ModalContainer = ({ children, isOpen, onDismiss }: PropsWithChildren<Modal
         style={{
           boxShadow: '0px 4px 12px 0px #00000014, 0px 0px 2px 0px rgba(0, 0, 0, 0.05)',
         }}
-        onClick={(e) => e.preventDefault()}
       >
         {children}
       </div>
