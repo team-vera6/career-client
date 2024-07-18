@@ -4,8 +4,8 @@ import FireIcon from '@/components/icons/FireIcon';
 import FlagIcon from '@/components/icons/FlagIcon';
 import YellowFolderIcon from '@/components/icons/YellowFolderIcon';
 
-import MemoListComponents from './MemoListComponents';
-import TodoList from './TodoListComponents';
+import MemoList from './components/MemoList';
+import TodoList from './components/TodoList';
 
 export default function DashboardPage() {
   return (
@@ -50,7 +50,7 @@ export default function DashboardPage() {
 
         <div className="flex gap-9">
           <TodoList />
-          <MemoListComponents />
+          <MemoList />
         </div>
       </div>
     </div>

@@ -5,9 +5,9 @@ import { useState } from 'react';
 
 import EmptyMemoImage from '@/assets/images/memo-empty.png';
 import PlusIcon from '@/components/icons/PlusIcon';
-import TextEditorModal from '@/components/modal/TextEditorModal';
+import TextEditorModal from '@/components/modal/text-editor';
 
-const MemoListComponents = () => {
+const MemoList = () => {
   const [openTextEditor, setOpenTextEditor] = useState(false);
 
   return (
@@ -42,4 +42,4 @@ const MemoListComponents = () => {
   );
 };
 
-export default MemoListComponents;
+export default MemoList;

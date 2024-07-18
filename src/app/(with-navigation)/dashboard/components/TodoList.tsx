@@ -6,7 +6,7 @@ import { useState } from 'react';
 import EmptyTodoImage from '@/assets/images/todo-empty.png';
 import PlusIcon from '@/components/icons/PlusIcon';
 
-const TodoListComponents = () => {
+const TodoList = () => {
   const [todo, setTodo] = useState({
     text: '',
     checked: false,
@@ -94,4 +94,4 @@ const TodoListComponents = () => {
   );
 };
 
-export default TodoListComponents;
+export default TodoList;
