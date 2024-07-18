@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 
 import RectangleCheckIcon from '@/components/icons/RectangleCheckIcon';
 import colors from '@/styles/colors';
@@ -52,7 +52,7 @@ const CheckboxInput = ({
   );
 };
 
-export default CheckboxInput;
+export default memo(CheckboxInput);
 
 const UnCheckedIcon = () => (
   <div className="w-5 h-5 rounded border-[1.5px] border-text-assistive bg-surface-foreground" />
