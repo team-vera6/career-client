@@ -1,15 +1,15 @@
 'use client';
 
-import { memo, ReactNode } from 'react';
+import { memo, ReactNode, useState } from 'react';
 
 import RectangleCheckIcon from '@/components/icons/RectangleCheckIcon';
 import colors from '@/styles/colors';
 
 interface Props {
   value?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   checked: boolean;
-  onClickCheckbox: () => void;
+  onClickCheckbox?: () => void;
   width?: string;
   buttons?: ReactNode;
   category?: 'dashboard' | 'review';
@@ -24,6 +24,12 @@ const CheckboxInput = ({
   buttons,
   category = 'dashboard',
 }: Props) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const showRightButtons =
+    (category === 'dashboard' && isHovered && !isEditing) || (category === 'review' && !isEditing);
+
   return (
     <div
       className={CONTAINER_STYLE[category]}
@@ -31,6 +37,8 @@ const CheckboxInput = ({
         width: width ?? '100%',
         boxShadow: category === 'dashboard' ? '0px 4px 12px 0px rgba(0, 0, 0, 0.08)' : 'none',
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex items-center gap-2">
         <button type="button" onClick={onClickCheckbox}>
@@ -40,14 +48,16 @@ const CheckboxInput = ({
           type="text"
           className="w-full font-body-16 outline-none bg-transparent"
           value={value}
-          onChange={(e) => onChange(e.currentTarget.value)}
+          onChange={(e) => onChange?.(e.currentTarget.value)}
           style={{
             color: checked ? colors.text.normal : colors.text.strong,
           }}
+          onFocus={() => setIsEditing(true)}
+          onBlur={() => setIsEditing(false)}
         />
       </div>
 
-      {buttons}
+      {showRightButtons && buttons}
     </div>
   );
 };
