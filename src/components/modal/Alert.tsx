@@ -7,7 +7,7 @@ import CloseIcon from '../icons/CloseIcon';
 import ModalContainer, { ModalProps } from './ModalContainer';
 
 interface AlertButton extends Button {
-  className: HTMLAttributes<HTMLButtonElement>['className'];
+  className?: HTMLAttributes<HTMLButtonElement>['className'];
 }
 
 interface Props extends ModalProps {
