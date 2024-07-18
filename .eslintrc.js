@@ -11,7 +11,7 @@ module.exports = {
     '@titicaca/eslint-config-triple',
     '@titicaca/eslint-config-triple/requiring-type-checking',
   ],
-  plugins: ['unused-imports', 'simple-import-sort'],
+  plugins: ['unused-imports'],
   rules: {
     '@typescript-eslint/no-use-before-define': 'off',
     'react/no-unescaped-entities': 'off',
@@ -38,8 +38,6 @@ module.exports = {
     quotes: ['error', 'single'],
     'eol-last': 'error',
     semi: ['error', 'always'],
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
