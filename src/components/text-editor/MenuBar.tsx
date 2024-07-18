@@ -20,42 +20,42 @@ const MenuBar = ({ editor }: Props) => {
   }
 
   return (
-    <section className="flex items-center gap-2 h-[3.875rem] border-b border-line-assistive">
+    <section className="flex items-center gap-2.5 h-10 px-0.5 py-2.5">
       <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleBold().run()}>
-        <BoldIcon size={20} />
+        <BoldIcon size={24} />
       </button>
       <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleItalic().run()}>
-        <ItalicIcon size={20} />
+        <ItalicIcon size={24} />
       </button>
       <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleUnderline().run()}>
-        <UnderlineIcon size={20} />
+        <UnderlineIcon size={24} />
       </button>
       <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleCode().run()}>
-        <CodeBlockIcon size={20} />
+        <CodeBlockIcon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
       >
-        <Header1Icon size={20} />
+        <Header1Icon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
       >
-        <Header2Icon size={20} />
+        <Header2Icon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
       >
-        <Header3Icon size={20} />
+        <Header3Icon size={24} />
       </button>
       <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleOrderedList().run()}>
-        <OrderedListIcon size={20} />
+        <OrderedListIcon size={24} />
       </button>
       <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleBulletList().run()}>
-        <UnorderedListIcon size={20} />
+        <UnorderedListIcon size={24} />
       </button>
     </section>
   );
