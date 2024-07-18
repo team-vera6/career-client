@@ -2,9 +2,10 @@ import Underline from '@tiptap/extension-underline';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
-import MenuBar from '../text-editor/MenuBar';
-import Modal from './Modal';
-import { ModalProps } from './ModalContainer';
+import MenuBar from '@/components/text-editor/MenuBar';
+
+import { ModalProps } from '../ModalContainer';
+import Modal from '../Modal';
 
 const TextEditorModal = (props: ModalProps) => {
   const editor = useEditor({
