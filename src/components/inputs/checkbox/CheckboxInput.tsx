@@ -23,7 +23,7 @@ const CheckboxInput = ({
   width,
   buttons,
   category = 'dashboard',
-}: Partial<Props>) => {
+}: Props) => {
   const getContainerStyle = useCallback(() => {
     if (category === 'dashboard') {
       return `px-3 py-3.5 flex items-center justify-between rounded-lg h-12 bg-surface-foreground 
@@ -50,7 +50,7 @@ const CheckboxInput = ({
           type="text"
           className="w-full font-body-16 outline-none bg-transparent"
           value={value}
-          onChange={(e) => onChange && onChange(e.currentTarget.value)}
+          onChange={(e) => onChange(e.currentTarget.value)}
           style={{
             color: checked ? colors.text.normal : colors.text.strong,
           }}
