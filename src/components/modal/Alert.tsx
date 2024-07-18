@@ -4,13 +4,13 @@ import { Button } from '@/types/button';
 
 import CloseIcon from '../icons/CloseIcon';
 
-import ModalContainer from './ModalContainer';
+import ModalContainer, { ModalProps } from './ModalContainer';
 
 interface AlertButton extends Button {
   className: HTMLAttributes<HTMLButtonElement>['className'];
 }
 
-interface Props {
+interface Props extends ModalProps {
   title: string;
   content?: string;
   buttons?: {
@@ -20,9 +20,9 @@ interface Props {
   closeAlert?: () => void;
 }
 
-const Alert = ({ title, content, buttons, closeAlert }: Props) => {
+const Alert = ({ title, content, buttons, closeAlert, ...rest }: Props) => {
   return (
-    <ModalContainer>
+    <ModalContainer {...rest}>
       <div className="w-full h-full flex items-center justify-center z-30 relative animate-fade-up">
         <div
           className="py-5 px-6 border border-line-normal relative rounded-[20px] bg-neutral-white min-w-[21.375rem] max-w-[36.625rem] min-h-[9.75rem] flex flex-col justify-between"
