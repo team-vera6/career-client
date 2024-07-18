@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, ReactNode, useState } from 'react';
+import { ReactNode, useCallback } from 'react';
 
 import RectangleCheckIcon from '@/components/icons/RectangleCheckIcon';
 import colors from '@/styles/colors';
@@ -9,64 +9,60 @@ interface Props {
   value?: string;
   onChange: (value: string) => void;
   checked: boolean;
-  onChange?: (value: string) => void;
-  onClickCheckbox?: () => void;
+  onClickCheckbox: () => void;
   width?: string;
   buttons?: ReactNode;
-  disabled?: boolean;
-  showButtonsOnHover?: boolean;
+  category?: 'dashboard' | 'review';
 }
 
 const CheckboxInput = ({
   value,
-  checked,
   onChange,
+  checked,
   onClickCheckbox,
   width,
   buttons,
-  disabled,
-  showButtonsOnHover = false,
-}: Props) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const showRightButtons = !showButtonsOnHover || (showButtonsOnHover && isHovered);
-
+  category = 'dashboard',
+}: Partial<Props>) => {
+  const getContainerStyle = useCallback(() => {
+    if (category === 'dashboard') {
+      return `px-3 py-3.5 flex items-center justify-between rounded-lg h-12 bg-surface-foreground 
+      focus-within:outline focus-within:outline-1 focus-within:outline-text-primary
+      hover:bg-[#EBEBEB]
+      `;
+    }
+    return `px-3 py-3.5 flex items-center justify-between h-12 bg-surface-foreground box-border border-b border-transparent
+    focus-within:outline-none focus-within:border-b focus-within:border-text-primary`;
+  }, [category]);
   return (
     <div
-      className="px-3 py-3.5 flex items-center justify-between rounded-lg h-12 focus-within:outline focus-within:outline-1 focus-within:outline-text-primary bg-surface-foreground"
+      className={getContainerStyle()}
       style={{
         width: width ?? '100%',
-        boxShadow: '0px 4px 12px 0px rgba(0, 0, 0, 0.08)',
-        backgroundColor: disabled ? colors.surface.assistive : '',
-        opacity: disabled ? 0.8 : 1,
+        boxShadow: category === 'dashboard' ? '0px 4px 12px 0px rgba(0, 0, 0, 0.08)' : 'none',
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex items-center gap-2">
-        <div onClick={onClickCheckbox}>
+        <button type="button" onClick={onClickCheckbox}>
           {checked ? <RectangleCheckIcon size={20} /> : <UnCheckedIcon />}
-        </div>
+        </button>
         <input
           type="text"
-          className="w-full font-body-16 text-text-strong outline-none bg-transparent"
-          disabled={disabled}
+          className="w-full font-body-16 outline-none bg-transparent"
           value={value}
-          onChange={(e) => onChange?.(e.currentTarget.value)}
+          onChange={(e) => onChange && onChange(e.currentTarget.value)}
+          style={{
+            color: checked ? colors.text.normal : colors.text.strong,
+          }}
         />
       </div>
 
-      <div
-        className="transition-all duration-200 flex items-center"
-        style={isHovered ? { opacity: 1 } : { opacity: 0 }}
-      >
-        {showRightButtons && buttons}
-      </div>
+      {buttons}
     </div>
   );
 };
 
-export default memo(CheckboxInput);
+export default CheckboxInput;
 
 const UnCheckedIcon = () => (
   <div className="w-5 h-5 rounded border-[1.5px] border-text-assistive bg-surface-foreground" />

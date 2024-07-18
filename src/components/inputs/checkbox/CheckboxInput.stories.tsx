@@ -8,6 +8,10 @@ const meta = {
   argTypes: {
     onChange: { action: 'changed' },
     onClickCheckbox: { action: 'changed' },
+    category: {
+      control: { type: 'select' },
+      options: ['dashboard', 'review'],
+    },
   },
 } satisfies Meta<typeof CheckboxInput>;
 
@@ -17,8 +21,8 @@ type Story = StoryObj<typeof meta>;
 export const Checkbox: Story = {
   args: {
     checked: false,
-    disabled: false,
     onChange: () => {},
     onClickCheckbox: () => {},
+    category: 'dashboard',
   },
 };
