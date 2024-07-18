@@ -17,10 +17,9 @@ interface Props extends ModalProps {
     left: AlertButton;
     right: AlertButton;
   };
-  closeAlert?: () => void;
 }
 
-const Alert = ({ title, content, buttons, closeAlert, ...rest }: Props) => {
+const Alert = ({ title, content, buttons, ...rest }: Props) => {
   return (
     <ModalContainer {...rest}>
       <div className="w-full h-full flex items-center justify-center z-30 relative animate-fade-up">
@@ -32,7 +31,7 @@ const Alert = ({ title, content, buttons, closeAlert, ...rest }: Props) => {
         >
           <CloseIcon
             size={24}
-            onClick={closeAlert}
+            onClick={rest.onDismiss}
             className="cursor-pointer absolute right-6 top-[1.625rem]"
           />
 
@@ -49,7 +48,7 @@ const Alert = ({ title, content, buttons, closeAlert, ...rest }: Props) => {
                 className={buttons.left.className ?? 'button-secondary button-medium'}
                 onClick={(event) => {
                   buttons.left.onClick?.(event);
-                  closeAlert?.();
+                  rest.onDismiss?.();
                 }}
               >
                 {buttons.left.text}
@@ -58,7 +57,7 @@ const Alert = ({ title, content, buttons, closeAlert, ...rest }: Props) => {
                 className={buttons.right.className ?? 'button-primary button-medium'}
                 onClick={(event) => {
                   buttons.right.onClick?.(event);
-                  closeAlert?.();
+                  rest.onDismiss?.();
                 }}
               >
                 {buttons.right.text}
