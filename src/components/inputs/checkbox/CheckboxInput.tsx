@@ -71,7 +71,8 @@ const UnCheckedIcon = () => (
 const CONTAINER_STYLE = {
   dashboard: `px-3 py-3.5 flex items-center justify-between rounded-lg h-12 bg-surface-foreground 
       focus-within:outline focus-within:outline-1 focus-within:outline-text-primary
-      hover:bg-[#EBEBEB]
+      hover:bg-surface-assistive
+      
       `,
   review: `px-3 py-3.5 flex items-center justify-between h-12 bg-transparent box-border border-b border-transparent
     focus-within:outline-none focus-within:border-b focus-within:border-text-primary`,
