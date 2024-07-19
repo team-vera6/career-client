@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
 
+import { cn } from '@/utils/tailwind';
+
 const breakPoints = [1, 2, 3, 4, 5, 6, 7];
 
 interface Props {
@@ -41,19 +43,15 @@ const Checkpoint = ({ active = false, onClick }: { active?: boolean; onClick?: (
 const Connection = ({ active = false }: { active?: boolean }) => {
   return (
     <div className="flex gap-[3px]">
-      {active ? (
-        <>
-          <div className="w-0.5 h-2 rounded-sm bg-text-primary" />
-          <div className="w-0.5 h-2 rounded-sm bg-text-primary" />
-          <div className="w-0.5 h-2 rounded-sm bg-text-primary" />
-        </>
-      ) : (
-        <>
-          <div className="w-0.5 h-2 rounded-sm bg-text-assistive" />
-          <div className="w-0.5 h-2 rounded-sm bg-text-assistive" />
-          <div className="w-0.5 h-2 rounded-sm bg-text-assistive" />
-        </>
-      )}
+      <div
+        className={cn('w-0.5 h-2 rounded-sm', active ? 'bg-text-primary' : 'bg-text-assistive')}
+      />
+      <div
+        className={cn('w-0.5 h-2 rounded-sm', active ? 'bg-text-primary' : 'bg-text-assistive')}
+      />
+      <div
+        className={cn('w-0.5 h-2 rounded-sm', active ? 'bg-text-primary' : 'bg-text-assistive')}
+      />
     </div>
   );
 };

@@ -1,3 +1,5 @@
+import { cn } from '@/utils/tailwind';
+
 interface Props {
   percentage: number;
 }
@@ -28,11 +30,10 @@ const ProgressChip = ({ percentage }: Props) => {
 
         {/* center area */}
         <div
-          className={
-            percentage === 100
-              ? 'w-3 h-3 bg-surface-light absolute left-1 top-1 rounded-full -z-10 shrink-0 grow-0'
-              : 'w-3 h-3 bg-surface-background absolute left-1 top-1 rounded-full -z-10 shrink-0 grow-0'
-          }
+          className={cn(
+            'w-3 h-3 absolute left-1 top-1 rounded-full -z-10 shrink-0 grow-0',
+            percentage === 100 ? 'bg-surface-light' : 'bg-surface-background',
+          )}
         />
       </div>
 
