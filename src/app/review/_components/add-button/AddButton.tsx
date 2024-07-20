@@ -14,7 +14,7 @@ export const AddButton = ({ category }: Props) => {
 
   return (
     <button className={getButtonStyle(category)}>
-      <PlusIcon />
+      <PlusIcon size={20} />
       <p>추가</p>
     </button>
   );
