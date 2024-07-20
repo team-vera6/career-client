@@ -14,7 +14,7 @@ export const ListItem = ({ week }: { week: 'current' | 'next' }) => {
     <div className="h-12 flex items-center">
       <CheckboxInput
         value={todo}
-        onChange={(e) => setTodo(e)}
+        onChange={(val) => setTodo(val)}
         checked={isCheck}
         onClickCheckbox={() => setIsCheck((prev) => !prev)}
         category="review"
