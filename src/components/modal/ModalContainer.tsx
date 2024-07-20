@@ -1,6 +1,7 @@
 import { HTMLAttributes, PropsWithChildren } from 'react';
 
 import { Button } from '@/types/button';
+import { cn } from '@/utils/tailwind';
 
 import CloseIcon from '../icons/CloseIcon';
 
@@ -50,18 +51,18 @@ const ModalContainer = ({ title, buttons, closeModal, children }: PropsWithChild
           {buttons && (
             <div className="flex items-center gap-2.5 justify-end">
               <button
-                className={buttons.left.className ?? 'button-secondary button-medium'}
-                onClick={() => {
-                  buttons.left.onClick?.();
+                className={cn('button-primary button-medium', buttons.left.className)}
+                onClick={(e) => {
+                  buttons.left.onClick?.(e);
                   closeModal();
                 }}
               >
                 {buttons.left.text}
               </button>
               <button
-                className={buttons.right.className ?? 'button-primary button-medium'}
-                onClick={() => {
-                  buttons.right.onClick?.();
+                className={cn('button-primary button-medium', buttons.right.className)}
+                onClick={(e) => {
+                  buttons.right.onClick?.(e);
                   closeModal();
                 }}
               >

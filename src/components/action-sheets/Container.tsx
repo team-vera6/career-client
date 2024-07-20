@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from 'react';
 
 import { Button } from '@/types/button';
+import { cn } from '@/utils/tailwind';
 
 import CloseIcon from '../icons/CloseIcon';
 
@@ -41,11 +42,10 @@ const RightActionSheetContainer = ({
                   <button
                     type="button"
                     key={text}
-                    className={
-                      buttonStyle === 'line'
-                        ? 'button-line button-medium'
-                        : 'button-primary button-medium'
-                    }
+                    className={cn(
+                      'button-medium',
+                      buttonStyle === 'line' ? 'button-line' : 'button-primary',
+                    )}
                     onClick={onClick}
                     disabled={disabled}
                     {...rest}

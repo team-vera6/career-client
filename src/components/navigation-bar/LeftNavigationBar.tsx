@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { cn } from '@/utils/tailwind';
+
 import IndicatorIcon from '../icons/IndicatorIcon';
 
 const menus = [
@@ -30,11 +32,10 @@ const LeftNavigationBar = () => {
           <Link key={menu.path} href={menu.path} className="flex items-center gap-2">
             {menu.path === currentPathname && <IndicatorIcon width={12} height={9} />}
             <li
-              className={
-                menu.path === currentPathname
-                  ? 'font-title-20 text-text-strong'
-                  : 'font-title-20 text-text-neutral'
-              }
+              className={cn(
+                'font-title-20',
+                menu.path === currentPathname ? 'text-text-strong' : 'text-text-neutral',
+              )}
             >
               {menu.label}
             </li>
