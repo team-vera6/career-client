@@ -1,14 +1,54 @@
-export default {
+/** @type {import('eslint').ESLint.ConfigData} */
+
+module.exports = {
   extends: [
     'next',
+    'prettier',
+    'next/core-web-vitals',
+    'eslint:recommended',
+    'plugin:storybook/recommended',
+    'plugin:import/recommended',
     '@titicaca/eslint-config-triple',
     '@titicaca/eslint-config-triple/requiring-type-checking',
-    '@titicaca/eslint-config-triple/prettier',
   ],
-  rules: [
-    {
-      'comma-dangle': ['error', 'always-multiline'],
-      'comma-spacing': ['error', { before: false, after: true }],
-    },
-  ],
-}
+  plugins: ['unused-imports'],
+  rules: {
+    '@typescript-eslint/no-use-before-define': 'off',
+    'react/no-unescaped-entities': 'off',
+    '@next/next/no-page-custom-font': 'off',
+    'react/self-closing-comp': [
+      'error',
+      {
+        component: true,
+        html: true,
+      },
+    ],
+    'react/jsx-first-prop-new-line': 'error',
+    'comma-dangle': [
+      'warn',
+      {
+        arrays: 'always-multiline',
+        objects: 'always-multiline',
+        imports: 'never',
+        exports: 'never',
+        functions: 'never',
+      },
+    ],
+    indent: ['error', 2],
+    quotes: ['error', 'single'],
+    'eol-last': 'error',
+    semi: ['error', 'always'],
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-duplicates': 'error',
+    'no-unused-vars': ['warn', { vars: 'all', args: 'none', ignoreRestSiblings: false }],
+    'unused-imports/no-unused-imports': ['warn'],
+    'comma-spacing': ['error', { before: false, after: true }],
+    'space-before-function-paren': ['error', 'never'],
+    'multiline-ternary': 'off',
+  },
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 'latest',
+  },
+};

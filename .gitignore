@@ -1,7 +1,14 @@
 node_modules
+
 .vscode
+
+.next
+
+.DS_Store
 
 .env
 .env.*
 
 *storybook.log
+
+.next

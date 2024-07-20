@@ -1,0 +1,119 @@
+.rdrCalendarWrapper {
+  width: 528px;
+  height: 300px;
+
+  background-color: white;
+
+  border-radius: 12px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  box-shadow: 0px 0px 2px 0px #0000000d;
+}
+
+.rdrMonthName {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  text-align: center;
+  color: #292a2d;
+}
+
+.rdrMonthAndYearPickers {
+  display: none;
+}
+
+.rdrMonths {
+  margin-top: -45px;
+}
+
+.rdrWeekDays {
+  height: 18px;
+}
+
+.rdrWeekDay {
+  width: 34px;
+  flex-basis: auto;
+
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+  color: #999ca1;
+}
+
+.rdrDay {
+  width: 34px;
+  height: 34px;
+
+  span {
+    width: 100%;
+    left: 0;
+  }
+}
+
+.rdrDayNumber {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: #292a2d;
+  top: 4px;
+
+  ::after {
+    height: 0 !important;
+  }
+}
+
+.rdrStartEdge {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  background-color: #ff3d0d;
+  top: 0;
+  height: 32px;
+}
+
+.rdrInRange {
+  background-color: #efefef;
+  border-radius: 0;
+  top: 0;
+  height: 32px;
+}
+
+.rdrEndEdge {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  background-color: #ff3d0d;
+  top: 0;
+  height: 32px;
+}
+
+.rdrDayEndOfWeek .rdrInRange {
+  border-radius: 0 !important;
+}
+
+.rdrDayStartOfWeek .rdrInRange {
+  border-radius: 0 !important;
+}
+
+.rdrDay:not(.rdrDayPassive) {
+  &:has(.rdrInRange) {
+    span {
+      color: #292a2d !important;
+    }
+  }
+}
+
+.rdrNextPrevButton {
+  background-color: transparent;
+}
+
+.rdrDayHovered {
+  outline: none;
+
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid #cecece;
+  border-radius: 8px;
+}
