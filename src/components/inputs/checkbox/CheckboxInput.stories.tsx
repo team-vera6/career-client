@@ -20,6 +20,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Checkbox: Story = {
   args: {
+    value: 'text',
     checked: false,
     onChange: () => {},
     onClickCheckbox: () => {},
