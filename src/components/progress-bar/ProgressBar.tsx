@@ -1,3 +1,5 @@
+import { cn } from '@/utils/tailwind';
+
 interface Props {
   percentage: number;
 }
@@ -26,9 +28,7 @@ export default ProgressBar;
 
 const Indicator = ({ percentage }: { percentage: number }) => (
   <div
-    className={
-      'bg-surface-foreground border-2 border-surface-normal absolute -translate-x-2 w-4 h-7 rounded-lg z-30'
-    }
+    className="bg-surface-foreground border-2 border-surface-normal absolute -translate-x-2 w-4 h-7 rounded-lg z-30"
     style={{
       boxShadow: '0px 1px 2px 0px #0000001F',
       left: `${percentage}%`,
@@ -38,10 +38,9 @@ const Indicator = ({ percentage }: { percentage: number }) => (
 
 const Divider = ({ light = false }: { light?: boolean }) => (
   <div
-    className={
-      light
-        ? 'w-0.5 h-1.5 rounded-sm bg-text-invert z-20'
-        : 'w-0.5 h-1.5 rounded-sm bg-text-neutral z-20'
-    }
+    className={cn(
+      'w-0.5 h-1.5 rounded-sm bg-text-neutral z-20',
+      light ? 'bg-text-invert' : 'bg-text-neutral',
+    )}
   />
 );
