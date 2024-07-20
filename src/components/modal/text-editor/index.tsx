@@ -7,10 +7,12 @@ import MenuBar from '@/components/text-editor/MenuBar';
 import { ModalProps } from '../ModalContainer';
 import Modal from '../Modal';
 
+import '@/components/text-editor/editor.css';
+
 const TextEditorModal = (props: ModalProps) => {
   const editor = useEditor({
     extensions: [StarterKit, Underline],
-    content: '<p>Hello World! 🌎</p>',
+    content: '<p>Hello World!</p>',
   });
 
   return (
