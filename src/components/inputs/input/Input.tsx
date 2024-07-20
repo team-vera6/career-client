@@ -11,7 +11,7 @@ const Input = ({ errorText, ...rest }: Props) => {
     <>
       <input
         type="text"
-        className="p-3 border border-line-normal bg-surface-foreground rounded-lg font-body-14 text-neutral-90 hover:border-line-normalHover placeholder:text-text-normal focus:outline-line-focus disabled:border-line-normal disabled:text-text-assistive disabled:placeholder:text-text-assistive h-11 read-only:outline-0"
+        className="w-full p-3 border border-line-normal bg-surface-foreground rounded-lg font-body-14 text-neutral-90 hover:border-line-normalHover placeholder:text-text-normal focus:outline-line-focus disabled:border-line-normal disabled:text-text-assistive disabled:placeholder:text-text-assistive h-11 read-only:outline-0"
         style={
           errorText ? { borderColor: colors.state.negative, outline: colors.state.negative } : {}
         }

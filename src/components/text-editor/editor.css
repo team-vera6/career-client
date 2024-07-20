@@ -118,3 +118,9 @@
     margin: 2rem 0;
   }
 }
+
+.ProseMirror-focused {
+  &:focus {
+    outline: none;
+  }
+}
