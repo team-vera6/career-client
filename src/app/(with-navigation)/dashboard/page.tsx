@@ -4,8 +4,8 @@ import FireIcon from '@/components/icons/FireIcon';
 import FlagIcon from '@/components/icons/FlagIcon';
 import YellowFolderIcon from '@/components/icons/YellowFolderIcon';
 
-import MemoList from './components/MemoList';
-import TodoList from './components/TodoList';
+import MemoList from './_components/MemoList';
+import TodoList from './_components/TodoList';
 
 export default function DashboardPage() {
   return (
