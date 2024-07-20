@@ -1,3 +1,5 @@
+import { cn } from '@/utils/tailwind';
+
 interface Props {
   imageUrl: string;
   content: string;
@@ -7,17 +9,15 @@ interface Props {
 const FeatureItem = ({ content, reverse = false }: Props) => {
   return (
     <div
-      className={
-        reverse ? 'w-full flex justify-between flex-row-reverse' : 'w-full flex justify-between'
-      }
+      className={cn('w-full flex justify-between', {
+        'flex-row-reverse': reverse,
+      })}
     >
       <div className="w-[25rem] h-[25rem] bg-neutral-30 flex items-center justify-center rounded-[2.5rem]" />
       <div
-        className={
-          reverse
-            ? 'w-[25rem] h-[25rem] flex items-center font-head-36 text-text-strong text-right'
-            : 'w-[25rem] h-[25rem] flex items-center font-head-36 text-text-strong'
-        }
+        className={cn('w-[25rem] h-[25rem] flex items-center font-head-36 text-text-strong', {
+          'justify-end': reverse,
+        })}
       >
         {content}
       </div>
