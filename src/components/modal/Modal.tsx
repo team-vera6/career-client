@@ -19,7 +19,7 @@ const Modal = ({ title, closeIcon, children, ...rest }: PropsWithChildren<Props>
           </button>
         )}
 
-        {title && <p className="font-head-20 text-text-strong px-6 py-5.5">{title}</p>}
+        {title ? <p className="font-head-20 text-text-strong px-6 py-5.5">{title}</p> : null}
 
         {children}
       </div>
