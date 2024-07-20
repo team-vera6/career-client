@@ -24,7 +24,7 @@ const SettingProfileModal = (props: ModalProps) => {
 
   return (
     <Modal title="설정" closeIcon {...props}>
-      <div className="flex gap-[1.375rem] pl-3 pr-7 pt-1 pb-[3.75rem] w-[29rem]">
+      <div className="flex gap-[1.375rem] pl-3 pr-7 pt-1 pb-[3.75rem] w-[29rem] h-[14.25rem]">
         {/* left navigation bar */}
         <div className="flex flex-col gap-1">
           {menus.map((menu) => (
