@@ -1,28 +1,27 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
 
 import EmptyTodoImage from '@/assets/images/todo-empty.png';
 import PlusIcon from '@/components/icons/PlusIcon';
 
 const TodoList = () => {
-  const [todo, setTodo] = useState({
-    text: '',
-    checked: false,
-  });
-  const [todo2, setTodo2] = useState({
-    text: '',
-    checked: false,
-  });
-  const [todo3, setTodo3] = useState({
-    text: '',
-    checked: false,
-  });
-  const [todo4, setTodo4] = useState({
-    text: '',
-    checked: false,
-  });
+  // const [todo, setTodo] = useState({
+  //   text: '',
+  //   checked: false,
+  // });
+  // const [todo2, setTodo2] = useState({
+  //   text: '',
+  //   checked: false,
+  // });
+  // const [todo3, setTodo3] = useState({
+  //   text: '',
+  //   checked: false,
+  // });
+  // const [todo4, setTodo4] = useState({
+  //   text: '',
+  //   checked: false,
+  // });
 
   return (
     <section className="w-full">
