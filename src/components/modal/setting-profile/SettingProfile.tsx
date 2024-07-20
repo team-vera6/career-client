@@ -38,7 +38,11 @@ const SettingProfile = () => {
             value={nickname}
             onChange={(e) => setNickname(e.currentTarget.value)}
           />
-          <button type="submit" className="button-primary button-medium shrink-0">
+          <button
+            type="submit"
+            className="button-primary button-medium shrink-0"
+            disabled={nickname.length === 0}
+          >
             저장
           </button>
         </div>
