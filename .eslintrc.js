@@ -1,15 +1,13 @@
 /** @type {import('eslint').ESLint.ConfigData} */
 
 module.exports = {
+  root: true,
   extends: [
     'next',
     'prettier',
-    'next/core-web-vitals',
     'eslint:recommended',
     'plugin:storybook/recommended',
     'plugin:import/recommended',
-    '@titicaca/eslint-config-triple/frontend',
-    '@titicaca/eslint-config-triple/requiring-type-checking',
   ],
   plugins: ['unused-imports'],
   rules: {
@@ -24,20 +22,7 @@ module.exports = {
       },
     ],
     'react/jsx-first-prop-new-line': 'error',
-    'comma-dangle': [
-      'warn',
-      {
-        arrays: 'always-multiline',
-        objects: 'always-multiline',
-        imports: 'never',
-        exports: 'never',
-        functions: 'never',
-      },
-    ],
-    indent: ['error', 2],
-    quotes: ['error', 'single'],
     'eol-last': 'error',
-    semi: ['error', 'always'],
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
