@@ -8,7 +8,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:storybook/recommended',
     'plugin:import/recommended',
-    '@titicaca/eslint-config-triple',
+    '@titicaca/eslint-config-triple/frontend',
     '@titicaca/eslint-config-triple/requiring-type-checking',
   ],
   plugins: ['unused-imports'],
