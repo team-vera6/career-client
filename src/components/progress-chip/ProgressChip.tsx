@@ -11,7 +11,13 @@ const ProgressChip = ({ percentage }: Props) => {
       <div className="relative w-5 h-5 flex items-center justify-center">
         <svg width={16} height={16} className="-rotate-90">
           {/* circle background */}
-          <circle className="fill-none stroke-transparent" cx={8} cy={8} r={6} strokeWidth={1.5} />
+          <circle
+            className="fill-none stroke-transparent"
+            cx={8}
+            cy={8}
+            r={6}
+            strokeWidth={1.5}
+          />
 
           {/* circle bar */}
           {percentage > 0 && (
@@ -38,12 +44,18 @@ const ProgressChip = ({ percentage }: Props) => {
       </div>
 
       {/* label */}
-      {percentage === 100 && <p className="font-body-13 text-text-strong pt-[.0625rem]">완료</p>}
+      {percentage === 100 && (
+        <p className="font-body-13 text-text-strong pt-[.0625rem]">완료</p>
+      )}
       {percentage === 0 && (
-        <p className="font-body-13 text-text-normal whitespace-nowrap pt-[.0625rem]">시작 전</p>
+        <p className="font-body-13 text-text-normal whitespace-nowrap pt-[.0625rem]">
+          시작 전
+        </p>
       )}
       {percentage > 0 && percentage < 100 && (
-        <p className="font-body-13 text-text-primary pt-[.0625rem]">{percentage}%</p>
+        <p className="font-body-13 text-text-primary pt-[.0625rem]">
+          {percentage}%
+        </p>
       )}
     </div>
   );

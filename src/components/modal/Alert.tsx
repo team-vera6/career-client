@@ -38,13 +38,17 @@ const Alert = ({ title, content, buttons, ...rest }: Props) => {
           <p className="font-head-20 text-text-strong mt-0.5">{title}</p>
 
           {/* contents */}
-          {content && <p className="font-title-14 text-text-strong mt-6">{content}</p>}
+          {content && (
+            <p className="font-title-14 text-text-strong mt-6">{content}</p>
+          )}
 
           {/* buttons */}
           {buttons && (
             <div className="flex items-center gap-2.5 justify-end">
               <button
-                className={buttons.left.className ?? 'button-secondary button-medium'}
+                className={
+                  buttons.left.className ?? 'button-secondary button-medium'
+                }
                 onClick={(event) => {
                   buttons.left.onClick?.(event);
                   rest.onDismiss?.();
@@ -53,7 +57,9 @@ const Alert = ({ title, content, buttons, ...rest }: Props) => {
                 {buttons.left.text}
               </button>
               <button
-                className={buttons.right.className ?? 'button-primary button-medium'}
+                className={
+                  buttons.right.className ?? 'button-primary button-medium'
+                }
                 onClick={(event) => {
                   buttons.right.onClick?.(event);
                   rest.onDismiss?.();

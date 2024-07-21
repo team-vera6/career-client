@@ -29,12 +29,20 @@ const LeftNavigationBar = () => {
     <nav className="absolute left-12 h-full w-[132px] bg-surface-background">
       <ul className="flex flex-col gap-3">
         {menus.map((menu) => (
-          <Link key={menu.path} href={menu.path} className="flex items-center gap-2">
-            {menu.path === currentPathname && <IndicatorIcon width={12} height={9} />}
+          <Link
+            key={menu.path}
+            href={menu.path}
+            className="flex items-center gap-2"
+          >
+            {menu.path === currentPathname && (
+              <IndicatorIcon width={12} height={9} />
+            )}
             <li
               className={cn(
                 'font-title-20',
-                menu.path === currentPathname ? 'text-text-strong' : 'text-text-neutral',
+                menu.path === currentPathname
+                  ? 'text-text-strong'
+                  : 'text-text-neutral',
               )}
             >
               {menu.label}

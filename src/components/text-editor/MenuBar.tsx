@@ -21,16 +21,28 @@ const MenuBar = ({ editor }: Props) => {
 
   return (
     <section className="flex items-center gap-2.5 h-10 px-0.5 py-2.5">
-      <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleBold().run()}>
+      <button
+        className="w-6 h-6"
+        onClick={() => editor.chain().focus().toggleBold().run()}
+      >
         <BoldIcon size={24} />
       </button>
-      <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleItalic().run()}>
+      <button
+        className="w-6 h-6"
+        onClick={() => editor.chain().focus().toggleItalic().run()}
+      >
         <ItalicIcon size={24} />
       </button>
-      <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleUnderline().run()}>
+      <button
+        className="w-6 h-6"
+        onClick={() => editor.chain().focus().toggleUnderline().run()}
+      >
         <UnderlineIcon size={24} />
       </button>
-      <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleCode().run()}>
+      <button
+        className="w-6 h-6"
+        onClick={() => editor.chain().focus().toggleCode().run()}
+      >
         <CodeBlockIcon size={24} />
       </button>
       <button
@@ -51,10 +63,16 @@ const MenuBar = ({ editor }: Props) => {
       >
         <Header3Icon size={24} />
       </button>
-      <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleOrderedList().run()}>
+      <button
+        className="w-6 h-6"
+        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+      >
         <OrderedListIcon size={24} />
       </button>
-      <button className="w-6 h-6" onClick={() => editor.chain().focus().toggleBulletList().run()}>
+      <button
+        className="w-6 h-6"
+        onClick={() => editor.chain().focus().toggleBulletList().run()}
+      >
         <UnorderedListIcon size={24} />
       </button>
     </section>

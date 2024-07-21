@@ -9,14 +9,22 @@ const useToast = () => {
   const [toastId, setToastId] = useAtom(toastIdAtom);
 
   const addToast = useCallback(
-    ({ message, iconType }: { message: string; iconType?: ToastProps['iconType'] }) => {
+    ({
+      message,
+      iconType,
+    }: {
+      message: string;
+      iconType?: ToastProps['iconType'];
+    }) => {
       const id = toastId;
       setToastId((prevId) => prevId + 1);
 
       setToasts((prevToasts) => [{ id, message, iconType }, ...prevToasts]);
 
       setTimeout(() => {
-        setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
+        setToasts((prevToasts) =>
+          prevToasts.filter((toast) => toast.id !== id),
+        );
       }, 3000);
     },
     [toastId, setToastId, setToasts],

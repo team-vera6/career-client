@@ -1,6 +1,10 @@
 import { SVGIconProps } from '@/types/icon';
 
-const CodeBlockIcon = ({ size = 24, stroke = '#66696E', ...rest }: SVGIconProps): JSX.Element => {
+const CodeBlockIcon = ({
+  size = 24,
+  stroke = '#66696E',
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
@@ -10,7 +14,12 @@ const CodeBlockIcon = ({ size = 24, stroke = '#66696E', ...rest }: SVGIconProps)
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
     >
-      <path d="M10 18L14 6" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M10 18L14 6"
+        stroke={stroke}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
       <path
         d="M7.29286 8.46447L3.75732 12L7.29286 15.5355"
         stroke={stroke}

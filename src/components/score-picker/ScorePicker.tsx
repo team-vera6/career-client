@@ -24,7 +24,13 @@ const ScorePicker = ({ score, setScore }: Props) => {
 
 export default ScorePicker;
 
-const Checkpoint = ({ active = false, onClick }: { active?: boolean; onClick?: () => void }) => {
+const Checkpoint = ({
+  active = false,
+  onClick,
+}: {
+  active?: boolean;
+  onClick?: () => void;
+}) => {
   return (
     <div className="cursor-pointer" onClick={onClick}>
       {active ? (
@@ -44,13 +50,22 @@ const Connection = ({ active = false }: { active?: boolean }) => {
   return (
     <div className="flex gap-[3px]">
       <div
-        className={cn('w-0.5 h-2 rounded-sm', active ? 'bg-text-primary' : 'bg-text-assistive')}
+        className={cn(
+          'w-0.5 h-2 rounded-sm',
+          active ? 'bg-text-primary' : 'bg-text-assistive',
+        )}
       />
       <div
-        className={cn('w-0.5 h-2 rounded-sm', active ? 'bg-text-primary' : 'bg-text-assistive')}
+        className={cn(
+          'w-0.5 h-2 rounded-sm',
+          active ? 'bg-text-primary' : 'bg-text-assistive',
+        )}
       />
       <div
-        className={cn('w-0.5 h-2 rounded-sm', active ? 'bg-text-primary' : 'bg-text-assistive')}
+        className={cn(
+          'w-0.5 h-2 rounded-sm',
+          active ? 'bg-text-primary' : 'bg-text-assistive',
+        )}
       />
     </div>
   );

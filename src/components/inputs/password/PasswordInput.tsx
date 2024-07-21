@@ -19,16 +19,26 @@ const PasswordInput = ({ errorText, ...rest }: Props) => {
         type={showPassword ? 'text' : 'password'}
         className="w-full p-3 border border-line-normal bg-surface-foreground rounded-lg font-body-14 text-neutral-90 hover:border-line-normalHover placeholder:text-text-normal focus:outline-line-focus disabled:border-line-normal disabled:text-text-assistive disabled:placeholder:text-text-assistive h-11 read-only:outline-0"
         style={
-          errorText ? { borderColor: colors.state.negative, outline: colors.state.negative } : {}
+          errorText
+            ? {
+                borderColor: colors.state.negative,
+                outline: colors.state.negative,
+              }
+            : {}
         }
         {...rest}
       />
 
-      <button onClick={() => setShowPassword((prev) => !prev)} className="absolute right-3 top-3">
+      <button
+        onClick={() => setShowPassword((prev) => !prev)}
+        className="absolute right-3 top-3"
+      >
         {showPassword ? <EyeOnIcon size={20} /> : <EyeOffIcon size={20} />}
       </button>
 
-      {errorText && <p className="text-state-negative font-body-12 mt-[2px]">{errorText}</p>}
+      {errorText && (
+        <p className="text-state-negative font-body-12 mt-[2px]">{errorText}</p>
+      )}
     </div>
   );
 };

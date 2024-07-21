@@ -22,7 +22,9 @@ const SettingAccount = () => {
           >
             회원탈퇴
           </button>
-          <button className="button-line button-medium text-text-strong flex-1">로그아웃</button>
+          <button className="button-line button-medium text-text-strong flex-1">
+            로그아웃
+          </button>
         </div>
       </div>
 
@@ -33,7 +35,8 @@ const SettingAccount = () => {
         buttons={{
           left: {
             text: '취소',
-            className: 'button-secondary button-medium font-body-14 text-text-strong',
+            className:
+              'button-secondary button-medium font-body-14 text-text-strong',
           },
           right: {
             text: '확인',

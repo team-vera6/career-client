@@ -5,7 +5,11 @@ export interface ModalProps {
   onDismiss?: () => void;
 }
 
-const ModalContainer = ({ children, isOpen, onDismiss }: PropsWithChildren<ModalProps>) => {
+const ModalContainer = ({
+  children,
+  isOpen,
+  onDismiss,
+}: PropsWithChildren<ModalProps>) => {
   if (!isOpen) {
     return null;
   }
@@ -22,7 +26,8 @@ const ModalContainer = ({ children, isOpen, onDismiss }: PropsWithChildren<Modal
       <div
         className="min-w-[21.375rem] max-w-[36.625rem] min-h-[9.75rem] bg-neutral-white rounded-[20px] border border-line-normal animate-fade-up z-30"
         style={{
-          boxShadow: '0px 4px 12px 0px #00000014, 0px 0px 2px 0px rgba(0, 0, 0, 0.05)',
+          boxShadow:
+            '0px 4px 12px 0px #00000014, 0px 0px 2px 0px rgba(0, 0, 0, 0.05)',
         }}
       >
         {children}

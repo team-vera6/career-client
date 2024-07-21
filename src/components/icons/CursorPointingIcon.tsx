@@ -15,7 +15,13 @@ const CursorPointingIcon = ({
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
     >
-      <rect width="15" height="16" transform="translate(2 1)" fill={fill} fillOpacity="0.01" />
+      <rect
+        width="15"
+        height="16"
+        transform="translate(2 1)"
+        fill={fill}
+        fillOpacity="0.01"
+      />
       <g filter="url(#filter0_d_577_9119)">
         <path
           fillRule="evenodd"
@@ -49,8 +55,15 @@ const CursorPointingIcon = ({
           />
           <feOffset dy="1" />
           <feGaussianBlur stdDeviation="1" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0" />
-          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_577_9119" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_577_9119"
+          />
           <feBlend
             mode="normal"
             in="SourceGraphic"

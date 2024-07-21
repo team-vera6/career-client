@@ -1,6 +1,10 @@
 import { SVGIconProps } from '@/types/icon';
 
-const SheetCloseIcon = ({ size = 20, stroke = '#999CA1', ...rest }: SVGIconProps): JSX.Element => {
+const SheetCloseIcon = ({
+  size = 20,
+  stroke = '#999CA1',
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}

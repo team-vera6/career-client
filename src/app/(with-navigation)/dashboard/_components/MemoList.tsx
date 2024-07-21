@@ -14,7 +14,10 @@ const MemoList = () => {
     <section className="shrink-0 min-w-[252px]">
       <div className="flex items-center justify-between w-full">
         <p className="font-title-16 text-text-strong">이번 주 메모</p>
-        <button className="button-line button-small h-8" onClick={() => setOpenTextEditor(true)}>
+        <button
+          className="button-line button-small h-8"
+          onClick={() => setOpenTextEditor(true)}
+        >
           <PlusIcon size={20} />
           <p className="font-body-13 text-text-strong">추가</p>
         </button>
@@ -37,7 +40,10 @@ const MemoList = () => {
         <Image src={EmptyMemoImage} width={100} height={100} alt="no memo" />
       </div>
 
-      <TextEditorModal isOpen={openTextEditor} onDismiss={() => setOpenTextEditor(false)} />
+      <TextEditorModal
+        isOpen={openTextEditor}
+        onDismiss={() => setOpenTextEditor(false)}
+      />
     </section>
   );
 };

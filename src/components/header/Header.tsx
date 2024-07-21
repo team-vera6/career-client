@@ -28,7 +28,10 @@ const Header = () => {
         </button>
       </div>
 
-      <SettingProfileModal isOpen={openSettingModal} onDismiss={() => setOpenSettingModal(false)} />
+      <SettingProfileModal
+        isOpen={openSettingModal}
+        onDismiss={() => setOpenSettingModal(false)}
+      />
     </header>
   );
 };
