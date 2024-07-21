@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react';
 
 import CloseIcon from '../icons/CloseIcon';
-
 import ModalContainer, { ModalProps } from './ModalContainer';
 
 interface Props extends ModalProps {

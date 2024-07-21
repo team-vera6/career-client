@@ -3,7 +3,6 @@ import { HTMLAttributes } from 'react';
 import { Button } from '@/types/button';
 
 import CloseIcon from '../icons/CloseIcon';
-
 import ModalContainer, { ModalProps } from './ModalContainer';
 
 interface AlertButton extends Button {

@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 import Modal from '../Modal';
 import { ModalProps } from '../ModalContainer';
-
 import SettingAccount from './SettingAccount';
 import SettingProfile from './SettingProfile';
 
