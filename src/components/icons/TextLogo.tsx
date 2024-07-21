@@ -1,6 +1,10 @@
 import { SVGIconProps } from '@/types/icon';
 
-const TextLogo = ({ width = 132, height = 25, ...rest }: SVGIconProps): JSX.Element => {
+const TextLogo = ({
+  width = 132,
+  height = 25,
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={width}

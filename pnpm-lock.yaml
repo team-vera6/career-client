@@ -103,6 +103,9 @@ devDependencies:
   eslint-config-next:
     specifier: 14.2.4
     version: 14.2.4(eslint@8.0.0)(typescript@5.0.2)
+  eslint-plugin-simple-import-sort:
+    specifier: ^12.1.1
+    version: 12.1.1(eslint@8.0.0)
   eslint-plugin-storybook:
     specifier: ^0.8.0
     version: 0.8.0(eslint@8.0.0)(typescript@5.0.2)
@@ -6973,6 +6976,14 @@ packages:
       resolve: 2.0.0-next.5
       semver: 6.3.1
       string.prototype.matchall: 4.0.11
+    dev: true
+
+  /eslint-plugin-simple-import-sort@12.1.1(eslint@8.0.0):
+    resolution: {integrity: sha512-6nuzu4xwQtE3332Uz0to+TxDQYRLTKRESSc2hefVT48Zc8JthmN23Gx9lnYhu0FtkRSL1oxny3kJ2aveVhmOVA==}
+    peerDependencies:
+      eslint: '>=5.0.0'
+    dependencies:
+      eslint: 8.0.0
     dev: true
 
   /eslint-plugin-storybook@0.8.0(eslint@8.0.0)(typescript@5.0.2):

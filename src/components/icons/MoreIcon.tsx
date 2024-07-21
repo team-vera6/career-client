@@ -1,6 +1,10 @@
 import { SVGIconProps } from '@/types/icon';
 
-const MoreIcon = ({ size = 20, fill = '#999CA1', ...rest }: SVGIconProps): JSX.Element => {
+const MoreIcon = ({
+  size = 20,
+  fill = '#999CA1',
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}

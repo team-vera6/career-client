@@ -1,6 +1,10 @@
 import { SVGIconProps } from '@/types/icon';
 
-const BoldIcon = ({ size = 24, stroke = '#66696E', ...rest }: SVGIconProps): JSX.Element => {
+const BoldIcon = ({
+  size = 24,
+  stroke = '#66696E',
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}

@@ -9,7 +9,10 @@ interface ToggleSwitchProps {
   onChange?: (state: boolean) => void;
 }
 
-const ToggleSwitch = ({ initialState = false, onChange }: ToggleSwitchProps) => {
+const ToggleSwitch = ({
+  initialState = false,
+  onChange,
+}: ToggleSwitchProps) => {
   const [isOn, setIsOn] = useState(initialState);
 
   const toggle = () => {

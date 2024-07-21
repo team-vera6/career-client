@@ -1,12 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 import TextLogo from '@/components/icons/TextLogo';
 
 import SettingProfileModal from '../modal/setting-profile';
-
 import WeekInfo from './WeekInfo';
 
 const Header = () => {
@@ -29,7 +28,10 @@ const Header = () => {
         </button>
       </div>
 
-      <SettingProfileModal isOpen={openSettingModal} onDismiss={() => setOpenSettingModal(false)} />
+      <SettingProfileModal
+        isOpen={openSettingModal}
+        onDismiss={() => setOpenSettingModal(false)}
+      />
     </header>
   );
 };

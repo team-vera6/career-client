@@ -10,9 +10,17 @@ export default function LandingPage() {
     <main className="h-full min-h-screen">
       <header className="p-10 bg-surface-foreground">
         <div className="w-full h-full relative flex items-center justify-center">
-          <Image src={PitstopLogo} alt="pitstop logo" width={164} height={25} priority />
+          <Image
+            src={PitstopLogo}
+            alt="pitstop logo"
+            width={164}
+            height={25}
+            priority
+          />
 
-          <button className="button-large button-primary absolute right-0">시작하기</button>
+          <button className="button-large button-primary absolute right-0">
+            시작하기
+          </button>
         </div>
       </header>
 
@@ -38,8 +46,8 @@ export default function LandingPage() {
 
       <footer className="w-full h-[6.25rem] flex items-center pl-[11.25rem] bg-surface-strong">
         <p className="font-body-13 text-text-invert">
-          <span className="underline cursor-pointer">Terms & Conditions</span> | © 2024 Vera All
-          rights reserved.
+          <span className="underline cursor-pointer">Terms & Conditions</span> |
+          © 2024 Vera All rights reserved.
         </p>
       </footer>
     </main>

@@ -1,6 +1,9 @@
 import { SVGIconProps } from '@/types/icon';
 
-const YellowFolderIcon = ({ size = 20, ...rest }: SVGIconProps): JSX.Element => {
+const YellowFolderIcon = ({
+  size = 20,
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}

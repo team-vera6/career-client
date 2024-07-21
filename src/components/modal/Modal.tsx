@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react';
 
 import CloseIcon from '../icons/CloseIcon';
-
 import ModalContainer, { ModalProps } from './ModalContainer';
 
 interface Props extends ModalProps {
@@ -9,7 +8,12 @@ interface Props extends ModalProps {
   closeIcon?: boolean;
 }
 
-const Modal = ({ title, closeIcon, children, ...rest }: PropsWithChildren<Props>) => {
+const Modal = ({
+  title,
+  closeIcon,
+  children,
+  ...rest
+}: PropsWithChildren<Props>) => {
   return (
     <ModalContainer {...rest}>
       <div className="relative flex flex-col justify-between">
@@ -19,7 +23,9 @@ const Modal = ({ title, closeIcon, children, ...rest }: PropsWithChildren<Props>
           </button>
         )}
 
-        {title ? <p className="font-head-20 text-text-strong px-6 py-5.5">{title}</p> : null}
+        {title ? (
+          <p className="font-head-20 text-text-strong px-6 py-5.5">{title}</p>
+        ) : null}
 
         {children}
       </div>

@@ -38,7 +38,13 @@ const RightActionSheetContainer = ({
             {/* header buttons */}
             <div className="flex gap-2">
               {buttons.map(
-                ({ text, onClick, buttonStyle = 'primary', disabled = false, ...rest }) => (
+                ({
+                  text,
+                  onClick,
+                  buttonStyle = 'primary',
+                  disabled = false,
+                  ...rest
+                }) => (
                   <button
                     type="button"
                     key={text}

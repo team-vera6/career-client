@@ -30,7 +30,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${pretendard.variable} ${chakraPetch.variable}`}>
+    <html
+      lang="ko"
+      className={`${pretendard.variable} ${chakraPetch.variable}`}
+    >
       <body className="font-pretendard bg-surface-background">{children}</body>
     </html>
   );

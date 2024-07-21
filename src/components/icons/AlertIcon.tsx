@@ -1,6 +1,10 @@
 import { SVGIconProps } from '@/types/icon';
 
-const AlertIcon = ({ size = 20, stroke = '#FFD02A', ...rest }: SVGIconProps): JSX.Element => {
+const AlertIcon = ({
+  size = 20,
+  stroke = '#FFD02A',
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}

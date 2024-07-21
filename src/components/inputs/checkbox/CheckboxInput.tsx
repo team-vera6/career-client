@@ -29,20 +29,26 @@ const CheckboxInput = ({
   const [isEditing, setIsEditing] = useState(false);
 
   const showRightButtons =
-    (category === 'dashboard' && isHovered && !isEditing) || (category === 'review' && !isEditing);
+    (category === 'dashboard' && isHovered && !isEditing) ||
+    (category === 'review' && !isEditing);
 
   return (
     <div
       className={cn(
         CONTAINER_STYLE.default,
         category === 'dashboard' && CONTAINER_STYLE.dashboard,
-        category === 'dashboard' && isEditing && CONTAINER_STYLE.dashboardEditing,
+        category === 'dashboard' &&
+          isEditing &&
+          CONTAINER_STYLE.dashboardEditing,
         category === 'review' && CONTAINER_STYLE.review,
         category === 'review' && isEditing && CONTAINER_STYLE.reviewEditing,
       )}
       style={{
         width: width ?? '100%',
-        boxShadow: category === 'dashboard' ? '0px 4px 12px 0px rgba(0, 0, 0, 0.08)' : 'none',
+        boxShadow:
+          category === 'dashboard'
+            ? '0px 4px 12px 0px rgba(0, 0, 0, 0.08)'
+            : 'none',
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

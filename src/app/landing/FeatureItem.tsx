@@ -15,9 +15,12 @@ const FeatureItem = ({ content, reverse = false }: Props) => {
     >
       <div className="w-[25rem] h-[25rem] bg-neutral-30 flex items-center justify-center rounded-[2.5rem]" />
       <div
-        className={cn('w-[25rem] h-[25rem] flex items-center font-head-36 text-text-strong', {
-          'justify-end': reverse,
-        })}
+        className={cn(
+          'w-[25rem] h-[25rem] flex items-center font-head-36 text-text-strong',
+          {
+            'justify-end': reverse,
+          },
+        )}
       >
         {content}
       </div>

@@ -1,6 +1,10 @@
 import { SVGIconProps } from '@/types/icon';
 
-const Header2Icon = ({ size = 24, stroke = '#66696E', ...rest }: SVGIconProps): JSX.Element => {
+const Header2Icon = ({
+  size = 24,
+  stroke = '#66696E',
+  ...rest
+}: SVGIconProps): JSX.Element => {
   return (
     <svg
       width={size}
