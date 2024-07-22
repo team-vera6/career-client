@@ -8,7 +8,7 @@ import { cn } from '@/utils/tailwind';
 import AlertIcon from '../icons/AlertIcon';
 import CircleCheckIcon from '../icons/CircleCheckIcon';
 
-export const ToastIcon: { [key in ToastIconType]: ReactNode } = {
+export const ToastIcon: Record<ToastIconType, ReactNode> = {
   success: <CircleCheckIcon />,
   error: <AlertIcon />,
 };
