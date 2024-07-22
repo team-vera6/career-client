@@ -1,6 +1,8 @@
 'use client';
 
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, HTMLAttributes, useState } from 'react';
+
+import { cn } from '@/utils/tailwind';
 
 import ChevronDown20Icon from '../icons/ChevronDown20Icon';
 
@@ -13,12 +15,14 @@ interface Props {
   id: string;
   initialItem?: DropdownItem;
   items: Array<DropdownItem>;
+  className?: HTMLAttributes<HTMLDivElement>['className'];
 }
 
 const Dropdown = ({
   id,
   initialItem = { name: '선택하세요', value: '' },
   items,
+  className,
   ...rest
 }: Props) => {
   const [showOptions, setShowOptions] = useState(false);
@@ -30,7 +34,7 @@ const Dropdown = ({
   };
 
   return (
-    <div className="relative w-full h-[2.75rem]" {...rest}>
+    <div className={cn('relative w-full h-[2.75rem]', className)} {...rest}>
       <button
         type="button"
         id={id}
