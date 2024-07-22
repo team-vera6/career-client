@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/order
 import { Achievement } from './_components/achievement/Achievement';
 import { Todo } from './_components/todo/Todo';
 

@@ -1,7 +1,5 @@
-// eslint-disable-next-line import/order
-
-import { CurrentReview } from './_components/CurrentReview/CurrentReview';
-import { LastReview } from './_components/LastReview/LastReview';
+import { CurrentReview } from '../_components/CurrentReview/CurrentReview';
+import { LastReview } from '../_components/LastReview/LastReview';
 
 export default function Step2Page() {
   return (
