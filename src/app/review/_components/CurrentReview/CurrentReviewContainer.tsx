@@ -2,7 +2,7 @@ import Dropdown from '@/components/dropdown/Dropdown';
 import LinkIcon from '@/components/icons/LinkIcon';
 import Textarea from '@/components/inputs/textarea/Textarea';
 
-export const ReviewContainer = () => {
+export const CurrentReviewContainer = () => {
   return (
     <div className="w-full p-5 bg-surface-foreground rounded-xl">
       <Textarea className="min-h-[6.5rem]" />

@@ -1,7 +1,7 @@
 import LinkIcon from '@/components/icons/LinkIcon';
 import ProgressChip from '@/components/progress-chip/ProgressChip';
 
-const ReviewItem = () => {
+export const LastReviewItem = () => {
   return (
     <div>
       <div
@@ -20,5 +20,3 @@ const ReviewItem = () => {
     </div>
   );
 };
-
-export default ReviewItem;

@@ -2,7 +2,7 @@ import { AddButton } from '@/app/review/_components/add-button/AddButton';
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
 import LowlightCircleIcon from '@/components/icons/LowlightCircleIcon';
 
-import { ReviewContainer } from './ReviewContainer';
+import { CurrentReviewContainer } from './CurrentReviewContainer';
 
 interface Props {
   category: 'highLight' | 'lowLight';
@@ -17,7 +17,7 @@ export const CurrentReview = ({ category }: Props) => {
         </div>
         <AddButton category={category} />
       </div>
-      <ReviewContainer />
+      <CurrentReviewContainer />
     </section>
   );
 };
