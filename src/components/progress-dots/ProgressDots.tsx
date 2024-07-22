@@ -24,7 +24,7 @@ const ProgressDots = ({ dotCount, displayType, activeLevel, className }: Props) 
   }, [dotCount, displayType, activeLevel]);
 
   return (
-    <div className={cn('flex gap-2.5', className)}>
+    <div className={cn('flex gap-2.5 bg-transparent', className)}>
       {dots.map((isActive, index) => (
         <div
           key={index}
