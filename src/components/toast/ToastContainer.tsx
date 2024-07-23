@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 
 import { toastAtom } from '@/stores/toastAtom';
 
-import Toast from './Toast';
+import { Toast } from './Toast';
 
 const ToastContainer = () => {
   const toasts = useAtomValue(toastAtom);
