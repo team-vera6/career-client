@@ -19,6 +19,7 @@ export const CurrentReview = ({ category }: Props) => {
         </div>
         <AddButton category={category} />
       </div>
+
       <CurrentReviewContainer />
     </section>
   );
