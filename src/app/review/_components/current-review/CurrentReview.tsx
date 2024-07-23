@@ -11,9 +11,11 @@ export const CurrentReview = ({ category }: Props) => {
   return (
     <section className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <div className="flex gap-0.5 items-center">
+        <div className="flex gap-2 items-center">
           {ITEMS[category].icon}
-          <p className="font-head-20 text-text-strong">{ITEMS[category].title}</p>
+          <p className="font-head-20 text-text-strong">
+            {ITEMS[category].title}
+          </p>
         </div>
         <AddButton category={category} />
       </div>
