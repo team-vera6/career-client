@@ -5,30 +5,38 @@ import { HTMLAttributes, useMemo } from 'react';
 import { cn } from '@/utils/tailwind';
 
 interface Props {
-  dotCount: number; // 점 개수
+  totalCount: number; // 점 총 개수
+  activeCount: number;
   displayType: 'step' | 'progress';
-  activeLevel: number;
   className?: HTMLAttributes<HTMLDivElement>['className'];
 }
 
-const ProgressDots = ({ dotCount, displayType, activeLevel, className }: Props) => {
+const ProgressDots = ({
+  totalCount,
+  displayType,
+  activeCount,
+  className,
+}: Props) => {
   const dots = useMemo(() => {
-    return Array.from({ length: dotCount }, (_, index) => {
+    return Array.from({ length: totalCount }, (_, index) => {
       if (displayType === 'step') {
-        return index === activeLevel - 1;
+        return index === activeCount - 1;
       } else if (displayType === 'progress') {
-        return index < activeLevel;
+        return index < activeCount;
       }
       return false;
     });
-  }, [dotCount, displayType, activeLevel]);
+  }, [totalCount, displayType, activeCount]);
 
   return (
     <div className={cn('flex gap-2.5 bg-transparent', className)}>
       {dots.map((isActive, index) => (
         <div
           key={index}
-          className={cn('w-3 h-3 rounded-full bg-surface-base', isActive && 'bg-surface-normal')}
+          className={cn(
+            'w-3 h-3 rounded-full bg-surface-base',
+            isActive && 'bg-surface-normal',
+          )}
         />
       ))}
     </div>
