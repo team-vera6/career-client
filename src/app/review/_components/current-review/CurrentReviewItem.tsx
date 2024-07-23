@@ -14,7 +14,7 @@ export const CurrentReviewItem = () => {
           <Dropdown id="hi" items={DROP_DUMMY} className="mt-2" />
         </div>
       </div>
-      {/* 에러 텍스트 추가 예정 */}
+      {/* TODO: 에러 텍스트 추가 예정 */}
       <DeleteButton />
     </div>
   );
