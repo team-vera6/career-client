@@ -12,7 +12,11 @@ const Textarea = ({ errorText, className, ...rest }: Props) => {
     <>
       <textarea
         className={cn(
-          'block w-full p-3 border border-line-normal bg-surface-foreground rounded-lg font-body-14 text-neutral-90 hover:border-line-normalHover placeholder:text-text-normal focus:outline-line-focus disabled:border-line-normal disabled:text-text-assistive disabled:placeholder:text-text-assistive resize-none',
+          `block w-full p-3 border border-line-normal bg-surface-foreground rounded-lg font-body-14 text-neutral-90 resize-none
+          hover:border-line-normalHover placeholder:text-text-normal 
+           focus:outline-none focus:border focus:border-line-focus
+          disabled:border-line-normal disabled:text-text-assistive disabled:placeholder:text-text-assistive 
+          `,
           className,
           errorText && 'border-state-negative outline-state-negative',
         )}
