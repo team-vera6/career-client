@@ -6,7 +6,7 @@ interface Props {
 
 const ProgressChip = ({ percentage }: Props) => {
   return (
-    <div className="w-[4.25rem] h-6 flex items-center justify-center gap-[1px] border border-line-assistive rounded">
+    <div className="w-[4.25rem] h-6 flex items-center justify-center gap-[1px] border border-line-assistive rounded bg-surface-foreground">
       {/* progress bar */}
       <div className="relative w-5 h-5 flex items-center justify-center">
         <svg width={16} height={16} className="-rotate-90">
