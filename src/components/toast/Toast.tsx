@@ -8,12 +8,25 @@ import { cn } from '@/utils/tailwind';
 import AlertIcon from '../icons/AlertIcon';
 import CircleCheckIcon from '../icons/CircleCheckIcon';
 
-export const ToastIcon: { [key in ToastIconType]: ReactNode } = {
+export const ToastIcon: Record<ToastIconType, ReactNode> = {
   success: <CircleCheckIcon />,
   error: <AlertIcon />,
 };
 
-const Toast = ({ id, message, iconType }: ToastProps) => {
+export const ToastItem = ({ ...props }: ToastProps) => {
+  return (
+    <div
+      id={String(props.id)}
+      role="alert"
+      className="min-w-[24.125rem] max-w-[36.625rem] h-12 bg-surface-alternative text-text-invert font-body-16 flex items-center px-4 gap-2 rounded-lg"
+    >
+      {props.iconType && ToastIcon[props.iconType]}
+      {props.message}
+    </div>
+  );
+};
+
+export const Toast = ({ ...props }: ToastProps) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -28,17 +41,12 @@ const Toast = ({ id, message, iconType }: ToastProps) => {
 
   return (
     <div
-      id={String(id)}
-      role="alert"
       className={cn(
-        'mx-auto min-w-[24.125rem] max-w-[36.625rem] h-12 bg-surface-alternative text-text-invert font-body-16 flex items-center px-4 gap-2 rounded-lg duration-300 ease-out',
+        'duration-300 ease-out mx-auto',
         show ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0',
       )}
     >
-      {iconType && ToastIcon[iconType]}
-      {message}
+      <ToastItem {...props} />
     </div>
   );
 };
-
-export default Toast;
