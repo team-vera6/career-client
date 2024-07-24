@@ -1,8 +1,13 @@
 'use client';
 
+import { WeekType } from '@/app/review/types';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 
-export const MoveNextButton = ({ week }: { week: 'current' | 'next' }) => {
+interface Props {
+  week: WeekType;
+}
+
+export const MoveNextButton = ({ week }: Props) => {
   return (
     <button
       type="button"
