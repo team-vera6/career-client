@@ -1,13 +1,17 @@
 'use client';
 
+import { useSetAtom } from 'jotai';
+
+import { currentTodoListAtom, nextTodoListAtom } from '@/app/review/stores';
 import { WeekType } from '@/app/review/types';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 
 interface Props {
   week: WeekType;
+  index: number;
 }
 
-export const MoveNextButton = ({ week }: Props) => {
+export const MoveNextButton = ({ week, index }: Props) => {
   return (
     <button
       type="button"
@@ -18,10 +22,21 @@ export const MoveNextButton = ({ week }: Props) => {
   );
 };
 
-export const DeleteButton = () => {
+export const DeleteButton = ({ week, index }: Props) => {
+  const setCurrentTodoList = useSetAtom(currentTodoListAtom);
+  const setNextTodoList = useSetAtom(nextTodoListAtom);
+
+  const onClickDelete = () => {
+    if (week === 'current') {
+      setCurrentTodoList((prev) => prev.filter((_, i) => i !== index));
+    } else {
+      setNextTodoList((prev) => prev.filter((_, i) => i !== index));
+    }
+  };
+
   return (
-    <button type="button">
-      <DeleteIcon />
+    <button type="button" onClick={onClickDelete}>
+      <DeleteIcon size={20} />
     </button>
   );
 };

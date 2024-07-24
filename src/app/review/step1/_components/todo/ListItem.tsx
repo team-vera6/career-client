@@ -7,7 +7,11 @@ import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
 
 import { DeleteButton, MoveNextButton } from './Buttons';
 
-export const ListItem = ({ isChecked, todo, week }: TodoListItem) => {
+interface Props extends TodoListItem {
+  index: number;
+}
+
+export const ListItem = ({ isChecked, todo, week, index }: Props) => {
   const [text, setText] = useState(todo);
   const [isCheck, setIsCheck] = useState(isChecked);
 
@@ -21,8 +25,8 @@ export const ListItem = ({ isChecked, todo, week }: TodoListItem) => {
         category="review"
       />
       <div className="flex items-center gap-2">
-        <MoveNextButton week={week} />
-        <DeleteButton />
+        <MoveNextButton week={week} index={index} />
+        <DeleteButton week={week} index={index} />
       </div>
     </div>
   );

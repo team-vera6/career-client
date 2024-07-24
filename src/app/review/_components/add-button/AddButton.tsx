@@ -1,10 +1,14 @@
 'use client';
 
+import { useSetAtom } from 'jotai';
 import { useState } from 'react';
 
 import PlusIcon from '@/components/icons/PlusIcon';
 import colors from '@/styles/colors';
 import { cn } from '@/utils/tailwind';
+
+import { currentTodoListAtom, nextTodoListAtom } from '../../stores';
+import { TodoListItem, WeekType } from '../../types';
 
 interface Props {
   category: 'currentTodo' | 'nextTodo' | 'highLight' | 'lowLight';
@@ -12,8 +16,27 @@ interface Props {
 
 export const AddButton = ({ category }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
+  const setCurrentTodoList = useSetAtom(currentTodoListAtom);
+  const setNextTodoList = useSetAtom(nextTodoListAtom);
 
   const isTodo = category === 'currentTodo' || category === 'nextTodo';
+
+  const onClickAddButton = (category: Props['category']) => {
+    const weekInfo = category.slice(0, -4);
+
+    const newItemValues: TodoListItem = {
+      week: weekInfo as WeekType,
+      isChecked: false,
+      todo: '',
+    };
+
+    if (category === 'currentTodo') {
+      setCurrentTodoList((prev) => [...prev, newItemValues]);
+    } else if (category === 'nextTodo') {
+      setNextTodoList((prev) => [...prev, newItemValues]);
+    }
+    return;
+  };
 
   return (
     <button
@@ -25,6 +48,7 @@ export const AddButton = ({ category }: Props) => {
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onClickAddButton(category)}
     >
       {isTodo ? (
         <PlusIcon size={20} stroke={colors.text.normal} />
