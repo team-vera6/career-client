@@ -7,7 +7,13 @@ import PlusIcon from '@/components/icons/PlusIcon';
 import colors from '@/styles/colors';
 import { cn } from '@/utils/tailwind';
 
-import { currentTodoListAtom, nextTodoListAtom } from '../../stores';
+import { REVIEW_DEFAULT } from '../../dummy';
+import {
+  currentTodoListAtom,
+  highLightListAtom,
+  lowLightListAtom,
+  nextTodoListAtom,
+} from '../../stores';
 import { WeekType } from '../../types';
 
 interface Props {
@@ -18,32 +24,45 @@ export const AddButton = ({ category }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   const setCurrentTodoList = useSetAtom(currentTodoListAtom);
   const setNextTodoList = useSetAtom(nextTodoListAtom);
+  const setHighLightListAtom = useSetAtom(highLightListAtom);
+  const setLowLightListAtom = useSetAtom(lowLightListAtom);
 
   const isTodo = category === 'currentTodo' || category === 'nextTodo';
 
   const onClickAddButton = (category: Props['category']) => {
     const weekInfo = category.slice(0, -4);
 
-    if (category === 'currentTodo') {
-      setCurrentTodoList((prev) => [
-        ...prev,
-        {
-          id: `current-${prev.length + 1}`,
-          week: weekInfo as WeekType,
-          isChecked: false,
-          todo: '',
-        },
-      ]);
-    } else if (category === 'nextTodo') {
-      setNextTodoList((prev) => [
-        ...prev,
-        {
-          id: `current-${prev.length + 1}`,
-          week: weekInfo as WeekType,
-          isChecked: false,
-          todo: '',
-        },
-      ]);
+    switch (category) {
+      case 'currentTodo':
+        setCurrentTodoList((prev) => [
+          ...prev,
+          {
+            id: `current-${prev.length + 1}`,
+            week: weekInfo as WeekType,
+            isChecked: false,
+            todo: '',
+          },
+        ]);
+        break;
+      case 'nextTodo':
+        setNextTodoList((prev) => [
+          ...prev,
+          {
+            id: `next-${prev.length + 1}`,
+            week: weekInfo as WeekType,
+            isChecked: false,
+            todo: '',
+          },
+        ]);
+        break;
+      case 'highLight':
+        setHighLightListAtom((prev) => [...prev, REVIEW_DEFAULT]);
+        break;
+      case 'lowLight':
+        setLowLightListAtom((prev) => [...prev, REVIEW_DEFAULT]);
+        break;
+      default:
+        break;
     }
   };
 
