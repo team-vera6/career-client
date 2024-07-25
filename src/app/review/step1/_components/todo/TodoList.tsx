@@ -3,15 +3,11 @@
 import { useAtomValue } from 'jotai';
 
 import { currentTodoListAtom, nextTodoListAtom } from '@/app/review/stores';
-import { WeekType } from '@/app/review/types';
+import { TodoListItem } from '@/app/review/types';
 
 import { ListItem } from './ListItem';
 
-interface Props {
-  week: WeekType;
-}
-
-export const TodoList = ({ week }: Props) => {
+export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
   const currentTodoList = useAtomValue(currentTodoListAtom);
   const nextTodoList = useAtomValue(nextTodoListAtom);
 

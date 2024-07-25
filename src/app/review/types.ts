@@ -9,4 +9,5 @@ export interface TodoListItem {
   isChecked: boolean;
   todo: string;
   id: string;
+  isMoved?: boolean;
 }

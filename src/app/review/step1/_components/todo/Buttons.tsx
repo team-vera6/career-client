@@ -4,16 +4,15 @@ import { useAtom, useSetAtom } from 'jotai';
 import { useState } from 'react';
 
 import { currentTodoListAtom, nextTodoListAtom } from '@/app/review/stores';
-import { WeekType } from '@/app/review/types';
+import { TodoListItem } from '@/app/review/types';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import Alert from '@/components/modal/Alert';
 
-interface Props {
-  week: WeekType;
-  id: string;
-}
-
-export const MoveNextButton = ({ week, id }: Props) => {
+export const MoveNextButton = ({
+  week,
+  id,
+  isMoved,
+}: Pick<TodoListItem, 'week' | 'id' | 'isMoved'>) => {
   const [currentTodoList, setCurrentTodoList] = useAtom(currentTodoListAtom);
   const [nextTodoList, setNextTodoList] = useAtom(nextTodoListAtom);
 
@@ -22,6 +21,7 @@ export const MoveNextButton = ({ week, id }: Props) => {
       const moveValues = currentTodoList.filter((el) => el.id === id)[0];
       moveValues['week'] = 'next';
       moveValues['isChecked'] = false;
+      moveValues['isMoved'] = true;
 
       setCurrentTodoList((prev) => prev.filter((el) => el.id !== id));
       setNextTodoList((prev) => [...prev, moveValues]);
@@ -29,11 +29,14 @@ export const MoveNextButton = ({ week, id }: Props) => {
       const moveValues = nextTodoList.filter((el) => el.id === id)[0];
       moveValues['week'] = 'current';
       moveValues['isChecked'] = false;
+      moveValues['isMoved'] = undefined;
 
       setNextTodoList((prev) => prev.filter((el) => el.id !== id));
       setCurrentTodoList((prev) => [...prev, moveValues]);
     }
   };
+
+  if (week === 'next' && !isMoved) return null;
 
   return (
     <button
@@ -45,7 +48,11 @@ export const MoveNextButton = ({ week, id }: Props) => {
     </button>
   );
 };
-export const DeleteButton = ({ week, id }: Props) => {
+
+export const DeleteButton = ({
+  week,
+  id,
+}: Pick<TodoListItem, 'week' | 'id'>) => {
   const setCurrentTodoList = useSetAtom(currentTodoListAtom);
   const setNextTodoList = useSetAtom(nextTodoListAtom);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
