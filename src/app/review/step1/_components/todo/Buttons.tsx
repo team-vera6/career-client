@@ -1,10 +1,12 @@
 'use client';
 
 import { useAtom, useSetAtom } from 'jotai';
+import { useState } from 'react';
 
 import { currentTodoListAtom, nextTodoListAtom } from '@/app/review/stores';
 import { WeekType } from '@/app/review/types';
 import DeleteIcon from '@/components/icons/DeleteIcon';
+import Alert from '@/components/modal/Alert';
 
 interface Props {
   week: WeekType;
@@ -46,6 +48,7 @@ export const MoveNextButton = ({ week, id }: Props) => {
 export const DeleteButton = ({ week, id }: Props) => {
   const setCurrentTodoList = useSetAtom(currentTodoListAtom);
   const setNextTodoList = useSetAtom(nextTodoListAtom);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
   const onClickDelete = () => {
     if (week === 'current') {
@@ -56,8 +59,29 @@ export const DeleteButton = ({ week, id }: Props) => {
   };
 
   return (
-    <button type="button" onClick={onClickDelete}>
-      <DeleteIcon size={20} />
-    </button>
+    <>
+      <button type="button" onClick={() => setShowDeleteAlert(true)}>
+        <DeleteIcon size={20} />
+      </button>
+
+      <Alert
+        isOpen={showDeleteAlert}
+        onDismiss={() => setShowDeleteAlert(false)}
+        title="정말로 삭제하시겠어요?"
+        buttons={{
+          left: {
+            text: '취소',
+            className:
+              'button-secondary button-medium font-body-14 text-text-strong',
+          },
+          right: {
+            text: '확인',
+            className:
+              'button-primary button-medium font-body-14 text-text-invert',
+            onClick: () => onClickDelete(),
+          },
+        }}
+      />
+    </>
   );
 };
