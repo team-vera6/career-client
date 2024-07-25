@@ -1,19 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { TodoListItem } from '@/app/review/types';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
 
 import { DeleteButton, MoveNextButton } from './Buttons';
 
-interface Props extends TodoListItem {
-  index: number;
-}
-
-export const ListItem = ({ isChecked, todo, week, index }: Props) => {
+export const ListItem = ({ isChecked, todo, week, id }: TodoListItem) => {
   const [text, setText] = useState(todo);
   const [isCheck, setIsCheck] = useState(isChecked);
+
+  useEffect(() => {
+    setText(todo);
+    setIsCheck(isChecked);
+  }, [todo, isChecked]);
 
   return (
     <div className="h-12 flex items-center">
@@ -25,8 +26,8 @@ export const ListItem = ({ isChecked, todo, week, index }: Props) => {
         category="review"
       />
       <div className="flex items-center gap-2">
-        <MoveNextButton week={week} index={index} />
-        <DeleteButton week={week} index={index} />
+        <MoveNextButton week={week} id={id} />
+        <DeleteButton week={week} id={id} />
       </div>
     </div>
   );

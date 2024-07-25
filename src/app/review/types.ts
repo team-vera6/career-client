@@ -8,4 +8,5 @@ export interface TodoListItem {
   week: WeekType;
   isChecked: boolean;
   todo: string;
+  id: string;
 }

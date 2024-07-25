@@ -8,10 +8,10 @@ import DeleteIcon from '@/components/icons/DeleteIcon';
 
 interface Props {
   week: WeekType;
-  index: number;
+  id: string;
 }
 
-export const MoveNextButton = ({ week, index }: Props) => {
+export const MoveNextButton = ({ week, id }: Props) => {
   return (
     <button
       type="button"
@@ -21,16 +21,15 @@ export const MoveNextButton = ({ week, index }: Props) => {
     </button>
   );
 };
-
-export const DeleteButton = ({ week, index }: Props) => {
+export const DeleteButton = ({ week, id }: Props) => {
   const setCurrentTodoList = useSetAtom(currentTodoListAtom);
   const setNextTodoList = useSetAtom(nextTodoListAtom);
 
   const onClickDelete = () => {
     if (week === 'current') {
-      setCurrentTodoList((prev) => prev.filter((_, i) => i !== index));
+      setCurrentTodoList((prev) => prev.filter((el) => el.id !== id));
     } else {
-      setNextTodoList((prev) => prev.filter((_, i) => i !== index));
+      setNextTodoList((prev) => prev.filter((el) => el.id !== id));
     }
   };
 

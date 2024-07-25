@@ -20,7 +20,7 @@ export const TodoList = ({ week }: Props) => {
   return (
     <div className="flex flex-col">
       {todoList.map((el, index) => (
-        <ListItem key={index} index={index} {...el} />
+        <ListItem key={index} {...el} />
       ))}
     </div>
   );

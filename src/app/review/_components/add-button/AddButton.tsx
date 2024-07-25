@@ -8,7 +8,7 @@ import colors from '@/styles/colors';
 import { cn } from '@/utils/tailwind';
 
 import { currentTodoListAtom, nextTodoListAtom } from '../../stores';
-import { TodoListItem, WeekType } from '../../types';
+import { WeekType } from '../../types';
 
 interface Props {
   category: 'currentTodo' | 'nextTodo' | 'highLight' | 'lowLight';
@@ -24,18 +24,27 @@ export const AddButton = ({ category }: Props) => {
   const onClickAddButton = (category: Props['category']) => {
     const weekInfo = category.slice(0, -4);
 
-    const newItemValues: TodoListItem = {
-      week: weekInfo as WeekType,
-      isChecked: false,
-      todo: '',
-    };
-
     if (category === 'currentTodo') {
-      setCurrentTodoList((prev) => [...prev, newItemValues]);
+      setCurrentTodoList((prev) => [
+        ...prev,
+        {
+          id: `current-${prev.length + 1}`,
+          week: weekInfo as WeekType,
+          isChecked: false,
+          todo: '',
+        },
+      ]);
     } else if (category === 'nextTodo') {
-      setNextTodoList((prev) => [...prev, newItemValues]);
+      setNextTodoList((prev) => [
+        ...prev,
+        {
+          id: `current-${prev.length + 1}`,
+          week: weekInfo as WeekType,
+          isChecked: false,
+          todo: '',
+        },
+      ]);
     }
-    return;
   };
 
   return (
