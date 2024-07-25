@@ -1,7 +1,7 @@
 'use client';
 
 import { useAtomValue } from 'jotai';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Dropdown from '@/components/dropdown/Dropdown';
 import LinkIcon from '@/components/icons/LinkIcon';
@@ -18,6 +18,8 @@ interface Props extends ReviewListItem {
 export const CurrentReviewItem = ({ category, text, project }: Props) => {
   const projectList = useAtomValue(projectListAtom);
   const [reviewText, setReviewText] = useState(text);
+
+  useEffect(() => {}, []);
 
   return (
     <div className="flex flex-col gap-1">
