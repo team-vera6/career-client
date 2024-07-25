@@ -4,9 +4,10 @@ import { DropdownProps } from '@/components/dropdown/Dropdown';
 
 import {
   CURRENT_TODO,
+  HIGHLIGHT_REVIEW,
+  LOW_LIGHT_REVIEW,
   NEXT_TODO,
   PROJECT_DROPDOWN,
-  REVIEW_DEFAULT,
 } from './dummy';
 import { ReviewListItem, TodoListItem } from './types';
 
@@ -23,7 +24,7 @@ export const pageButtonStatesAtom = atom({
 // FIXME: api 연동 후 더미 제거
 export const currentTodoListAtom = atom<TodoListItem[]>(CURRENT_TODO);
 export const nextTodoListAtom = atom<TodoListItem[]>(NEXT_TODO);
-export const highLightListAtom = atom<ReviewListItem[]>([REVIEW_DEFAULT]);
-export const lowLightListAtom = atom<ReviewListItem[]>([REVIEW_DEFAULT]);
+export const highLightListAtom = atom<ReviewListItem[]>([HIGHLIGHT_REVIEW]);
+export const lowLightListAtom = atom<ReviewListItem[]>([LOW_LIGHT_REVIEW]);
 
 export const projectListAtom = atom<DropdownProps>(PROJECT_DROPDOWN);

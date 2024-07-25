@@ -1,7 +1,7 @@
 'use client';
 
 import { useAtomValue } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Dropdown from '@/components/dropdown/Dropdown';
 import LinkIcon from '@/components/icons/LinkIcon';
@@ -13,13 +13,18 @@ import { DeleteButton } from '../delete-button/DeleteButton';
 
 interface Props extends ReviewListItem {
   category: ReviewType;
+  index: number;
 }
 
-export const CurrentReviewItem = ({ category, text, project }: Props) => {
+export const CurrentReviewItem = ({
+  id,
+  category,
+  text,
+  project,
+  index,
+}: Props) => {
   const projectList = useAtomValue(projectListAtom);
   const [reviewText, setReviewText] = useState(text);
-
-  useEffect(() => {}, []);
 
   return (
     <div className="flex flex-col gap-1">
@@ -40,7 +45,7 @@ export const CurrentReviewItem = ({ category, text, project }: Props) => {
         </div>
       </div>
       {/* TODO: 에러 텍스트 추가 예정 */}
-      <DeleteButton category={category} />
+      {index !== 0 && <DeleteButton id={id} category={category} />}
     </div>
   );
 };

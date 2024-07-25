@@ -7,7 +7,6 @@ import PlusIcon from '@/components/icons/PlusIcon';
 import colors from '@/styles/colors';
 import { cn } from '@/utils/tailwind';
 
-import { REVIEW_DEFAULT } from '../../dummy';
 import {
   currentTodoListAtom,
   highLightListAtom,
@@ -59,10 +58,24 @@ export const AddButton = ({ category }: Props) => {
         ]);
         break;
       case 'highLight':
-        setHighLightList((prev) => [...prev, REVIEW_DEFAULT]);
+        setHighLightList((prev) => [
+          ...prev,
+          {
+            id: `highLight-${prev.length + 1}`,
+            text: '',
+            project: '',
+          },
+        ]);
         break;
       case 'lowLight':
-        setLowLightList((prev) => [...prev, REVIEW_DEFAULT]);
+        setLowLightList((prev) => [
+          ...prev,
+          {
+            id: `lowLight-${prev.length + 1}`,
+            text: '',
+            project: '',
+          },
+        ]);
         break;
       default:
         break;
@@ -75,8 +88,6 @@ export const AddButton = ({ category }: Props) => {
       setIsDisabled(true);
     category === 'lowLight' && lowLightList.length >= 3 && setIsDisabled(true);
   }, [category, highLightList, lowLightList]);
-
-  console.log(isDisabled);
 
   return (
     <button

@@ -34,7 +34,14 @@ export const NEXT_TODO: TodoListItem[] = [
   },
 ];
 
-export const REVIEW_DEFAULT = {
+export const HIGHLIGHT_REVIEW = {
+  id: 'highLight-1',
+  text: '',
+  project: '',
+};
+
+export const LOW_LIGHT_REVIEW = {
+  id: 'lowLight-1',
   text: '',
   project: '',
 };

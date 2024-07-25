@@ -13,6 +13,7 @@ export interface TodoListItem {
 }
 
 export interface ReviewListItem {
+  id: string;
   text: string;
   project: string;
 }
