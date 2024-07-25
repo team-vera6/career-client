@@ -12,10 +12,7 @@ export const Score = () => {
 
   const onClickPickScore = (count: number) => {
     setSelectedScore(count);
-
-    if (selectedScore > 0) {
-      setPageButtonStates((prev) => ({ ...prev, step1: true }));
-    }
+    setPageButtonStates((prev) => ({ ...prev, step1: true }));
   };
 
   return (
