@@ -1,6 +1,8 @@
 import DeleteIcon from '@/components/icons/DeleteIcon';
 
-export const DeleteButton = () => {
+import { ReviewType } from '../../types';
+
+export const DeleteButton = ({ category }: { category: ReviewType }) => {
   return (
     <div className="flex items-center h-8 gap-1 self-end">
       <DeleteIcon size={20} />

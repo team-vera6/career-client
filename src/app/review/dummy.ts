@@ -1,3 +1,5 @@
+import { DropdownProps } from '@/components/dropdown/Dropdown';
+
 import { TodoListItem } from './types';
 
 export const CURRENT_TODO: TodoListItem[] = [
@@ -31,3 +33,26 @@ export const NEXT_TODO: TodoListItem[] = [
     todo: '디자인시스템 input 관련 개발',
   },
 ];
+
+export const REVIEW_DEFAULT = {
+  text: '',
+  project: '',
+};
+
+export const PROJECT_DROPDOWN: DropdownProps = {
+  id: 'test-1',
+  items: [
+    {
+      name: '관련 프로젝트 선택',
+      value: '',
+    },
+    {
+      name: '피트스탑 웹 서비스',
+      value: '피트스탑 웹 서비스',
+    },
+    {
+      name: '팀베라 개발환경 구축 프로젝트',
+      value: '팀베라 개발환경 구축 프로젝트',
+    },
+  ],
+};
