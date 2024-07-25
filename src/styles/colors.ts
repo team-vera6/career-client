@@ -74,7 +74,7 @@ const semanticColors = {
     primaryHover: '#4D4F52',
     secondary: '#E1E1E1',
     secondaryHover: '#CECECE',
-    disabled: '#EFEFEF',
+    disabled: '#F7F7F7',
   },
   state: {
     positive: '#43B000',
