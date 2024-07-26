@@ -6,10 +6,11 @@ import {
   CURRENT_TODO,
   HIGHLIGHT_REVIEW,
   LOW_LIGHT_REVIEW,
+  MEMO_LIST,
   NEXT_TODO,
   PROJECT_DROPDOWN,
 } from './dummy';
-import { ReviewListItem, TodoListItem } from './types';
+import { MemoItem, ReviewListItem, TodoListItem } from './types';
 
 // progressDots activeCount
 export const reviewPageAtom = atom(1);
@@ -28,3 +29,4 @@ export const highLightListAtom = atom<ReviewListItem[]>([HIGHLIGHT_REVIEW]);
 export const lowLightListAtom = atom<ReviewListItem[]>([LOW_LIGHT_REVIEW]);
 
 export const projectListAtom = atom<DropdownProps>(PROJECT_DROPDOWN);
+export const memoListAtom = atom<MemoItem[]>(MEMO_LIST);

@@ -1,13 +1,19 @@
+'use client';
+
+import { useAtomValue } from 'jotai';
+
 import Memo from '@/components/memo/Memo';
 
+import { memoListAtom } from '../../stores';
+
 const WeeklyMemo = () => {
+  const memoList = useAtomValue(memoListAtom);
+
   return (
     <div className="flex flex-col gap-3">
-      <Memo isBookmark memo="로열티 기획" date="7.12" />
-      <Memo isBookmark memo="로열티 기획" date="7.12" />
-      <Memo memo="로열티 기획" date="7.12" />
-      <Memo isBookmark memo="로열티 기획" date="7.12" />
-      <Memo memo="로열티 기획" date="7.12" />
+      {memoList.map((el, index) => (
+        <Memo key={index} {...el} />
+      ))}
     </div>
   );
 };
