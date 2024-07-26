@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import ChevronLeft20Icon from '@/components/icons/ChevronLeft20Icon';
 import ChevronRight20Icon from '@/components/icons/ChevronRight20Icon';
 
@@ -24,7 +26,9 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <button className="button-primary button-large">회고하기</button>
+          <Link href="/review/step1">
+            <button className="button-primary button-large">회고하기</button>
+          </Link>
         </section>
 
         <div className="flex gap-9">
