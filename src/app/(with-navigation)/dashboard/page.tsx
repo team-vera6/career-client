@@ -1,38 +1,14 @@
 import ChevronLeft20Icon from '@/components/icons/ChevronLeft20Icon';
 import ChevronRight20Icon from '@/components/icons/ChevronRight20Icon';
-import FireIcon from '@/components/icons/FireIcon';
-import FlagIcon from '@/components/icons/FlagIcon';
-import YellowFolderIcon from '@/components/icons/YellowFolderIcon';
 
 import MemoList from './_components/MemoList';
+import Metrics from './_components/Metrics';
 import TodoList from './_components/TodoList';
 
 export default function DashboardPage() {
   return (
     <div>
-      <section className="flex gap-3 w-full mb-7">
-        <div className="w-[19.5rem] pl-10 h-20 rounded-xl bg-surface-foregroundOn flex items-center gap-4">
-          <FireIcon size={32} />
-          <p className="font-body-16 text-text-strong">
-            <span className="font-chakra font-semibold italic mr-1">01</span>주
-            연속 회고
-          </p>
-        </div>
-        <div className="w-[19.5rem] pl-10 h-20 rounded-xl bg-surface-foregroundOn flex items-center gap-4">
-          <FlagIcon size={32} />
-          <p className="font-body-16 text-text-strong">
-            <span className="font-chakra font-semibold italic mr-1">04</span>개
-            회고 기록
-          </p>
-        </div>
-        <div className="w-[19.5rem] pl-10 h-20 rounded-xl bg-surface-foregroundOn flex items-center gap-4">
-          <YellowFolderIcon size={32} />
-          <p className="font-body-16 text-text-strong">
-            <span className="font-chakra font-semibold italic mr-1">29</span>개
-            프로젝트
-          </p>
-        </div>
-      </section>
+      <Metrics weekStreak={1} reviewCount={4} projectCount={26} />
 
       <div className="w-full">
         <section className="flex items-center justify-between mb-6">
