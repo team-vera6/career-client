@@ -1,14 +1,13 @@
 'use client';
 
-import { useSetAtom } from 'jotai';
-import { useState } from 'react';
+import { useAtom, useSetAtom } from 'jotai';
 
-import { pageButtonStatesAtom } from '@/app/review/stores';
+import { pageButtonStatesAtom, scoreAtom } from '@/app/review/stores';
 import ScorePicker from '@/components/score-picker/ScorePicker';
 
 export const Score = () => {
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
-  const [selectedScore, setSelectedScore] = useState(0);
+  const [selectedScore, setSelectedScore] = useAtom(scoreAtom);
 
   const onClickPickScore = (count: number) => {
     setSelectedScore(count);
