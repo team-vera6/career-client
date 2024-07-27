@@ -1,6 +1,12 @@
 'use client';
 
-import { CSSProperties, HTMLAttributes, useEffect, useState } from 'react';
+import {
+  CSSProperties,
+  HTMLAttributes,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 
 import { cn } from '@/utils/tailwind';
 
@@ -23,8 +29,9 @@ const Dropdown = ({
   initialItem = '',
   items,
   className,
+  children,
   ...rest
-}: DropdownProps) => {
+}: PropsWithChildren<DropdownProps>) => {
   const [showOptions, setShowOptions] = useState(false);
   const [selectedValue, setSelectedValue] = useState(initialItem);
   const [selectedName, setSelectedName] = useState('');
@@ -73,6 +80,7 @@ const Dropdown = ({
               {item.name}
             </li>
           ))}
+          {children}
         </ul>
       )}
     </div>

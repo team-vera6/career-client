@@ -3,13 +3,13 @@
 import { useAtomValue } from 'jotai';
 import { useState } from 'react';
 
-import Dropdown from '@/components/dropdown/Dropdown';
 import LinkIcon from '@/components/icons/LinkIcon';
 import Textarea from '@/components/inputs/textarea/Textarea';
 
 import { projectListAtom } from '../../stores';
 import { ReviewListItem, ReviewType } from '../../types';
 import { DeleteButton } from '../delete-button/DeleteButton';
+import ProjectDropdown from '../project-dropdown/ProjectDropdown';
 
 interface Props extends ReviewListItem {
   category: ReviewType;
@@ -36,7 +36,7 @@ export const CurrentReviewItem = ({
         />
         <div className="flex">
           <LinkIcon size={36} />
-          <Dropdown
+          <ProjectDropdown
             id={projectList['id']}
             items={projectList['items']}
             className="mt-2"
