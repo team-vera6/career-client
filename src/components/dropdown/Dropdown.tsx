@@ -22,6 +22,7 @@ export interface DropdownProps {
   initialItem?: string | number;
   items: Array<DropdownItem>;
   className?: HTMLAttributes<HTMLDivElement>['className'];
+  onSelect?: (item: DropdownItem) => void;
 }
 
 const Dropdown = ({
@@ -29,6 +30,7 @@ const Dropdown = ({
   initialItem = '',
   items,
   className,
+  onSelect,
   children,
   ...rest
 }: PropsWithChildren<DropdownProps>) => {
@@ -39,6 +41,8 @@ const Dropdown = ({
   const onClickItem = (item: DropdownItem) => {
     setSelectedValue(item.value);
     setShowOptions(false);
+
+    onSelect && onSelect(item);
   };
 
   useEffect(() => {
