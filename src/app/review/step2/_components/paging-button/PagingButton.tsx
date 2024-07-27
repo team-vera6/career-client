@@ -23,7 +23,8 @@ export const PagingButton = () => {
           type="button"
           className="button-primary button-large"
           onClick={() => onClickPagingButton({ path: 'step3', activePage: 3 })}
-          disabled={!pageButtonStates.step1 && !pageButtonStates.step2}
+          // disabled={!pageButtonStates.step1 && !pageButtonStates.step2} FIXME: 데모데이 끝나고 주석 풀기
+          disabled={!pageButtonStates.step2}
         >
           다음
         </button>

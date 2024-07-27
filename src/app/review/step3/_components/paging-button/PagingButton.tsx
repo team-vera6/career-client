@@ -36,11 +36,12 @@ export const PagingButton = () => {
         <button
           type="button"
           className="button-primary button-large"
-          disabled={
-            !pageButtonStates.step1 &&
-            !pageButtonStates.step2 &&
-            !pageButtonStates.step3
-          }
+          // disabled={
+          //   !pageButtonStates.step1 &&
+          //   !pageButtonStates.step2 &&
+          //   !pageButtonStates.step3
+          // } FIXME: 데모데이 끝나고 주석 풀기
+          disabled={!pageButtonStates.step3}
           onClick={onSubmit}
         >
           등록
