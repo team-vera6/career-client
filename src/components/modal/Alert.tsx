@@ -21,7 +21,7 @@ interface Props extends ModalProps {
 const Alert = ({ title, content, buttons, ...rest }: Props) => {
   return (
     <ModalContainer {...rest}>
-      <div className="w-full h-full flex items-center justify-center z-30 relative animate-fade-up">
+      <div className="w-full h-full flex items-center justify-center z-30 relative">
         <div
           className="py-5 px-6 border border-line-normal relative rounded-[20px] bg-neutral-white min-w-[21.375rem] max-w-[36.625rem] min-h-[9.75rem] flex flex-col justify-between"
           style={{

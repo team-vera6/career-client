@@ -2,12 +2,14 @@ import { HTMLAttributes, TextareaHTMLAttributes } from 'react';
 
 import { cn } from '@/utils/tailwind';
 
-interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface Props
+  extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
   errorText?: string;
   className?: HTMLAttributes<HTMLTextAreaElement>['className'];
+  onChange?: (value: string) => void;
 }
 
-const Textarea = ({ errorText, className, ...rest }: Props) => {
+const Textarea = ({ errorText, className, onChange, ...rest }: Props) => {
   return (
     <>
       <textarea
@@ -20,6 +22,7 @@ const Textarea = ({ errorText, className, ...rest }: Props) => {
           className,
           errorText && 'border-state-negative outline-state-negative',
         )}
+        onChange={(e) => onChange?.(e.currentTarget.value)}
         {...rest}
       />
 

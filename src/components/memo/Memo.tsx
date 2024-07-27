@@ -1,13 +1,8 @@
+import { MemoItem } from '@/app/review/types';
+
 import MemoBottom from './MemoBottom';
 
-interface Props {
-  isBookmark?: boolean;
-  title?: string;
-  memo: string; // TODO: 마크다운 적용 후 수정 필요
-  date: string; // FIXME: date 형식 조정 필요
-}
-
-const Memo = ({ isBookmark = false, title, memo, date }: Props) => {
+const Memo = ({ isBookmark = false, title, memo, date, id }: MemoItem) => {
   return (
     <div
       className="w-[15.75rem] h-[8.75rem] rounded-lg pt-5 pr-4 pb-2.5 pl-5
@@ -24,11 +19,11 @@ const Memo = ({ isBookmark = false, title, memo, date }: Props) => {
           WebkitBoxOrient: 'vertical',
         }}
       >
-        {title && <p className="font-title-14 text-text-strong">{title}</p>}
-        <p className="font-body-14 text-text-strong">{memo}</p>
+        {!!title && <p className="font-title-14 text-text-strong">{title}</p>}
+        {!!memo && <p className="font-body-14 text-text-strong">{memo}</p>}
       </div>
 
-      <MemoBottom isBookmark={isBookmark} date={date} />
+      <MemoBottom id={id} isBookmark={isBookmark} date={date} />
     </div>
   );
 };

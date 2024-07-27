@@ -1,37 +1,50 @@
 'use client';
 
-import { CSSProperties, HTMLAttributes, useState } from 'react';
+import {
+  CSSProperties,
+  HTMLAttributes,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 
 import { cn } from '@/utils/tailwind';
 
 import ChevronDown20Icon from '../icons/ChevronDown20Icon';
 
-interface DropdownItem extends CSSProperties {
+export interface DropdownItem extends CSSProperties {
   name: string;
   value: string | number;
 }
 
-interface Props {
+export interface DropdownProps {
   id: string;
-  initialItem?: DropdownItem;
+  initialItem?: string | number;
   items: Array<DropdownItem>;
   className?: HTMLAttributes<HTMLDivElement>['className'];
 }
 
 const Dropdown = ({
   id,
-  initialItem = { name: '선택하세요', value: '' },
+  initialItem = '',
   items,
   className,
+  children,
   ...rest
-}: Props) => {
+}: PropsWithChildren<DropdownProps>) => {
   const [showOptions, setShowOptions] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(initialItem);
+  const [selectedValue, setSelectedValue] = useState(initialItem);
+  const [selectedName, setSelectedName] = useState('');
 
   const onClickItem = (item: DropdownItem) => {
-    setSelectedItem(item);
+    setSelectedValue(item.value);
     setShowOptions(false);
   };
+
+  useEffect(() => {
+    const defaultItem = items.filter((el) => el.value === selectedValue)[0];
+    setSelectedName(defaultItem?.name ?? '');
+  }, [items, selectedValue]);
 
   return (
     <div className={cn('relative w-full h-[2.75rem]', className)} {...rest}>
@@ -45,7 +58,7 @@ const Dropdown = ({
         disabled:bg-surface-base disabled:cursor-not-allowed disabled:hover:border-line-normal"
         onClick={() => setShowOptions((prev) => !prev)}
       >
-        <span>{selectedItem.name}</span>
+        <span>{selectedName}</span>
         <ChevronDown20Icon />
       </button>
 
@@ -67,6 +80,7 @@ const Dropdown = ({
               {item.name}
             </li>
           ))}
+          {children}
         </ul>
       )}
     </div>

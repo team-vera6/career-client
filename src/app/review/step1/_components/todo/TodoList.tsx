@@ -1,14 +1,23 @@
+'use client';
+
+import { useAtomValue } from 'jotai';
+
+import { currentTodoListAtom, nextTodoListAtom } from '@/app/review/stores';
+import { TodoListItem } from '@/app/review/types';
+
 import { ListItem } from './ListItem';
 
-export const TodoList = ({ week }: { week: 'current' | 'next' }) => {
-  // week이 무엇인지에 따라 별도 로직 추가할 예정입니다.
+export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
+  const currentTodoList = useAtomValue(currentTodoListAtom);
+  const nextTodoList = useAtomValue(nextTodoListAtom);
+
+  const todoList = week === 'current' ? currentTodoList : nextTodoList;
+
   return (
     <div className="flex flex-col">
-      {/* 받아온 데이터에 맞춰 map으로 구현 */}
-      <ListItem week={week} />
-      <ListItem week={week} />
-      <ListItem week={week} />
-      <ListItem week={week} />
+      {todoList.map((el, index) => (
+        <ListItem key={index} {...el} />
+      ))}
     </div>
   );
 };

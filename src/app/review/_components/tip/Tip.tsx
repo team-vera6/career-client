@@ -4,7 +4,7 @@ interface Props {
 
 export const Tip = ({ category }: Props) => {
   return (
-    <div className="ml-5">
+    <div className="ml-5 mb-8">
       <p className="font-body-14 text-text-strong">
         {category === 'highLight' ? '하이라이트' : '로우라이트'} 작성 Tip
       </p>
