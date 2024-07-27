@@ -53,7 +53,7 @@ const CheckboxInput = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 w-full">
         <button type="button" onClick={onClickCheckbox}>
           {checked ? <RectangleCheckIcon size={20} /> : <UnCheckedIcon />}
         </button>
