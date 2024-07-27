@@ -1,9 +1,27 @@
 'use client';
 
+import { useAtomValue } from 'jotai';
+import { useRouter } from 'next/navigation';
+
+import { pageButtonStatesAtom } from '@/app/review/stores';
 import { usePagingButton } from '@/app/review/utils';
+import useToast from '@/hooks/useToast';
 
 export const PagingButton = () => {
+  const router = useRouter();
+
+  const pageButtonStates = useAtomValue(pageButtonStatesAtom);
+
   const { onClickPagingButton } = usePagingButton();
+  const { addToast } = useToast();
+
+  const onSubmit = () => {
+    addToast({
+      message: '이번주 회고가 성공적으로 등록됐어요.',
+      iconType: 'success',
+    });
+    router.push('/dashboard');
+  };
 
   return (
     <div className="flex justify-end">
@@ -15,7 +33,16 @@ export const PagingButton = () => {
         >
           이전
         </button>
-        <button type="button" className="button-primary button-large">
+        <button
+          type="button"
+          className="button-primary button-large"
+          disabled={
+            !pageButtonStates.step1 &&
+            !pageButtonStates.step2 &&
+            !pageButtonStates.step3
+          }
+          onClick={onSubmit}
+        >
           등록
         </button>
       </div>

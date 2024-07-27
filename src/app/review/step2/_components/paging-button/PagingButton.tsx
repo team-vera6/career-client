@@ -1,9 +1,13 @@
 'use client';
 
+import { useAtomValue } from 'jotai';
+
+import { pageButtonStatesAtom } from '@/app/review/stores';
 import { usePagingButton } from '@/app/review/utils';
 
 export const PagingButton = () => {
   const { onClickPagingButton } = usePagingButton();
+  const pageButtonStates = useAtomValue(pageButtonStatesAtom);
 
   return (
     <div className="flex justify-end">
@@ -19,6 +23,7 @@ export const PagingButton = () => {
           type="button"
           className="button-primary button-large"
           onClick={() => onClickPagingButton({ path: 'step3', activePage: 3 })}
+          disabled={!pageButtonStates.step1 && !pageButtonStates.step2}
         >
           다음
         </button>

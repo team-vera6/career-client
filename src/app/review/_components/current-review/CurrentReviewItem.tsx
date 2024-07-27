@@ -1,6 +1,7 @@
 'use client';
 
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useEffect } from 'react';
 
 import { DropdownItem } from '@/components/dropdown/Dropdown';
 import LinkIcon from '@/components/icons/LinkIcon';
@@ -9,6 +10,7 @@ import Textarea from '@/components/inputs/textarea/Textarea';
 import {
   highLightListAtom,
   lowLightListAtom,
+  pageButtonStatesAtom,
   projectListAtom,
 } from '../../stores';
 import { ReviewListItem, ReviewType } from '../../types';
@@ -28,11 +30,13 @@ export const CurrentReviewItem = ({
   index,
 }: Props) => {
   const projectList = useAtomValue(projectListAtom);
-  const setHighLight = useSetAtom(highLightListAtom);
-  const setLowLight = useSetAtom(lowLightListAtom);
+  const [highLightList, setHighLightList] = useAtom(highLightListAtom);
+  const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
+  const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
 
   const writeReview = (value: string) => {
-    const setter = category === 'highLight' ? setHighLight : setLowLight;
+    const setter =
+      category === 'highLight' ? setHighLightList : setLowLightList;
     setter((prev) =>
       prev.map((review) =>
         review.id === id ? { ...review, text: value } : review,
@@ -41,7 +45,8 @@ export const CurrentReviewItem = ({
   };
 
   const selectProject = (item: DropdownItem) => {
-    const setter = category === 'highLight' ? setHighLight : setLowLight;
+    const setter =
+      category === 'highLight' ? setHighLightList : setLowLightList;
     setter((prev) =>
       prev.map((review) =>
         review.id === id
@@ -50,6 +55,25 @@ export const CurrentReviewItem = ({
       ),
     );
   };
+
+  useEffect(() => {
+    if (category === 'highLight') {
+      if (
+        highLightList[0]?.text.length > 0 &&
+        highLightList[0]?.project !== ''
+      ) {
+        setPageButtonStates((prev) => ({ ...prev, step2: true }));
+      } else {
+        setPageButtonStates((prev) => ({ ...prev, step2: false }));
+      }
+    } else {
+      if (lowLightList[0]?.text.length > 0 && lowLightList[0]?.project !== '') {
+        setPageButtonStates((prev) => ({ ...prev, step3: true }));
+      } else {
+        setPageButtonStates((prev) => ({ ...prev, step3: false }));
+      }
+    }
+  }, [category, highLightList, lowLightList, setPageButtonStates]);
 
   return (
     <div className="flex flex-col gap-1">
