@@ -1,16 +1,16 @@
 'use client';
 
+import { useAtom } from 'jotai';
 import Image from 'next/image';
-import { useState } from 'react';
 
+import { currentTodoListAtom } from '@/app/review/stores';
 import EmptyTodoImage from '@/assets/images/todo-empty.png';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import PlusIcon from '@/components/icons/PlusIcon';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
 
 const TodoList = () => {
-  const [todos, setTodos] =
-    useState<{ text: string; checked: boolean }[]>(dummy);
+  const [todos, setTodos] = useAtom(currentTodoListAtom);
 
   return (
     <section className="w-full">
@@ -19,7 +19,15 @@ const TodoList = () => {
         <button
           className="button-line button-small"
           onClick={() =>
-            setTodos((prev) => [...prev, { text: '', checked: false }])
+            setTodos((prev) => [
+              ...prev,
+              {
+                todo: '',
+                isChecked: false,
+                week: 'current',
+                id: `current-${prev.length + 1}`,
+              },
+            ])
           }
         >
           <PlusIcon size={20} />
@@ -32,13 +40,23 @@ const TodoList = () => {
           {todos.map((todo, index) => (
             <CheckboxInput
               key={index}
-              value={todo.text}
-              checked={todo.checked}
+              value={todo.todo}
+              checked={todo.isChecked}
               onChange={(value) =>
-                setTodos((prev) => ({ ...prev, text: value }))
+                setTodos((prev) =>
+                  prev.map((item) =>
+                    item.id === todo.id ? { ...item, todo: value } : item,
+                  ),
+                )
               }
               onClickCheckbox={() =>
-                setTodos((prev) => ({ ...prev, checked: !todo.checked }))
+                setTodos((prev) =>
+                  prev.map((item) =>
+                    item.id === todo.id
+                      ? { ...item, isChecked: !item.isChecked }
+                      : item,
+                  ),
+                )
               }
               buttons={
                 <button
@@ -63,18 +81,3 @@ const TodoList = () => {
 };
 
 export default TodoList;
-
-const dummy: { text: string; checked: boolean }[] = [
-  {
-    text: '판매자 정산 플로우 누락케이스 기획 보완',
-    checked: false,
-  },
-  {
-    text: '백로그 정리하고 우선순위 재조정',
-    checked: true,
-  },
-  {
-    text: '월간 사용자 VOC 검토하고 개선점 도출',
-    checked: false,
-  },
-];
