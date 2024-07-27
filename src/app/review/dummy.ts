@@ -1,6 +1,6 @@
 import { DropdownProps } from '@/components/dropdown/Dropdown';
 
-import { MemoItem, TodoListItem } from './types';
+import { LastReviewListItem, MemoItem, TodoListItem } from './types';
 
 export const CURRENT_TODO: TodoListItem[] = [
   {
@@ -47,12 +47,16 @@ export const PROJECT_DROPDOWN: DropdownProps = {
       value: '',
     },
     {
-      name: '피트스탑 웹 서비스',
-      value: '피트스탑 웹 서비스',
+      name: '모멘투스 신규 서비스 기획',
+      value: '모멘투스 신규 서비스 기획',
     },
     {
-      name: '팀베라 개발환경 구축 프로젝트',
-      value: '팀베라 개발환경 구축 프로젝트',
+      name: '모멘텀 지표 리포팅',
+      value: '모멘텀 지표 리포팅',
+    },
+    {
+      name: '일하는 방식 최적화',
+      value: '일하는 방식 최적화',
     },
   ],
 };
@@ -78,5 +82,23 @@ export const MEMO_LIST: MemoItem[] = [
     title: '8/6 동기들이랑 점심 식사',
     memo: '참여자: 봉주, 지선, 해람, 호, 유림',
     date: '7.25',
+  },
+];
+
+export const LAST_HIGHLIGHT: LastReviewListItem[] = [
+  {
+    id: 'last-highlight-1',
+    text: '신규 서비스 기획 초기 방향성을 일찍 공유해서, 시간을 단축할 수 있었다.',
+    project: '모멘투스 신규 서비스 기획',
+    progressCount: 44,
+  },
+];
+
+export const LAST_LOWLIGHT: LastReviewListItem[] = [
+  {
+    id: 'last-lowlight-1',
+    text: '리더님한테 보고할 때 피그마보단 위키에 내용 정리해서 공유드리자..!',
+    project: '일하는 방식 최적화',
+    progressCount: 50,
   },
 ];

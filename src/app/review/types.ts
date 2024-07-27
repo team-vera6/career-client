@@ -18,6 +18,10 @@ export interface ReviewListItem {
   project: string;
 }
 
+export interface LastReviewListItem extends ReviewListItem {
+  progressCount: number;
+}
+
 export interface MemoItem {
   id: string;
   isBookmark?: boolean;

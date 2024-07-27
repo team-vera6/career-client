@@ -1,10 +1,22 @@
+'use client';
+
+import { useAtomValue } from 'jotai';
+
+import { lastHighLightListAtom, lastLowLightListAtom } from '../../stores';
+import { ReviewType } from '../../types';
 import { LastReviewItem } from './LastReviewItem';
 
-// TODO: map 받도록 수정 예정
-export const LastReviewContainer = () => {
+export const LastReviewContainer = ({ category }: { category: ReviewType }) => {
+  const lastHighLightList = useAtomValue(lastHighLightListAtom);
+  const lastLowLightList = useAtomValue(lastLowLightListAtom);
+
+  const list = category === 'highLight' ? lastHighLightList : lastLowLightList;
+
   return (
     <div className="flex flex-col gap-3">
-      <LastReviewItem />
+      {list.map((el, index) => (
+        <LastReviewItem key={index} {...el} />
+      ))}
     </div>
   );
 };
