@@ -1,8 +1,10 @@
 'use client';
 
+import { useAtom } from 'jotai';
 import Image from 'next/image';
 import { useState } from 'react';
 
+import { memoListAtom } from '@/app/review/stores';
 import EmptyMemoImage from '@/assets/images/memo-empty.png';
 import PlusIcon from '@/components/icons/PlusIcon';
 import Memo from '@/components/memo/Memo';
@@ -10,9 +12,7 @@ import TextEditorModal from '@/components/modal/text-editor';
 
 const MemoList = () => {
   const [openTextEditor, setOpenTextEditor] = useState(false);
-  const [memos, setMemos] = useState<
-    { title: string; memo: string; date: string }[]
-  >([]);
+  const [memos, setMemos] = useAtom(memoListAtom);
 
   return (
     <section className="shrink-0 min-w-[252px]">
@@ -31,6 +31,7 @@ const MemoList = () => {
         <div className="flex flex-col gap-3 mt-4">
           {memos.map((memo, index) => (
             <Memo
+              id={String(index)}
               key={index}
               title={memo.title}
               memo={memo.memo}
@@ -51,9 +52,18 @@ const MemoList = () => {
           setOpenTextEditor(false);
         }}
         onSaveText={(text) => {
+          // setMemos((prev) => [
+          //   ...prev,
+          //   { title: '', memo: text, date: new Date().toLocaleDateString() },
+          // ]);
           setMemos((prev) => [
             ...prev,
-            { title: '', memo: text, date: new Date().toLocaleDateString() },
+            {
+              id: new Date().toString(),
+              title: '',
+              memo: text,
+              date: '7.22',
+            },
           ]);
         }}
       />
