@@ -15,7 +15,7 @@ const ModalContainer = ({
   }
 
   return (
-    <section className="w-screen h-screen fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center">
+    <section className="w-screen h-screen fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center z-50">
       {/* background */}
       <div
         className="fixed top-0 left-0 bottom-0 right-0 w-full h-full z-20 bg-surface-dimmer opacity-24"
