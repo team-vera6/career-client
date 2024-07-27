@@ -9,7 +9,8 @@ import PlusIcon from '@/components/icons/PlusIcon';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
 
 const TodoList = () => {
-  const [todos, setTodos] = useState<{ text: string; checked: boolean }[]>([]);
+  const [todos, setTodos] =
+    useState<{ text: string; checked: boolean }[]>(dummy);
 
   return (
     <section className="w-full">
@@ -62,3 +63,18 @@ const TodoList = () => {
 };
 
 export default TodoList;
+
+const dummy: { text: string; checked: boolean }[] = [
+  {
+    text: '판매자 정산 플로우 누락케이스 기획 보완',
+    checked: false,
+  },
+  {
+    text: '백로그 정리하고 우선순위 재조정',
+    checked: true,
+  },
+  {
+    text: '월간 사용자 VOC 검토하고 개선점 도출',
+    checked: false,
+  },
+];
