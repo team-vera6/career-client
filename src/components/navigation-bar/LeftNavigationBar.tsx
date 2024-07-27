@@ -1,11 +1,12 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { cn } from '@/utils/tailwind';
 
+import { useState } from 'react';
 import IndicatorIcon from '../icons/IndicatorIcon';
+import DemoAlert from '../modal/demo-alert/DemoAlert';
 
 const menus = [
   {
@@ -17,40 +18,55 @@ const menus = [
     path: '/project',
   },
   {
-    label: '리포트',
+    label: '히스토리',
     path: '/report',
   },
 ];
 
 const LeftNavigationBar = () => {
+  const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
+
+  const getModalPage = (path: string) => {
+    if (path === '/dashboard') {
+      router.push(path);
+    } else {
+      setShowModal(true);
+    }
+  };
+
   const currentPathname = usePathname();
 
   return (
-    <nav className="absolute left-12 h-full w-[132px] bg-surface-background">
-      <ul className="flex flex-col gap-3">
-        {menus.map((menu) => (
-          <Link
-            key={menu.path}
-            href={menu.path}
-            className="flex items-center gap-2"
-          >
-            {menu.path === currentPathname && (
-              <IndicatorIcon width={12} height={9} />
-            )}
-            <li
-              className={cn(
-                'font-title-20',
-                menu.path === currentPathname
-                  ? 'text-text-strong'
-                  : 'text-text-neutral',
-              )}
+    <>
+      <nav className="absolute left-12 h-full w-[132px] bg-surface-background">
+        <ul className="flex flex-col gap-3">
+          {menus.map((menu) => (
+            <div
+              key={menu.path}
+              // href={menu.path}
+              className="flex items-center gap-2"
             >
-              {menu.label}
-            </li>
-          </Link>
-        ))}
-      </ul>
-    </nav>
+              {menu.path === currentPathname && (
+                <IndicatorIcon width={12} height={9} />
+              )}
+              <li
+                className={cn(
+                  'font-title-20 cursor-pointer',
+                  menu.path === currentPathname
+                    ? 'text-text-strong'
+                    : 'text-text-neutral',
+                )}
+                onClick={() => getModalPage(menu.path)}
+              >
+                {menu.label}
+              </li>
+            </div>
+          ))}
+        </ul>
+      </nav>
+      <DemoAlert isOpen={showModal} setIsOpen={setShowModal} />
+    </>
   );
 };
 
