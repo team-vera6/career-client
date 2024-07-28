@@ -21,12 +21,12 @@ const TextEditorModal = ({ onSaveText, ...rest }: ModalProps & Props) => {
 
   return (
     <Modal closeIcon {...rest}>
-      <div className="h-[25rem] py-3.5 w-[28.5rem]">
+      <div className="h-[25rem] py-3.5 w-[28.5rem] ">
         <div className="px-6 mb-2">
           <MenuBar editor={editor} />
         </div>
         <div className="w-full bg-line-assistive h-[1px]" />
-        <div className="px-6 mt-4">
+        <div className="px-6 py-4 h-[calc(100%-2.2rem)] overflow-y-scroll">
           <EditorContent
             editor={editor}
             onKeyDown={(e) => {
