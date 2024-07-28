@@ -23,14 +23,7 @@ const Memo = ({ isBookmark = false, title, memo, date, id }: MemoItem) => {
         }}
         onClick={() => setShowMemo(true)}
       >
-        <div
-          className="w-full h-full pr-1 break-keep overflow-hidden whitespace-pre-wrap"
-          style={{
-            display: '-webkit-box',
-            WebkitLineClamp: 4,
-            WebkitBoxOrient: 'vertical',
-          }}
-        >
+        <div className="w-full h-full pr-1 break-keep overflow-hidden whitespace-pre-wrap line-clamp-4">
           {!!title && <p className="font-title-14 text-text-strong">{title}</p>}
           {!!memo && <p className="font-body-14 text-text-strong">{memo}</p>}
         </div>
