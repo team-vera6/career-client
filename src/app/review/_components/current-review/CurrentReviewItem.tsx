@@ -58,16 +58,13 @@ export const CurrentReviewItem = ({
 
   useEffect(() => {
     if (category === 'highLight') {
-      if (
-        highLightList[0]?.text.length > 0 &&
-        highLightList[0]?.project !== ''
-      ) {
+      if (highLightList[0]?.text.length > 0) {
         setPageButtonStates((prev) => ({ ...prev, step2: true }));
       } else {
         setPageButtonStates((prev) => ({ ...prev, step2: false }));
       }
     } else {
-      if (lowLightList[0]?.text.length > 0 && lowLightList[0]?.project !== '') {
+      if (lowLightList[0]?.text.length > 0) {
         setPageButtonStates((prev) => ({ ...prev, step3: true }));
       } else {
         setPageButtonStates((prev) => ({ ...prev, step3: false }));

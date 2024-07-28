@@ -33,12 +33,19 @@ const MemoBottom = ({
   return (
     <div className="w-full flex items-center justify-between">
       <p className="font-body-12 text-text-neutral">{date}</p>
-      <BookmarkIcon
-        onClick={onClickBookmark}
-        fill={isMark ? colors.line.focus : 'none'}
-        stroke={isMark ? colors.line.focus : colors.text.neutral}
-        className="cursor-pointer"
-      />
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClickBookmark();
+        }}
+      >
+        <BookmarkIcon
+          fill={isMark ? colors.line.focus : 'none'}
+          stroke={isMark ? colors.line.focus : colors.text.neutral}
+          className="cursor-pointer"
+        />
+      </button>
     </div>
   );
 };
