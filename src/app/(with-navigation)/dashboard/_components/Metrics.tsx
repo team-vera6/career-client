@@ -16,7 +16,7 @@ const Metrics = ({ weekStreak, reviewCount, projectCount }: Props) => {
         <FireIcon size={32} />
         <p className="font-body-16 text-text-strong">
           <span className="font-chakra font-semibold italic mr-1">
-            {prefixZeros(weekStreak, 2)}
+            {prefixZeros(weekStreak)}
           </span>
           주 연속 회고
         </p>
@@ -25,7 +25,7 @@ const Metrics = ({ weekStreak, reviewCount, projectCount }: Props) => {
         <FlagIcon size={32} />
         <p className="font-body-16 text-text-strong">
           <span className="font-chakra font-semibold italic mr-1">
-            {prefixZeros(reviewCount, 2)}
+            {prefixZeros(reviewCount)}
           </span>
           개 회고 기록
         </p>
@@ -34,7 +34,7 @@ const Metrics = ({ weekStreak, reviewCount, projectCount }: Props) => {
         <YellowFolderIcon size={32} />
         <p className="font-body-16 text-text-strong">
           <span className="font-chakra font-semibold italic mr-1">
-            {prefixZeros(projectCount, 2)}
+            {prefixZeros(projectCount)}
           </span>
           개 프로젝트
         </p>
