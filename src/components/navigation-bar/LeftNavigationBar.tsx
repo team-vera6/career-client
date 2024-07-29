@@ -34,13 +34,13 @@ const LeftNavigationBar = () => {
             href={menu.path}
             className="flex items-center gap-2"
           >
-            {menu.path === currentPathname && (
+            {currentPathname.includes(menu.path) && (
               <IndicatorIcon width={12} height={9} />
             )}
             <li
               className={cn(
                 'font-title-20',
-                menu.path === currentPathname
+                currentPathname.includes(menu.path)
                   ? 'text-text-strong'
                   : 'text-text-neutral',
               )}
