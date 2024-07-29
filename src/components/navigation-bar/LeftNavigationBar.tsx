@@ -1,12 +1,11 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { cn } from '@/utils/tailwind';
 
 import IndicatorIcon from '../icons/IndicatorIcon';
-import DemoAlert from '../modal/demo-alert/DemoAlert';
 
 const menus = [
   {
@@ -24,17 +23,6 @@ const menus = [
 ];
 
 const LeftNavigationBar = () => {
-  const [showModal, setShowModal] = useState(false);
-  const router = useRouter();
-
-  const getModalPage = (path: string) => {
-    if (path === '/dashboard') {
-      router.push(path);
-    } else {
-      setShowModal(true);
-    }
-  };
-
   const currentPathname = usePathname();
 
   return (
@@ -42,9 +30,9 @@ const LeftNavigationBar = () => {
       <nav className="absolute left-12 h-full w-[132px] bg-surface-background">
         <ul className="flex flex-col gap-3">
           {menus.map((menu) => (
-            <div
+            <Link
               key={menu.path}
-              // href={menu.path}
+              href={menu.path}
               className="flex items-center gap-2"
             >
               {menu.path === currentPathname && (
@@ -57,15 +45,13 @@ const LeftNavigationBar = () => {
                     ? 'text-text-strong'
                     : 'text-text-neutral',
                 )}
-                onClick={() => getModalPage(menu.path)}
               >
                 {menu.label}
               </li>
-            </div>
+            </Link>
           ))}
         </ul>
       </nav>
-      <DemoAlert isOpen={showModal} setIsOpen={setShowModal} />
     </>
   );
 };
