@@ -8,7 +8,7 @@ interface Props {
 
 const ReviewItem = ({ week, content, activeCount }: Props) => {
   return (
-    <div className="w-full h-14 flex items-center pl-6 pr-5 bg-surface-foregroundOn rounded-2xl">
+    <div className="w-full h-14 flex items-center pl-6 pr-5 bg-surface-foregroundOn rounded-2xl cursor-pointer">
       <p className="w-12 mr-3 font-body-16 text-text-normal text-left">
         {week}주차
       </p>
