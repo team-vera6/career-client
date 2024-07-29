@@ -1,4 +1,5 @@
 import AddButton from './_components/add-button/AddButton';
+import NoItem from './_components/project-item/NoItem';
 import ProjectItem from './_components/project-item/ProjectItem';
 
 export default function ProjectPage() {
@@ -7,9 +8,15 @@ export default function ProjectPage() {
       <AddButton />
 
       <div className="w-full flex flex-col gap-3">
-        {list.map((item) => (
-          <ProjectItem key={item.project} {...item} />
-        ))}
+        {list.length > 0 ? (
+          <>
+            {list.map((item) => (
+              <ProjectItem key={item.project} {...item} />
+            ))}
+          </>
+        ) : (
+          <NoItem />
+        )}
       </div>
     </div>
   );
