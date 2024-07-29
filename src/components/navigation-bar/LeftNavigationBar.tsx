@@ -1,6 +1,7 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { cn } from '@/utils/tailwind';
 
@@ -22,39 +23,34 @@ const menus = [
 ];
 
 const LeftNavigationBar = () => {
-  const router = useRouter();
-
   const currentPathname = usePathname();
 
   return (
-    <>
-      <nav className="absolute left-12 h-full w-[132px] bg-surface-background">
-        <ul className="flex flex-col gap-3">
-          {menus.map((menu) => (
-            <div
-              key={menu.path}
-              // href={menu.path}
-              className="flex items-center gap-2"
-            >
-              {menu.path === currentPathname && (
-                <IndicatorIcon width={12} height={9} />
+    <nav className="absolute left-12 h-full w-[132px] bg-surface-background">
+      <ul className="flex flex-col gap-3">
+        {menus.map((menu) => (
+          <Link
+            key={menu.path}
+            href={menu.path}
+            className="flex items-center gap-2"
+          >
+            {menu.path === currentPathname && (
+              <IndicatorIcon width={12} height={9} />
+            )}
+            <li
+              className={cn(
+                'font-title-20',
+                menu.path === currentPathname
+                  ? 'text-text-strong'
+                  : 'text-text-neutral',
               )}
-              <li
-                className={cn(
-                  'font-title-20 cursor-pointer',
-                  menu.path === currentPathname
-                    ? 'text-text-strong'
-                    : 'text-text-neutral',
-                )}
-                onClick={() => router.push(menu.path)}
-              >
-                {menu.label}
-              </li>
-            </div>
-          ))}
-        </ul>
-      </nav>
-    </>
+            >
+              {menu.label}
+            </li>
+          </Link>
+        ))}
+      </ul>
+    </nav>
   );
 };
 
