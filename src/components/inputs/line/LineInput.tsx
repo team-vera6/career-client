@@ -11,7 +11,7 @@ const LineInput = ({ errorText, ...rest }: Props) => {
     <>
       <input
         type="text"
-        className="outline-none bg-surface-foreground pt-3 pb-[.6875rem] border-b border-b-line-normal font-title-20 text-neutral-90 hover:border-b-line-normalHover placeholder:text-text-normal focus:border-b-line-focus disabled:border-b-line-normal disabled:text-text-assistive disabled:placeholder:text-text-assistive"
+        className="w-full outline-none bg-surface-foreground pt-3 pb-[.6875rem] border-b border-b-line-normal font-title-20 text-neutral-90 hover:border-b-line-normalHover placeholder:text-text-normal focus:border-b-line-focus disabled:border-b-line-normal disabled:text-text-assistive disabled:placeholder:text-text-assistive"
         style={
           errorText
             ? {
