@@ -1,4 +1,4 @@
-import Score from '../../../_components/review/Score';
+import { Score } from '../../../_components/review/Score';
 
 interface Props {
   week: number;

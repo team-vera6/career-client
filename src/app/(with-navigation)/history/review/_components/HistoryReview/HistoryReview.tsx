@@ -78,7 +78,7 @@ const HistoryReview = () => {
             <div className="flex flex-col gap-2">
               {items.map((item) => (
                 <ReviewItem
-                  key={item.content}
+                  key={item.id}
                   onClickReview={onClickReview}
                   {...item}
                 />
