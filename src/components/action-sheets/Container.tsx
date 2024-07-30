@@ -10,60 +10,71 @@ interface ActionSheetButton extends Button {
 }
 
 interface Props {
+  isOpen: boolean;
   closeActionSheet: () => void;
   buttons: ActionSheetButton[];
 }
 
 const RightActionSheetContainer = ({
   children,
+  isOpen,
   closeActionSheet,
   buttons,
 }: PropsWithChildren<Props>) => {
+  if (!isOpen) return null;
+
   return (
-    <div className="w-screen h-screen relative">
-      {/* background dimmer */}
-      <div className="fixed w-full h-full top-0 bottom-0 left-0 right-0 z-10 bg-surface-dimmer opacity-24" />
+    <div className="w-screen h-screen fixed z-30">
+      <div className="w-screen h-screen relative">
+        {/* background dimmer */}
+        <div
+          className="fixed w-full h-full top-0 bottom-0 left-0 right-0 z-10 bg-surface-dimmer opacity-[0.76]"
+          onClick={closeActionSheet}
+        />
 
-      {/* action sheet */}
-      <div className="fixed h-full w-[37.5rem] bg-surface-foreground animate-slide-in-right top-0 bottom-0 right-0 z-20">
-        <div className="w-full h-full px-9 pt-8">
-          {/* sheet header */}
-          <div className="w-full flex items-center justify-between">
-            <CloseIcon
-              className="stroke-text-normal cursor-pointer"
-              size={20}
-              onClick={closeActionSheet}
-            />
+        {/* action sheet */}
+        <div className="fixed h-full w-[37.5rem] bg-surface-foreground animate-slide-in-right top-0 bottom-0 right-0 z-20">
+          <div className="w-full h-full px-9 pt-8">
+            {/* sheet header */}
+            <div className="w-full flex items-center justify-between">
+              <CloseIcon
+                className="stroke-text-normal cursor-pointer"
+                size={20}
+                onClick={closeActionSheet}
+              />
 
-            {/* header buttons */}
-            <div className="flex gap-2">
-              {buttons.map(
-                ({
-                  text,
-                  onClick,
-                  buttonStyle = 'primary',
-                  disabled = false,
-                  ...rest
-                }) => (
-                  <button
-                    type="button"
-                    key={text}
-                    className={cn(
-                      'button-medium',
-                      buttonStyle === 'line' ? 'button-line' : 'button-primary',
-                    )}
-                    onClick={onClick}
-                    disabled={disabled}
-                    {...rest}
-                  >
-                    {text}
-                  </button>
-                ),
-              )}
+              {/* header buttons */}
+              <div className="flex gap-2">
+                {buttons.map(
+                  ({
+                    text,
+                    onClick,
+                    buttonStyle = 'primary',
+                    disabled = false,
+                    ...rest
+                  }) => (
+                    <button
+                      type="button"
+                      key={text}
+                      className={cn(
+                        'button-medium',
+                        buttonStyle === 'line'
+                          ? 'button-line'
+                          : 'button-primary',
+                      )}
+                      onClick={onClick}
+                      disabled={disabled}
+                      {...rest}
+                    >
+                      {text}
+                    </button>
+                  ),
+                )}
+              </div>
             </div>
-          </div>
 
-          <section className="mt-2">{children}</section>
+            <section className="mt-2">{children}</section>
+          </div>
         </div>
       </div>
     </div>
