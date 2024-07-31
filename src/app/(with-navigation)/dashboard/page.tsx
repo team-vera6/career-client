@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import MemoList from './_components/MemoList';
+import CurrentWeekMemo from './_components/CurrentWeekMemo';
 import Metrics from './_components/Metrics';
 import TodoList from './_components/TodoList';
 import WeekNavigator from './_components/WeekNavigator';
@@ -21,7 +21,7 @@ export default function DashboardPage() {
 
         <div className="flex gap-9">
           <TodoList />
-          <MemoList />
+          <CurrentWeekMemo />
         </div>
       </div>
     </div>
