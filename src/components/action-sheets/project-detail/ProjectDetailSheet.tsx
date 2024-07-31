@@ -3,11 +3,12 @@
 import { useState } from 'react';
 
 import Alert from '@/components/modal/Alert';
-import ProgressLine from '@/components/progress-line/ProgressLine';
 
 import RightActionSheetContainer from '../Container';
 import EditProjectSheet from '../edit-project/EditProjectSheet';
-import RelatedReview from './RelatedReview';
+import ProjectDetailItems from './_components/ProjectDetailItems';
+import ProjectProgress from './_components/ProjectProgress';
+import RelatedReview from './_components/RelatedReview';
 
 interface Props {
   isOpen: boolean;
@@ -42,34 +43,25 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
           추가가용성 정보를 제공하여 예약율 높이기실시 사용자가 선호하는 차량
         </p>
 
-        <div className="flex flex-col gap-2 mb-4">
-          <div className="flex items-center justify-between">
-            <p className="font-body-14 text-text-strong">
-              2024.6.1 - 2024.10.31
-            </p>
-            <p className="font-body-14 text-text-primary">66%</p>
-          </div>
-
-          <ProgressLine percentage={66} />
-        </div>
+        <ProjectProgress
+          startDate="2024.6.1"
+          endDate="2024.10.31"
+          percentage={66}
+        />
 
         <div className="flex flex-col gap-4 mb-6">
-          <div className="flex gap-4">
-            <p className="font-body-14 text-text-normal shrink-0">목표</p>
-            <p className="font-body-14 text-text-strong">
-              현재 위치와 선택한 시간대에 맞는 실시간 차량 가용성 정보를 제공
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <p className="font-body-14 text-text-normal shrink-0">내용</p>
-            <p className="font-body-14 text-text-strong">
-              현재 위치와 선택한 시간대에 맞는 실시간 차량 가용성 정보를
+          <ProjectDetailItems
+            title="목표"
+            content="현재 위치와 선택한 시간대에 맞는 실시간 차량 가용성 정보를 제공"
+          />
+          <ProjectDetailItems
+            title="내용"
+            content="현재 위치와 선택한 시간대에 맞는 실시간 차량 가용성 정보를
               제공현재 위치와 선택한 시간대에 맞는 실시간 차량 가용성 정보를
               제공현재 위치와 선택한 시간대에 맞는 실시간 차량 가용성 정보를
               제공현재 위치와 선택한 시간대에 맞는 실시간 차량 가용성 정보를
-              제공
-            </p>
-          </div>
+              제공"
+          />
         </div>
 
         <div>

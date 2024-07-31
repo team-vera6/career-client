@@ -8,7 +8,7 @@ import Textarea from '@/components/inputs/textarea/Textarea';
 import Alert from '@/components/modal/Alert';
 
 import RightActionSheetContainer from '../Container';
-import RelatedReview from '../project-detail/RelatedReview';
+import RelatedReview from '../project-detail/_components/RelatedReview';
 
 interface Props {
   isOpen: boolean;
