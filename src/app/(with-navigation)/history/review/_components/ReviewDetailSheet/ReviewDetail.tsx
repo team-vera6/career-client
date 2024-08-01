@@ -1,4 +1,4 @@
-import { LastReviewItem } from '@/app/review/_components/last-review/LastReviewItem';
+import { LastWeekReviewItem } from '@/app/review/_components/last-review/LastWeekReviewItem';
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
 import LowlightCircleIcon from '@/components/icons/LowlightCircleIcon';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
@@ -20,18 +20,20 @@ export const ReviewDetail = () => {
           하이라이트
         </p>
         <div className="pl-8">
-          <LastReviewItem {...dummy} />
+          <LastWeekReviewItem {...dummy} />
         </div>
       </div>
+
       <div className="flex flex-col gap-2.5">
         <p className="font-title-14 text-text-strong flex items-center gap-2">
           <LowlightCircleIcon size={24} />
           로우라이트
         </p>
         <div className="pl-8">
-          <LastReviewItem {...dummy} />
+          <LastWeekReviewItem {...dummy} />
         </div>
       </div>
+
       <div className="flex flex-col gap-4">
         <p className="font-title-14 text-text-strong">완료한 일</p>
         <div className="pl-8">

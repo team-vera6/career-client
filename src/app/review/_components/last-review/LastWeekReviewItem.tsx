@@ -1,13 +1,13 @@
 import LinkIcon from '@/components/icons/LinkIcon';
 import ProgressChip from '@/components/progress-chip/ProgressChip';
 
-import { LastReviewListItem } from '../../types';
+import { LastWeekReviewListItem } from '../../types';
 
-export const LastReviewItem = ({
+export const LastWeekReviewItem = ({
   text,
   project,
   progressCount,
-}: LastReviewListItem) => {
+}: LastWeekReviewListItem) => {
   return (
     <div className="w-full">
       <div
@@ -16,6 +16,7 @@ export const LastReviewItem = ({
       >
         {text}
       </div>
+
       <div className="flex">
         <LinkIcon size={36} />
         <div className="w-[calc(100%-2.2rem)] flex items-center justify-between gap-2 py-1.5 pl-3 pr-2 mt-2 border border-line-normal rounded-lg bg-surface-foregroundOn">

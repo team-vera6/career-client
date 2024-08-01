@@ -87,6 +87,7 @@ const HistoryReview = () => {
           </div>
         ))}
       </div>
+
       {showDetail && (
         <ReviewDetailSheet
           selectedReview={selectedReview}

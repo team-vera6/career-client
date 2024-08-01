@@ -24,6 +24,7 @@ const ProjectDropdown = ({ ...rest }: DropdownProps) => {
           새로운 프로젝트 추가
         </li>
       </Dropdown>
+
       <DemoAlert isOpen={showModal} setIsOpen={setShowModal} />
     </>
   );

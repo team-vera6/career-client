@@ -30,6 +30,7 @@ export const ReviewDetailSheet = ({ setShowDetail }: Props) => {
             <Score activeCount={5} className="bg-surface-foregroundOn" />
           </div>
         </div>
+
         <ReviewDetail />
       </section>
     </RightActionSheetContainer>

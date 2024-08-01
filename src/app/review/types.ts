@@ -18,7 +18,7 @@ export interface ReviewListItem {
   project: string;
 }
 
-export interface LastReviewListItem extends ReviewListItem {
+export interface LastWeekReviewListItem extends ReviewListItem {
   progressCount: number;
 }
 
