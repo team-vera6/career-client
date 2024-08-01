@@ -1,4 +1,4 @@
-import { HTMLAttributes, InputHTMLAttributes } from 'react';
+import { HTMLAttributes, InputHTMLAttributes, memo } from 'react';
 
 import colors from '@/styles/colors';
 import { cn } from '@/utils/tailwind';
@@ -33,4 +33,4 @@ const LineInput = ({ errorText, className, ...rest }: Props) => {
   );
 };
 
-export default LineInput;
+export default memo(LineInput);

@@ -7,6 +7,7 @@ import Input from '@/components/inputs/input/Input';
 import LineInput from '@/components/inputs/line/LineInput';
 import Textarea from '@/components/inputs/textarea/Textarea';
 import Alert from '@/components/modal/Alert';
+import useToast from '@/hooks/useToast';
 
 import RightActionSheetContainer from '../Container';
 import RelatedReview from '../project-detail/_components/RelatedReview';
@@ -15,6 +16,7 @@ interface Props {
   isOpen: boolean;
   closeSheet: () => void;
   projectId: number;
+  initialTitle?: string;
   initialDate?: { start: string; end: string };
   initialGoal?: string;
   initialDescription?: string;
@@ -24,10 +26,14 @@ const EditProjectSheet = ({
   isOpen,
   closeSheet,
   projectId,
+  initialTitle,
   initialDate,
   initialGoal,
   initialDescription,
 }: Props) => {
+  const { addToast } = useToast();
+
+  const [title, setTitle] = useState(initialTitle ?? '');
   const [dateRange, setDateRange] = useState(
     initialDate ?? { start: '', end: '' },
   );
@@ -43,11 +49,22 @@ const EditProjectSheet = ({
       buttons={[
         {
           text: '저장',
-          onClick: () => {},
+          onClick: () => {
+            closeSheet();
+            addToast({
+              message: '프로젝트 내용이 수정되었어요.',
+              iconType: 'success',
+            });
+          },
         },
       ]}
     >
-      <LineInput placeholder="프로젝트 이름" className="!font-bold" />
+      <LineInput
+        placeholder="프로젝트 이름"
+        className="!font-bold"
+        value={title}
+        onChange={(e) => setTitle(e.currentTarget.value)}
+      />
 
       <div className="flex flex-col gap-4 mb-6 mt-3">
         <div className="flex flex-col gap-1">
