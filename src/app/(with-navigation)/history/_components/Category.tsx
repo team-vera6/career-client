@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import PlusIcon from '@/components/icons/PlusIcon';
 import ToggleSwitch from '@/components/toggle-switch/ToggleSwitch';
 import { cn } from '@/utils/tailwind';
 
@@ -23,26 +24,36 @@ const Category = () => {
   const currentPathname = usePathname();
 
   return (
-    <div className="flex gap-5">
-      {menus.map((el) => (
-        <Link key={el.path} href={el.path}>
-          <p
-            className={cn(
-              'font-head-20',
-              el.path === currentPathname
-                ? 'text-text-strong'
-                : 'text-text-neutral',
-            )}
-          >
-            {el.label}
-          </p>
-        </Link>
-      ))}
-      {currentPathname === '/history/memo' && dummy.length > 0 && (
-        <div className="flex items-center gap-1">
-          <p className="font-body-14 text-text-normal">북마크만 보기</p>
-          <ToggleSwitch />
-        </div>
+    <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center gap-5">
+        {menus.map((el) => (
+          <Link key={el.path} href={el.path}>
+            <p
+              className={cn(
+                'font-head-20',
+                el.path === currentPathname
+                  ? 'text-text-strong'
+                  : 'text-text-neutral',
+              )}
+            >
+              {el.label}
+            </p>
+          </Link>
+        ))}
+
+        {currentPathname === '/history/memo' && dummy.length > 0 && (
+          <div className="flex items-center gap-1">
+            <p className="font-body-14 text-text-normal">북마크만 보기</p>
+            <ToggleSwitch />
+          </div>
+        )}
+      </div>
+
+      {currentPathname === '/history/memo' && (
+        <button type="button" className="button-primary button-medium">
+          <PlusIcon size={20} stroke="#fff" />
+          <p className="font-body-14 text-text-invert">추가</p>
+        </button>
       )}
     </div>
   );
