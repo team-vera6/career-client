@@ -1,6 +1,7 @@
 import Memo from '@/components/memo/Memo';
 
 import { dummy } from './dummy';
+import EmptyMemoHistory from './EmptyMemoHistory';
 
 const MemoHistory = () => {
   return (
@@ -29,7 +30,7 @@ const MemoHistory = () => {
           ))}
         </>
       ) : (
-        <div>empty..</div>
+        <EmptyMemoHistory />
       )}
     </>
   );
