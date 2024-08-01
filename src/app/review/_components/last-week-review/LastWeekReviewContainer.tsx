@@ -4,9 +4,13 @@ import { useAtomValue } from 'jotai';
 
 import { lastHighLightListAtom, lastLowLightListAtom } from '../../stores';
 import { ReviewType } from '../../types';
-import { LastReviewItem } from './LastReviewItem';
+import { LastWeekReviewItem } from './LastWeekReviewItem';
 
-export const LastReviewContainer = ({ category }: { category: ReviewType }) => {
+export const LastWeekReviewContainer = ({
+  category,
+}: {
+  category: ReviewType;
+}) => {
   const lastHighLightList = useAtomValue(lastHighLightListAtom);
   const lastLowLightList = useAtomValue(lastLowLightListAtom);
 
@@ -15,7 +19,7 @@ export const LastReviewContainer = ({ category }: { category: ReviewType }) => {
   return (
     <div className="flex flex-col gap-3">
       {list.map((el, index) => (
-        <LastReviewItem key={index} {...el} />
+        <LastWeekReviewItem key={index} {...el} />
       ))}
     </div>
   );

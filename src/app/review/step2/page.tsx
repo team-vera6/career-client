@@ -1,13 +1,13 @@
-import { CurrentReview } from '../_components/current-review/CurrentReview';
-import { LastReview } from '../_components/last-review/LastReview';
+import { CurrentWeekReview } from '../_components/current-week-review/CurrentWeekReview';
+import { LastWeekReview } from '../_components/last-week-review/LastWeekReview';
 import { Tip } from '../_components/tip/Tip';
 import { PagingButton } from './_components/paging-button/PagingButton';
 
 export default function Step2Page() {
   return (
     <>
-      <LastReview category="highLight" />
-      <CurrentReview category="highLight" />
+      <LastWeekReview category="highLight" />
+      <CurrentWeekReview category="highLight" />
       <Tip category="highLight" />
 
       <PagingButton />

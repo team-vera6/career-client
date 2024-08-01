@@ -18,7 +18,7 @@ const menus = [
   },
   {
     label: '히스토리',
-    path: '/report',
+    path: '/history',
   },
 ];
 
@@ -26,33 +26,31 @@ const LeftNavigationBar = () => {
   const currentPathname = usePathname();
 
   return (
-    <>
-      <nav className="absolute left-12 h-full w-[132px] bg-surface-background">
-        <ul className="flex flex-col gap-3">
-          {menus.map((menu) => (
-            <Link
-              key={menu.path}
-              href={menu.path}
-              className="flex items-center gap-2"
-            >
-              {menu.path === currentPathname && (
-                <IndicatorIcon width={12} height={9} />
+    <nav className="absolute left-12 h-full w-[132px] bg-surface-background">
+      <ul className="flex flex-col gap-3">
+        {menus.map((menu) => (
+          <Link
+            key={menu.path}
+            href={menu.path}
+            className="flex items-center gap-2"
+          >
+            {currentPathname.includes(menu.path) && (
+              <IndicatorIcon width={12} height={9} />
+            )}
+            <li
+              className={cn(
+                'font-title-20 cursor-pointer',
+                currentPathname.includes(menu.path)
+                  ? 'text-text-strong'
+                  : 'text-text-neutral',
               )}
-              <li
-                className={cn(
-                  'font-title-20 cursor-pointer',
-                  menu.path === currentPathname
-                    ? 'text-text-strong'
-                    : 'text-text-neutral',
-                )}
-              >
-                {menu.label}
-              </li>
-            </Link>
-          ))}
-        </ul>
-      </nav>
-    </>
+            >
+              {menu.label}
+            </li>
+          </Link>
+        ))}
+      </ul>
+    </nav>
   );
 };
 

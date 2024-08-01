@@ -7,6 +7,11 @@ const nextConfig = {
         destination: '/dashboard',
         permanent: true,
       },
+      {
+        source: '/history',
+        destination: '/history/review',
+        permanent: true,
+      },
     ];
   },
 };

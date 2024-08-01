@@ -1,13 +1,8 @@
 'use client';
 
-import {
-  CSSProperties,
-  HTMLAttributes,
-  PropsWithChildren,
-  useEffect,
-  useState,
-} from 'react';
+import { CSSProperties, PropsWithChildren, useEffect, useState } from 'react';
 
+import { ClassName } from '@/types/attributes';
 import { cn } from '@/utils/tailwind';
 
 import ChevronDown20Icon from '../icons/ChevronDown20Icon';
@@ -21,7 +16,7 @@ export interface DropdownProps {
   id: string;
   initialItem?: string | number;
   items: Array<DropdownItem>;
-  className?: HTMLAttributes<HTMLDivElement>['className'];
+  className?: ClassName;
   onSelect?: (item: DropdownItem) => void;
 }
 

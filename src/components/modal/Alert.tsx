@@ -1,12 +1,11 @@
-import { HTMLAttributes } from 'react';
-
+import { ClassName } from '@/types/attributes';
 import { Button } from '@/types/button';
 
 import CloseIcon from '../icons/CloseIcon';
 import ModalContainer, { ModalProps } from './ModalContainer';
 
 interface AlertButton extends Button {
-  className?: HTMLAttributes<HTMLButtonElement>['className'];
+  className?: ClassName<HTMLButtonElement>;
 }
 
 interface Props extends ModalProps {

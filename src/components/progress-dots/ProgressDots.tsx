@@ -1,14 +1,13 @@
 'use client';
 
-import { HTMLAttributes } from 'react';
-
+import { ClassName } from '@/types/attributes';
 import { cn } from '@/utils/tailwind';
 
 interface Props {
   totalCount: number; // 점 총 개수
   activeCount: number;
   displayType: 'step' | 'progress';
-  className?: HTMLAttributes<HTMLDivElement>['className'];
+  className?: ClassName;
 }
 
 const ProgressDots = ({
