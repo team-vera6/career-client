@@ -1,12 +1,11 @@
-import { HTMLAttributes } from 'react';
-
 import ProgressDots from '@/components/progress-dots/ProgressDots';
+import { ClassName } from '@/types/attributes';
 
 import { cn } from './../../../../../utils/tailwind';
 
 interface Props {
   activeCount: number;
-  className?: HTMLAttributes<HTMLDivElement>['className'];
+  className?: ClassName;
 }
 
 export const Score = ({ activeCount, className }: Props) => {

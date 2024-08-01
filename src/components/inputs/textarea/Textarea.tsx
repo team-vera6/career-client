@@ -1,11 +1,12 @@
-import { HTMLAttributes, TextareaHTMLAttributes } from 'react';
+import { TextareaHTMLAttributes } from 'react';
 
+import { ClassName } from '@/types/attributes';
 import { cn } from '@/utils/tailwind';
 
 interface Props
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
   errorText?: string;
-  className?: HTMLAttributes<HTMLTextAreaElement>['className'];
+  className?: ClassName<HTMLTextAreaElement>;
   onChange?: (value: string) => void;
 }
 
