@@ -22,7 +22,7 @@ interface Props extends ReviewListItem {
   index: number;
 }
 
-export const CurrentReviewItem = ({
+export const CurrentWeekReviewItem = ({
   id,
   category,
   text,

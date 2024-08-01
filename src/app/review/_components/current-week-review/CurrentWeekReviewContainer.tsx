@@ -4,9 +4,9 @@ import { useAtomValue } from 'jotai';
 
 import { highLightListAtom, lowLightListAtom } from '../../stores';
 import { ReviewType } from '../../types';
-import { CurrentReviewItem } from './CurrentReviewItem';
+import { CurrentWeekReviewItem } from './CurrentWeekReviewItem';
 
-export const CurrentReviewContainer = ({
+export const CurrentWeekReviewContainer = ({
   category,
 }: {
   category: ReviewType;
@@ -19,7 +19,7 @@ export const CurrentReviewContainer = ({
   return (
     <div className="w-full p-5 bg-surface-foreground rounded-xl flex flex-col gap-6 mb-3">
       {reviewList.map((el, index) => (
-        <CurrentReviewItem
+        <CurrentWeekReviewItem
           key={index}
           category={category}
           index={index}
