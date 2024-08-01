@@ -45,7 +45,7 @@ const CreateProjectSheet = ({
       ]}
     >
       <div className="mb-5">
-        <LineInput placeholder="프로젝트 이름" />
+        <LineInput placeholder="프로젝트 이름" className="!font-bold" />
       </div>
 
       <div className="flex flex-col gap-3">
