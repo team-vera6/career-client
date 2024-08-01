@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { ReviewDetailSheet } from '../ReviewDetailSheet/ReviewDetailSheet';
+import EmptyHistoryReview from './EmptyHistoryReview';
 import ReviewItem from './ReviewItem';
 
 const dummy = [
@@ -69,30 +70,38 @@ const HistoryReview = () => {
 
   return (
     <>
-      <div className="w-full flex flex-col gap-8">
-        {dummy.map(({ year, month, items }) => (
-          <div className="flex flex-col gap-3" key={`${year}-${month}`}>
-            <p className="font-title-16 text-text-normal">
-              {year}년 {month}월
-            </p>
-            <div className="flex flex-col gap-2">
-              {items.map((item) => (
-                <ReviewItem
-                  key={item.id}
-                  onClickReview={onClickReview}
-                  {...item}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      {dummy.length ? (
+        <>
+          <div className="w-full flex flex-col gap-8">
+            {dummy.map(({ year, month, items }) => (
+              <div className="flex flex-col gap-3" key={`${year}-${month}`}>
+                <p className="font-title-16 text-text-normal">
+                  {year}년 {month}월
+                </p>
 
-      {showDetail && (
-        <ReviewDetailSheet
-          selectedReview={selectedReview}
-          setShowDetail={setShowDetail}
-        />
+                {/* review Container */}
+                <div className="flex flex-col gap-2">
+                  {items.map((item) => (
+                    <ReviewItem
+                      key={item.id}
+                      onClickReview={onClickReview}
+                      {...item}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {showDetail && (
+            <ReviewDetailSheet
+              selectedReview={selectedReview}
+              setShowDetail={setShowDetail}
+            />
+          )}
+        </>
+      ) : (
+        <EmptyHistoryReview />
       )}
     </>
   );
