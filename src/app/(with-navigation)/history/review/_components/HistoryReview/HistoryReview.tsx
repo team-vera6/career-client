@@ -92,16 +92,16 @@ const HistoryReview = () => {
               </div>
             ))}
           </div>
-
-          {showDetail && (
-            <ReviewDetailSheet
-              selectedReview={selectedReview}
-              setShowDetail={setShowDetail}
-            />
-          )}
         </>
       ) : (
         <EmptyHistoryReview />
+      )}
+
+      {showDetail && (
+        <ReviewDetailSheet
+          selectedReview={selectedReview}
+          setShowDetail={setShowDetail}
+        />
       )}
     </>
   );
