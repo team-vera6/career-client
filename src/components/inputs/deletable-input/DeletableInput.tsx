@@ -37,7 +37,7 @@ const DeletableInput = ({ value, onChange, onClickDelete }: Props) => {
         />
       </div>
 
-      {isHovered && (
+      {isHovered && !isEditing && (
         <button type="button" onClick={onClickDelete}>
           <DeleteIcon size={24} />
         </button>
