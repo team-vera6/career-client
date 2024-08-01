@@ -15,20 +15,20 @@ export const ReviewDetail = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2.5">
-        <p className="font-title-14 text-text-strong flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <HighlightCircleIcon size={24} />
-          하이라이트
-        </p>
+          <p className="font-title-14 text-text-strong">하이라이트</p>
+        </div>
         <div className="pl-8">
           <LastWeekReviewItem {...dummy} />
         </div>
       </div>
 
       <div className="flex flex-col gap-2.5">
-        <p className="font-title-14 text-text-strong flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <LowlightCircleIcon size={24} />
-          로우라이트
-        </p>
+          <p className="font-title-14 text-text-strong">로우라이트</p>
+        </div>
         <div className="pl-8">
           <LastWeekReviewItem {...dummy} />
         </div>
