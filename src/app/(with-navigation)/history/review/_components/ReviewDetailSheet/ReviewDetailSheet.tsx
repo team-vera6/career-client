@@ -9,14 +9,16 @@ import Score from '../../../_components/review/Score';
 import { ReviewDetail } from './ReviewDetail';
 
 interface Props {
+  isOpen: boolean;
   selectedReview: string;
   setShowDetail: Dispatch<SetStateAction<boolean>>;
 }
 
-export const ReviewDetailSheet = ({ setShowDetail }: Props) => {
+export const ReviewDetailSheet = ({ isOpen, setShowDetail }: Props) => {
   return (
     <RightActionSheetContainer
       closeActionSheet={() => setShowDetail(false)}
+      isOpen={isOpen}
       buttons={[
         { text: '삭제', buttonStyle: 'line' },
         { text: '수정', buttonStyle: 'line' },
