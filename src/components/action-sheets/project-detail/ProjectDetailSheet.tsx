@@ -72,7 +72,7 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
               type="highlight"
               review="시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌
             프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션
-            반응이 지난번이벤트보다 2배나 좋았음"
+            반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음"
               week="6월 1주차"
             />
             <RelatedReview

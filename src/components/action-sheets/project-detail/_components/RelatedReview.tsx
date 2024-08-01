@@ -24,7 +24,7 @@ const RelatedReview = ({ type, review, week, last }: Props) => {
 
       <div className="w-full">
         <div className="mb-1 border border-line-assistive bg-surface-foreground rounded-lg p-3">
-          <p className="font-body-14 text-text-strong">{review}</p>
+          <p className="font-body-14 text-text-strong line-clamp-2">{review}</p>
         </div>
 
         <div className="flex items-center gap-0.5 justify-end">
