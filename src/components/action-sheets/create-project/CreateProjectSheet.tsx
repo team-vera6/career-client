@@ -48,7 +48,7 @@ const CreateProjectSheet = ({
         <LineInput placeholder="프로젝트 이름" className="!font-bold" />
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <p className="font-body-14 text-text-normal">기간</p>
           <DateRangeInput date={dateRange} setDate={setDateRange} />
