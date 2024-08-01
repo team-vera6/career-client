@@ -15,7 +15,7 @@ const PlusIcon = ({
       {...rest}
     >
       <path
-        d="M2 10H10M18 10H10M10 10V18M10 10V2"
+        d="M3 10H10M17 10H10M10 10V17M10 10V3"
         stroke={stroke}
         strokeWidth="1.5"
         strokeLinecap="round"
