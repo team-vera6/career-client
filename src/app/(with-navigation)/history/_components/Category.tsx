@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation';
 import ToggleSwitch from '@/components/toggle-switch/ToggleSwitch';
 import { cn } from '@/utils/tailwind';
 
+import { dummy } from '../memo/_components/MemoHistory/dummy';
+
 const menus = [
   {
     label: '회고',
@@ -36,7 +38,7 @@ const Category = () => {
           </p>
         </Link>
       ))}
-      {currentPathname === '/history/memo' && (
+      {currentPathname === '/history/memo' && dummy.length > 0 && (
         <div className="flex items-center gap-1">
           <p className="font-body-14 text-text-normal">북마크만 보기</p>
           <ToggleSwitch />

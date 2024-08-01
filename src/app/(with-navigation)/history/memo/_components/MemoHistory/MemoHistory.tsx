@@ -1,3 +1,4 @@
+import { MemoItem } from '@/app/review/types';
 import Memo from '@/components/memo/Memo';
 
 import { dummy } from './dummy';
@@ -6,7 +7,7 @@ import EmptyMemoHistory from './EmptyMemoHistory';
 const MemoHistory = () => {
   return (
     <>
-      {dummy.length ? (
+      {dummy.length > 0 ? (
         <>
           {dummy.map(({ month, week, items }) => (
             <div
@@ -18,7 +19,7 @@ const MemoHistory = () => {
               </p>
 
               <div className="grid gap-[15px] grid-cols-4">
-                {items.map((item) => (
+                {items.map((item: MemoItem) => (
                   <Memo
                     key={item.id}
                     {...item}
