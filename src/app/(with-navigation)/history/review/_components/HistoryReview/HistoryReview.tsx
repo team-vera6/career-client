@@ -71,28 +71,26 @@ const HistoryReview = () => {
   return (
     <>
       {dummy.length ? (
-        <>
-          <div className="w-full flex flex-col gap-8">
-            {dummy.map(({ year, month, items }) => (
-              <div className="flex flex-col gap-3" key={`${year}-${month}`}>
-                <p className="font-title-16 text-text-normal">
-                  {year}년 {month}월
-                </p>
+        <div className="w-full flex flex-col gap-8">
+          {dummy.map(({ year, month, items }) => (
+            <div className="flex flex-col gap-3" key={`${year}-${month}`}>
+              <p className="font-title-16 text-text-normal">
+                {year}년 {month}월
+              </p>
 
-                {/* review Container */}
-                <div className="flex flex-col gap-2">
-                  {items.map((item) => (
-                    <ReviewItem
-                      key={item.id}
-                      onClickReview={onClickReview}
-                      {...item}
-                    />
-                  ))}
-                </div>
+              {/* review Container */}
+              <div className="flex flex-col gap-2">
+                {items.map((item) => (
+                  <ReviewItem
+                    key={item.id}
+                    onClickReview={onClickReview}
+                    {...item}
+                  />
+                ))}
               </div>
-            ))}
-          </div>
-        </>
+            </div>
+          ))}
+        </div>
       ) : (
         <EmptyHistoryReview />
       )}
