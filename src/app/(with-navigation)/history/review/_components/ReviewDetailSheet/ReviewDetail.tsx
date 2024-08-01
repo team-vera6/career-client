@@ -1,7 +1,7 @@
 import { LastWeekReviewItem } from '@/app/review/_components/last-review/LastWeekReviewItem';
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
 import LowlightCircleIcon from '@/components/icons/LowlightCircleIcon';
-import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
+import DeletableInput from '@/components/inputs/deletable-input/DeletableInput';
 
 const dummy = {
   id: 'dummy-1',
@@ -37,7 +37,7 @@ export const ReviewDetail = () => {
       <div className="flex flex-col gap-4">
         <p className="font-title-14 text-text-strong">완료한 일</p>
         <div className="pl-8">
-          <CheckboxInput value="ㅇㅇㅇ" checked />
+          <DeletableInput value="ㅇㅇㅇsddddsssssssssssssssssssssddddddsssssssssssssssssssssssssssssss" />
         </div>
       </div>
     </div>
