@@ -24,7 +24,8 @@ export const ReviewDetailSheet = ({ setShowDetail }: Props) => {
     >
       <section className="flex flex-col">
         <div className="flex items-center justify-between mb-5.5">
-          <h1 className="font-head-28 text-text-strong">6월 4주차</h1>
+          <p className="font-head-28 text-text-strong">6월 4주차</p>
+
           <div className="flex items-center gap-2">
             <p className="font-body-14 text-text-strong">만족도</p>
             <Score activeCount={5} className="bg-surface-foregroundOn" />
