@@ -13,7 +13,7 @@ import {
   PROJECT_DROPDOWN,
 } from './dummy';
 import {
-  LastReviewListItem,
+  LastWeekReviewListItem,
   MemoItem,
   ReviewListItem,
   TodoListItem,
@@ -35,8 +35,10 @@ export const nextTodoListAtom = atom<TodoListItem[]>(NEXT_TODO);
 
 export const highLightListAtom = atom<ReviewListItem[]>([HIGHLIGHT_REVIEW]);
 export const lowLightListAtom = atom<ReviewListItem[]>([LOW_LIGHT_REVIEW]);
-export const lastHighLightListAtom = atom<LastReviewListItem[]>(LAST_HIGHLIGHT);
-export const lastLowLightListAtom = atom<LastReviewListItem[]>(LAST_LOWLIGHT);
+export const lastHighLightListAtom =
+  atom<LastWeekReviewListItem[]>(LAST_HIGHLIGHT);
+export const lastLowLightListAtom =
+  atom<LastWeekReviewListItem[]>(LAST_LOWLIGHT);
 
 export const projectListAtom = atom<DropdownProps>(PROJECT_DROPDOWN);
 export const memoListAtom = atom<MemoItem[]>(MEMO_LIST);

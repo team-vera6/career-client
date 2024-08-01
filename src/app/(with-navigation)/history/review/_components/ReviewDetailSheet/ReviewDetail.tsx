@@ -1,4 +1,4 @@
-import { LastWeekReviewItem } from '@/app/review/_components/last-review/LastWeekReviewItem';
+import { LastWeekReviewItem } from '@/app/review/_components/last-week-review/LastWeekReviewItem';
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
 import LowlightCircleIcon from '@/components/icons/LowlightCircleIcon';
 import DeletableInput from '@/components/inputs/deletable-input/DeletableInput';

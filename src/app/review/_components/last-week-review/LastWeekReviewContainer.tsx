@@ -6,7 +6,11 @@ import { lastHighLightListAtom, lastLowLightListAtom } from '../../stores';
 import { ReviewType } from '../../types';
 import { LastWeekReviewItem } from './LastWeekReviewItem';
 
-export const LastReviewContainer = ({ category }: { category: ReviewType }) => {
+export const LastWeekReviewContainer = ({
+  category,
+}: {
+  category: ReviewType;
+}) => {
   const lastHighLightList = useAtomValue(lastHighLightListAtom);
   const lastLowLightList = useAtomValue(lastLowLightListAtom);
 
