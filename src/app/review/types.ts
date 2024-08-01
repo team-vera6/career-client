@@ -1,3 +1,5 @@
+import { ClassName } from '@/types/attributes';
+
 export type WeekType = 'current' | 'next';
 export type ReviewType = 'highLight' | 'lowLight';
 export interface PagingButtonProps {
@@ -28,4 +30,5 @@ export interface MemoItem {
   title?: string;
   memo?: string; // TODO: 마크다운 적용 후 수정 필요
   date: string; // FIXME: date 형식 조정 필요
+  className?: ClassName;
 }
