@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import DateRangeInput from '@/components/inputs/date/DateRangeInput';
 import Input from '@/components/inputs/input/Input';
+import LineInput from '@/components/inputs/line/LineInput';
 import Textarea from '@/components/inputs/textarea/Textarea';
 import Alert from '@/components/modal/Alert';
 
@@ -46,12 +47,9 @@ const EditProjectSheet = ({
         },
       ]}
     >
-      <p className="font-head-24 text-text-strong pb-4 mb-4 border-b border-line-normal">
-        사용자가 선호하는 차종, 시간대 등을 기반으로 예약을 추천 기능 추가가용성
-        정보를 제공하여 예약율 높이기실시 사용자가 선호하는 차량
-      </p>
+      <LineInput placeholder="프로젝트 이름" className="!font-bold" />
 
-      <div className="flex flex-col gap-3 mb-6">
+      <div className="flex flex-col gap-4 mb-6 mt-3">
         <div className="flex flex-col gap-1">
           <p className="font-body-14 text-text-normal">기간</p>
           <DateRangeInput date={dateRange} setDate={setDateRange} />
