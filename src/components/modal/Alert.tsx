@@ -34,7 +34,7 @@ const Alert = ({ title, content, buttons, ...rest }: Props) => {
           />
 
           {/* title */}
-          <p className="font-head-20 text-text-strong mt-0.5">{title}</p>
+          <p className="font-head-20 text-text-strong mt-0.5 pr-12">{title}</p>
 
           {/* contents */}
           {content && (

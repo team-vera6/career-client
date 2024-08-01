@@ -9,13 +9,7 @@ const useToast = () => {
   const [toastId, setToastId] = useAtom(toastIdAtom);
 
   const addToast = useCallback(
-    ({
-      message,
-      iconType,
-    }: {
-      message: string;
-      iconType?: ToastProps['iconType'];
-    }) => {
+    ({ message, iconType }: Omit<ToastProps, 'id'>) => {
       const id = toastId;
       setToastId((prevId) => prevId + 1);
 

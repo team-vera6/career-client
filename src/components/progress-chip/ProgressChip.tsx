@@ -6,13 +6,16 @@ interface Props {
 
 const ProgressChip = ({ percentage }: Props) => {
   return (
-    <div className="w-[4.25rem] h-6 flex items-center justify-center gap-[1px] border border-line-assistive rounded bg-surface-foreground flex-shrink-0">
+    <div className="w-[4.25rem] h-6 flex items-center justify-center gap-[1px] border border-line-assistive rounded bg-surface-foreground shrink-0">
       {/* progress bar */}
       <div className="relative w-5 h-5 flex items-center justify-center">
         <svg width={16} height={16} className="-rotate-90">
           {/* circle background */}
           <circle
-            className="fill-none stroke-transparent"
+            className={cn(
+              'fill-surface-background stroke-transparent',
+              percentage === 100 && 'fill-surface-light',
+            )}
             cx={8}
             cy={8}
             r={6}

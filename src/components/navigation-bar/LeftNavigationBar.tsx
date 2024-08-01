@@ -39,7 +39,7 @@ const LeftNavigationBar = () => {
             )}
             <li
               className={cn(
-                'font-title-20',
+                'font-title-20 cursor-pointer',
                 currentPathname.includes(menu.path)
                   ? 'text-text-strong'
                   : 'text-text-neutral',
