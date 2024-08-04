@@ -45,6 +45,7 @@ const Memo = ({
         isOpen={showMemo}
         onDismiss={onClickCloseModal}
         onSaveText={(val) => setTextValue(val)}
+        value={textValue}
       />
     </>
   );

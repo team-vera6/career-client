@@ -11,9 +11,14 @@ import { ModalProps } from '../ModalContainer';
 
 interface Props {
   onSaveText: (text: string) => void;
+  value: string;
 }
 
-const TextEditorModal = ({ onSaveText, ...rest }: ModalProps & Props) => {
+const TextEditorModal = ({
+  onSaveText,
+  value,
+  ...rest
+}: ModalProps & Props) => {
   const editor = useEditor({
     extensions: [StarterKit, Underline],
     content: '<p>Hello World!</p>',
@@ -34,7 +39,7 @@ const TextEditorModal = ({ onSaveText, ...rest }: ModalProps & Props) => {
                 (e.ctrlKey && e.key === 'Enter') ||
                 (e.metaKey && e.key === 'Enter')
               ) {
-                onSaveText(editor?.getText() ?? '');
+                onSaveText(editor?.getText() ?? value);
                 rest.onDismiss?.();
               }
             }}
