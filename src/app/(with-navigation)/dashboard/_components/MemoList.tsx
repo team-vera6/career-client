@@ -66,6 +66,7 @@ const MemoList = () => {
             },
           ]);
         }}
+        value={''}
       />
     </section>
   );
