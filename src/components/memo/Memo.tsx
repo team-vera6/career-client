@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { MemoItem } from '@/app/review/types';
 import { cn } from '@/utils/tailwind';
 
-import DemoMemo from '../modal/demo-memo/DemoMemo';
+import TextEditorModal from '../modal/text-editor';
 import MemoBottom from './MemoBottom';
 
 const Memo = ({
@@ -17,6 +17,7 @@ const Memo = ({
   className,
 }: MemoItem) => {
   const [showMemo, setShowMemo] = useState(false);
+  const [textValue, setTextValue] = useState('');
 
   const onClickCloseModal = () => {
     setShowMemo(false);
@@ -40,14 +41,10 @@ const Memo = ({
 
         <MemoBottom id={id} isBookmark={isBookmark} date={date} />
       </div>
-      <DemoMemo
+      <TextEditorModal
         isOpen={showMemo}
         onDismiss={onClickCloseModal}
-        isBookmark={isBookmark}
-        title={title}
-        memo={memo}
-        date={date}
-        id={id}
+        onSaveText={(val) => setTextValue(val)}
       />
     </>
   );
