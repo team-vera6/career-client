@@ -21,7 +21,7 @@ const TextEditorModal = ({
 }: ModalProps & Props) => {
   const editor = useEditor({
     extensions: [StarterKit, Underline],
-    content: '<p>Hello World!</p>',
+    content: `<p>${value}</p>`,
   });
 
   return (
@@ -39,7 +39,7 @@ const TextEditorModal = ({
                 (e.ctrlKey && e.key === 'Enter') ||
                 (e.metaKey && e.key === 'Enter')
               ) {
-                onSaveText(editor?.getText() ?? value);
+                onSaveText(editor?.getText() ?? '');
                 rest.onDismiss?.();
               }
             }}
