@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { ReviewDetailSheet } from '../ReviewDetailSheet/ReviewDetailSheet';
-import EmptyHistoryReview from './EmptyHistoryReview';
+import EmptyReviewHistory from './EmptyReviewHistory';
 import ReviewItem from './ReviewItem';
 
 const dummy = [
@@ -59,7 +59,7 @@ const dummy = [
   },
 ];
 
-const HistoryReview = () => {
+const ReviewHistory = () => {
   const [showDetail, setShowDetail] = useState(false);
   const [selectedReview, setSelectedReview] = useState('');
 
@@ -92,17 +92,16 @@ const HistoryReview = () => {
           ))}
         </div>
       ) : (
-        <EmptyHistoryReview />
+        <EmptyReviewHistory />
       )}
 
-      {showDetail && (
-        <ReviewDetailSheet
-          selectedReview={selectedReview}
-          setShowDetail={setShowDetail}
-        />
-      )}
+      <ReviewDetailSheet
+        isOpen={showDetail}
+        selectedReview={selectedReview}
+        setShowDetail={setShowDetail}
+      />
     </>
   );
 };
 
-export default HistoryReview;
+export default ReviewHistory;

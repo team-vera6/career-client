@@ -1,13 +1,13 @@
 import Category from '../_components/Category';
-import HistoryReview from './_components/HistoryReview/HistoryReview';
+import ReviewHistory from './_components/review-history/ReviewHistory';
 
-export default function HistoryReviewPage() {
+export default function ReviewHistoryPage() {
   return (
-    <div className="w-full flex flex-col gap-7">
+    <div className="w-[60rem]">
       <Category />
 
       <section className="flex flex-col gap-8">
-        <HistoryReview />
+        <ReviewHistory />
       </section>
     </div>
   );
