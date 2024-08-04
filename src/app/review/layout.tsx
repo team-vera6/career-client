@@ -1,5 +1,4 @@
-import TextLogo from '@/components/icons/TextLogo';
-
+import Logo from './_components/logo/Logo';
 import { WeekInfo } from './_components/week-info/WeekInfo';
 import WeeklyMemo from './_components/weekly-memo/WeeklyMemo';
 
@@ -11,7 +10,7 @@ export default function ReviewLayout({
   return (
     <div className="w-full h-full px-12 max-w-[106rem] min-w-[74.25rem] pt-10 mx-auto">
       <header>
-        <TextLogo />
+        <Logo />
       </header>
 
       <div className="w-full h-full pt-[3.75rem] flex">
