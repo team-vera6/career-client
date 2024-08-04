@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import TextLogo from '@/components/icons/TextLogo';
 
 import { WeekInfo } from './_components/week-info/WeekInfo';
@@ -11,7 +13,9 @@ export default function ReviewLayout({
   return (
     <div className="w-full h-full px-12 max-w-[106rem] min-w-[74.25rem] pt-10 mx-auto">
       <header>
-        <TextLogo />
+        <Link href="/">
+          <TextLogo />
+        </Link>
       </header>
 
       <div className="w-full h-full pt-[3.75rem] flex">

@@ -11,12 +11,17 @@ import { ModalProps } from '../ModalContainer';
 
 interface Props {
   onSaveText: (text: string) => void;
+  value: string;
 }
 
-const TextEditorModal = ({ onSaveText, ...rest }: ModalProps & Props) => {
+const TextEditorModal = ({
+  onSaveText,
+  value,
+  ...rest
+}: ModalProps & Props) => {
   const editor = useEditor({
     extensions: [StarterKit, Underline],
-    content: '<p>Hello World!</p>',
+    content: `<p>${value}</p>`,
   });
 
   return (

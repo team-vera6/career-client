@@ -64,6 +64,7 @@ const EditProjectSheet = ({
         className="!font-bold"
         value={title}
         onChange={(e) => setTitle(e.currentTarget.value)}
+        id={String(projectId)}
       />
 
       <div className="flex flex-col gap-4 mb-6 mt-3">
