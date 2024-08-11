@@ -2,7 +2,8 @@ import type { AxiosRequestConfig } from 'axios';
 import axios, { isAxiosError } from 'axios';
 
 const apiInstance = axios.create({
-  baseURL: 'https://api-pitstop.site',
+  // FIXME: 백에서 localhost:3000 등록 후 원래 도메인으로 변경
+  baseURL: '/',
   responseType: 'json',
 });
 
@@ -47,6 +48,7 @@ export const typedPost = async <T>(
   config?: AxiosRequestConfig,
 ) => {
   const response = await apiInstance.post<T>(url, data, config);
+  console.log('res', response);
   return response.data;
 };
 
