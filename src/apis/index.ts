@@ -48,7 +48,6 @@ export const typedPost = async <T>(
   config?: AxiosRequestConfig,
 ) => {
   const response = await apiInstance.post<T>(url, data, config);
-  console.log('res', response);
   return response.data;
 };
 
