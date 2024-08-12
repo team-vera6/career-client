@@ -54,6 +54,9 @@ const config: Config = {
       animation,
     },
     colors: customColors,
+    screens: {
+      mobile: { max: '360px' },
+    },
   },
   plugins: [
     ({ addBase, addUtilities, addComponents }: PluginAPI) => {
