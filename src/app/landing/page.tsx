@@ -7,13 +7,13 @@ import Title from './_components/Title';
 
 export default function LandingPage() {
   return (
-    <main className="h-full min-h-screen bg-surface-foreground px-[10rem]">
+    <main className="h-full min-h-screen bg-surface-foreground px-[10rem] mobile:px-6">
       <Header />
 
       <Title />
 
       <Link href="/dashboard">
-        <button className="button-primary button-large mb-20 mt-10">
+        <button className="button-primary button-large mb-20 mt-10 mobile:mt-7 mobile:mb-16">
           오픈베타 시작하기
         </button>
       </Link>
