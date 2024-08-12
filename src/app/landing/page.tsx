@@ -1,55 +1,41 @@
 import Image from 'next/image';
 
 import PitstopLogo from '@/assets/logos/Logo.png';
-
-import FeatureItem from './FeatureItem';
-import VerticalDivider from './VerticalDivider';
+import FridayIcon from '@/components/icons/FridayIcon';
 
 export default function LandingPage() {
   return (
-    <main className="h-full min-h-screen">
-      <header className="p-10 bg-surface-foreground">
-        <div className="w-full h-full relative flex items-center justify-center">
-          <Image
-            src={PitstopLogo}
-            alt="pitstop logo"
-            width={164}
-            height={25}
-            priority
-          />
-
-          <button className="button-large button-primary absolute right-0">
-            시작하기
-          </button>
-        </div>
+    <main className="h-full min-h-screen bg-surface-foreground px-[10rem]">
+      <header className="py-8 bg-surface-foreground w-full">
+        <Image
+          src={PitstopLogo}
+          alt="pitstop logo"
+          width={164}
+          height={25}
+          priority
+        />
       </header>
 
-      <section className="px-[11.25rem] pt-20 mb-[7.5rem]">
-        <div className="w-full h-[25.1875rem] bg-neutral-30 flex items-center justify-center mb-[11.875rem] rounded-[50rem]">
-          캐치 프레이즈 영역
+      <section className="mt-[6.5rem] w-full">
+        <div className="flex items-center gap-1 mb-4">
+          <p className="font-bold text-text-strong text-5xl leading-[3rem] -tracking-[0.0125rem]">
+            매주 금요일
+          </p>
+          <FridayIcon size={48} />
+          <p className="font-bold text-text-strong text-5xl leading-[3rem] -tracking-[0.0125rem]">
+            에 도착하는 회고 편지
+          </p>
         </div>
 
-        <div className="w-full flex flex-col gap-[4.5rem] relative">
-          <FeatureItem imageUrl="" content="주요 기능 소개글 1" />
-          <FeatureItem imageUrl="" content="주요 기능 소개글 2" reverse />
-          <FeatureItem imageUrl="" content="주요 기능 소개글 3" />
+        <h1 className="font-bold text-text-primary text-5xl leading-[3rem] -tracking-[0.0125rem] mb-6">
+          작은 기록으로 커리어를 혁신
+          <span className="text-text-strong">하세요.</span>
+        </h1>
 
-          <div className="absolute top-[12.5rem] left-auto right-auto w-full">
-            <VerticalDivider />
-          </div>
-        </div>
+        <h2 className="font-head-28 text-text-neutral">
+          회고를 위한 가장 쉬운 선택, PITSTOP
+        </h2>
       </section>
-
-      <section className="w-full h-[25.25rem] bg-neutral-30 flex items-center justify-center">
-        서비스 소개 영역
-      </section>
-
-      <footer className="w-full h-[6.25rem] flex items-center pl-[11.25rem] bg-surface-strong">
-        <p className="font-body-13 text-text-invert">
-          <span className="underline cursor-pointer">Terms & Conditions</span> |
-          © 2024 Vera All rights reserved.
-        </p>
-      </footer>
     </main>
   );
 }
