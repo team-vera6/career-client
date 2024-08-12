@@ -11,7 +11,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
-  plugins: ['unused-imports', 'simple-import-sort'],
+  plugins: ['prettier', 'unused-imports', 'simple-import-sort'],
   rules: {
     '@typescript-eslint/no-use-before-define': 'off',
     'react/no-unescaped-entities': 'off',
