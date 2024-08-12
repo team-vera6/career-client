@@ -28,40 +28,49 @@ const LoginComponents = () => {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    userLogin(formData.email, formData.password);
+    const login = await userLogin(formData.email, formData.password);
+
+    if (login === 'success') {
+      router.push('/');
+    }
   };
 
   return (
-    <form className="flex flex-col gap-7 w-[22.25rem]" onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-3">
-        <Input
-          placeholder="이메일 주소"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <PasswordInput
-          placeholder="비밀번호"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex flex-col gap-3">
-        <button type="submit" className="button-primary h-12 rounded-xl">
-          로그인
-        </button>
-        <button
-          type="button"
-          className="button-line h-12 rounded-xl"
-          onClick={() => onClickButton('/auth/sign-up')}
-        >
-          회원가입
-        </button>
-      </div>
-    </form>
+    <div>
+      <form
+        className="flex flex-col gap-7 w-[22.25rem]"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex flex-col gap-3">
+          <Input
+            placeholder="이메일 주소"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <PasswordInput
+            placeholder="비밀번호"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex flex-col gap-3">
+          <button type="submit" className="button-primary h-12 rounded-xl">
+            로그인
+          </button>
+          <button
+            type="button"
+            className="button-line h-12 rounded-xl"
+            onClick={() => onClickButton('/auth/sign-up')}
+          >
+            회원가입
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

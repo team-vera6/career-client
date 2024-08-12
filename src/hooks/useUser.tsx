@@ -15,12 +15,14 @@ export const useUser = () => {
 
     if (result.accessToken) {
       SetAccessToken(result.accessToken);
+      return 'success';
     } else if (result.errorMessage) {
       addToast({
         message: result.errorMessage,
         iconType: 'error',
       });
     }
+    return 'error';
   };
 
   return userLogin;
