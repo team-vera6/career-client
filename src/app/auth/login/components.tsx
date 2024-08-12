@@ -5,13 +5,11 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 
 import Input from '@/components/inputs/input/Input';
 import PasswordInput from '@/components/inputs/password/PasswordInput';
-import useToast from '@/hooks/useToast';
 import { useUser } from '@/hooks/useUser';
 
 const LoginComponents = () => {
   const router = useRouter();
   const userLogin = useUser();
-  const { addToast } = useToast();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -55,7 +53,6 @@ const LoginComponents = () => {
         <button type="submit" className="button-primary h-12 rounded-xl">
           로그인
         </button>
-        
         <button
           type="button"
           className="button-line h-12 rounded-xl"
