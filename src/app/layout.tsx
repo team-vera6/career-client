@@ -5,6 +5,8 @@ import type { Metadata } from 'next';
 import { Chakra_Petch } from 'next/font/google';
 import localFont from 'next/font/local';
 
+import ToastContainer from '@/components/toast/ToastContainer';
+
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
   display: 'swap',
@@ -34,7 +36,10 @@ export default function RootLayout({
       lang="ko"
       className={`${pretendard.variable} ${chakraPetch.variable}`}
     >
-      <body className="font-pretendard bg-surface-background">{children}</body>
+      <body className="font-pretendard bg-surface-background">
+        {children}
+        <ToastContainer />
+      </body>
     </html>
   );
 }
