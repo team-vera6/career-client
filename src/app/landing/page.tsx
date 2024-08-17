@@ -7,7 +7,7 @@ import Title from './_components/Title';
 
 export default function LandingPage() {
   return (
-    <main className="h-full min-h-screen bg-surface-foreground px-[10rem] mobile:px-6">
+    <main className="h-full min-h-screen min-w-[1024px] bg-surface-foreground px-[10rem] mobile:px-6 mobile:min-w-[360px]">
       <Header />
 
       <Title />
