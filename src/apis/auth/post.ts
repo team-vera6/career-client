@@ -1,5 +1,5 @@
+import { ErrorResponseType } from '../../types/apis';
 import { typedPost } from '..';
-import { ErrorResponseType } from './../../types/apis';
 
 export const LOGIN_ERROR_MESSAGE: Record<string, string> = {
   incorrect_password: '비밀번호가 일치하지 않습니다.',

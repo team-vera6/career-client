@@ -1,6 +1,6 @@
 import { useSetAtom } from 'jotai';
 
-import { login } from '@/apis/auth/login';
+import { login } from '@/apis/auth/post';
 import { userTokenAtom } from '@/stores/user/accessTokenAtom';
 
 import useToast from './useToast';
