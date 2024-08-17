@@ -30,6 +30,7 @@ const PasswordInput = ({ errorText, ...rest }: Props) => {
       />
 
       <button
+        type="button"
         onClick={() => setShowPassword((prev) => !prev)}
         className="absolute right-3 top-3"
       >
