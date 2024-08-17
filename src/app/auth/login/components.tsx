@@ -21,7 +21,8 @@ const LoginComponents = () => {
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.currentTarget;
+
     setFormData({
       ...formData,
       [name]: value,
