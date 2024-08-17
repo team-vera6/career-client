@@ -12,8 +12,8 @@ export default function LandingPage() {
 
       <Title />
 
-      <Link href="/dashboard">
-        <button className="button-primary button-large mb-20 mt-10 mobile:mt-7 mobile:mb-16">
+      <Link href="/dashboard" className="block w-fit">
+        <button className="button-primary button-large mb-20 mt-10 mobile:mt-7 mobile:mb-16 w-fit">
           오픈베타 시작하기
         </button>
       </Link>
