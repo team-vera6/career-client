@@ -55,7 +55,10 @@ const config: Config = {
     },
     colors: customColors,
     screens: {
-      mobile: { max: '360px' },
+      mobile: { max: '480px' },
+      tablet: { min: '481px', max: '768px' },
+      laptop: { min: '769px', max: '1024px' },
+      desktop: { min: '1025px' },
     },
   },
   plugins: [
