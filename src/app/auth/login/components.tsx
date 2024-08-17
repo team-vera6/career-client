@@ -9,7 +9,7 @@ import { useUser } from '@/hooks/useUser';
 
 const LoginComponents = () => {
   const router = useRouter();
-  const userLogin = useUser();
+  const { userLogin } = useUser();
 
   const [formData, setFormData] = useState({
     email: '',
