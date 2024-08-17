@@ -1,8 +1,11 @@
 import type { AxiosRequestConfig } from 'axios';
 import axios, { isAxiosError } from 'axios';
 
+import { ErrorResponseType } from '@/types/apis';
+
 const apiInstance = axios.create({
-  baseURL: 'https://api-pitstop.site',
+  // FIXME: 백에서 localhost:3000 등록 후 원래 도메인으로 변경
+  baseURL: '/',
   responseType: 'json',
 });
 
@@ -11,7 +14,7 @@ apiInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken');
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = token;
     }
     return config;
   },
@@ -25,10 +28,10 @@ apiInstance.interceptors.response.use(
   },
   (error) => {
     if (isAxiosError(error) && error.response) {
-      const errorResponse = {
+      const errorResponse: ErrorResponseType = {
         status: error.response.status,
         message: error.response.data?.message || 'An error occurred',
-        code: error.response.data?.code || 'UNKNOWN_ERROR',
+        code: error.response.data?.code || 'Unknown error',
       };
       return Promise.reject(errorResponse);
     }
