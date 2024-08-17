@@ -9,6 +9,7 @@ const nextConfig = {
       },
     ];
   },
+
   async redirects() {
     return [
       {
