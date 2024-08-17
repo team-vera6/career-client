@@ -23,6 +23,6 @@ export const login = async (email: string, password: string) => {
     if ((error.code as string) && LOGIN_ERROR_MESSAGE[error.code]) {
       return { errorMessage: LOGIN_ERROR_MESSAGE[error.code] };
     }
-    return err;
+    return { errorMessage: 'Unknown error' };
   }
 };

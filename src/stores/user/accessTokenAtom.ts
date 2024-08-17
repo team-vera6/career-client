@@ -1,3 +1,6 @@
 import { atom } from 'jotai';
 
-export const accessTokenAtom = atom<string | null>(null);
+export const userTokenAtom = atom({
+  accessToken: '',
+  refreshToken: '',
+});

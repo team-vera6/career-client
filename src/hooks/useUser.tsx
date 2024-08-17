@@ -1,12 +1,12 @@
 import { useSetAtom } from 'jotai';
 
 import { login } from '@/apis/auth/login';
-import { accessTokenAtom } from '@/stores/user/accessTokenAtom';
+import { userTokenAtom } from '@/stores/user/accessTokenAtom';
 
 import useToast from './useToast';
 
 export const useUser = () => {
-  const SetAccessToken = useSetAtom(accessTokenAtom);
+  const setUserToken = useSetAtom(userTokenAtom);
   const { addToast } = useToast();
 
   // login
@@ -14,7 +14,7 @@ export const useUser = () => {
     const result = await login(email, password);
 
     if (result.accessToken) {
-      SetAccessToken(result.accessToken);
+      setUserToken((prev) => ({ ...prev, accessToken: result.accessToken }));
       return 'success';
     } else if (result.errorMessage) {
       addToast({
