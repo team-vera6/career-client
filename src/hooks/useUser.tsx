@@ -25,5 +25,5 @@ export const useUser = () => {
     return 'error';
   };
 
-  return userLogin;
+  return { userLogin };
 };
