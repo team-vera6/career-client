@@ -5,26 +5,17 @@ import FridayIcon from '../../../assets/images/friday.png';
 const Title = () => {
   return (
     <section className="mt-[6.5rem] w-full mobile:mt-12">
-      <div className="flex gap-3 mobile:block">
-        <div className="flex mb-4 gap-1 mobile:mb-0">
-          <p className="font-bold text-text-strong text-5xl leading-[3rem] -tracking-[0.0125rem] mobile:font-head-28">
-            매주 금요일
-          </p>
-
-          <Image
-            src={FridayIcon}
-            alt="friday"
-            className="w-12 h-12 mobile:w-9 mobile:h-9"
-          />
-
-          <p className="font-bold text-text-strong text-5xl leading-[3rem] -tracking-[0.0125rem] mobile:font-head-28">
-            에 도착하는
-          </p>
-        </div>
-
-        <p className="font-bold text-text-strong text-5xl -tracking-[0.0125rem] mobile:font-head-28">
-          {' '}
-          회고 편지
+      <div className="mb-4 mobile:block mobile:mb-0">
+        <p className="font-bold text-text-strong text-5xl leading-[3rem] -tracking-[0.0125rem] mobile:font-head-28 mobile:whitespace-pre-wrap">
+          매주 금요일
+          <span className="mx-1">
+            <Image
+              src={FridayIcon}
+              alt="friday"
+              className="inline-block w-12 h-12 mobile:w-9 mobile:h-9"
+            />
+          </span>
+          {'에 도착하는 \n회고 편지'}
         </p>
       </div>
 
