@@ -13,10 +13,10 @@ export const useUser = () => {
   const userLogin = async (email: string, password: string) => {
     const result = await login(email, password);
 
-    if (result.accessToken) {
+    if ('accessToken' in result) {
       setUserToken((prev) => ({ ...prev, accessToken: result.accessToken }));
       return 'success';
-    } else if (result.errorMessage) {
+    } else if ('errorMessage' in result) {
       addToast({
         message: result.errorMessage,
         iconType: 'error',
