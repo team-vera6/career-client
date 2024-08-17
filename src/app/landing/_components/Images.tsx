@@ -10,17 +10,17 @@ const Images = () => {
       <Image
         src={Landing1}
         alt="this week to do list"
-        className="bg-surface-foregroundOn rounded-3xl h-[17rem] mobile:h-[9.8125rem] object-contain"
+        className="bg-surface-foregroundOn rounded-3xl h-[17rem] w-full mobile:h-[9.8125rem] object-contain"
       />
       <Image
         src={Landing2}
         alt="review indicators"
-        className="bg-surface-foregroundOn rounded-3xl h-[272px] mobile:h-[9.8125rem] object-contain"
+        className="bg-surface-foregroundOn rounded-3xl h-[272px] w-full mobile:h-[9.8125rem] object-contain"
       />
       <Image
         src={Landing3}
         alt="highlights and lowlights"
-        className="bg-surface-foregroundOn rounded-3xl h-[35.25rem] mobile:h-[9.8125rem] col-span-2 row-span-2 object-contain"
+        className="bg-surface-foregroundOn rounded-3xl h-[35.25rem] w-full mobile:h-[9.8125rem] col-span-2 row-span-2 object-contain"
       />
     </section>
   );
