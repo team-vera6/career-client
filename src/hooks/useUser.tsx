@@ -1,7 +1,7 @@
 import { useSetAtom } from 'jotai';
 
 import { login } from '@/apis/auth/post';
-import { userTokenAtom } from '@/stores/user/accessTokenAtom';
+import { userTokenAtom } from '@/stores/user/tokenAtom';
 
 import useToast from './useToast';
 
@@ -11,14 +11,14 @@ export const useUser = () => {
 
   // login
   const userLogin = async (email: string, password: string) => {
-    const result = await login(email, password);
+    const res = await login(email, password);
 
-    if ('accessToken' in result) {
-      setUserToken((prev) => ({ ...prev, accessToken: result.accessToken }));
+    if ('accessToken' in res) {
+      setUserToken((prev) => ({ ...prev, accessToken: res.accessToken }));
       return 'success';
-    } else if ('errorMessage' in result) {
+    } else if ('errorMessage' in res) {
       addToast({
-        message: result.errorMessage,
+        message: res.errorMessage,
         iconType: 'error',
       });
     }
