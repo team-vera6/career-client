@@ -9,10 +9,10 @@ export const getDashboardData = async ({ year, month, week }: CurrentWeek) => {
   return response;
 };
 
-interface DashboardData {
+export interface DashboardData {
   laps: number;
   daysLeft: number;
-  projectsCount: number;
+  projectCount: number;
   reviewCount: number;
   todos: {
     id: number;
