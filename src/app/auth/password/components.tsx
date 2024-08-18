@@ -34,7 +34,7 @@ const PasswordComponents = () => {
 
   const handlePasswordChange = (pwd: string) => {
     setPassword(pwd);
-    setShowErrorText(() => isValidate(pwd));
+    setShowErrorText(() => !isValidate(pwd));
   };
 
   const handleConfirmPassword = (pwd: string) => {
@@ -69,6 +69,11 @@ const PasswordComponents = () => {
           onChange={(e) => handlePasswordChange(e.currentTarget.value)}
           value={password}
         />
+        {showErrorText && (
+          <p className="font-body-12 text-state-negative">
+            비밀번호는 8자 이상, 영문, 숫자를 포함해 주세요.
+          </p>
+        )}
         <PasswordInput
           placeholder="비밀번호 확인"
           onChange={(e) => handleConfirmPassword(e.currentTarget.value)}
