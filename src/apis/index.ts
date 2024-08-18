@@ -12,8 +12,10 @@ const apiInstance = axios.create({
 // 요청 인터셉터
 apiInstance.interceptors.request.use(
   (config) => {
-    config.headers.Authorization =
-      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aG9yaXR5IjoiVVNFUiIsImV4cCI6MTcyNDA1NjI0N30.4EgOheRO-u9dhq8pWPqM_98vU7LcZQCjNWBl3b8LGQMA72hGiAizpJVOeEoL0mtWYubQrBI3I921mF6yGlYfMA';
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers.Authorization = token;
+    }
     return config;
   },
   (error) => Promise.reject(error),
