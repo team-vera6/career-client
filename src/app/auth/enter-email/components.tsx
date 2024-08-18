@@ -1,9 +1,12 @@
 'use client';
 
+import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 
 import NumberInput from '@/components/inputs/number/NumberInput';
+import { useUser } from '@/hooks/useUser';
+import { emailCodeAtom } from '@/stores/user/emailCodeAtom';
 import { prefixZeros } from '@/utils/format';
 import { cn } from '@/utils/tailwind';
 
@@ -13,16 +16,20 @@ const EmailComponents = () => {
   const [codeArray, setCodeArray] = useState(new Array(6).fill(''));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
+  const { email, id } = useAtomValue(emailCodeAtom);
+  const { userEmailCheck, userEmailVerification } = useUser();
+
   // timer
   const TIME_LIMIT = 5 * 60 * 1000;
   const INTERVAL = 1000;
   const [currentTime, setCurrentTime] = useState(TIME_LIMIT);
   const [isTimeExpired, setIsTimeExpired] = useState(false);
 
-  const reset = () => {
-    setCurrentTime(TIME_LIMIT);
-    // 이메일 전송 api 요청 추가
-  };
+  useEffect(() => {
+    if (email === '') {
+      router.push('/auth/sign-up');
+    }
+  }, [email, router]);
 
   const handleChange = (val: string, idx: number) => {
     if (val !== '' && !/^[0-9]$/.test(val)) return;
@@ -34,6 +41,22 @@ const EmailComponents = () => {
     if (val && idx < codeArray.length - 1) {
       inputRefs.current[idx + 1]?.focus();
     }
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const res = await userEmailVerification(id, codeArray.join(''));
+
+    if (res === 'success') {
+      router.push('/auth/password');
+    }
+  };
+
+  // 재전송
+  const reset = () => {
+    setCurrentTime(TIME_LIMIT);
+    // 이메일 전송 api 요청 추가
+    userEmailCheck(email, true);
   };
 
   useEffect(() => {
@@ -63,7 +86,10 @@ const EmailComponents = () => {
   }, [codeArray, isTimeExpired]);
 
   return (
-    <form className="flex flex-col items-center gap-5 w-[22.25rem]">
+    <form
+      className="flex flex-col items-center gap-5 w-[22.25rem]"
+      onSubmit={handleSubmit}
+    >
       <div className="flex gap-2">
         {codeArray.map((val, idx) => (
           <NumberInput
@@ -88,7 +114,6 @@ const EmailComponents = () => {
       <button
         type="submit"
         className="button-primary h-12 rounded-xl w-full"
-        onClick={() => router.push('/auth/password')}
         disabled={!submitEnabled}
       >
         확인
