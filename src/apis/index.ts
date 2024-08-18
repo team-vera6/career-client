@@ -5,17 +5,15 @@ import { ErrorResponseType } from '@/types/apis';
 
 const apiInstance = axios.create({
   // FIXME: 백에서 localhost:3000 등록 후 원래 도메인으로 변경
-  baseURL: '/',
+  baseURL: '',
   responseType: 'json',
 });
 
 // 요청 인터셉터
 apiInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      config.headers.Authorization = token;
-    }
+    config.headers.Authorization =
+      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aG9yaXR5IjoiVVNFUiIsImV4cCI6MTcyNDA1NjI0N30.4EgOheRO-u9dhq8pWPqM_98vU7LcZQCjNWBl3b8LGQMA72hGiAizpJVOeEoL0mtWYubQrBI3I921mF6yGlYfMA';
     return config;
   },
   (error) => Promise.reject(error),

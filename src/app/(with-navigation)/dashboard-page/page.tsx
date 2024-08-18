@@ -1,32 +1,65 @@
 'use client';
 
+import { useSetAtom } from 'jotai';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import { getDashboardData } from '@/apis/get-dashboard/get';
+import { DashboardData, getDashboardData } from '@/apis/get-dashboard/get';
+import { currentTodoListAtom } from '@/app/review/stores';
+import { getCurrentWeek } from '@/utils/date';
 
 import MemoList from './_components/MemoList';
 import Metrics from './_components/Metrics';
 import TodoList from './_components/TodoList';
 import WeekNavigator from './_components/WeekNavigator';
 
+const { year, month, week } = getCurrentWeek();
+
 export default function DashboardPage() {
+  const setTodos = useSetAtom(currentTodoListAtom);
+
+  const [data, setData] = useState<DashboardData>();
+
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
-    const response = await getDashboardData({ year: 2024, month: 7, week: 4 });
-    console.log(response);
+    const data = await getDashboardData({ year, month, week });
+    setData(data);
+
+    updateTodo(data.todos);
   };
+
+  const updateTodo = (todoFromDashboard: DashboardData['todos']) => {
+    setTodos(
+      todoFromDashboard.map((todo) => {
+        return {
+          week: 'current',
+          isChecked: false,
+          todo: todo.content,
+          id: String(todo.id),
+          isMoved: false,
+        };
+      }),
+    );
+  };
+
+  if (!data) {
+    return <div>loading...</div>;
+  }
 
   return (
     <div>
-      <Metrics weekStreak={12} reviewCount={17} projectCount={3} />
+      <Metrics
+        weekStreak={data.laps}
+        reviewCount={data.reviewCount}
+        projectCount={data.projectCount}
+      />
 
       <div className="w-full">
         <section className="flex items-center justify-between mb-6">
-          <WeekNavigator month={7} week={4} />
+          <WeekNavigator />
 
           <Link href="/review/step1">
             <button className="button-primary button-large">회고하기</button>
