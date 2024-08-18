@@ -4,16 +4,31 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import PasswordInput from '@/components/inputs/password/PasswordInput';
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useState } from 'react';
 import useToast from '@/hooks/useToast';
+import { useUser } from '@/hooks/useUser';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { emailCodeAtom } from '@/stores/user/emailCodeAtom';
+import { nicknameFromEmail } from '@/utils/parse';
+import { signUpAtom } from '@/stores/user/signUpAtom';
 
 const PasswordComponents = () => {
   const router = useRouter();
+  const { userSignUp } = useUser();
   const { addToast } = useToast();
+
+  const { email, id } = useAtomValue(emailCodeAtom);
+  const setIsSignUp = useSetAtom(signUpAtom);
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showErrorText, setShowErrorText] = useState(false); // FIXME: 디자인 선반영 필요
+
+  useEffect(() => {
+    if (!email) {
+      router.push('/auth/enter-email');
+    }
+  }, [email]);
 
   const isValidate = (pwd: string) => {
     const MIN_LENGTH = 8;
@@ -41,7 +56,7 @@ const PasswordComponents = () => {
     setConfirmPassword(pwd);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -49,8 +64,22 @@ const PasswordComponents = () => {
         message: '비밀번호가 일치하지 않습니다.',
         iconType: 'error',
       });
+    } else {
+      const nickname = nicknameFromEmail(email);
+
+      const req = {
+        emailId: id,
+        password,
+        nickname,
+      };
+
+      const res = await userSignUp(req);
+
+      if (res === 'success') {
+        setIsSignUp(true); // 최초 회원가입 시 띄워줄 모달 상태
+        router.push('/');
+      }
     }
-    // FIXME: api 전송 로직 추가
   };
 
   const isButtonEnabled = useMemo(() => {

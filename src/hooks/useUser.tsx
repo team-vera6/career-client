@@ -5,11 +5,13 @@ import {
   EmailCheckResponse,
   emailVerification,
   login,
+  signUp,
 } from '@/apis/auth/post';
 import { emailCodeAtom } from '@/stores/user/emailCodeAtom';
 import { userTokenAtom } from '@/stores/user/tokenAtom';
 
 import useToast from './useToast';
+import { SignUpResponse } from './../apis/auth/post';
 
 export const useUser = () => {
   const setUserToken = useSetAtom(userTokenAtom);
@@ -74,5 +76,25 @@ export const useUser = () => {
     return 'error';
   };
 
-  return { userLogin, userEmailCheck, userEmailVerification };
+  // sign-up
+  const userSignUp = async ({
+    emailId,
+    password,
+    nickname,
+  }: SignUpResponse) => {
+    const res = await signUp({ emailId, password, nickname });
+
+    if ('token' in res) {
+      setUserToken((prev) => ({ ...prev, accessToken: res.token as string }));
+      return 'success';
+    } else if ('errorMessage' in res) {
+      addToast({
+        message: res.errorMessage,
+        iconType: 'error',
+      });
+    }
+    return 'error';
+  };
+
+  return { userLogin, userEmailCheck, userEmailVerification, userSignUp };
 };

@@ -70,3 +70,26 @@ export const emailVerification = async (emailId: string, code: string) => {
     return { errorMessage: 'Unknown error' };
   }
 };
+
+export interface SignUpResponse {
+  emailId: string;
+  password: string;
+  nickname: string;
+}
+
+export const signUp = async ({
+  emailId,
+  password,
+  nickname,
+}: SignUpResponse) => {
+  try {
+    const res = await typedPost<EmailVerificationResponse>('auth/sign-up', {
+      emailId,
+      password,
+      nickname,
+    });
+    return res;
+  } catch (err) {
+    return returnError(err);
+  }
+};
