@@ -23,7 +23,10 @@ const EmailComponents = () => {
     setCurrentTime(TIME_LIMIT);
     // 이메일 전송 api 요청 추가
   };
+
   const handleChange = (val: string, idx: number) => {
+    if (val !== '' && !/^[0-9]$/.test(val)) return;
+
     const newArray = [...codeArray];
     newArray[idx] = val;
     setCodeArray(newArray);
