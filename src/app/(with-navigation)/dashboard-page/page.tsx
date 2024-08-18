@@ -1,4 +1,9 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect } from 'react';
+
+import { getDashboardData } from '@/apis/get-dashboard/get';
 
 import MemoList from './_components/MemoList';
 import Metrics from './_components/Metrics';
@@ -6,6 +11,15 @@ import TodoList from './_components/TodoList';
 import WeekNavigator from './_components/WeekNavigator';
 
 export default function DashboardPage() {
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const response = await getDashboardData({ year: 2024, month: 7, week: 4 });
+    console.log(response);
+  };
+
   return (
     <div>
       <Metrics weekStreak={12} reviewCount={17} projectCount={3} />
