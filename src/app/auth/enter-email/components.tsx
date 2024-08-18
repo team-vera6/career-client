@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import NumberInput from '@/components/inputs/number/NumberInput';
 import { prefixZeros } from '@/utils/format';
@@ -11,7 +11,9 @@ const EmailComponents = () => {
   const router = useRouter();
 
   const [codeArray, setCodeArray] = useState(new Array(6).fill(''));
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
+  // timer
   const TIME_LIMIT = 5 * 60 * 1000;
   const INTERVAL = 1000;
   const [currentTime, setCurrentTime] = useState(TIME_LIMIT);
@@ -25,6 +27,10 @@ const EmailComponents = () => {
     const newArray = [...codeArray];
     newArray[idx] = val;
     setCodeArray(newArray);
+
+    if (val && idx < codeArray.length - 1) {
+      inputRefs.current[idx + 1]?.focus();
+    }
   };
 
   useEffect(() => {
@@ -61,6 +67,8 @@ const EmailComponents = () => {
             key={`code-${idx}`}
             value={val}
             onChange={(e) => handleChange(e.currentTarget.value, idx)}
+            autoFocus={idx === 0}
+            ref={(el: HTMLInputElement | null) => (inputRefs.current[idx] = el)}
           />
         ))}
       </div>
