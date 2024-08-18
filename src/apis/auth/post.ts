@@ -33,7 +33,7 @@ export const login = async (email: string, password: string) => {
   }
 };
 
-interface EmailCheckResponse {
+export interface EmailCheckResponse {
   id: string;
   email: string;
 }
