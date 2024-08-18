@@ -18,7 +18,7 @@ const SignUpComponents = () => {
     const res = await userEmailCheck(emailInput);
 
     if (res === 'success') {
-      router.push('/auth/email');
+      router.push('/auth/enter-email');
     }
   };
 
