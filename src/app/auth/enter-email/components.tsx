@@ -86,50 +86,58 @@ const EmailComponents = () => {
   }, [codeArray, isTimeExpired]);
 
   return (
-    <form
-      className="flex flex-col items-center gap-5 w-[22.25rem]"
-      onSubmit={handleSubmit}
-    >
-      <div className="flex gap-2">
-        {codeArray.map((val, idx) => (
-          <NumberInput
-            key={`code-${idx}`}
-            value={val}
-            onChange={(e) => handleChange(e.currentTarget.value, idx)}
-            autoFocus={idx === 0}
-            ref={(el: HTMLInputElement | null) => (inputRefs.current[idx] = el)}
-          />
-        ))}
-      </div>
-      <p
-        className={
-          (cn('font-body-14'),
-          isTimeExpired ? 'text-text-primary' : 'text-text-strong')
-        }
-      >
-        {isTimeExpired
-          ? '인증 번호를 재전송해 주세요.'
-          : `${minutes}:${seconds}`}
+    <>
+      <p className="font-body-14 mb-12 text-text-strong">
+        <span className="font-title-14 mr-0.5">{email}</span>
+        으로 전송된 인증 메일을 확인해 주세요.
       </p>
-      <button
-        type="submit"
-        className="button-primary h-12 rounded-xl w-full"
-        disabled={!submitEnabled}
+      <form
+        className="flex flex-col items-center gap-5 w-[22.25rem]"
+        onSubmit={handleSubmit}
       >
-        확인
-      </button>
-      <p className="font-body-14 text-center mt-10 whitespace-pre-wrap text-text-strong">
-        메일이 오지 않으셨나요?{'\n'}스팸함을 확인하거나 인증 메일을{' '}
-        <span
-          style={{ fontWeight: 700 }}
-          className="cursor-pointer"
-          onClick={reset}
+        <div className="flex gap-2">
+          {codeArray.map((val, idx) => (
+            <NumberInput
+              key={`code-${idx}`}
+              value={val}
+              onChange={(e) => handleChange(e.currentTarget.value, idx)}
+              autoFocus={idx === 0}
+              ref={(el: HTMLInputElement | null) =>
+                (inputRefs.current[idx] = el)
+              }
+            />
+          ))}
+        </div>
+        <p
+          className={
+            (cn('font-body-14'),
+            isTimeExpired ? 'text-text-primary' : 'text-text-strong')
+          }
         >
-          재전송
-        </span>
-        해 주세요.
-      </p>
-    </form>
+          {isTimeExpired
+            ? '인증 번호를 재전송해 주세요.'
+            : `${minutes}:${seconds}`}
+        </p>
+        <button
+          type="submit"
+          className="button-primary h-12 rounded-xl w-full"
+          disabled={!submitEnabled}
+        >
+          확인
+        </button>
+        <p className="font-body-14 text-center mt-10 whitespace-pre-wrap text-text-strong">
+          메일이 오지 않으셨나요?{'\n'}스팸함을 확인하거나 인증 메일을{' '}
+          <span
+            style={{ fontWeight: 700 }}
+            className="cursor-pointer"
+            onClick={reset}
+          >
+            재전송
+          </span>
+          해 주세요.
+        </p>
+      </form>
+    </>
   );
 };
 
