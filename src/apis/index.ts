@@ -5,7 +5,7 @@ import { ErrorResponseType } from '@/types/apis';
 
 const apiInstance = axios.create({
   // FIXME: 백에서 localhost:3000 등록 후 원래 도메인으로 변경
-  baseURL: '/',
+  baseURL: '',
   responseType: 'json',
 });
 
