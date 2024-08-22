@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
-import { getProject, getProjectList, Project } from '@/apis/projects/get';
+import { getProjectList, ProjectList } from '@/apis/projects/get';
 
 import AddButton from './_components/add-button/AddButton';
 import NoItem from './_components/project-item/NoItem';
 import ProjectItem from './_components/project-item/ProjectItem';
 
 export default function ProjectPage() {
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<ProjectList['projects']>([]);
 
   useEffect(() => {
     getProjects();
@@ -19,8 +19,7 @@ export default function ProjectPage() {
     const { projects } = await getProjectList();
     setProjects(projects);
 
-    const data = await getProject();
-    console.log(data);
+    console.log(projects);
   };
 
   return (

@@ -1,3 +1,5 @@
+import { CurrentWeek } from '@/types/currentWeek';
+
 import { typedGet } from '..';
 
 export const getProjectList = async () => {
@@ -10,27 +12,26 @@ export const getProject = async ({ id }: { id: number | string }) => {
   return response;
 };
 
-interface ProjectList {
-  projects: Project[];
+export interface ProjectList {
+  projects: Omit<Project, 'content'>[];
 }
 
 export interface Project {
   id: number;
   title: string;
   goal: string;
+  content: string;
   startDate: [number, number, number];
   endDate: [number, number, number];
   progress: number;
-  // highlights: {
-  //   id: number;
-  //   content: string;
-  //   month: number;
-  //   week: number;
-  // }[];
-  // lowlights: {
-  //   id: number;
-  //   content: string;
-  //   month: number;
-  //   week: number;
-  // }[];
+  highlights: {
+    id: number;
+    content: string;
+    weekNumber: CurrentWeek;
+  }[];
+  lowlights: {
+    id: number;
+    content: string;
+    weekNumber: CurrentWeek;
+  }[];
 }
