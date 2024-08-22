@@ -9,9 +9,10 @@ interface Props {
   id: number;
   title: string;
   progress: number;
+  onClose?: () => void;
 }
 
-const ProjectItem = ({ id, title, progress }: Props) => {
+const ProjectItem = ({ id, title, progress, onClose }: Props) => {
   const [showSheet, setShowSheet] = useState(false);
 
   return (
@@ -33,7 +34,10 @@ const ProjectItem = ({ id, title, progress }: Props) => {
       <ProjectDetailSheet
         projectId={id}
         isOpen={showSheet}
-        closeSheet={() => setShowSheet(false)}
+        closeSheet={() => {
+          onClose?.();
+          setShowSheet(false);
+        }}
       />
     </>
   );

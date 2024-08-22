@@ -33,6 +33,7 @@ export default function ProjectPage() {
                 id={project.id}
                 title={project.title}
                 progress={project.progress}
+                onClose={getProjects}
               />
             ))}
           </>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { getProject, Project } from '@/apis/projects/get';
 import Alert from '@/components/modal/Alert';
@@ -29,21 +29,21 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
   const [projectInfo, setProjectInfo] = useState<Project>();
   const [reviews, setReviews] = useState<Review[]>([]);
 
+  const getProjectInfo = useCallback(async () => {
+    const data = await getProject({ id: projectId });
+    setProjectInfo(data);
+
+    const reviews = sortHighlightsAndLowlights(data.highlights, data.lowlights);
+    setReviews(reviews);
+  }, [projectId]);
+
   useEffect(() => {
     if (!isOpen) {
       return;
     }
 
     getProjectInfo();
-  }, [isOpen]);
-
-  const getProjectInfo = async () => {
-    const data = await getProject({ id: projectId });
-    setProjectInfo(data);
-
-    const reviews = sortHighlightsAndLowlights(data.highlights, data.lowlights);
-    setReviews(reviews);
-  };
+  }, [isOpen, getProjectInfo]);
 
   const sortHighlightsAndLowlights = (
     highlights: Highlight[],
@@ -161,7 +161,10 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
 
       <EditProjectSheet
         isOpen={openEditSheet}
-        closeSheet={() => setOpenEditSheet(false)}
+        closeSheet={async () => {
+          setOpenEditSheet(false);
+          await getProjectInfo();
+        }}
         projectId={projectId}
         initialTitle={projectInfo?.title}
         initialDate={{
