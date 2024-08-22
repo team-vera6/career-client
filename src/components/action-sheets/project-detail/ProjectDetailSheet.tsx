@@ -17,10 +17,16 @@ interface Props {
   projectId: number;
 }
 
+type Highlight = Project['highlights'][0];
+interface ProjectItem extends Highlight {
+  type: 'highlight' | 'lowlight';
+}
+
 const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [openEditSheet, setOpenEditSheet] = useState(false);
   const [projectInfo, setProjectInfo] = useState<Project>();
+  const [reviews, setReviews] = useState<ProjectItem[]>([]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -32,9 +38,42 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
 
   const getProjectInfo = async () => {
     const data = await getProject({ id: projectId });
-    console.log('data', data);
-
     setProjectInfo(data);
+
+    const reviews = sortHighlightsAndLowlights(data.highlights, data.lowlights);
+    setReviews(reviews);
+  };
+
+  const sortHighlightsAndLowlights = (
+    highlights: Highlight[],
+    lowlights: Highlight[],
+  ) => {
+    const highlight = highlights.map((highlight) => {
+      return {
+        ...highlight,
+        type: 'highlight',
+      };
+    });
+    const lowlight = lowlights.map((lowlight) => {
+      return {
+        ...lowlight,
+        type: 'lowlight',
+      };
+    });
+
+    const reviews = [...highlight, ...lowlight];
+    reviews.sort((a, b) => {
+      if (a.weekNumber.year === b.weekNumber.year) {
+        if (a.weekNumber.month === b.weekNumber.month) {
+          return b.weekNumber.week - a.weekNumber.week;
+        }
+        return b.weekNumber.month - a.weekNumber.month;
+      } else {
+        return b.weekNumber.year - a.weekNumber.year;
+      }
+    });
+
+    return reviews as ProjectItem[];
   };
 
   if (!isOpen) {
@@ -65,11 +104,13 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
               <p className="font-head-24 text-text-strong mb-4">
                 {projectInfo.title}
               </p>
+
               <ProjectProgress
                 startDate="2024.6.1"
                 endDate="2024.10.31"
                 percentage={projectInfo.progress}
               />
+
               <div className="flex flex-col gap-4 mb-6">
                 <ProjectDetailItems title="목표" content={projectInfo.goal} />
                 <ProjectDetailItems
@@ -77,30 +118,22 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
                   content={projectInfo.content}
                 />
               </div>
+
               <div>
                 <p className="mb-5 font-title-16 text-text-strong">
                   연관된 회고
                 </p>
 
                 <div className="flex flex-col gap-3">
-                  <RelatedReview
-                    type="highlight"
-                    review="시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌
-            프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션
-            반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음"
-                    week="6월 1주차"
-                  />
-                  <RelatedReview
-                    type="lowlight"
-                    review="QA를 1달가까이 하는중이라 지쳐가는중"
-                    week="5월 4주차"
-                  />
-                  <RelatedReview
-                    type="lowlight"
-                    review="QA를 1달가까이 하는중이라 지쳐가는중"
-                    week="5월 3주차"
-                    last
-                  />
+                  {reviews.map((review) => (
+                    <RelatedReview
+                      key={review.id}
+                      type={review.type}
+                      review={review.content}
+                      week={review.weekNumber}
+                      last={review === reviews[reviews.length - 1]}
+                    />
+                  ))}
                 </div>
               </div>
             </>

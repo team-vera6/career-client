@@ -18,8 +18,6 @@ export default function ProjectPage() {
   const getProjects = async () => {
     const { projects } = await getProjectList();
     setProjects(projects);
-
-    console.log(projects);
   };
 
   return (
