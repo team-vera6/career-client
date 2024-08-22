@@ -107,8 +107,8 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
               </p>
 
               <ProjectProgress
-                startDate="2024.6.1"
-                endDate="2024.10.31"
+                startDate={projectInfo.startDate}
+                endDate={projectInfo.endDate}
                 percentage={projectInfo.progress}
               />
 
@@ -163,6 +163,14 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
         isOpen={openEditSheet}
         closeSheet={() => setOpenEditSheet(false)}
         projectId={projectId}
+        initialTitle={projectInfo?.title}
+        initialDate={{
+          start: projectInfo?.startDate ?? '',
+          end: projectInfo?.endDate ?? '',
+        }}
+        initialGoal={projectInfo?.goal}
+        initialDescription={projectInfo?.content}
+        reviews={reviews}
       />
     </>
   );

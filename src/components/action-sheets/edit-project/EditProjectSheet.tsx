@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { editProject } from '@/apis/projects/put';
 import DateRangeInput from '@/components/inputs/date/DateRangeInput';
@@ -37,14 +37,24 @@ const EditProjectSheet = ({
 }: Props) => {
   const { addToast } = useToast();
 
-  const [title, setTitle] = useState(initialTitle ?? '');
-  const [dateRange, setDateRange] = useState(
-    initialDate ?? { start: '', end: '' },
-  );
-  const [goal, setGoal] = useState(initialGoal ?? '');
-  const [description, setDescription] = useState(initialDescription ?? '');
+  const [title, setTitle] = useState('');
+  const [dateRange, setDateRange] = useState({ start: '', end: '' });
+  const [goal, setGoal] = useState('');
+  const [description, setDescription] = useState('');
 
   const [showDismissAlert, setShowDismissAlert] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    setTitle(initialTitle ?? '');
+    setDateRange(initialDate ?? { start: '', end: '' });
+    setGoal(initialGoal ?? '');
+    setDescription(initialDescription ?? '');
+    setGoal(initialGoal ?? '');
+  }, [isOpen, initialTitle, initialDate, initialGoal, initialDescription]);
 
   const onClickSave = async () => {
     const body = {
@@ -69,6 +79,10 @@ const EditProjectSheet = ({
       });
     }
   };
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <RightActionSheetContainer

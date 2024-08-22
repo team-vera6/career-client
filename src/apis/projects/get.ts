@@ -21,8 +21,8 @@ export interface Project {
   title: string;
   goal: string;
   content: string;
-  startDate: [number, number, number];
-  endDate: [number, number, number];
+  startDate: string;
+  endDate: string;
   progress: number;
   highlights: {
     id: number;

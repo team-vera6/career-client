@@ -31,7 +31,7 @@ const ProjectItem = ({ id, title, progress }: Props) => {
       </div>
 
       <ProjectDetailSheet
-        projectId={1}
+        projectId={id}
         isOpen={showSheet}
         closeSheet={() => setShowSheet(false)}
       />
