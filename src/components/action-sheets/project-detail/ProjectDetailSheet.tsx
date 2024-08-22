@@ -11,22 +11,23 @@ import ProjectDetailItems from './_components/ProjectDetailItems';
 import ProjectProgress from './_components/ProjectProgress';
 import RelatedReview from './_components/RelatedReview';
 
+type Highlight = Project['highlights'][0];
+
+export interface Review extends Highlight {
+  type: 'highlight' | 'lowlight';
+}
+
 interface Props {
   isOpen: boolean;
   closeSheet: () => void;
   projectId: number;
 }
 
-type Highlight = Project['highlights'][0];
-interface ProjectItem extends Highlight {
-  type: 'highlight' | 'lowlight';
-}
-
 const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [openEditSheet, setOpenEditSheet] = useState(false);
   const [projectInfo, setProjectInfo] = useState<Project>();
-  const [reviews, setReviews] = useState<ProjectItem[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -73,7 +74,7 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
       }
     });
 
-    return reviews as ProjectItem[];
+    return reviews as Review[];
   };
 
   if (!isOpen) {

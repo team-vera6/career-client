@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { editProject } from '@/apis/projects/put';
 import DateRangeInput from '@/components/inputs/date/DateRangeInput';
 import Input from '@/components/inputs/input/Input';
 import LineInput from '@/components/inputs/line/LineInput';
@@ -11,6 +12,7 @@ import useToast from '@/hooks/useToast';
 
 import RightActionSheetContainer from '../Container';
 import RelatedReview from '../project-detail/_components/RelatedReview';
+import { Review } from '../project-detail/ProjectDetailSheet';
 
 interface Props {
   isOpen: boolean;
@@ -20,6 +22,7 @@ interface Props {
   initialDate?: { start: string; end: string };
   initialGoal?: string;
   initialDescription?: string;
+  reviews?: Review[];
 }
 
 const EditProjectSheet = ({
@@ -30,6 +33,7 @@ const EditProjectSheet = ({
   initialDate,
   initialGoal,
   initialDescription,
+  reviews,
 }: Props) => {
   const { addToast } = useToast();
 
@@ -42,6 +46,30 @@ const EditProjectSheet = ({
 
   const [showDismissAlert, setShowDismissAlert] = useState(false);
 
+  const onClickSave = async () => {
+    const body = {
+      title,
+      startDate: dateRange.start,
+      endDate: dateRange.end,
+      goal,
+      content: description,
+    };
+
+    try {
+      await editProject(projectId, body);
+      addToast({
+        message: '프로젝트 내용이 수정되었어요.',
+        iconType: 'success',
+      });
+      closeSheet();
+    } catch (error) {
+      addToast({
+        message: '프로젝트 수정에 실패했어요. 다시 시도해주세요.',
+        iconType: 'error',
+      });
+    }
+  };
+
   return (
     <RightActionSheetContainer
       isOpen={isOpen}
@@ -49,13 +77,7 @@ const EditProjectSheet = ({
       buttons={[
         {
           text: '저장',
-          onClick: () => {
-            closeSheet();
-            addToast({
-              message: '프로젝트 내용이 수정되었어요.',
-              iconType: 'success',
-            });
-          },
+          onClick: onClickSave,
         },
       ]}
     >
@@ -97,24 +119,15 @@ const EditProjectSheet = ({
         <p className="mb-5 font-title-16 text-text-strong">연관된 회고</p>
 
         <div className="flex flex-col gap-3">
-          <RelatedReview
-            type="highlight"
-            review="시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌
-                프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션
-                반응이 지난번이벤트보다 2배나 좋았음"
-            week="6월 1주차"
-          />
-          <RelatedReview
-            type="lowlight"
-            review="QA를 1달가까이 하는중이라 지쳐가는중"
-            week="5월 4주차"
-          />
-          <RelatedReview
-            type="lowlight"
-            review="QA를 1달가까이 하는중이라 지쳐가는중"
-            week="5월 3주차"
-            last
-          />
+          {reviews?.map((review) => (
+            <RelatedReview
+              key={review.id}
+              type={review.type}
+              review={review.content}
+              week={review.weekNumber}
+              last={review === reviews[reviews.length - 1]}
+            />
+          ))}
         </div>
       </div>
 
