@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { getProject, Project } from '@/apis/projects/get';
 import Alert from '@/components/modal/Alert';
 
 import RightActionSheetContainer from '../Container';
@@ -19,6 +20,20 @@ interface Props {
 const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [openEditSheet, setOpenEditSheet] = useState(false);
+  const [projectInfo, setProjectInfo] = useState<Project>();
+
+  useEffect(() => {
+    getProjectInfo();
+  }, []);
+
+  const getProjectInfo = async () => {
+    const data = await getProject({ id: projectId });
+    setProjectInfo(data);
+  };
+
+  if (!projectInfo) {
+    return <>loading...</>;
+  }
 
   return (
     <>
@@ -39,21 +54,17 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
         ]}
       >
         <p className="font-head-24 text-text-strong mb-4">
-          사용자가 선호하는 차종, 시간대 등을 기반으로 예약을 추천 기능
-          추가가용성 정보를 제공하여 예약율 높이기실시 사용자가 선호하는 차량
+          {projectInfo.title}
         </p>
 
         <ProjectProgress
           startDate="2024.6.1"
           endDate="2024.10.31"
-          percentage={66}
+          percentage={projectInfo.progress}
         />
 
         <div className="flex flex-col gap-4 mb-6">
-          <ProjectDetailItems
-            title="목표"
-            content="현재 위치와 선택한 시간대에 맞는 실시간 차량 가용성 정보를 제공"
-          />
+          <ProjectDetailItems title="목표" content={projectInfo.goal} />
           <ProjectDetailItems
             title="내용"
             content="현재 위치와 선택한 시간대에 맞는 실시간 차량 가용성 정보를
