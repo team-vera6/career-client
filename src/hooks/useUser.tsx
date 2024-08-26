@@ -2,11 +2,10 @@ import { useSetAtom } from 'jotai';
 
 import {
   emailCheck,
-  EmailCheckResponse,
   emailVerification,
   login,
   signUp,
-  SignUpResponse,
+  SignUpRequest,
 } from '@/apis/auth/post';
 import { emailCodeAtom } from '@/stores/user/emailCodeAtom';
 import { userTokenAtom } from '@/stores/user/tokenAtom';
@@ -18,7 +17,6 @@ export const useUser = () => {
   const setEmailCode = useSetAtom(emailCodeAtom);
   const { addToast } = useToast();
 
-  // login
   const userLogin = async (email: string, password: string) => {
     const res = await login(email, password);
 
@@ -28,16 +26,16 @@ export const useUser = () => {
 
       setUserToken((prev) => ({ ...prev, accessToken: res.accessToken }));
       return 'success';
-    } else if ('errorMessage' in res) {
+    } else {
       addToast({
         message: res.errorMessage,
         iconType: 'error',
       });
+
+      return 'error';
     }
-    return 'error';
   };
 
-  // emailCheck
   const userEmailCheck = async (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -46,13 +44,14 @@ export const useUser = () => {
         message: '올바른 이메일 주소를 입력해 주세요.',
         iconType: 'error',
       });
+
       return 'error';
     }
 
     const res = await emailCheck(email);
 
     if ('id' in res) {
-      setEmailCode(res as EmailCheckResponse);
+      setEmailCode(res);
 
       addToast({
         message: '인증 메일을 전송했어요.',
@@ -60,17 +59,16 @@ export const useUser = () => {
       });
 
       return 'success';
-    } else if ('errorMessage' in res) {
+    } else {
       addToast({
         message: res.errorMessage,
         iconType: 'error',
       });
-    }
 
-    return 'error';
+      return 'error';
+    }
   };
 
-  // emailCodeCheck
   const userEmailVerification = async (emailId: string, code: string) => {
     const res = await emailVerification(emailId, code);
 
@@ -81,28 +79,27 @@ export const useUser = () => {
         message: '인증번호를 다시 확인해주세요.',
         iconType: 'error',
       });
+
+      return 'error';
     }
-    return 'error';
   };
 
-  // sign-up
-  const userSignUp = async ({
-    emailId,
-    password,
-    nickname,
-  }: SignUpResponse) => {
+  const userSignUp = async ({ emailId, password, nickname }: SignUpRequest) => {
     const res = await signUp({ emailId, password, nickname });
 
     if ('token' in res) {
-      setUserToken((prev) => ({ ...prev, accessToken: res.token as string }));
+      localStorage.setItem('accessToken', res.token);
+      setUserToken((prev) => ({ ...prev, accessToken: res.token }));
+
       return 'success';
-    } else if ('errorMessage' in res) {
+    } else {
       addToast({
         message: res.errorMessage,
         iconType: 'error',
       });
+
+      return 'error';
     }
-    return 'error';
   };
 
   return { userLogin, userEmailCheck, userEmailVerification, userSignUp };

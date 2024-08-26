@@ -60,19 +60,24 @@ export const emailVerification = async (emailId: string, code: string) => {
   }
 };
 
-export interface SignUpResponse {
+export interface SignUpRequest {
   emailId: string;
   password: string;
   nickname: string;
+}
+
+export interface SignUpResponse {
+  email: string;
+  token: string;
 }
 
 export const signUp = async ({
   emailId,
   password,
   nickname,
-}: SignUpResponse) => {
+}: SignUpRequest) => {
   try {
-    const res = await typedPost<EmailVerificationResponse>('auth/sign-up', {
+    const res = await typedPost<SignUpResponse>('/auth/sign-up', {
       emailId,
       password,
       nickname,
