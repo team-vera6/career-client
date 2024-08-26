@@ -6,12 +6,12 @@ import {
   emailVerification,
   login,
   signUp,
+  SignUpResponse,
 } from '@/apis/auth/post';
 import { emailCodeAtom } from '@/stores/user/emailCodeAtom';
 import { userTokenAtom } from '@/stores/user/tokenAtom';
 
 import useToast from './useToast';
-import { SignUpResponse } from './../apis/auth/post';
 
 export const useUser = () => {
   const setUserToken = useSetAtom(userTokenAtom);

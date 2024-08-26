@@ -1,8 +1,4 @@
-import {
-  ChangeEventHandler,
-  forwardRef,
-  InputHTMLAttributes,
-} from 'react';
+import { ChangeEventHandler, forwardRef, InputHTMLAttributes } from 'react';
 
 import colors from '@/styles/colors';
 
