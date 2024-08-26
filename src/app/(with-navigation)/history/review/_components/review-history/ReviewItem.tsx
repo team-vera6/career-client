@@ -4,8 +4,8 @@ interface Props {
   week: number;
   content: string;
   activeCount: number;
-  id: string;
-  onClickReview: (id: string) => void;
+  id: number;
+  onClickReview: (id: number) => void;
 }
 
 const ReviewItem = ({

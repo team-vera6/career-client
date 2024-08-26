@@ -10,7 +10,7 @@ import { ReviewDetail } from './ReviewDetail';
 
 interface Props {
   isOpen: boolean;
-  selectedReview: string;
+  selectedReview: number;
   setShowDetail: Dispatch<SetStateAction<boolean>>;
 }
 
