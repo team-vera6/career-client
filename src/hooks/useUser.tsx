@@ -35,18 +35,14 @@ export const useUser = () => {
   };
 
   // emailCheck
-  const userEmailCheck = async (email: string, isRetry?: boolean) => {
+  const userEmailCheck = async (email: string) => {
     const res = await emailCheck(email);
 
     if ('id' in res) {
       setEmailCode(res as EmailCheckResponse);
 
-      const successMessage = isRetry
-        ? '인증 메일을 다시 전송했어요.'
-        : '인증 메일을 전송했어요.';
-
       addToast({
-        message: successMessage,
+        message: '인증 메일을 전송했어요.',
         iconType: 'success',
       });
 
@@ -62,8 +58,8 @@ export const useUser = () => {
   };
 
   // emailCodeCheck
-  const userEmailVerification = async (emailid: string, code: string) => {
-    const res = await emailVerification(emailid, code);
+  const userEmailVerification = async (emailId: string, code: string) => {
+    const res = await emailVerification(emailId, code);
 
     if ('isVerified' in res && res.isVerified) {
       return 'success';
