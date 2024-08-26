@@ -12,6 +12,7 @@ import {
 } from 'react';
 
 import NumberInput from '@/components/inputs/number/NumberInput';
+import { useTimer } from '@/hooks/useTimer';
 import { useUser } from '@/hooks/useUser';
 import { emailCodeAtom } from '@/stores/user/emailCodeAtom';
 import { prefixZeros } from '@/utils/format';
@@ -19,7 +20,6 @@ import { cn } from '@/utils/tailwind';
 
 // timer constants
 const TIME_LIMIT = 5 * 60 * 1000;
-const INTERVAL = 1000;
 
 const EmailComponents = () => {
   const router = useRouter();
@@ -37,8 +37,9 @@ const EmailComponents = () => {
   }, [email, router]);
 
   // timer
-  const [currentTime, setCurrentTime] = useState(TIME_LIMIT);
-  const [isTimeExpired, setIsTimeExpired] = useState(false);
+  const { isTimeExpired, minutes, seconds } = useTimer({
+    timeLimit: TIME_LIMIT,
+  });
 
   useEffect(() => {
     if (email === '') {
@@ -47,7 +48,8 @@ const EmailComponents = () => {
   }, [email, router]);
 
   const handleChange = (val: string, idx: number) => {
-    if (val !== '' && !/^[0-9]$/.test(val)) return;
+    const hasNumber = /^[0-9]$/.test(val);
+    if (val !== '' && !hasNumber) return;
 
     const newArray = [...codeArray];
     newArray[idx] = val;
@@ -81,27 +83,6 @@ const EmailComponents = () => {
       router.push('/auth/password');
     }
   };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime((prev) => prev - INTERVAL);
-    }, INTERVAL);
-
-    if (currentTime <= 0) {
-      clearInterval(timer);
-      setIsTimeExpired(true);
-    }
-
-    return () => clearInterval(timer);
-  }, [currentTime]);
-
-  const minutes = useMemo(() => {
-    return Math.floor((currentTime / (60 * 1000)) % 60);
-  }, [currentTime]);
-
-  const seconds = useMemo(() => {
-    return prefixZeros(Math.floor((currentTime / 1000) % 60), 2);
-  }, [currentTime]);
 
   const submitEnabled = useMemo(() => {
     const isAllValues = codeArray.every((el) => el !== '');
@@ -140,7 +121,7 @@ const EmailComponents = () => {
         >
           {isTimeExpired
             ? '인증 번호를 재전송해 주세요.'
-            : `${minutes}:${seconds}`}
+            : `${minutes}:${prefixZeros(seconds, 2)}`}
         </p>
         <button
           type="submit"
