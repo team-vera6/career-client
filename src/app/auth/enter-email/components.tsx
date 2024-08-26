@@ -8,8 +8,9 @@ import Input from '@/components/inputs/input/Input';
 import { useUser } from '@/hooks/useUser';
 
 const SignUpComponents = () => {
-  const [emailInput, setEmailInput] = useState('');
   const router = useRouter();
+
+  const [emailInput, setEmailInput] = useState('');
 
   const { userEmailCheck } = useUser();
 
@@ -33,13 +34,15 @@ const SignUpComponents = () => {
         value={emailInput}
         onChange={(e) => setEmailInput(e.currentTarget.value)}
       />
+
       <button type="submit" className="button-primary h-12 rounded-xl w-full">
         메일 인증
       </button>
-      <div className="font-body-14 flex gap-2 text-text-strong">
-        <p>이미 계정이 있으신가요?</p>
-        <Link href="/auth/login" style={{ fontWeight: 700 }}>
-          로그인
+
+      <div className="flex gap-2 text-text-strong">
+        <p className="font-body-14">이미 계정이 있으신가요?</p>
+        <Link href="/auth/login">
+          <p className="font-title-14">로그인</p>
         </Link>
       </div>
     </form>
