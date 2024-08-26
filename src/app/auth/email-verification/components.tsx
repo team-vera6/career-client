@@ -17,6 +17,10 @@ import { emailCodeAtom } from '@/stores/user/emailCodeAtom';
 import { prefixZeros } from '@/utils/format';
 import { cn } from '@/utils/tailwind';
 
+// timer constants
+const TIME_LIMIT = 5 * 60 * 1000;
+const INTERVAL = 1000;
+
 const EmailComponents = () => {
   const router = useRouter();
 
@@ -33,8 +37,6 @@ const EmailComponents = () => {
   }, [email, router]);
 
   // timer
-  const TIME_LIMIT = 5 * 60 * 1000;
-  const INTERVAL = 1000;
   const [currentTime, setCurrentTime] = useState(TIME_LIMIT);
   const [isTimeExpired, setIsTimeExpired] = useState(false);
 
