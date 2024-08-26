@@ -6,7 +6,7 @@ import { LOGIN_ERROR_MESSAGE } from './constants';
 const returnError = (err: unknown) => {
   const error = err as ErrorResponseType;
 
-  if ((error.code as string) && LOGIN_ERROR_MESSAGE[error.code]) {
+  if (LOGIN_ERROR_MESSAGE[error.code]) {
     return { errorMessage: LOGIN_ERROR_MESSAGE[error.code] };
   }
   return { errorMessage: 'Unknown error' };
@@ -53,7 +53,7 @@ export interface EmailVerificationResponse {
 export const emailVerification = async (emailId: string, code: string) => {
   try {
     const res = await typedPost<EmailVerificationResponse>(
-      'auth/email/verification',
+      '/auth/email/verification',
       {
         emailId,
         code,
@@ -61,7 +61,7 @@ export const emailVerification = async (emailId: string, code: string) => {
     );
     return res;
   } catch (err) {
-    return { errorMessage: 'Unknown error' };
+    return returnError(err);
   }
 };
 
