@@ -1,10 +1,8 @@
-import { ChangeEventHandler, forwardRef, InputHTMLAttributes } from 'react';
+import { forwardRef, InputHTMLAttributes } from 'react';
 
 import colors from '@/styles/colors';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  value?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
   errorText?: string;
 }
 
