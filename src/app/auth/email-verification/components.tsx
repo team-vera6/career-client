@@ -2,7 +2,14 @@
 
 import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  FormEvent,
+  KeyboardEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import NumberInput from '@/components/inputs/number/NumberInput';
 import { useUser } from '@/hooks/useUser';
@@ -40,6 +47,14 @@ const EmailComponents = () => {
 
     if (val && idx < codeArray.length - 1) {
       inputRefs.current[idx + 1]?.focus();
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, idx: number) => {
+    if (e.key !== 'Backspace') return;
+
+    if (codeArray[idx] === '' && idx !== 0) {
+      inputRefs.current[idx - 1]?.focus();
     }
   };
 
@@ -102,9 +117,10 @@ const EmailComponents = () => {
               value={val}
               onChange={(e) => handleChange(e.currentTarget.value, idx)}
               autoFocus={idx === 0}
-              ref={(el: HTMLInputElement | null) =>
-                (inputRefs.current[idx] = el)
-              }
+              ref={(el) => {
+                inputRefs.current[idx] = el;
+              }}
+              onKeyDown={(e) => handleKeyDown(e, idx)}
             />
           ))}
         </div>
