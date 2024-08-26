@@ -1,3 +1,8 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
+import { AllMemos, getAllMemos } from '@/apis/memo/get';
 import { MemoItem } from '@/app/review/types';
 import Memo from '@/components/memo/Memo';
 
@@ -5,6 +10,15 @@ import { dummy } from './dummy';
 import EmptyMemoHistory from './EmptyMemoHistory';
 
 const MemoHistory = () => {
+  const [memos, setMemos] = useState<AllMemos>();
+
+  useEffect(() => {
+    (async () => {
+      const response = await getAllMemos({ id: 0 });
+      setMemos(response);
+    })();
+  }, []);
+
   if (dummy.length < 1) return <EmptyMemoHistory />;
 
   return (
