@@ -1,16 +1,16 @@
 'use client';
 
+import { useAtomValue, useSetAtom } from 'jotai';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { FormEvent, useEffect, useMemo, useState } from 'react';
 
 import PasswordInput from '@/components/inputs/password/PasswordInput';
-import { FormEvent, useEffect, useMemo, useState } from 'react';
 import useToast from '@/hooks/useToast';
 import { useUser } from '@/hooks/useUser';
-import { useAtomValue, useSetAtom } from 'jotai';
 import { emailCodeAtom } from '@/stores/user/emailCodeAtom';
-import { nicknameFromEmail } from '@/utils/parse';
 import { signUpAtom } from '@/stores/user/signUpAtom';
+import { nicknameFromEmail } from '@/utils/parse';
 
 const PasswordComponents = () => {
   const router = useRouter();
@@ -28,19 +28,15 @@ const PasswordComponents = () => {
     if (!email) {
       router.push('/auth/enter-email');
     }
-  }, [email]);
+  }, [email, router]);
 
   const isValidate = (pwd: string) => {
     const MIN_LENGTH = 8;
 
-    const hasUpperCase = /[A-Z]/.test(pwd);
-    const hasLowerCase = /[a-z]/.test(pwd);
+    const hasLetter = /[a-z]/i.test(pwd);
     const hasNumber = /[0-9]/.test(pwd);
 
-    if (
-      pwd.length < MIN_LENGTH ||
-      !(hasUpperCase && hasLowerCase && hasNumber)
-    ) {
+    if (pwd.length < MIN_LENGTH || !(hasLetter && hasNumber)) {
       return false;
     }
 
