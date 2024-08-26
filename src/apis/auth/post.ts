@@ -18,11 +18,7 @@ export const login = async (email: string, password: string) => {
       email,
       password,
     });
-
-    const accessToken = res.accessToken;
-    localStorage.setItem('accessToken', accessToken);
-
-    return { accessToken: accessToken };
+    return res;
   } catch (err) {
     return returnError(err);
   }
@@ -38,7 +34,6 @@ export const emailCheck = async (email: string) => {
     const res = await typedPost<EmailCheckResponse>('/auth/email', {
       email,
     });
-
     return res;
   } catch (err) {
     return returnError(err);

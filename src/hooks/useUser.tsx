@@ -23,6 +23,9 @@ export const useUser = () => {
     const res = await login(email, password);
 
     if ('accessToken' in res) {
+      const accessToken = res.accessToken;
+      localStorage.setItem('accessToken', accessToken);
+
       setUserToken((prev) => ({ ...prev, accessToken: res.accessToken }));
       return 'success';
     } else if ('errorMessage' in res) {
