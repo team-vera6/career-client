@@ -36,6 +36,16 @@ export const useUser = () => {
 
   // emailCheck
   const userEmailCheck = async (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      addToast({
+        message: '올바른 이메일 주소를 입력해 주세요.',
+        iconType: 'error',
+      });
+      return 'error';
+    }
+
     const res = await emailCheck(email);
 
     if ('id' in res) {
