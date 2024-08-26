@@ -7,7 +7,7 @@ export const getReviewList = async () => {
   return response;
 };
 
-interface Review {
+export interface Review {
   weekNumber: CurrentWeek;
   id: number;
   like: number;
