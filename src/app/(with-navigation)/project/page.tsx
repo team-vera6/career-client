@@ -1,17 +1,40 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
+import { getProjectList, ProjectList } from '@/apis/projects/get';
+
 import AddButton from './_components/add-button/AddButton';
 import NoItem from './_components/project-item/NoItem';
 import ProjectItem from './_components/project-item/ProjectItem';
 
 export default function ProjectPage() {
+  const [projects, setProjects] = useState<ProjectList['projects']>([]);
+
+  useEffect(() => {
+    getProjects();
+  }, []);
+
+  const getProjects = async () => {
+    const { projects } = await getProjectList();
+    setProjects(projects);
+  };
+
   return (
     <div className="w-[60rem]">
       <AddButton />
 
       <div className="w-full flex flex-col gap-3">
-        {list.length > 0 ? (
+        {projects.length > 0 ? (
           <>
-            {list.map((item) => (
-              <ProjectItem key={item.project} {...item} />
+            {projects.map((project) => (
+              <ProjectItem
+                key={project.id}
+                id={project.id}
+                title={project.title}
+                progress={project.progress}
+                onClose={getProjects}
+              />
             ))}
           </>
         ) : (
@@ -21,19 +44,3 @@ export default function ProjectPage() {
     </div>
   );
 }
-
-const list = [
-  {
-    project:
-      '사용자가 선호하는 차종, 시간대 등을 기반으로 예약을 추천 기능 추가가용성 정보를 제공하여 예약율 높이기실시사용자가 선호하는 차량 두두두두두두ㅜ',
-    progress: 66,
-  },
-  {
-    project: '자동 정비 알림 시스템',
-    progress: 0,
-  },
-  {
-    project: '사용자 커뮤니티 기능 강화 프로젝트',
-    progress: 100,
-  },
-];
