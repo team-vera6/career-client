@@ -1,6 +1,11 @@
 import { CurrentWeek } from '@/types/currentWeek';
+import { Memo } from '@/types/memo';
 
 import { typedGet } from '..';
+
+interface GetMemoResponse {
+  memos: Memo[];
+}
 
 export const getMemos = async ({ year, month, week }: CurrentWeek) => {
   const response = await typedGet<GetMemoResponse>('/memos', {
@@ -9,6 +14,14 @@ export const getMemos = async ({ year, month, week }: CurrentWeek) => {
 
   return response;
 };
+
+export interface AllMemos {
+  contents: {
+    weekNumber: CurrentWeek;
+    memos: Memo[];
+  }[];
+  nextCursor: number;
+}
 
 export const getAllMemos = async ({
   id,
@@ -23,21 +36,3 @@ export const getAllMemos = async ({
 
   return response;
 };
-
-interface GetMemoResponse {
-  memos: Memo[];
-}
-
-export interface Memo {
-  id: number;
-  content: string;
-  isMarked: boolean;
-}
-
-export interface AllMemos {
-  contents: {
-    weekNumber: CurrentWeek;
-    memos: Memo[];
-  }[];
-  nextCursor: number;
-}
