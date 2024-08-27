@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { addProject } from '@/apis/projects/post';
 import DateRangeInput from '@/components/inputs/date/DateRangeInput';
 import Input from '@/components/inputs/input/Input';
 import LineInput from '@/components/inputs/line/LineInput';
@@ -19,39 +20,72 @@ interface Props {
 const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
   const { addToast } = useToast();
 
+  const [title, setTitle] = useState('');
   const [dateRange, setDateRange] = useState({ start: '', end: '' });
   const [goal, setGoal] = useState('');
   const [description, setDescription] = useState('');
 
   const [showExitAlert, setShowExitAlert] = useState(false);
 
+  const clearAllInputs = () => {
+    setTitle('');
+    setDateRange({ start: '', end: '' });
+    setGoal('');
+    setDescription('');
+  };
+
+  const enrollProject = async () => {
+    const body = {
+      title,
+      startDate: dateRange.start,
+      endDate: dateRange.end,
+      goal,
+      content: description,
+    };
+    try {
+      await addProject(body);
+      addToast({
+        message: '프로젝트 내용이 저장되었어요.',
+        iconType: 'success',
+      });
+      closeSheet();
+      clearAllInputs();
+    } catch (error) {
+      addToast({
+        message: '프로젝트를 저장하는데 실패했어요.',
+        iconType: 'error',
+      });
+    }
+  };
+
+  const onCloseSheet = () => {
+    if (title || dateRange.start || dateRange.end || goal || description) {
+      setShowExitAlert(true);
+    } else {
+      closeSheet();
+    }
+  };
+
   return (
     <>
       <RightActionSheetContainer
         isOpen={isOpen}
-        closeActionSheet={() => {
-          if (dateRange.start || goal || description) {
-            setShowExitAlert(true);
-          } else {
-            closeSheet();
-          }
-        }}
+        closeActionSheet={onCloseSheet}
         buttons={[
           {
             text: '저장',
-            onClick: () => {
-              closeSheet();
-              addToast({
-                message: '프로젝트 내용이 저장되었어요.',
-                iconType: 'success',
-              });
-            },
+            onClick: enrollProject,
             buttonStyle: 'primary',
           },
         ]}
       >
         <div className="mb-5">
-          <LineInput placeholder="프로젝트 이름" className="!font-bold" />
+          <LineInput
+            placeholder="프로젝트 이름"
+            className="!font-bold"
+            value={title}
+            onChange={(e) => setTitle(e.currentTarget.value)}
+          />
         </div>
 
         <div className="flex flex-col gap-4">
@@ -91,7 +125,10 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
           },
           right: {
             text: '확인',
-            onClick: closeSheet,
+            onClick: () => {
+              closeSheet();
+              clearAllInputs();
+            },
           },
         }}
       />

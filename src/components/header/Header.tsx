@@ -4,9 +4,12 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import TextLogo from '@/components/icons/TextLogo';
+import { getCurrentWeek } from '@/utils/date';
 
 import SettingProfileModal from '../modal/setting-profile';
 import WeekInfo from './WeekInfo';
+
+const { totalWeek, week } = getCurrentWeek();
 
 const Header = () => {
   const [openSettingModal, setOpenSettingModal] = useState(false);
@@ -18,7 +21,7 @@ const Header = () => {
           <TextLogo />
         </Link>
 
-        <WeekInfo totalWeek={4} currentWeek={1} />
+        <WeekInfo totalWeek={totalWeek} currentWeek={week} />
 
         <button
           className="w-10 h-10 bg-surface-alternative rounded-[14px] flex items-center justify-center text-text-invert select-none"

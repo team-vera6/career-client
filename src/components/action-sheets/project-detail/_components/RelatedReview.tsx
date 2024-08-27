@@ -1,13 +1,14 @@
 import ChevronRight16Icon from '@/components/icons/ChevronRight16Icon';
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
 import LowlightCircleIcon from '@/components/icons/LowlightCircleIcon';
+import { CurrentWeek } from '@/types/currentWeek';
 
 import Connector from './Connector';
 
 interface Props {
   type: 'highlight' | 'lowlight';
   review: string;
-  week: string;
+  week: CurrentWeek;
   last?: boolean;
 }
 
@@ -28,7 +29,7 @@ const RelatedReview = ({ type, review, week, last }: Props) => {
         </div>
 
         <div className="flex items-center gap-0.5 justify-end">
-          <p className="font-body-13 text-text-strong">{week}</p>
+          <p className="font-body-13 text-text-strong">{`${week.month}월 ${week.week}주차`}</p>
           <ChevronRight16Icon size={16} />
         </div>
       </div>
