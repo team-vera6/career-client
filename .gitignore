@@ -2,8 +2,6 @@ node_modules
 
 .vscode
 
-.next
-
 .DS_Store
 
 .env

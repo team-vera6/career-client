@@ -2,17 +2,39 @@
 
 import { useAtom } from 'jotai';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { getMemos } from '@/apis/memo/get';
 import { memoListAtom } from '@/app/review/stores';
 import EmptyMemoImage from '@/assets/images/memo-empty.png';
 import PlusIcon from '@/components/icons/PlusIcon';
 import Memo from '@/components/memo/Memo';
 import TextEditorModal from '@/components/modal/text-editor';
+import { getCurrentWeek } from '@/utils/date';
+
+const { year, month, week } = getCurrentWeek();
 
 const MemoList = () => {
   const [openTextEditor, setOpenTextEditor] = useState(false);
   const [memos, setMemos] = useAtom(memoListAtom);
+
+  const getMemoList = async () => {
+    const data = await getMemos({ year, month, week });
+    setMemos(
+      data.memos.map((memo) => {
+        return {
+          id: String(memo.id),
+          isBookmark: memo.isMarked,
+          memo: memo.content,
+          date: '7.22',
+        };
+      }),
+    );
+  };
+
+  useEffect(() => {
+    getMemoList();
+  }, []);
 
   return (
     <section className="shrink-0 min-w-[252px]">
