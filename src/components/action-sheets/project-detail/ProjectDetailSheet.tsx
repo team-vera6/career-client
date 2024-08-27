@@ -30,7 +30,7 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   const getProjectInfo = useCallback(async () => {
-    const data = await getProject({ id: projectId });
+    const data = await getProject(projectId);
     setProjectInfo(data);
 
     const reviews = sortHighlightsAndLowlights(data.highlights, data.lowlights);

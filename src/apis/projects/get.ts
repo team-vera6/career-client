@@ -7,7 +7,7 @@ export const getProjectList = async () => {
   return response;
 };
 
-export const getProject = async ({ id }: { id: number | string }) => {
+export const getProject = async (id: number) => {
   const response = await typedGet<Project>(`/projects/${id}`);
   return response;
 };
