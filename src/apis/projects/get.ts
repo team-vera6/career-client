@@ -1,4 +1,4 @@
-import { CurrentWeek } from '@/types/currentWeek';
+import { Highlight } from '@/types/highlight';
 
 import { typedGet } from '..';
 
@@ -24,14 +24,6 @@ export interface Project {
   startDate: string;
   endDate: string;
   progress: number;
-  highlights: {
-    id: number;
-    content: string;
-    weekNumber: CurrentWeek;
-  }[];
-  lowlights: {
-    id: number;
-    content: string;
-    weekNumber: CurrentWeek;
-  }[];
+  highlights: Highlight[];
+  lowlights: Highlight[];
 }
