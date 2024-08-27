@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { getProject, ProjectResponse } from '@/apis/projects/get';
 import Alert from '@/components/modal/Alert';
 import { Highlight } from '@/types/highlight';
+import { sortByWeek } from '@/types/sort';
 
 import RightActionSheetContainer from '../Container';
 import EditProjectSheet from '../edit-project/EditProjectSheet';
@@ -48,37 +49,15 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
     highlights: Highlight[],
     lowlights: Highlight[],
   ) => {
-    const highlight = highlights.map((highlight) => {
-      return {
-        ...highlight,
-        type: 'highlight',
-      };
-    });
-    const lowlight = lowlights.map((lowlight) => {
-      return {
-        ...lowlight,
-        type: 'lowlight',
-      };
-    });
+    const reviews = [
+      ...highlights.map((highlight) => ({ ...highlight, type: 'highlight' })),
+      ...lowlights.map((lowlight) => ({ ...lowlight, type: 'lowlight' })),
+    ];
 
-    const reviews = [...highlight, ...lowlight];
-    reviews.sort((a, b) => {
-      if (a.weekNumber.year === b.weekNumber.year) {
-        if (a.weekNumber.month === b.weekNumber.month) {
-          return b.weekNumber.week - a.weekNumber.week;
-        }
-        return b.weekNumber.month - a.weekNumber.month;
-      } else {
-        return b.weekNumber.year - a.weekNumber.year;
-      }
-    });
+    reviews.sort(sortByWeek);
 
     return reviews as Review[];
   };
-
-  if (!isOpen) {
-    return null;
-  }
 
   return (
     <>
@@ -127,7 +106,7 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
                 <div className="flex flex-col gap-3">
                   {reviews.map((review) => (
                     <RelatedReview
-                      key={review.id}
+                      key={`${review.type}-${review.id}`}
                       type={review.type}
                       review={review.content}
                       week={review.weekNumber}

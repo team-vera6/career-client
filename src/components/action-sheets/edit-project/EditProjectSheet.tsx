@@ -80,10 +80,6 @@ const EditProjectSheet = ({
     }
   };
 
-  if (!isOpen) {
-    return null;
-  }
-
   return (
     <RightActionSheetContainer
       isOpen={isOpen}

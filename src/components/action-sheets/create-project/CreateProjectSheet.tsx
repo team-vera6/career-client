@@ -66,10 +66,6 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
     }
   };
 
-  if (!isOpen) {
-    return null;
-  }
-
   return (
     <>
       <RightActionSheetContainer
