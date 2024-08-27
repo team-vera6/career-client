@@ -40,6 +40,7 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
       startDate: dateRange.start,
       endDate: dateRange.end,
       goal,
+      content: description,
     };
     try {
       await addProject(body);

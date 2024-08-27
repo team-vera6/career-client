@@ -2,16 +2,15 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { getProject, Project } from '@/apis/projects/get';
+import { getProject, ProjectResponse } from '@/apis/projects/get';
 import Alert from '@/components/modal/Alert';
+import { Highlight } from '@/types/highlight';
 
 import RightActionSheetContainer from '../Container';
 import EditProjectSheet from '../edit-project/EditProjectSheet';
 import ProjectDetailItems from './_components/ProjectDetailItems';
 import ProjectProgress from './_components/ProjectProgress';
 import RelatedReview from './_components/RelatedReview';
-
-type Highlight = Project['highlights'][0];
 
 export interface Review extends Highlight {
   type: 'highlight' | 'lowlight';
@@ -26,7 +25,7 @@ interface Props {
 const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [openEditSheet, setOpenEditSheet] = useState(false);
-  const [projectInfo, setProjectInfo] = useState<Project>();
+  const [projectInfo, setProjectInfo] = useState<ProjectResponse>();
   const [reviews, setReviews] = useState<Review[]>([]);
 
   const getProjectInfo = useCallback(async () => {

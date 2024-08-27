@@ -1,4 +1,5 @@
 import { Highlight } from '@/types/highlight';
+import { Project } from '@/types/project';
 
 import { typedGet } from '..';
 
@@ -8,21 +9,16 @@ export const getProjectList = async () => {
 };
 
 export const getProject = async (id: number) => {
-  const response = await typedGet<Project>(`/projects/${id}`);
+  const response = await typedGet<ProjectResponse>(`/projects/${id}`);
   return response;
 };
 
 export interface ProjectList {
-  projects: Omit<Project, 'content'>[];
+  projects: Omit<ProjectResponse, 'content'>[];
 }
 
-export interface Project {
+export interface ProjectResponse extends Project {
   id: number;
-  title: string;
-  goal: string;
-  content: string;
-  startDate: string;
-  endDate: string;
   progress: number;
   highlights: Highlight[];
   lowlights: Highlight[];
