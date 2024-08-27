@@ -58,6 +58,14 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
     }
   };
 
+  const onCloseSheet = () => {
+    if (title || dateRange.start || dateRange.end || goal || description) {
+      setShowExitAlert(true);
+    } else {
+      closeSheet();
+    }
+  };
+
   if (!isOpen) {
     return null;
   }
@@ -66,19 +74,7 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
     <>
       <RightActionSheetContainer
         isOpen={isOpen}
-        closeActionSheet={() => {
-          if (
-            title ||
-            dateRange.start ||
-            dateRange.end ||
-            goal ||
-            description
-          ) {
-            setShowExitAlert(true);
-          } else {
-            closeSheet();
-          }
-        }}
+        closeActionSheet={onCloseSheet}
         buttons={[
           {
             text: '저장',
