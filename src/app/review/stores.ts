@@ -44,3 +44,5 @@ export const projectListAtom = atom<DropdownProps>(PROJECT_DROPDOWN);
 export const memoListAtom = atom<MemoItem[]>(MEMO_LIST);
 
 export const scoreAtom = atom(0);
+
+export const reviewIdAtom = atom(0);
