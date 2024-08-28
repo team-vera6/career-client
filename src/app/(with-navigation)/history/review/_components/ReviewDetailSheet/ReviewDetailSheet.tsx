@@ -1,20 +1,24 @@
-'use client';
-
 import { SetStateAction } from 'jotai';
 import { Dispatch } from 'react';
 
 import RightActionSheetContainer from '@/components/action-sheets/Container';
+import { CurrentWeek } from '@/types/currentWeek';
 
 import Score from '../../../_components/review/Score';
 import { ReviewDetail } from './ReviewDetail';
 
 interface Props {
   isOpen: boolean;
-  selectedReview: number;
+  selectedReviewId: number;
   setShowDetail: Dispatch<SetStateAction<boolean>>;
+  weekNumber: CurrentWeek;
 }
 
-export const ReviewDetailSheet = ({ isOpen, setShowDetail }: Props) => {
+export const ReviewDetailSheet = ({
+  isOpen,
+  setShowDetail,
+  weekNumber,
+}: Props) => {
   return (
     <RightActionSheetContainer
       closeActionSheet={() => setShowDetail(false)}
@@ -26,7 +30,9 @@ export const ReviewDetailSheet = ({ isOpen, setShowDetail }: Props) => {
     >
       <section className="flex flex-col">
         <div className="flex items-center justify-between mb-5.5">
-          <p className="font-head-28 text-text-strong">6월 4주차</p>
+          <p className="font-head-28 text-text-strong">
+            {weekNumber.month}월 {weekNumber.week}주차
+          </p>
 
           <div className="flex items-center gap-2">
             <p className="font-body-14 text-text-strong">만족도</p>
@@ -34,7 +40,7 @@ export const ReviewDetailSheet = ({ isOpen, setShowDetail }: Props) => {
           </div>
         </div>
 
-        <ReviewDetail />
+        <ReviewDetail weekNumber={weekNumber} />
       </section>
     </RightActionSheetContainer>
   );

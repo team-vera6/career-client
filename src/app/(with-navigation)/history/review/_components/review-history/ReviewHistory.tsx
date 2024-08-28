@@ -11,7 +11,12 @@ import ReviewWeekGroup from './ReviewWeekGroup';
 
 const ReviewHistory = () => {
   const [showDetail, setShowDetail] = useState(false);
-  const [selectedReview, setSelectedReview] = useState(0);
+  const [selectedReviewId, setSelectedReviewId] = useState(0);
+  const [selectedReviewWeek, setSelectedReviewWeek] = useState<CurrentWeek>({
+    year: 0,
+    month: 0,
+    week: 0,
+  });
   const [reviews, setReviews] = useState<
     { weekNumber: CurrentWeek; reviews: Omit<Review, 'weekNumber'>[] }[]
   >([]);
@@ -66,8 +71,9 @@ const ReviewHistory = () => {
     })();
   }, []);
 
-  const onClickReview = (id: number) => {
-    setSelectedReview(id);
+  const onClickReview = (id: number, week: CurrentWeek) => {
+    setSelectedReviewId(id);
+    setSelectedReviewWeek(week);
     setShowDetail(true);
   };
 
@@ -88,8 +94,9 @@ const ReviewHistory = () => {
 
       <ReviewDetailSheet
         isOpen={showDetail}
-        selectedReview={selectedReview}
+        selectedReviewId={selectedReviewId}
         setShowDetail={setShowDetail}
+        weekNumber={selectedReviewWeek}
       />
     </>
   );

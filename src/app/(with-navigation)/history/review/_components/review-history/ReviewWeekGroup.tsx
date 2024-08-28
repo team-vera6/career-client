@@ -6,17 +6,16 @@ import ReviewItem from './ReviewItem';
 interface Props {
   weekNumber: CurrentWeek;
   reviews: Omit<Review, 'weekNumber'>[];
-  onClickReview: (reviewId: number) => void;
+  onClickReview: (reviewId: number, week: CurrentWeek) => void;
 }
-const ReviewWeekGroup = ({
-  weekNumber: { year, month, week },
-  reviews,
-  onClickReview,
-}: Props) => {
+const ReviewWeekGroup = ({ weekNumber, reviews, onClickReview }: Props) => {
   return (
-    <div className="flex flex-col gap-3" key={`${year}-${month}-${week}`}>
+    <div
+      className="flex flex-col gap-3"
+      key={`${weekNumber.year}-${weekNumber.month}-${weekNumber.week}`}
+    >
       <p className="font-title-16 text-text-normal">
-        {year}년 {month}월
+        {weekNumber.year}년 {weekNumber.month}월
       </p>
 
       {/* review Container */}
@@ -25,7 +24,7 @@ const ReviewWeekGroup = ({
           <ReviewItem
             key={item.id}
             id={item.id}
-            week={week}
+            weekNumber={weekNumber}
             content={item.highlightSummary}
             activeCount={item.like}
             onClickReview={onClickReview}
