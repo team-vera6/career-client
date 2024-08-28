@@ -20,7 +20,7 @@ export const PagingButton = () => {
       message: '이번주 회고가 성공적으로 등록됐어요.',
       iconType: 'success',
     });
-    router.push('/dashboard-page');
+    router.push('/dashboards');
   };
 
   return (

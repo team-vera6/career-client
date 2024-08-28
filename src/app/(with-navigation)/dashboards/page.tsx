@@ -4,7 +4,7 @@ import { useSetAtom } from 'jotai';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { DashboardData, getDashboardData } from '@/apis/get-dashboard/get';
+import { DashboardData, getDashboardData } from '@/apis/dashboard/get';
 import { currentTodoListAtom } from '@/app/review/stores';
 import { getCurrentWeek } from '@/utils/date';
 
