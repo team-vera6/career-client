@@ -1,6 +1,6 @@
-import { Memo as MemoType } from '@/apis/memo/get';
 import Memo from '@/components/memo/Memo';
 import { CurrentWeek } from '@/types/currentWeek';
+import { Memo as MemoType } from '@/types/memo';
 
 interface Props {
   currentWeek: CurrentWeek;
