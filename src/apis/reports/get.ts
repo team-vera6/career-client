@@ -1,5 +1,6 @@
 import { CurrentWeek } from '@/types/currentWeek';
 import { Highlight } from '@/types/highlight';
+import { Todo } from '@/types/todo';
 
 import { typedGet } from '..';
 
@@ -25,7 +26,7 @@ type HighlightResponse = {
 };
 
 export const getHighlights = async ({ year, month, week }: CurrentWeek) => {
-  const response = await typedGet<HighlightResponse>('/highlight', {
+  const response = await typedGet<HighlightResponse>('/highlights', {
     params: { year, month, week },
   });
   return response;
@@ -37,6 +38,17 @@ type LowResponse = {
 
 export const getLowlights = async ({ year, month, week }: CurrentWeek) => {
   const response = await typedGet<LowResponse>('/lowlights', {
+    params: { year, month, week },
+  });
+  return response;
+};
+
+type TodoResponse = {
+  todos: Todo[];
+};
+
+export const getTodos = async ({ year, month, week }: CurrentWeek) => {
+  const response = await typedGet<TodoResponse>('/todo', {
     params: { year, month, week },
   });
   return response;
