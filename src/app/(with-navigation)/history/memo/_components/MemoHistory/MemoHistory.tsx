@@ -17,7 +17,7 @@ const MemoHistory = () => {
     })();
   }, []);
 
-  if (!memos || memos.contents.length < 1) return <EmptyMemoHistory />;
+  if (!memos || memos.contents.length === 0) return <EmptyMemoHistory />;
 
   return (
     <>
