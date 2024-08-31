@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 // eslint-disable-next-line camelcase
 import { Chakra_Petch } from 'next/font/google';
 import localFont from 'next/font/local';
+import Script from 'next/script';
 
 import ToastContainer from '@/components/toast/ToastContainer';
 
@@ -40,6 +41,12 @@ export default function RootLayout({
         {children}
         <ToastContainer />
       </body>
+
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-7NRSYRP43M"
+        strategy="afterInteractive"
+      />
     </html>
   );
 }
