@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
-import { AllMemos, getAllMemos } from '@/apis/memo/get';
+import { AllMemosResponse, getAllMemos } from '@/apis/memo/get';
 
 import EmptyMemoHistory from './EmptyMemoHistory';
 import MemoWeekGroup from './MemoWeekGroup';
 
 const MemoHistory = () => {
-  const [memos, setMemos] = useState<AllMemos>();
+  const [memos, setMemos] = useState<AllMemosResponse>();
 
   useEffect(() => {
     (async () => {

@@ -4,7 +4,7 @@ import { useSetAtom } from 'jotai';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { DashboardData, getDashboardData } from '@/apis/dashboard/get';
+import { DashboardDataResponse, getDashboardData } from '@/apis/dashboard/get';
 import { currentTodoListAtom } from '@/app/review/stores';
 import { getCurrentWeek } from '@/utils/date';
 
@@ -18,7 +18,7 @@ const { year, month, week } = getCurrentWeek();
 export default function DashboardPage() {
   const setTodos = useSetAtom(currentTodoListAtom);
 
-  const [data, setData] = useState<DashboardData>();
+  const [data, setData] = useState<DashboardDataResponse>();
 
   useEffect(() => {
     getData();
@@ -31,7 +31,7 @@ export default function DashboardPage() {
     updateTodo(data.todos);
   };
 
-  const updateTodo = (todoFromDashboard: DashboardData['todos']) => {
+  const updateTodo = (todoFromDashboard: DashboardDataResponse['todos']) => {
     setTodos(
       todoFromDashboard.map((todo) => {
         return {

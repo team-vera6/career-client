@@ -2,7 +2,7 @@ import { CurrentWeek } from '@/types/currentWeek';
 
 import { typedGet } from '..';
 
-export interface DashboardData {
+export interface DashboardDataResponse {
   laps: number;
   daysLeft: number;
   projectCount: number;
@@ -14,7 +14,7 @@ export interface DashboardData {
 }
 
 export const getDashboardData = async ({ year, month, week }: CurrentWeek) => {
-  const response = await typedGet<DashboardData>('/dashboard', {
+  const response = await typedGet<DashboardDataResponse>('/dashboard', {
     params: { year, month, week },
   });
   return response;

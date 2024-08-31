@@ -11,13 +11,13 @@ export interface Review {
   highlightSummary: string;
 }
 
-interface ReviewList {
+interface ReviewListResponse {
   reviews: Review[];
   nextCursor: number;
 }
 
 export const getReviewList = async () => {
-  const response = await typedGet<ReviewList>('/review');
+  const response = await typedGet<ReviewListResponse>('/review');
   return response;
 };
 
@@ -32,12 +32,12 @@ export const getHighlights = async ({ year, month, week }: CurrentWeek) => {
   return response;
 };
 
-type LowResponse = {
+type LowlightResponse = {
   lowlights: Omit<Highlight, 'currentWeek'>[];
 };
 
 export const getLowlights = async ({ year, month, week }: CurrentWeek) => {
-  const response = await typedGet<LowResponse>('/lowlights', {
+  const response = await typedGet<LowlightResponse>('/lowlights', {
     params: { year, month, week },
   });
   return response;

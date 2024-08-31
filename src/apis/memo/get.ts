@@ -15,7 +15,7 @@ export const getMemos = async ({ year, month, week }: CurrentWeek) => {
   return response;
 };
 
-export interface AllMemos {
+export interface AllMemosResponse {
   contents: {
     weekNumber: CurrentWeek;
     memos: Memo[];
@@ -30,7 +30,7 @@ export const getAllMemos = async ({
   id?: number;
   size?: number;
 }) => {
-  const response = await typedGet<AllMemos>('/memos/page', {
+  const response = await typedGet<AllMemosResponse>('/memos/page', {
     params: { id, size },
   });
 
