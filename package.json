@@ -16,6 +16,7 @@
     "commit": "cz"
   },
   "dependencies": {
+    "@next/third-parties": "^14.2.7",
     "@tiptap/extension-underline": "^2.4.0",
     "@tiptap/pm": "^2.4.0",
     "@tiptap/react": "^2.4.0",
