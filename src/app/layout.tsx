@@ -1,5 +1,6 @@
 import './globals.css';
 
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 // eslint-disable-next-line camelcase
 import { Chakra_Petch } from 'next/font/google';
@@ -43,10 +44,14 @@ export default function RootLayout({
       lang="ko"
       className={`${pretendard.variable} ${chakraPetch.variable}`}
     >
+      <GoogleTagManager gtmId="GTM-W4V33S62" />
+
       <body className="font-pretendard bg-surface-background">
         {children}
         <ToastContainer />
       </body>
+
+      <GoogleAnalytics gaId="G-7NRSYRP43M" />
     </html>
   );
 }
