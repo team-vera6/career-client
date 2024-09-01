@@ -1,9 +1,9 @@
 'use client';
 
 import { useAtom, useAtomValue } from 'jotai';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
-import { getTodos } from '@/apis/review/get';
+import { getTodos } from '@/apis/todos/get';
 import { currentTodoListAtom, nextTodoListAtom } from '@/app/review/stores';
 import { TodoListItem } from '@/app/review/types';
 import { getCurrentWeek } from '@/utils/date';
@@ -34,9 +34,11 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
         })),
       );
     })();
-  }, []);
+  }, [month, setCurrentTodoList, week, weekNumber, year]);
 
-  const todoList = week === 'current' ? currentTodoList : nextTodoList;
+  const todoList = useMemo(() => {
+    return week === 'current' ? currentTodoList : nextTodoList;
+  }, [currentTodoList, nextTodoList, week]);
 
   return (
     <div className="flex flex-col">

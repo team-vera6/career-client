@@ -13,7 +13,7 @@ type TodoResponse = {
 };
 
 export const getTodos = async ({ year, month, week }: CurrentWeek) => {
-  const response = await typedGet<TodoResponse>('/todo', {
+  const response = await typedGet<TodoResponse>('/todos', {
     params: { year, month, week },
   });
   return response;
