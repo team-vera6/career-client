@@ -26,9 +26,7 @@ export const getCurrentWeek = () => {
   const week = Math.ceil((startDay + daysFromFirstDayToMonday) / 7); // 현재 주차 정보.
 
   const lastDayOfMonth = new Date(year, month, 0);
-  const totalWeek = Math.ceil(
-    (lastDayOfMonth.getDate() + daysFromFirstDayToMonday) / 7,
-  );
+  const totalWeek = Math.ceil(lastDayOfMonth.getDate() / 7);
 
   return {
     year,
