@@ -30,7 +30,7 @@ export const getCurrentWeek = () => {
 
   return {
     year,
-    month,
+    month: startMonth,
     week,
     totalWeek,
     startMonth,
