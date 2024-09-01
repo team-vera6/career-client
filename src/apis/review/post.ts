@@ -12,6 +12,6 @@ export interface ScoreResponse {
 }
 
 export const addScore = async (body: Score) => {
-  const response = await typedPost<ScoreResponse>('/review', body);
+  const response = await typedPost<ScoreResponse>('/reviews', body);
   return response;
 };
