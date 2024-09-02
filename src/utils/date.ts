@@ -39,3 +39,15 @@ export const getCurrentWeek = () => {
     endDay,
   };
 };
+
+export const getNextWeek = () => {
+  const { year, month, week, totalWeek } = getCurrentWeek();
+  const isNextWeek = week + 1 > totalWeek ? 1 : 0;
+  const isNextMonth = month + isNextWeek > 12 ? 1 : 0;
+
+  const nextYear = year + isNextMonth;
+  const nextMonth = month + isNextWeek;
+  const nextWeek = isNextWeek ?? week + 1;
+
+  return { nextYear, nextMonth, nextWeek };
+};
