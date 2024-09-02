@@ -23,3 +23,11 @@ export const getProject = async (id: number) => {
   const response = await typedGet<ProjectResponse>(`/projects/${id}`);
   return response;
 };
+
+export type ProjectTitleListResponse = Array<
+  Pick<ProjectResponse, 'id' | 'title'>
+>;
+export const getProjectTitleList = async () => {
+  const response = await typedGet<ProjectTitleListResponse>('/projects/title');
+  return response;
+};
