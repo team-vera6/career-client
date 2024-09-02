@@ -3,7 +3,7 @@
 import { useAtom, useAtomValue } from 'jotai';
 import { useEffect, useMemo } from 'react';
 
-import { getTodos } from '@/apis/todos/get';
+import { getTodos } from '@/apis/review/get';
 import { currentTodoListAtom, nextTodoListAtom } from '@/app/review/stores';
 import { TodoListItem } from '@/app/review/types';
 import { getCurrentWeek } from '@/utils/date';
