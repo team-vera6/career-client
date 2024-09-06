@@ -1,20 +1,56 @@
 'use client';
 
-import { useAtomValue } from 'jotai';
+import { useEffect, useState } from 'react';
 
+import { getMemos } from '@/apis/memo/get';
 import Memo from '@/components/memo/Memo';
+import { getCurrentWeek } from '@/utils/date';
 
-import { memoListAtom } from '../../stores';
+interface WeeklyMemoType {
+  id: string;
+  memo: string;
+  isBookmark: boolean;
+  date: string;
+}
+
+const { year, month, week } = getCurrentWeek();
 
 const WeeklyMemo = () => {
-  const memoList = useAtomValue(memoListAtom);
+  const [memos, setMemos] = useState<WeeklyMemoType[]>([]);
+
+  const getMemoList = async () => {
+    const data = await getMemos({ year, month, week });
+    setMemos(
+      data.memos.map((memo) => {
+        return {
+          id: String(memo.id),
+          isBookmark: memo.isMarked,
+          memo: memo.content,
+          date: `${month}.${week}`,
+        };
+      }),
+    );
+  };
+
+  useEffect(() => {
+    getMemoList();
+  }, []);
 
   return (
-    <div className="flex flex-col gap-3">
-      {memoList.map((el, index) => (
-        <Memo key={index} {...el} />
-      ))}
-    </div>
+    <>
+      {memos.length > 0 ? (
+        <div className="flex flex-col gap-3">
+          {memos.map((memo, index) => (
+            <Memo
+              id={String(index)}
+              key={index}
+              memo={memo.memo}
+              date={memo.date}
+            />
+          ))}
+        </div>
+      ) : null}
+    </>
   );
 };
 

@@ -2,16 +2,7 @@ import { atom } from 'jotai';
 
 import { DropdownProps } from '@/components/dropdown/Dropdown';
 
-import {
-  CURRENT_TODO,
-  HIGHLIGHT_REVIEW,
-  LAST_HIGHLIGHT,
-  LAST_LOWLIGHT,
-  LOW_LIGHT_REVIEW,
-  MEMO_LIST,
-  NEXT_TODO,
-  PROJECT_DROPDOWN,
-} from './dummy';
+import { PROJECT_DROPDOWN } from './dummy';
 import {
   LastWeekReviewListItem,
   MemoItem,
@@ -30,17 +21,17 @@ export const pageButtonStatesAtom = atom({
 });
 
 // FIXME: api 연동 후 더미 제거
-export const currentTodoListAtom = atom<TodoListItem[]>(CURRENT_TODO);
-export const nextTodoListAtom = atom<TodoListItem[]>(NEXT_TODO);
+export const currentTodoListAtom = atom<TodoListItem[]>([]);
+export const nextTodoListAtom = atom<TodoListItem[]>([]);
 
-export const highLightListAtom = atom<ReviewListItem[]>([HIGHLIGHT_REVIEW]);
-export const lowLightListAtom = atom<ReviewListItem[]>([LOW_LIGHT_REVIEW]);
-export const lastHighLightListAtom =
-  atom<LastWeekReviewListItem[]>(LAST_HIGHLIGHT);
-export const lastLowLightListAtom =
-  atom<LastWeekReviewListItem[]>(LAST_LOWLIGHT);
+export const highLightListAtom = atom<ReviewListItem[]>([]);
+export const lowLightListAtom = atom<ReviewListItem[]>([]);
+export const lastHighLightListAtom = atom<LastWeekReviewListItem[]>([]);
+export const lastLowLightListAtom = atom<LastWeekReviewListItem[]>([]);
 
 export const projectListAtom = atom<DropdownProps>(PROJECT_DROPDOWN);
-export const memoListAtom = atom<MemoItem[]>(MEMO_LIST);
+export const memoListAtom = atom<MemoItem[]>([]);
 
 export const scoreAtom = atom(0);
+
+export const reviewIdAtom = atom(0);
