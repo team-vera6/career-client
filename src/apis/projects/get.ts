@@ -3,24 +3,24 @@ import { Project } from '@/types/project';
 
 import { typedGet } from '..';
 
-export interface ProjectList {
-  projects: Omit<ProjectResponse, 'content'>[];
-}
-
-export const getProjectList = async () => {
-  const response = await typedGet<ProjectList>('/projects');
-  return response;
-};
-
-export interface ProjectResponse extends Project {
+export interface ProjectDetail extends Project {
   id: number;
   progress: number;
   highlights: Highlight[];
   lowlights: Highlight[];
 }
 
+export interface ProjectListResponse {
+  projects: Omit<ProjectDetail, 'content'>[];
+}
+
+export const getProjectList = async () => {
+  const response = await typedGet<ProjectListResponse>('/projects');
+  return response;
+};
+
 export const getProject = async (id: number) => {
-  const response = await typedGet<ProjectResponse>(`/projects/${id}`);
+  const response = await typedGet<ProjectListResponse>(`/projects/${id}`);
   return response;
 };
 

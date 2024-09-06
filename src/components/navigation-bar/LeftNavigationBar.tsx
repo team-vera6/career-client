@@ -10,7 +10,7 @@ import IndicatorIcon from '../icons/IndicatorIcon';
 const menus = [
   {
     label: '대시보드',
-    path: '/dashboard-page',
+    path: '/dashboards',
   },
   {
     label: '프로젝트',

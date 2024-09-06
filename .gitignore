@@ -6,7 +6,8 @@ node_modules
 
 .env
 .env.*
+.next
+
+/.next/
 
 *storybook.log
-
-.next

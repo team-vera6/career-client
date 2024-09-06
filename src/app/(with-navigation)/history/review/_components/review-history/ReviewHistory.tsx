@@ -1,104 +1,102 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { getReviewList, Review } from '@/apis/reports/get';
+import { CurrentWeek } from '@/types/currentWeek';
 
 import { ReviewDetailSheet } from '../ReviewDetailSheet/ReviewDetailSheet';
 import EmptyReviewHistory from './EmptyReviewHistory';
-import ReviewItem from './ReviewItem';
-
-const dummy = [
-  {
-    year: 2024,
-    month: 6,
-    items: [
-      {
-        id: '1',
-        week: 4,
-        content:
-          '시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음',
-        activeCount: 5,
-      },
-      {
-        id: '2',
-        week: 3,
-        content: '하이라이트 첫 문장',
-        activeCount: 3,
-      },
-      {
-        id: '3',
-        week: 2,
-        content: '하이라이트 첫 문장',
-        activeCount: 1,
-      },
-      {
-        id: '4',
-        week: 1,
-        content: '하이라이트 첫 문장',
-        activeCount: 7,
-      },
-    ],
-  },
-  {
-    year: 2024,
-    month: 5,
-    items: [
-      {
-        id: '5',
-        week: 4,
-        content:
-          '시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음',
-        activeCount: 5,
-      },
-      {
-        id: '6',
-        week: 3,
-        content: '하이라이트 첫 문장',
-        activeCount: 3,
-      },
-    ],
-  },
-];
+import ReviewWeekGroup from './ReviewWeekGroup';
 
 const ReviewHistory = () => {
   const [showDetail, setShowDetail] = useState(false);
-  const [selectedReview, setSelectedReview] = useState('');
+  const [selectedReviewId, setSelectedReviewId] = useState(0);
+  const [selectedReviewWeek, setSelectedReviewWeek] = useState<CurrentWeek>({
+    year: 0,
+    month: 0,
+    week: 0,
+  });
+  const [reviews, setReviews] = useState<
+    { weekNumber: CurrentWeek; reviews: Omit<Review, 'weekNumber'>[] }[]
+  >([]);
 
-  const onClickReview = (id: string) => {
-    setSelectedReview(id);
+  const groupReviewsByWeek = (receivedReviews: Review[]) => {
+    const groupedReviews = receivedReviews.reduce(
+      (acc, cur) => {
+        const { year, month, week } = cur.weekNumber;
+
+        const item = {
+          id: cur.id,
+          like: cur.like,
+          highlightSummary: cur.highlightSummary,
+        };
+
+        const key = `${year}-${month}-${week}`;
+        if (acc[key]) {
+          acc[key].reviews.push(item);
+        } else {
+          acc[key] = {
+            weekNumber: cur.weekNumber,
+            reviews: [item],
+          };
+        }
+
+        return acc;
+      },
+      {} as Record<
+        string,
+        { weekNumber: CurrentWeek; reviews: Omit<Review, 'weekNumber'>[] }
+      >,
+    );
+
+    return Object.values(groupedReviews).sort((a, b) => {
+      if (a.weekNumber.year === b.weekNumber.year) {
+        if (a.weekNumber.month === b.weekNumber.month) {
+          return b.weekNumber.week - a.weekNumber.week;
+        }
+        return b.weekNumber.month - a.weekNumber.month;
+      } else {
+        return b.weekNumber.year - a.weekNumber.year;
+      }
+    });
+  };
+
+  useEffect(() => {
+    (async () => {
+      const response = await getReviewList();
+
+      const sorted = groupReviewsByWeek(response.reviews);
+      setReviews(sorted);
+    })();
+  }, []);
+
+  const onClickReview = (id: number, week: CurrentWeek) => {
+    setSelectedReviewId(id);
+    setSelectedReviewWeek(week);
     setShowDetail(true);
   };
 
+  if (!reviews.length) {
+    return <EmptyReviewHistory />;
+  }
+
   return (
     <>
-      {dummy.length ? (
-        <div className="w-full flex flex-col gap-8">
-          {dummy.map(({ year, month, items }) => (
-            <div className="flex flex-col gap-3" key={`${year}-${month}`}>
-              <p className="font-title-16 text-text-normal">
-                {year}년 {month}월
-              </p>
-
-              {/* review Container */}
-              <div className="flex flex-col gap-2">
-                {items.map((item) => (
-                  <ReviewItem
-                    key={item.id}
-                    onClickReview={onClickReview}
-                    {...item}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <EmptyReviewHistory />
-      )}
+      {reviews.map(({ weekNumber, reviews }) => (
+        <ReviewWeekGroup
+          key={`${weekNumber.year}-${weekNumber.month}-${weekNumber.week}`}
+          weekNumber={weekNumber}
+          reviews={reviews}
+          onClickReview={onClickReview}
+        />
+      ))}
 
       <ReviewDetailSheet
         isOpen={showDetail}
-        selectedReview={selectedReview}
+        selectedReviewId={selectedReviewId}
         setShowDetail={setShowDetail}
+        weekNumber={selectedReviewWeek}
       />
     </>
   );

@@ -1,26 +1,32 @@
-import { MemoItem } from '@/app/review/types';
-import Memo from '@/components/memo/Memo';
+'use client';
 
-import { dummy } from './dummy';
+import { useEffect, useState } from 'react';
+
+import { AllMemosResponse, getAllMemos } from '@/apis/memo/get';
+
 import EmptyMemoHistory from './EmptyMemoHistory';
+import MemoWeekGroup from './MemoWeekGroup';
 
 const MemoHistory = () => {
-  if (dummy.length < 1) return <EmptyMemoHistory />;
+  const [memos, setMemos] = useState<AllMemosResponse>();
+
+  useEffect(() => {
+    (async () => {
+      const response = await getAllMemos({ id: 0 });
+      setMemos(response);
+    })();
+  }, []);
+
+  if (!memos || memos.contents.length === 0) return <EmptyMemoHistory />;
 
   return (
     <>
-      {dummy.map(({ month, week, items }) => (
-        <div className="w-full flex flex-col gap-3" key={`${month}-${week}`}>
-          <p className="font-title-16 text-text-normal">
-            {month}월 {week}주
-          </p>
-
-          <div className="grid gap-[15px] grid-cols-4">
-            {items.map((item: MemoItem) => (
-              <Memo key={item.id} {...item} className="w-[229px] h-[10rem]" />
-            ))}
-          </div>
-        </div>
+      {memos.contents.map(({ weekNumber, memos }) => (
+        <MemoWeekGroup
+          key={`${weekNumber.year}-${weekNumber.month}-${weekNumber.week}`}
+          currentWeek={weekNumber}
+          memos={memos}
+        />
       ))}
     </>
   );

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { getProject, ProjectResponse } from '@/apis/projects/get';
+import { getProject, ProjectListResponse } from '@/apis/projects/get';
 import Alert from '@/components/modal/Alert';
 import { Highlight } from '@/types/highlight';
 import { sortByWeek } from '@/types/sort';
@@ -26,14 +26,17 @@ interface Props {
 const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [openEditSheet, setOpenEditSheet] = useState(false);
-  const [projectInfo, setProjectInfo] = useState<ProjectResponse>();
+  const [projectInfo, setProjectInfo] = useState<ProjectListResponse>();
   const [reviews, setReviews] = useState<Review[]>([]);
 
   const getProjectInfo = useCallback(async () => {
     const data = await getProject(projectId);
     setProjectInfo(data);
 
-    const reviews = sortHighlightsAndLowlights(data.highlights, data.lowlights);
+    const reviews = sortHighlightsAndLowlights(
+      data.projects[0].highlights,
+      data.projects[0].lowlights,
+    );
     setReviews(reviews);
   }, [projectId]);
 
@@ -81,20 +84,23 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
           {projectInfo ? (
             <>
               <p className="font-head-24 text-text-strong mb-4">
-                {projectInfo.title}
+                {projectInfo.projects[0].title}
               </p>
 
               <ProjectProgress
-                startDate={projectInfo.startDate}
-                endDate={projectInfo.endDate}
-                percentage={projectInfo.progress}
+                startDate={projectInfo.projects[0].startDate}
+                endDate={projectInfo.projects[0].endDate}
+                percentage={projectInfo.projects[0].progress}
               />
 
               <div className="flex flex-col gap-4 mb-6">
-                <ProjectDetailItems title="목표" content={projectInfo.goal} />
+                <ProjectDetailItems
+                  title="목표"
+                  content={projectInfo.projects[0].goal}
+                />
                 <ProjectDetailItems
                   title="내용"
-                  content={projectInfo.content}
+                  content={projectInfo.projects[0].title}
                 />
               </div>
 
@@ -144,13 +150,13 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
           await getProjectInfo();
         }}
         projectId={projectId}
-        initialTitle={projectInfo?.title}
+        initialTitle={projectInfo?.projects[0].title}
         initialDate={{
-          start: projectInfo?.startDate ?? '',
-          end: projectInfo?.endDate ?? '',
+          start: projectInfo?.projects[0].startDate ?? '',
+          end: projectInfo?.projects[0].endDate ?? '',
         }}
-        initialGoal={projectInfo?.goal}
-        initialDescription={projectInfo?.content}
+        initialGoal={projectInfo?.projects[0].goal}
+        initialDescription={projectInfo?.projects[0].title}
         reviews={reviews}
       />
     </>

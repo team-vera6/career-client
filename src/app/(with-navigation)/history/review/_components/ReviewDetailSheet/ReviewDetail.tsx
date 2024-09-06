@@ -1,17 +1,55 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
+import { getHighlights, getLowlights, getTodos } from '@/apis/reports/get';
 import { LastWeekReviewItem } from '@/app/review/_components/last-week-review/LastWeekReviewItem';
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
 import LowlightCircleIcon from '@/components/icons/LowlightCircleIcon';
 import DeletableInput from '@/components/inputs/deletable-input/DeletableInput';
+import { CurrentWeek } from '@/types/currentWeek';
+import { Highlight } from '@/types/highlight';
+import { Todo } from '@/types/todo';
 
-const dummy = {
-  id: 'dummy-1',
-  text: '시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음시즌 프로모션 반응이 지난번이벤트보다 2배나 좋았음',
-  project:
-    '차량의 상태(연료, 배터리, 타이어 등)를 실시간으로 모니터링 시스템 모니터링 시스템',
-  progressCount: 44,
-};
+interface Props {
+  weekNumber: CurrentWeek;
+}
 
-export const ReviewDetail = () => {
+export const ReviewDetail = ({ weekNumber }: Props) => {
+  const [highlights, setHighlights] = useState<
+    Omit<Highlight, 'currentWeek'>[]
+  >([]);
+  const [lowlights, setLowlights] = useState<Omit<Highlight, 'currentWeek'>[]>(
+    [],
+  );
+  const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      Promise.all([
+        getHighlights({
+          year: weekNumber.year,
+          month: weekNumber.month,
+          week: weekNumber.week,
+        }).then((res) => setHighlights(res.highlights)),
+        getLowlights({
+          year: weekNumber.year,
+          month: weekNumber.month,
+          week: weekNumber.week,
+        }).then((res) => setLowlights(res.lowlights)),
+        getTodos({
+          year: weekNumber.year,
+          month: weekNumber.month,
+          week: weekNumber.week,
+        }).then((res) => setCompletedTodos(res.todos)),
+      ]);
+
+      setCompletedTodos((prev) =>
+        prev.filter((todo) => todo.status === 'done'),
+      );
+    })();
+  }, [weekNumber]);
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2.5">
@@ -20,7 +58,15 @@ export const ReviewDetail = () => {
           <p className="font-title-14 text-text-strong">하이라이트</p>
         </div>
         <div className="pl-8">
-          <LastWeekReviewItem {...dummy} />
+          {highlights.map((highlight) => (
+            <LastWeekReviewItem
+              key={`highlight-${highlight.id}`}
+              id={String(highlight.id)}
+              text={highlight.content}
+              project="연동된 프로젝트"
+              progressCount={37}
+            />
+          ))}
         </div>
       </div>
 
@@ -30,14 +76,24 @@ export const ReviewDetail = () => {
           <p className="font-title-14 text-text-strong">로우라이트</p>
         </div>
         <div className="pl-8">
-          <LastWeekReviewItem {...dummy} />
+          {lowlights.map((lowlight) => (
+            <LastWeekReviewItem
+              key={`lowlight-${lowlight.id}`}
+              id={String(lowlight.id)}
+              text={lowlight.content}
+              project="연동된 프로젝트"
+              progressCount={79}
+            />
+          ))}
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
         <p className="font-title-14 text-text-strong">완료한 일</p>
         <div className="pl-8">
-          <DeletableInput value="ㅇㅇㅇsddddsssssssssssssssssssssddddddsssssssssssssssssssssssssssssss" />
+          {completedTodos.map((todo) => (
+            <DeletableInput key={`todo-${todo.id}`} value={todo.content} />
+          ))}
         </div>
       </div>
     </div>
