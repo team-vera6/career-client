@@ -37,3 +37,15 @@ export const getLowlightList = async ({ year, month, week }: CurrentWeek) => {
   });
   return response;
 };
+
+export interface ReviewIdResponse {
+  id?: number;
+  like?: number;
+}
+
+export const getReviewId = async ({ year, month, week }: CurrentWeek) => {
+  const response = await typedGet<ReviewIdResponse>('/reviews', {
+    params: { year, month, week },
+  });
+  return response;
+};

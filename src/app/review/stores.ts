@@ -32,6 +32,6 @@ export const lastLowLightListAtom = atom<LastWeekReviewListItem[]>([]);
 export const projectListAtom = atom<DropdownProps>(PROJECT_DROPDOWN);
 export const memoListAtom = atom<MemoItem[]>([]);
 
-export const scoreAtom = atom(0);
+export const scoreAtom = atom<number>(0);
 
-export const reviewIdAtom = atom(0);
+export const reviewIdAtom = atom<number | null>(null);
