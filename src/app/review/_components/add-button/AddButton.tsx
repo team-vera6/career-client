@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
 import PlusIcon from '@/components/icons/PlusIcon';
@@ -20,14 +20,21 @@ interface Props {
 }
 
 export const AddButton = ({ category }: Props) => {
-  const setCurrentTodoList = useSetAtom(currentTodoListAtom);
-  const setNextTodoList = useSetAtom(nextTodoListAtom);
+  const [currentTodoList, setCurrentTodoList] = useAtom(currentTodoListAtom);
+  const [nextTodoList, setNextTodoList] = useAtom(nextTodoListAtom);
 
   const [highLightList, setHighLightList] = useAtom(highLightListAtom);
   const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+
+  const [listLengths, setListLengths] = useState({
+    current: currentTodoList.length,
+    next: nextTodoList.length,
+    highlight: highLightList.length,
+    lowlight: lowLightList.length,
+  });
 
   const isTodo = category === 'currentTodo' || category === 'nextTodo';
 
@@ -39,43 +46,47 @@ export const AddButton = ({ category }: Props) => {
         setCurrentTodoList((prev) => [
           ...prev,
           {
-            id: `current-${prev.length + 1}`,
+            id: `current-${listLengths.current + 1}`,
             week: weekInfo as WeekType,
             isChecked: false,
             todo: '',
           },
         ]);
+        setListLengths((prev) => ({ ...prev, current: prev.current + 1 }));
         break;
       case 'nextTodo':
         setNextTodoList((prev) => [
           ...prev,
           {
-            id: `next-${prev.length + 1}`,
+            id: `next-${listLengths.next + 1}`,
             week: weekInfo as WeekType,
             isChecked: false,
             todo: '',
           },
         ]);
+        setListLengths((prev) => ({ ...prev, next: prev.next + 1 }));
         break;
       case 'highLight':
         setHighLightList((prev) => [
           ...prev,
           {
-            id: `highLight-${prev.length + 1}`,
+            id: `highLight-${listLengths.highlight + 1}`,
             text: '',
             project: '',
           },
         ]);
+        setListLengths((prev) => ({ ...prev, highlight: prev.highlight + 1 }));
         break;
       case 'lowLight':
         setLowLightList((prev) => [
           ...prev,
           {
-            id: `lowLight-${prev.length + 1}`,
+            id: `lowLight-${listLengths.lowlight + 1}`,
             text: '',
             project: '',
           },
         ]);
+        setListLengths((prev) => ({ ...prev, highlight: prev.lowlight + 1 }));
         break;
       default:
         break;
@@ -84,10 +95,16 @@ export const AddButton = ({ category }: Props) => {
 
   useEffect(() => {
     category === 'highLight' &&
-      highLightList.length >= 3 &&
+      listLengths.highlight >= 3 &&
       setIsDisabled(true);
-    category === 'lowLight' && lowLightList.length >= 3 && setIsDisabled(true);
-  }, [category, highLightList, lowLightList]);
+    category === 'lowLight' && listLengths.lowlight >= 3 && setIsDisabled(true);
+  }, [
+    category,
+    highLightList,
+    listLengths.highlight,
+    listLengths.lowlight,
+    lowLightList,
+  ]);
 
   return (
     <button

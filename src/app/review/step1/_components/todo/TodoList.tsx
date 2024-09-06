@@ -1,23 +1,29 @@
 'use client';
 
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { useEffect, useMemo } from 'react';
 
 import { getTodos } from '@/apis/review/get';
-import { currentTodoListAtom, nextTodoListAtom } from '@/app/review/stores';
+import {
+  currentTodoListAtom,
+  nextTodoListAtom,
+  pageButtonStatesAtom,
+} from '@/app/review/stores';
 import { TodoListItem } from '@/app/review/types';
 import { getCurrentWeek, getNextWeek } from '@/utils/date';
 
 import { ListItem } from './ListItem';
 
+const { year, month, week: weekNumber } = getCurrentWeek();
+const { nextYear, nextMonth, nextWeek } = getNextWeek();
+
 export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
   const [currentTodoList, setCurrentTodoList] = useAtom(currentTodoListAtom);
   const [nextTodoList, setNextTodoList] = useAtom(nextTodoListAtom);
-  const { year, month, week: weekNumber } = getCurrentWeek();
-  const { nextYear, nextMonth, nextWeek } = getNextWeek();
+  const pageButtonStates = useAtomValue(pageButtonStatesAtom);
 
   useEffect(() => {
-    if (week === 'current') {
+    if (week === 'current' && !pageButtonStates.step1) {
       (async () => {
         const response = await getTodos({
           year,
@@ -34,7 +40,7 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
           })),
         );
       })();
-    } else {
+    } else if (week === 'next' && !pageButtonStates.step1) {
       (async () => {
         const response = await getTodos({
           year: nextYear,
@@ -52,7 +58,37 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
         );
       })();
     }
-  }, [month, setCurrentTodoList, setNextTodoList, week, weekNumber, year]);
+  }, [pageButtonStates.step1, setCurrentTodoList, setNextTodoList, week]);
+
+  const onChangeText = (id: string, val: string) => {
+    if (week === 'current') {
+      setCurrentTodoList((prev) =>
+        prev.map((item) => (item.id === id ? { ...item, todo: val } : item)),
+      );
+    } else {
+      setNextTodoList((prev) =>
+        prev.map((item) => (item.id === id ? { ...item, todo: val } : item)),
+      );
+    }
+  };
+
+  console.log(currentTodoList);
+
+  const onToggleChecked = (id: string) => {
+    if (week === 'current') {
+      setCurrentTodoList((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, isChecked: !item.isChecked } : item,
+        ),
+      );
+    } else {
+      setNextTodoList((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, isChecked: !item.isChecked } : item,
+        ),
+      );
+    }
+  };
 
   const todoList = useMemo(() => {
     return week === 'current' ? currentTodoList : nextTodoList;
@@ -61,7 +97,12 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
   return (
     <div className="flex flex-col">
       {todoList.map((el, index) => (
-        <ListItem key={index} {...el} />
+        <ListItem
+          key={index}
+          setTodo={(val) => onChangeText(el.id, val)}
+          setIsChecked={() => onToggleChecked(el.id)}
+          {...el}
+        />
       ))}
     </div>
   );

@@ -1,34 +1,31 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import { TodoListItem } from '@/app/review/types';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
 
 import { DeleteButton, MoveNextButton } from './Buttons';
 
+interface ListItemProps extends TodoListItem {
+  setIsChecked: () => void;
+  setTodo: (value: string) => void;
+}
+
 export const ListItem = ({
   isChecked,
+  setIsChecked,
   todo,
+  setTodo,
   week,
   id,
   isMoved = false,
-}: TodoListItem) => {
-  const [text, setText] = useState(todo);
-  const [isCheck, setIsCheck] = useState(isChecked);
-
-  useEffect(() => {
-    setText(todo);
-    setIsCheck(isChecked);
-  }, [todo, isChecked]);
-
+}: ListItemProps) => {
   return (
     <div className="h-12 flex items-center">
       <CheckboxInput
-        value={text}
-        onChange={(val) => setText(val)}
-        checked={isCheck}
-        onClickCheckbox={() => setIsCheck((prev) => !prev)}
+        value={todo}
+        onChange={setTodo}
+        checked={isChecked}
+        onClickCheckbox={setIsChecked}
         category="review"
       />
       <div className="flex items-center gap-2">
