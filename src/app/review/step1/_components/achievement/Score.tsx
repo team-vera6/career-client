@@ -20,6 +20,12 @@ const WeekInfo = {
   week,
 };
 
+const WeekInfo = {
+  year,
+  month,
+  week,
+};
+
 export const Score = () => {
   const { addToast } = useToast();
 
