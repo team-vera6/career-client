@@ -13,9 +13,10 @@ interface WeeklyMemoType {
   date: string;
 }
 
+const { year, month, week } = getCurrentWeek();
+
 const WeeklyMemo = () => {
   const [memos, setMemos] = useState<WeeklyMemoType[]>([]);
-  const { year, month, week } = getCurrentWeek();
 
   const getMemoList = async () => {
     const data = await getMemos({ year, month, week });
@@ -34,8 +35,6 @@ const WeeklyMemo = () => {
   useEffect(() => {
     getMemoList();
   }, []);
-
-  console.log(memos);
 
   return (
     <>

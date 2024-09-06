@@ -1,15 +1,10 @@
 import { CurrentWeek } from '@/types/currentWeek';
+import { Todo } from '@/types/todo';
 
 import { typedGet } from '..';
 
-export interface TodoType {
-  id: number;
-  content: string;
-  status: string;
-}
-
 type TodoResponse = {
-  todos: TodoType[];
+  todos: Todo[];
 };
 
 export const getTodos = async ({ year, month, week }: CurrentWeek) => {

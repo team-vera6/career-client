@@ -12,6 +12,8 @@ import { usePagingButton } from '@/app/review/utils';
 import useToast from '@/hooks/useToast';
 import { getCurrentWeek } from '@/utils/date';
 
+const { year, month, week } = getCurrentWeek();
+
 export const PagingButton = () => {
   const { onClickPagingButton } = usePagingButton();
   const { addToast } = useToast();
@@ -19,8 +21,6 @@ export const PagingButton = () => {
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
   const selectedScore = useAtomValue(scoreAtom);
   const setReviewId = useSetAtom(reviewIdAtom);
-
-  const { year, month, week } = getCurrentWeek();
 
   const onClickButton = async () => {
     const body = {
