@@ -25,7 +25,6 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
 
   const [currentTodoList, setCurrentTodoList] = useAtom(currentTodoListAtom);
   const [nextTodoList, setNextTodoList] = useAtom(nextTodoListAtom);
-
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
 
   useEffect(() => {
