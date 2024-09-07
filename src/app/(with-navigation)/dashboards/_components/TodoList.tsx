@@ -1,16 +1,61 @@
 'use client';
 
-import { useAtom } from 'jotai';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-import { currentTodoListAtom } from '@/app/review/stores';
+import { addTodos } from '@/apis/dashboard/post';
+import { changeTodos } from '@/apis/dashboard/put';
+import { getTodos } from '@/apis/reports/get';
 import EmptyTodoImage from '@/assets/images/todo-empty.png';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import PlusIcon from '@/components/icons/PlusIcon';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
+import { Todo } from '@/types/todo';
+import { getCurrentWeek } from '@/utils/date';
+
+const { year, month, week } = getCurrentWeek();
 
 const TodoList = () => {
-  const [todos, setTodos] = useAtom(currentTodoListAtom);
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    getCurrentWeekTodos();
+  }, []);
+
+  const getCurrentWeekTodos = async () => {
+    const response = await getTodos({ year, month, week });
+    setTodos(response.todos);
+  };
+
+  const onClickCheckbox = async (todoId: number) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === todoId) {
+        return {
+          ...todo,
+          status: todo.status === 'DONE' ? 'ONGOING' : 'DONE',
+        };
+      }
+      return todo;
+    });
+
+    try {
+      await changeTodos(updatedTodos);
+      await getCurrentWeekTodos();
+    } catch (error) {
+      console.error('fail to change checkbox', error);
+    }
+  };
+
+  const saveTodo = async () => {
+    try {
+      addTodos({
+        weekNumber: { year, month, week },
+        contents: todos.map((todo) => ({ content: todo.content })),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <section className="w-full">
@@ -22,10 +67,9 @@ const TodoList = () => {
             setTodos((prev) => [
               ...prev,
               {
-                todo: '',
-                isChecked: false,
-                week: 'current',
-                id: `current-${prev.length + 1}`,
+                id: Math.random(),
+                content: '',
+                status: 'ONGOING',
               },
             ])
           }
@@ -40,24 +84,16 @@ const TodoList = () => {
           {todos.map((todo, index) => (
             <CheckboxInput
               key={index}
-              value={todo.todo}
-              checked={todo.isChecked}
+              value={todo.content}
+              checked={todo.status === 'DONE'}
               onChange={(value) =>
                 setTodos((prev) =>
                   prev.map((item) =>
-                    item.id === todo.id ? { ...item, todo: value } : item,
+                    item.id === todo.id ? { ...item, content: value } : item,
                   ),
                 )
               }
-              onClickCheckbox={() =>
-                setTodos((prev) =>
-                  prev.map((item) =>
-                    item.id === todo.id
-                      ? { ...item, isChecked: !item.isChecked }
-                      : item,
-                  ),
-                )
-              }
+              onClickCheckbox={() => onClickCheckbox(todo.id)}
               buttons={
                 <button
                   onClick={() =>

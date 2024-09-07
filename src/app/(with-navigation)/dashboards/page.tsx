@@ -1,11 +1,9 @@
 'use client';
 
-import { useSetAtom } from 'jotai';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { DashboardDataResponse, getDashboardData } from '@/apis/dashboard/get';
-import { currentTodoListAtom } from '@/app/review/stores';
 import { getCurrentWeek } from '@/utils/date';
 
 import MemoList from './_components/MemoList';
@@ -16,8 +14,6 @@ import WeekNavigator from './_components/WeekNavigator';
 const { year, month, week } = getCurrentWeek();
 
 export default function DashboardPage() {
-  const setTodos = useSetAtom(currentTodoListAtom);
-
   const [data, setData] = useState<DashboardDataResponse>();
 
   useEffect(() => {
@@ -27,22 +23,6 @@ export default function DashboardPage() {
   const getData = async () => {
     const data = await getDashboardData({ year, month, week });
     setData(data);
-
-    updateTodo(data.todos);
-  };
-
-  const updateTodo = (todoFromDashboard: DashboardDataResponse['todos']) => {
-    setTodos(
-      todoFromDashboard.map((todo) => {
-        return {
-          week: 'current',
-          isChecked: false,
-          todo: todo.content,
-          id: String(todo.id),
-          isMoved: false,
-        };
-      }),
-    );
   };
 
   if (!data) {
