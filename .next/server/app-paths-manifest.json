@@ -1,6 +1,5 @@
 {
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/(with-navigation)/dashboards/page": "app/(with-navigation)/dashboards/page.js",
-  "/(with-navigation)/history/memo/page": "app/(with-navigation)/history/memo/page.js",
-  "/review/step1/page": "app/review/step1/page.js"
+  "/(with-navigation)/history/memo/page": "app/(with-navigation)/history/memo/page.js"
 }

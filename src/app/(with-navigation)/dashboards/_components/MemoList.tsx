@@ -27,7 +27,7 @@ const MemoList = () => {
           id: String(memo.id),
           isBookmark: memo.isMarked,
           memo: memo.content,
-          date: getMemoCreateDate(memo.createdAt),
+          date: getMemoCreateDate(memo.updatedAt),
         };
       }),
     );
