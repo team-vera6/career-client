@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { addTodos } from '@/apis/dashboard/post';
 import { changeTodos } from '@/apis/dashboard/put';
 import { getTodos } from '@/apis/reports/get';
+import { deleteTodo } from '@/apis/todos/delete';
 import EmptyTodoImage from '@/assets/images/todo-empty.png';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import PlusIcon from '@/components/icons/PlusIcon';
@@ -17,6 +18,7 @@ const { year, month, week } = getCurrentWeek();
 
 const TodoList = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [addNewTodo, setAddNewTodo] = useState(false);
 
   useEffect(() => {
     getCurrentWeekTodos();
@@ -46,14 +48,32 @@ const TodoList = () => {
     }
   };
 
-  const saveTodo = async () => {
+  const saveNewTodo = async () => {
     try {
       addTodos({
         weekNumber: { year, month, week },
-        contents: todos.map((todo) => ({ content: todo.content })),
+        contents: todos
+          .filter((todo) => todo.id < 1)
+          .map((todo) => ({ content: todo.content })),
       });
     } catch (error) {
-      console.error(error);
+      console.error('fail to add todos', error);
+    }
+  };
+
+  const editTodo = async () => {
+    try {
+      await changeTodos(todos);
+    } catch (error) {
+      console.error('fail to edit todos', error);
+    }
+  };
+
+  const deleteSelectedTodo = async (todoId: string) => {
+    try {
+      await deleteTodo([todoId]);
+    } catch (error) {
+      console.error('fail to delete todo', error);
     }
   };
 
@@ -63,16 +83,17 @@ const TodoList = () => {
         <p className="font-title-16 text-text-strong">이번 주 할 일</p>
         <button
           className="button-line button-small"
-          onClick={() =>
+          onClick={() => {
+            setAddNewTodo(true);
             setTodos((prev) => [
               ...prev,
               {
-                id: Math.random(),
+                id: Math.random() * 0.9,
                 content: '',
                 status: 'ONGOING',
               },
-            ])
-          }
+            ]);
+          }}
         >
           <PlusIcon size={20} />
           <p className="font-body-13 text-text-strong">추가</p>
@@ -96,13 +117,22 @@ const TodoList = () => {
               onClickCheckbox={() => onClickCheckbox(todo.id)}
               buttons={
                 <button
-                  onClick={() =>
-                    setTodos((prev) => prev.filter((items) => items !== todo))
-                  }
+                  onClick={async () => {
+                    await deleteSelectedTodo(String(todo.id));
+                    setTodos((prev) => prev.filter((items) => items !== todo));
+                  }}
                 >
                   <DeleteIcon size={20} />
                 </button>
               }
+              onBlur={async () => {
+                if (addNewTodo) {
+                  await saveNewTodo();
+                  setAddNewTodo(false);
+                } else {
+                  await editTodo();
+                }
+              }}
             />
           ))}
         </div>
