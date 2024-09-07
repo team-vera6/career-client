@@ -50,12 +50,13 @@ const TodoList = () => {
 
   const saveNewTodo = async () => {
     try {
-      addTodos({
+      await addTodos({
         weekNumber: { year, month, week },
         contents: todos
           .filter((todo) => todo.id < 1)
           .map((todo) => ({ content: todo.content })),
       });
+      await getCurrentWeekTodos();
     } catch (error) {
       console.error('fail to add todos', error);
     }

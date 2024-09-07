@@ -3,6 +3,7 @@
 import { useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
+import { bookmarkMemo } from '@/apis/memo/put';
 import { memoListAtom } from '@/app/review/stores';
 import { MemoItem } from '@/app/review/types';
 import colors from '@/styles/colors';
@@ -21,7 +22,16 @@ const MemoBottom = ({
     setIsMark(isBookmark);
   }, [isBookmark]);
 
-  const onClickBookmark = () => {
+  const changeBookmark = async () => {
+    try {
+      await bookmarkMemo(Number(id));
+    } catch (error) {
+      console.error('fail to bookmark memo', error);
+    }
+  };
+
+  const onClickBookmark = async () => {
+    await changeBookmark();
     setIsMark((prev) => !prev);
     setMemoList((prev) =>
       prev.map((memo) =>
@@ -35,9 +45,9 @@ const MemoBottom = ({
       <p className="font-body-12 text-text-neutral">{date}</p>
       <button
         type="button"
-        onClick={(e) => {
+        onClick={async (e) => {
           e.stopPropagation();
-          onClickBookmark();
+          await onClickBookmark();
         }}
       >
         <BookmarkIcon

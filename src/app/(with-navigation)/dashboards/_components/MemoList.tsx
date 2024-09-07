@@ -5,12 +5,13 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import { getMemos } from '@/apis/memo/get';
+import { addNewMemo } from '@/apis/memo/post';
 import { memoListAtom } from '@/app/review/stores';
 import EmptyMemoImage from '@/assets/images/memo-empty.png';
 import PlusIcon from '@/components/icons/PlusIcon';
 import Memo from '@/components/memo/Memo';
 import TextEditorModal from '@/components/modal/text-editor';
-import { getCurrentWeek } from '@/utils/date';
+import { getCurrentWeek, getMemoCreateDate } from '@/utils/date';
 
 const { year, month, week } = getCurrentWeek();
 
@@ -19,14 +20,14 @@ const MemoList = () => {
   const [memos, setMemos] = useAtom(memoListAtom);
 
   const getMemoList = async () => {
-    const data = await getMemos({ year, month, week });
+    const data = await getMemos({ year, month, week: week - 1 });
     setMemos(
       data.memos.map((memo) => {
         return {
           id: String(memo.id),
           isBookmark: memo.isMarked,
           memo: memo.content,
-          date: '7.22',
+          date: getMemoCreateDate(memo.createdAt),
         };
       }),
     );
@@ -35,6 +36,14 @@ const MemoList = () => {
   useEffect(() => {
     getMemoList();
   }, []);
+
+  const addMemo = async (content: string) => {
+    try {
+      await addNewMemo({ content, isMarked: false });
+    } catch (error) {
+      console.log('fail to add memo', error);
+    }
+  };
 
   return (
     <section className="shrink-0 min-w-[252px]">
@@ -53,7 +62,7 @@ const MemoList = () => {
         <div className="flex flex-col gap-3 mt-4">
           {memos.map((memo, index) => (
             <Memo
-              id={String(index)}
+              id={memo.id}
               key={index}
               title={memo.title}
               memo={memo.memo}
@@ -73,11 +82,8 @@ const MemoList = () => {
         onDismiss={() => {
           setOpenTextEditor(false);
         }}
-        onSaveText={(text) => {
-          // setMemos((prev) => [
-          //   ...prev,
-          //   { title: '', memo: text, date: new Date().toLocaleDateString() },
-          // ]);
+        onSaveText={async (text) => {
+          await addMemo(text);
           setMemos((prev) => [
             ...prev,
             {
