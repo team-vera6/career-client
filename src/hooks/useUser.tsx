@@ -1,4 +1,6 @@
+import { AxiosError } from 'axios';
 import { useSetAtom } from 'jotai';
+import { useRouter } from 'next/navigation';
 
 import {
   emailCheck,
@@ -13,6 +15,8 @@ import { userTokenAtom } from '@/stores/user/tokenAtom';
 import useToast from './useToast';
 
 export const useUser = () => {
+  const router = useRouter();
+
   const setUserToken = useSetAtom(userTokenAtom);
   const setEmailCode = useSetAtom(emailCodeAtom);
   const { addToast } = useToast();
@@ -102,5 +106,21 @@ export const useUser = () => {
     }
   };
 
-  return { userLogin, userEmailCheck, userEmailVerification, userSignUp };
+  const userExpired = (error: AxiosError) => {
+    if (typeof window === undefined) return;
+
+    if (error.status === 401 || error.response?.status === 401) {
+      router.push('/auth/login');
+      localStorage.setItem('accessToken', '');
+    }
+    return;
+  };
+
+  return {
+    userLogin,
+    userEmailCheck,
+    userEmailVerification,
+    userSignUp,
+    userExpired,
+  };
 };

@@ -10,19 +10,20 @@ import { getCurrentWeek, getNextWeek } from '@/utils/date';
 
 import { ListItem } from './ListItem';
 
+const { year, month, week: weekNumber } = getCurrentWeek();
+const { nextYear, nextMonth, nextWeek } = getNextWeek();
+
 export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
   const [currentTodoList, setCurrentTodoList] = useAtom(currentTodoListAtom);
   const [nextTodoList, setNextTodoList] = useAtom(nextTodoListAtom);
-  const { year, month, week: weekNumber } = getCurrentWeek();
-  const { nextYear, nextMonth, nextWeek } = getNextWeek();
 
   useEffect(() => {
     if (week === 'current') {
       (async () => {
         const response = await getTodos({
           year,
-          week: weekNumber,
           month,
+          week: weekNumber,
         });
 
         setCurrentTodoList(
@@ -38,8 +39,8 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
       (async () => {
         const response = await getTodos({
           year: nextYear,
-          week: nextMonth,
-          month: nextWeek,
+          month: nextMonth,
+          week: nextWeek,
         });
 
         setNextTodoList(
@@ -52,7 +53,7 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
         );
       })();
     }
-  }, [month, setCurrentTodoList, setNextTodoList, week, weekNumber, year]);
+  }, [setCurrentTodoList, setNextTodoList]);
 
   const todoList = useMemo(() => {
     return week === 'current' ? currentTodoList : nextTodoList;
