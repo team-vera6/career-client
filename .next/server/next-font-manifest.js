@@ -1,1 +1,0 @@
-self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/Users/hrkim/Desktop/next/career-client/src/app/layout":["static/media/c1254d613336d18b-s.p.woff2","static/media/ad1715a5ea03ce0e-s.p.woff2","static/media/1a2bf3d736e66b1c-s.p.woff2","static/media/ff840cfebfb63b0c-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';
