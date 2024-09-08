@@ -101,7 +101,10 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
 
               <div className="flex flex-col gap-4 mb-6">
                 <ProjectDetailItems title="목표" content={projectInfo.goal} />
-                <ProjectDetailItems title="내용" content={projectInfo.title} />
+                <ProjectDetailItems
+                  title="내용"
+                  content={projectInfo.content}
+                />
               </div>
 
               <div>
@@ -159,7 +162,7 @@ const ProjectDetailSheet = ({ isOpen, closeSheet, projectId }: Props) => {
           end: projectInfo?.endDate ?? '',
         }}
         initialGoal={projectInfo?.goal}
-        initialDescription={projectInfo?.title}
+        initialDescription={projectInfo?.content}
         reviews={reviews}
       />
     </>
