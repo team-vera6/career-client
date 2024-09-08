@@ -12,14 +12,14 @@ import ScorePicker from '@/components/score-picker/ScorePicker';
 import useToast from '@/hooks/useToast';
 import { getCurrentWeek } from '@/utils/date';
 
+const { year, month, week } = getCurrentWeek();
+
 export const Score = () => {
   const { addToast } = useToast();
 
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
   const [selectedScore, setSelectedScore] = useAtom(scoreAtom);
   const setReviewId = useSetAtom(reviewIdAtom);
-
-  const { year, month, week } = getCurrentWeek();
 
   const onClickPickScore = async (count: number) => {
     setSelectedScore(count);
@@ -29,8 +29,8 @@ export const Score = () => {
       const response = await addScore({
         weekNumber: {
           year,
-          month,
           week,
+          month,
         },
         like: selectedScore,
       });

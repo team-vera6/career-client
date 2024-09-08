@@ -1,5 +1,0 @@
-{
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/(with-navigation)/project/page": "app/(with-navigation)/project/page.js",
-  "/(with-navigation)/dashboards/page": "app/(with-navigation)/dashboards/page.js"
-}

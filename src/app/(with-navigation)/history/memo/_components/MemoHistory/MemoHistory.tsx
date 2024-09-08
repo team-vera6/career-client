@@ -5,14 +5,13 @@ import { useEffect, useState } from 'react';
 import { AllMemosResponse, getAllMemos } from '@/apis/memo/get';
 
 import EmptyMemoHistory from './EmptyMemoHistory';
-import MemoWeekGroup from './MemoWeekGroup';
 
 const MemoHistory = () => {
   const [memos, setMemos] = useState<AllMemosResponse>();
 
   useEffect(() => {
     (async () => {
-      const response = await getAllMemos({ id: 0 });
+      const response = await getAllMemos({});
       setMemos(response);
     })();
   }, []);
@@ -21,13 +20,14 @@ const MemoHistory = () => {
 
   return (
     <>
-      {memos.contents.map(({ weekNumber, memos }) => (
+      {/* {memos.contents.map(({ weekNumber, memos }) => (
         <MemoWeekGroup
           key={`${weekNumber.year}-${weekNumber.month}-${weekNumber.week}`}
           currentWeek={weekNumber}
           memos={memos}
         />
-      ))}
+      ))} */}
+      <p>memo</p>
     </>
   );
 };

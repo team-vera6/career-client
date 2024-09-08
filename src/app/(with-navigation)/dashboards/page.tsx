@@ -1,11 +1,13 @@
 'use client';
 
+import { AxiosError } from 'axios';
 import { useSetAtom } from 'jotai';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { DashboardDataResponse, getDashboardData } from '@/apis/dashboard/get';
 import { currentTodoListAtom } from '@/app/review/stores';
+import { useUser } from '@/hooks/useUser';
 import { getCurrentWeek } from '@/utils/date';
 
 import MemoList from './_components/MemoList';
@@ -18,6 +20,8 @@ const { year, month, week } = getCurrentWeek();
 export default function DashboardPage() {
   const setTodos = useSetAtom(currentTodoListAtom);
 
+  const { userExpired } = useUser();
+
   const [data, setData] = useState<DashboardDataResponse>();
 
   useEffect(() => {
@@ -25,10 +29,13 @@ export default function DashboardPage() {
   }, []);
 
   const getData = async () => {
-    const data = await getDashboardData({ year, month, week });
-    setData(data);
-
-    updateTodo(data.todos);
+    try {
+      const data = await getDashboardData({ year, month, week });
+      setData(data);
+      updateTodo(data.todos);
+    } catch (error) {
+      userExpired(error as AxiosError);
+    }
   };
 
   const updateTodo = (todoFromDashboard: DashboardDataResponse['todos']) => {
