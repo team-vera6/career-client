@@ -56,7 +56,7 @@ const countThursdaysInMonth = ({
   year: number;
   month: number;
 }) => {
-  const startDate = startOfMonth(new Date(year, month));
+  const startDate = startOfMonth(new Date(year, month - 1));
   const endDate = endOfMonth(startDate);
 
   const daysInMonth = eachDayOfInterval({ start: startDate, end: endDate });
@@ -158,4 +158,12 @@ export const getPrevWeek = (initialDate?: Date) => {
   const { year, month, week } = getCurrentDate(prevDate);
 
   return { prevYear: year, prevMonth: month, prevWeek: week };
+};
+
+export const getMemoCreateDate = (createdAt: string) => {
+  const [date, time] = createdAt.split(' ');
+
+  const [year, month, day] = date.split('-');
+
+  return `${month}.${day}`;
 };

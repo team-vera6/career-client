@@ -34,7 +34,6 @@ export default function DashboardPage() {
       setData(data);
       updateTodo(data.todos);
     } catch (error) {
-      console.log('sss');
       userExpired(error as AxiosError);
     }
   };
