@@ -56,7 +56,7 @@ const countThursdaysInMonth = ({
   year: number;
   month: number;
 }) => {
-  const startDate = startOfMonth(new Date(year, month));
+  const startDate = startOfMonth(new Date(year, month - 1));
   const endDate = endOfMonth(startDate);
 
   const daysInMonth = eachDayOfInterval({ start: startDate, end: endDate });
