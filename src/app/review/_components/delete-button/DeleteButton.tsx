@@ -9,7 +9,7 @@ import { ReviewType } from '../../types';
 
 interface Props {
   category: ReviewType;
-  id: string;
+  id: string | number;
 }
 
 export const DeleteButton = ({ category, id }: Props) => {

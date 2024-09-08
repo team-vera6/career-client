@@ -8,12 +8,12 @@ import { cn } from '@/utils/tailwind';
 import ChevronDown20Icon from '../icons/ChevronDown20Icon';
 
 export interface DropdownItem extends CSSProperties {
+  id: string | number;
   name: string;
   value: string | number;
 }
 
 export interface DropdownProps {
-  id: string;
   initialItem?: string | number;
   items: Array<DropdownItem>;
   className?: ClassName;
@@ -21,7 +21,6 @@ export interface DropdownProps {
 }
 
 const Dropdown = ({
-  id,
   initialItem = '',
   items,
   className,
@@ -49,7 +48,6 @@ const Dropdown = ({
     <div className={cn('relative w-full h-[2.75rem]', className)} {...rest}>
       <button
         type="button"
-        id={id}
         className="appearance-none w-full h-full p-3 font-body-14 cursor-pointer
         border border-line-normal rounded-lg
         flex items-center justify-between
@@ -75,6 +73,7 @@ const Dropdown = ({
               key={item.value}
               value={item.value}
               onClick={() => onClickItem(item)}
+              id={String(item.id)}
             >
               {item.name}
             </li>
