@@ -106,7 +106,9 @@ const getEndDateInfo = (initialDate?: Date) => {
 
 // 주차 관련 정보 return
 export const getCurrentWeek = (initialDate?: Date) => {
-  const { year, month, week } = getCurrentDate(initialDate);
+  const date = initialDate ?? new Date();
+
+  const { year, month, week } = getCurrentDate(date);
 
   const totalWeek = countThursdaysInMonth({ year, month });
   const { startDate, startYear, startMonth, startDay } =
