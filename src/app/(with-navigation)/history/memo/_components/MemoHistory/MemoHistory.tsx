@@ -1,21 +1,26 @@
 'use client';
 
+import { useAtomValue } from 'jotai';
 import { useEffect, useState } from 'react';
 
 import { AllMemosResponse, getAllMemos } from '@/apis/memo/get';
+import { showOnlyBookmarkAtom } from '@/stores/bookmark/showOnlyBookmarkAtom';
 import { Memo } from '@/types/memo';
 import { sortByWeek } from '@/types/sort';
 
 import EmptyMemoHistory from './EmptyMemoHistory';
 import MemoWeekGroup from './MemoWeekGroup';
 
+interface MemoList {
+  weekNumber: { year: number; month: number; week: number };
+  memos: Memo[];
+}
+
 const MemoHistory = () => {
-  const [memos, setMemos] = useState<
-    {
-      weekNumber: { year: number; month: number; week: number };
-      memos: Memo[];
-    }[]
-  >([]);
+  const showBookmarkOnly = useAtomValue(showOnlyBookmarkAtom);
+
+  const [memos, setMemos] = useState<MemoList[]>([]);
+  const [memosForDisplay, setMemosForDisplay] = useState<MemoList[]>([]);
 
   const groupMemosByWeek = (receivedMemos: AllMemosResponse) => {
     const groupedMemos = receivedMemos.contents.reduce(
@@ -41,16 +46,23 @@ const MemoHistory = () => {
 
         return acc;
       },
-      {} as Record<
-        string,
-        {
-          weekNumber: { year: number; month: number; week: number };
-          memos: Memo[];
-        }
-      >,
+      {} as Record<string, MemoList>,
     );
 
     return Object.values(groupedMemos).sort(sortByWeek);
+  };
+
+  const filterOnlyBookmark = (receivedMemos: MemoList[]) => {
+    const onlyBookmarkedMemos = receivedMemos.map((week) => ({
+      weekNumber: week.weekNumber,
+      memos: week.memos.filter((memo) => memo.isMarked),
+    }));
+
+    const removedEmptyWeeks = onlyBookmarkedMemos.filter(
+      (week) => week.memos.length > 0,
+    );
+
+    return removedEmptyWeeks;
   };
 
   useEffect(() => {
@@ -62,18 +74,25 @@ const MemoHistory = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    if (!showBookmarkOnly) {
+      setMemosForDisplay(memos);
+    } else {
+      setMemosForDisplay(filterOnlyBookmark(memos));
+    }
+  }, [memos, showBookmarkOnly]);
+
   if (memos.length === 0) return <EmptyMemoHistory />;
 
   return (
     <>
-      {memos.map(({ weekNumber, memos }) => (
+      {memosForDisplay.map(({ weekNumber, memos }) => (
         <MemoWeekGroup
           key={`${weekNumber.year}-${weekNumber.month}-${weekNumber.week}`}
           currentWeek={weekNumber}
           memos={memos}
         />
       ))}
-      <p>memo</p>
     </>
   );
 };
