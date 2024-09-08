@@ -27,8 +27,8 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
       (async () => {
         const response = await getTodos({
           year,
-          week: weekNumber,
           month,
+          week: weekNumber,
         });
 
         setCurrentTodoList(
@@ -44,8 +44,8 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
       (async () => {
         const response = await getTodos({
           year: nextYear,
-          week: nextMonth,
-          month: nextWeek,
+          month: nextMonth,
+          week: nextWeek,
         });
 
         setNextTodoList(
