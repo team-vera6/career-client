@@ -15,13 +15,13 @@ export interface TodoListItem {
 }
 
 export interface ReviewListItem {
-  id: string;
-  text: string;
-  project: string;
-}
-
-export interface LastWeekReviewListItem extends ReviewListItem {
-  progressCount: number;
+  id: number;
+  content: string;
+  project: {
+    id: number;
+    content: string;
+    progressRate: number;
+  };
 }
 
 export interface MemoItem {
