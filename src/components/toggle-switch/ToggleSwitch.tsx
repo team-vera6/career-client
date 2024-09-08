@@ -18,9 +18,7 @@ const ToggleSwitch = ({
   const toggle = () => {
     setIsOn((prev) => !prev);
 
-    if (onChange) {
-      onChange(isOn);
-    }
+    onChange?.(!isOn);
   };
 
   return (
