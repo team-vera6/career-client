@@ -1,5 +1,3 @@
-import { DropdownProps } from '@/components/dropdown/Dropdown';
-
 import { LastWeekReviewListItem, MemoItem, TodoListItem } from './types';
 
 export const CURRENT_TODO: TodoListItem[] = [
@@ -37,28 +35,6 @@ export const LOW_LIGHT_REVIEW = {
   id: 'lowLight-1',
   text: '',
   project: '',
-};
-
-export const PROJECT_DROPDOWN: DropdownProps = {
-  id: 'test-1',
-  items: [
-    {
-      name: '관련 프로젝트 선택',
-      value: '',
-    },
-    {
-      name: '모멘투스 신규 서비스 기획',
-      value: '모멘투스 신규 서비스 기획',
-    },
-    {
-      name: '모멘텀 지표 리포팅',
-      value: '모멘텀 지표 리포팅',
-    },
-    {
-      name: '일하는 방식 최적화',
-      value: '일하는 방식 최적화',
-    },
-  ],
 };
 
 export const MEMO_LIST: MemoItem[] = [
