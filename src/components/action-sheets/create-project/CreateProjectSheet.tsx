@@ -9,6 +9,7 @@ import LineInput from '@/components/inputs/line/LineInput';
 import Textarea from '@/components/inputs/textarea/Textarea';
 import Alert from '@/components/modal/Alert';
 import useToast from '@/hooks/useToast';
+import { prefixZeros } from '@/utils/format';
 
 import RightActionSheetContainer from '../Container';
 
@@ -35,10 +36,13 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
   };
 
   const enrollProject = async () => {
+    const [startYear, startMonth, startDay] = dateRange.start.split('.');
+    const [endYear, endMonth, endDay] = dateRange.end.split('.');
+
     const body = {
       title,
-      startDate: dateRange.start.replaceAll('.', '-'),
-      endDate: dateRange.end.replaceAll('.', '-'),
+      startDate: `${startYear}-${prefixZeros(Number(startMonth), 2)}-${prefixZeros(Number(startDay), 2)}`,
+      endDate: `${endYear}-${prefixZeros(Number(endMonth), 2)}-${prefixZeros(Number(endDay), 2)}`,
       goal,
       content: description,
     };
