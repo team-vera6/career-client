@@ -18,7 +18,7 @@ export interface ReviewListItem {
   id: number;
   content: string;
   project: {
-    id: number;
+    id: number | string;
     content: string;
     progressRate: number;
   };

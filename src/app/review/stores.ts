@@ -1,8 +1,7 @@
 import { atom } from 'jotai';
 
-import { DropdownProps } from '@/components/dropdown/Dropdown';
+import { DropdownItem } from '@/components/dropdown/Dropdown';
 
-import { PROJECT_DROPDOWN } from './dummy';
 import { MemoItem, ReviewListItem, TodoListItem } from './types';
 
 // progressDots activeCount
@@ -24,7 +23,6 @@ export const lowLightListAtom = atom<ReviewListItem[]>([]);
 export const lastHighLightListAtom = atom<ReviewListItem[]>([]);
 export const lastLowLightListAtom = atom<ReviewListItem[]>([]);
 
-export const projectListAtom = atom<DropdownProps>(PROJECT_DROPDOWN);
 export const memoListAtom = atom<MemoItem[]>([]);
 
 export const scoreAtom = atom<number>(0);
