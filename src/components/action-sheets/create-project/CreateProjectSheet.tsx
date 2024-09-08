@@ -37,11 +37,12 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
   const enrollProject = async () => {
     const body = {
       title,
-      startDate: dateRange.start,
-      endDate: dateRange.end,
+      startDate: dateRange.start.replaceAll('.', '-'),
+      endDate: dateRange.end.replaceAll('.', '-'),
       goal,
       content: description,
     };
+
     try {
       await addProject(body);
       addToast({
