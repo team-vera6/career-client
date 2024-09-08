@@ -1,47 +1,142 @@
-export const getCurrentWeek = () => {
-  const now = new Date();
+import {
+  eachDayOfInterval,
+  endOfMonth,
+  isThursday,
+  startOfMonth,
+} from 'date-fns';
 
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
-  const currentDayOfWeek = now.getDay(); // 현재 요일 숫자로 가져옴, 0-일요일
+// 현재 기준 년, 월, 주차 정보
+const getCurrentDate = (initialDate?: Date) => {
+  const date = initialDate ?? new Date();
 
-  // 현재 요일에서 월요일까지 일수 계산. 오늘 0(일요일)일 경우 월요일까지 6일, 나머지는 현재 요일 - 1
-  const daysToMonday = currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1;
+  // 주차 계산을 위한 필요한 날짜 정보 추출
+  const targetDate = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+  );
+  const dayOfWeek = targetDate.getDay() === 0 ? 7 : targetDate.getDay(); // 일요일(0)을 월요일(1)로 변환
 
-  const startDate = new Date(now);
-  startDate.setDate(now.getDate() - daysToMonday); // 이번주 월요일 날짜
+  // 기준 주 계산 - ISO 기준으로 목요일이 기준이므로 4를 기준으로 한다.
+  targetDate.setDate(targetDate.getDate() + (4 - dayOfWeek));
 
-  const endDate = new Date(startDate);
-  endDate.setDate(startDate.getDate() + 6); // 이번주 일요일 날짜, 월요일 + 6일
+  // ISO 기준으로 몇 주차인지 계산
+  const firstDayOfMonth = new Date(
+    targetDate.getFullYear(),
+    targetDate.getMonth(),
+    1,
+  );
+  const firstDayOfWeek =
+    firstDayOfMonth.getDay() === 0 ? 7 : firstDayOfMonth.getDay(); // 월요일 시작
 
-  const startMonth = startDate.getMonth() + 1;
-  const startDay = startDate.getDate();
-  const endMonth = endDate.getMonth() + 1;
-  const endDay = endDate.getDate();
+  // 월의 첫째 주의 목요일을 포함하는 날짜 찾기
+  const offsetDays = (firstDayOfWeek <= 4 ? 1 : 8) - firstDayOfWeek;
+  const firstThursday = new Date(
+    firstDayOfMonth.setDate(firstDayOfMonth.getDate() + offsetDays),
+  );
 
-  const firstDayOfMonth = new Date(year, month - 1, 1); // 이번달 1일
-  const firstDay = firstDayOfMonth.getDay(); // 이번달 1일의 요일
-  const daysFromFirstDayToMonday = firstDay === 0 ? 6 : firstDay - 1; // 1일부터 첫번째 월요일까지 일수
+  // 주차 계산 (ISO 기준으로 주의 첫 날을 목요일로 계산)
+  const diffDays = Math.floor(
+    (targetDate.getTime() - firstThursday.getTime()) / (1000 * 60 * 60 * 24),
+  );
+  const weekNumber = Math.floor(diffDays / 7) + 1;
 
-  const week = Math.ceil((startDay + daysFromFirstDayToMonday) / 7); // 현재 주차 정보.
+  return {
+    year: targetDate.getFullYear(),
+    month: targetDate.getMonth() + 1,
+    week: weekNumber,
+  };
+};
 
-  const lastDayOfMonth = new Date(year, month, 0);
-  const totalWeek = Math.ceil(lastDayOfMonth.getDate() / 7);
+// 해당 월의 총 주차 : 목요일 총 개수
+function countThursdaysInMonth({
+  year,
+  month,
+}: {
+  year: number;
+  month: number;
+}) {
+  const startDate = startOfMonth(new Date(year, month));
+  const endDate = endOfMonth(startDate);
+
+  const daysInMonth = eachDayOfInterval({ start: startDate, end: endDate });
+
+  const thursdayCount = daysInMonth.filter((day) => isThursday(day)).length;
+
+  return thursdayCount;
+}
+
+// 해당 주차의 시작일
+const getStartDateInfo = (initialDate?: Date) => {
+  const date = initialDate ?? new Date();
+
+  // 현재 요일과 월요일까지의 차이 계산
+  const daysFromMonday = date.getDay() === 0 ? 6 : Math.abs(date.getDay() - 1);
+
+  // 시작일, 현재 요일 - 월요일까지의 차
+  const startDate = new Date(date);
+  startDate.setDate(date.getDate() - daysFromMonday);
+
+  const newStartDate = startDate.toISOString().split('T')[0];
+  const [startYear, startMonth, startDay] = newStartDate.split('-');
+
+  return {
+    startDate,
+    startYear,
+    startMonth,
+    startDay,
+  };
+};
+
+// 해당 주차의 종료일
+const getEndDateInfo = (initialDate?: Date) => {
+  const date = initialDate ?? new Date();
+
+  const { startDate } = getStartDateInfo(initialDate);
+
+  // 종료일, 시작일 + 6일
+  const endDate = new Date(date);
+  endDate.setDate(startDate.getDate() + 6);
+
+  const newEndDate = endDate.toISOString().split('T')[0];
+  const [endYear, endMonth, endDay] = newEndDate.split('-');
+
+  return { endDate, endYear, endMonth, endDay };
+};
+
+// 주차 관련 정보 return
+export const getCurrentWeek = (initialDate?: Date) => {
+  const date = initialDate ?? new Date();
+
+  const { year, month, week } = getCurrentDate(date);
+
+  const totalWeek = countThursdaysInMonth({ year, month });
+  const { startDate, startYear, startMonth, startDay } =
+    getStartDateInfo(initialDate);
+
+  const { endDate, endYear, endMonth, endDay } = getEndDateInfo(initialDate);
 
   return {
     year,
-    month: startMonth,
+    month,
     week,
     totalWeek,
+    startDate,
+    startYear,
     startMonth,
     startDay,
+    endDate,
+    endYear,
     endMonth,
     endDay,
   };
 };
 
-export const getNextWeek = () => {
-  const { year, month, week, totalWeek } = getCurrentWeek();
+// 다음주 주차 정보
+export const getNextWeek = (initialDate?: Date) => {
+  const date = initialDate ?? new Date();
+
+  const { year, month, week, totalWeek } = getCurrentWeek(date);
   const isNextWeek = week + 1 > totalWeek ? 1 : 0;
   const isNextMonth = month + isNextWeek > 12 ? 1 : 0;
 
