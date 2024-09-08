@@ -49,13 +49,13 @@ const getCurrentDate = (initialDate?: Date) => {
 };
 
 // 해당 월의 총 주차 : 목요일 총 개수
-function countThursdaysInMonth({
+const countThursdaysInMonth = ({
   year,
   month,
 }: {
   year: number;
   month: number;
-}) {
+}) => {
   const startDate = startOfMonth(new Date(year, month));
   const endDate = endOfMonth(startDate);
 
@@ -64,7 +64,7 @@ function countThursdaysInMonth({
   const thursdayCount = daysInMonth.filter((day) => isThursday(day)).length;
 
   return thursdayCount;
-}
+};
 
 // 해당 주차의 시작일
 const getStartDateInfo = (initialDate?: Date) => {
