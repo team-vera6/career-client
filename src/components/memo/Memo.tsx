@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { editMemo } from '@/apis/memo/put';
 import { MemoItem } from '@/app/review/types';
 import { cn } from '@/utils/tailwind';
 
@@ -23,6 +24,18 @@ const Memo = ({
     setShowMemo(false);
   };
 
+  const updateMemo = async (inputText: string) => {
+    try {
+      await editMemo({
+        id: Number(id),
+        content: inputText,
+        isMarked: isBookmark,
+      });
+    } catch (error) {
+      console.error('fail to update memo', error);
+    }
+  };
+
   return (
     <>
       <div
@@ -42,7 +55,7 @@ const Memo = ({
           {!!memo && (
             <p
               className="font-body-14 text-text-strong"
-              dangerouslySetInnerHTML={{ __html: memo }}
+              dangerouslySetInnerHTML={{ __html: textValue }}
             />
           )}
         </div>
@@ -53,7 +66,10 @@ const Memo = ({
       <TextEditorModal
         isOpen={showMemo}
         onDismiss={onClickCloseModal}
-        onSaveText={(val) => setTextValue(val)}
+        onSaveText={async (val) => {
+          await updateMemo(val);
+          setTextValue(val);
+        }}
         value={textValue}
       />
     </>
