@@ -20,7 +20,7 @@ export const getProjectList = async () => {
 };
 
 export const getProject = async (id: number) => {
-  const response = await typedGet<ProjectListResponse>(`/projects/${id}`);
+  const response = await typedGet<ProjectDetail>(`/projects/${id}`);
   return response;
 };
 
