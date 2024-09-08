@@ -18,7 +18,10 @@ export const getMemos = async ({ year, month, week }: CurrentWeek) => {
 export interface AllMemosResponse {
   contents: {
     weekNumber: CurrentWeek;
-    memos: Memo[];
+    id: number;
+    content: string;
+    isMarked: boolean;
+    updatedAt: string;
   }[];
   nextCursor: number;
 }
