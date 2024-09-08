@@ -72,8 +72,6 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
     }
   };
 
-  console.log(currentTodoList);
-
   const onToggleChecked = (id: string) => {
     if (week === 'current') {
       setCurrentTodoList((prev) =>
