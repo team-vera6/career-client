@@ -11,6 +11,7 @@ interface Props {
   onChange?: (value: string) => void;
   checked: boolean;
   onClickCheckbox?: () => void;
+  onBlur?: () => void;
   width?: string;
   buttons?: ReactNode;
   category?: 'dashboard' | 'review';
@@ -21,6 +22,7 @@ const CheckboxInput = ({
   onChange,
   checked,
   onClickCheckbox,
+  onBlur,
   width,
   buttons,
   category = 'dashboard',
@@ -62,6 +64,7 @@ const CheckboxInput = ({
           className="w-full font-body-16 outline-none bg-transparent"
           value={value}
           onChange={(e) => onChange?.(e.currentTarget.value)}
+          onBlurCapture={onBlur}
           style={{
             color: checked ? colors.text.normal : colors.text.strong,
           }}

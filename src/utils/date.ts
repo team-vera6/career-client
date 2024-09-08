@@ -51,3 +51,11 @@ export const getNextWeek = () => {
 
   return { nextYear, nextMonth, nextWeek };
 };
+
+export const getMemoCreateDate = (createdAt: string) => {
+  const [date, time] = createdAt.split(' ');
+
+  const [year, month, day] = date.split('-');
+
+  return `${month}.${day}`;
+};
