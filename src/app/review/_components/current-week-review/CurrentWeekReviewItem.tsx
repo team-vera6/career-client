@@ -20,6 +20,7 @@ import ProjectDropdown from '../project-dropdown/ProjectDropdown';
 interface Props extends ReviewListItem {
   category: ReviewType;
   index: number;
+  onSelect: (item: DropdownItem, reviewId: string | number) => void;
 }
 
 export const CurrentWeekReviewItem = ({
@@ -28,6 +29,7 @@ export const CurrentWeekReviewItem = ({
   content,
   project,
   index,
+  onSelect,
 }: Props) => {
   const [projectList, setProjectList] = useState<DropdownItem[]>([]);
   const [highLightList, setHighLightList] = useAtom(highLightListAtom);
@@ -41,27 +43,6 @@ export const CurrentWeekReviewItem = ({
       prev.map((review) =>
         String(review.id) === String(id)
           ? { ...review, content: value }
-          : review,
-      ),
-    );
-  };
-
-  const selectProject = (item: DropdownItem) => {
-    const selectedItem = {
-      id: item.id,
-      content: item.name,
-      progressRate: 0,
-    };
-    const setter =
-      category === 'highLight' ? setHighLightList : setLowLightList;
-
-    setter((prev) =>
-      prev.map((review) =>
-        String(review.id) === String(item.id)
-          ? {
-              ...review,
-              project: selectedItem,
-            }
           : review,
       ),
     );
@@ -102,15 +83,18 @@ export const CurrentWeekReviewItem = ({
         <Textarea
           className="min-h-[6.5rem]"
           value={content}
-          onChange={(val) => writeReview(val)}
+          onChange={(val: string) => writeReview(val)}
         />
         <div className="flex">
           <LinkIcon size={36} />
           <ProjectDropdown
+            reviewId={id}
             items={projectList}
             className="mt-2"
-            initialItem={project.content ?? '프로젝트 선택'}
-            onSelect={selectProject}
+            initialItem={
+              project.content !== '' ? project.content : '프로젝트 선택'
+            }
+            onSelect={onSelect}
           />
         </div>
       </div>

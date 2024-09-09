@@ -14,13 +14,15 @@ export interface DropdownItem extends CSSProperties {
 }
 
 export interface DropdownProps {
+  reviewId: string | number;
   initialItem?: string | number;
   items: Array<DropdownItem>;
   className?: ClassName;
-  onSelect?: (item: DropdownItem) => void;
+  onSelect?: (item: DropdownItem, id: string | number) => void;
 }
 
 const Dropdown = ({
+  reviewId,
   initialItem = '',
   items,
   className,
@@ -32,11 +34,11 @@ const Dropdown = ({
   const [selectedValue, setSelectedValue] = useState(initialItem);
   const [selectedName, setSelectedName] = useState('');
 
-  const onClickItem = (item: DropdownItem) => {
+  const onClickItem = (item: DropdownItem, id: string | number) => {
     setSelectedValue(item.value);
     setShowOptions(false);
 
-    onSelect && onSelect(item);
+    onSelect && onSelect(item, id);
   };
 
   useEffect(() => {
@@ -72,7 +74,7 @@ const Dropdown = ({
               className="h-[2.75rem] py-3 px-5 hover:bg-surface-background"
               key={item.value}
               value={item.value}
-              onClick={() => onClickItem(item)}
+              onClick={() => onClickItem(item, reviewId)}
               id={String(item.id)}
             >
               {item.name}
