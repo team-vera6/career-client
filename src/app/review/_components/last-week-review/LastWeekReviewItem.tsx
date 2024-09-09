@@ -1,7 +1,6 @@
+import { ReviewListItem } from '@/app/review/types';
 import LinkIcon from '@/components/icons/LinkIcon';
 import ProgressChip from '@/components/progress-chip/ProgressChip';
-
-import { ReviewListItem } from '../../types';
 
 export const LastWeekReviewItem = ({ content, project }: ReviewListItem) => {
   return (
