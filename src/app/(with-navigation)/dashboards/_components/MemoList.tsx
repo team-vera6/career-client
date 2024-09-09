@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -11,16 +11,20 @@ import EmptyMemoImage from '@/assets/images/memo-empty.png';
 import PlusIcon from '@/components/icons/PlusIcon';
 import Memo from '@/components/memo/Memo';
 import TextEditorModal from '@/components/modal/text-editor';
-import { getCurrentWeek, getMemoCreateDate } from '@/utils/date';
-
-const { year, month, week } = getCurrentWeek();
+import { displayWeekAtom } from '@/stores/week/displayWeek';
+import { getMemoCreateDate } from '@/utils/date';
 
 const MemoList = () => {
   const [openTextEditor, setOpenTextEditor] = useState(false);
   const [memos, setMemos] = useAtom(memoListAtom);
+  const currentWeek = useAtomValue(displayWeekAtom);
 
   const getMemoList = async () => {
-    const data = await getMemos({ year, month, week: week - 1 });
+    const data = await getMemos({
+      year: currentWeek.year,
+      month: currentWeek.month,
+      week: currentWeek.week,
+    });
     setMemos(
       data.memos.map((memo) => {
         return {
