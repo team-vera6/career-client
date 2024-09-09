@@ -6,17 +6,23 @@ import ChevronRight20Icon from '@/components/icons/ChevronRight20Icon';
 import { displayWeekAtom } from '@/stores/week/displayWeek';
 import { getCurrentWeek } from '@/utils/date';
 
+const { year, month, week } = getCurrentWeek();
+
 const WeekNavigator = () => {
-  const [currentWeek, setCurrentWeek] = useAtom(displayWeekAtom);
+  const [currentDisplayWeek, setCurrentDisplayWeek] = useAtom(displayWeekAtom);
 
   const handleClickPrev = () => {
     const prevWeek = previousDay(
-      new Date(currentWeek.year, currentWeek.month - 1, currentWeek.date),
-      currentWeek.day,
+      new Date(
+        currentDisplayWeek.year,
+        currentDisplayWeek.month - 1,
+        currentDisplayWeek.date,
+      ),
+      currentDisplayWeek.day,
     );
     const { year, month, week } = getCurrentWeek(prevWeek);
 
-    setCurrentWeek({
+    setCurrentDisplayWeek({
       year,
       month,
       week,
@@ -27,12 +33,16 @@ const WeekNavigator = () => {
 
   const handleClickNext = () => {
     const nextWeek = nextDay(
-      new Date(currentWeek.year, currentWeek.month - 1, currentWeek.date),
-      currentWeek.day as Day,
+      new Date(
+        currentDisplayWeek.year,
+        currentDisplayWeek.month - 1,
+        currentDisplayWeek.date,
+      ),
+      currentDisplayWeek.day as Day,
     );
     const { year, month, week } = getCurrentWeek(nextWeek);
 
-    setCurrentWeek({
+    setCurrentDisplayWeek({
       year,
       month,
       week,
@@ -44,7 +54,7 @@ const WeekNavigator = () => {
   return (
     <div className="flex items-center gap-2">
       <p className="font-head-20 text-text-strong">
-        {currentWeek.month}월 {currentWeek.week}주차
+        {currentDisplayWeek.month}월 {currentDisplayWeek.week}주차
       </p>
       <div className="flex gap-1.5">
         <button
@@ -54,8 +64,13 @@ const WeekNavigator = () => {
           <ChevronLeft20Icon size={20} />
         </button>
         <button
-          className="bg-surface-foreground w-7 h-7 rounded-md flex items-center justify-center"
+          className="bg-surface-foreground w-7 h-7 rounded-md flex items-center justify-center disabled:bg-surface-foregroundOn"
           onClick={handleClickNext}
+          disabled={
+            currentDisplayWeek.year === year &&
+            currentDisplayWeek.month === month &&
+            currentDisplayWeek.week === week
+          }
         >
           <ChevronRight20Icon size={20} />
         </button>
