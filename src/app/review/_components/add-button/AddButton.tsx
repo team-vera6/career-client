@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
 import PlusIcon from '@/components/icons/PlusIcon';
@@ -23,8 +23,8 @@ export const AddButton = ({ category }: Props) => {
   const setCurrentTodoList = useSetAtom(currentTodoListAtom);
   const setNextTodoList = useSetAtom(nextTodoListAtom);
 
-  const [highLightList, setHighLightList] = useAtom(highLightListAtom);
-  const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
+  const highLightList = useAtomValue(highLightListAtom);
+  const lowLightList = useAtomValue(lowLightListAtom);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -58,24 +58,8 @@ export const AddButton = ({ category }: Props) => {
         ]);
         break;
       case 'highLight':
-        setHighLightList((prev) => [
-          ...prev,
-          {
-            id: `highLight-${prev.length + 1}`,
-            text: '',
-            project: '',
-          },
-        ]);
         break;
       case 'lowLight':
-        setLowLightList((prev) => [
-          ...prev,
-          {
-            id: `lowLight-${prev.length + 1}`,
-            text: '',
-            project: '',
-          },
-        ]);
         break;
       default:
         break;

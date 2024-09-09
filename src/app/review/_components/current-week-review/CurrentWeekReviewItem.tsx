@@ -3,7 +3,6 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 
-import { DropdownItem } from '@/components/dropdown/Dropdown';
 import LinkIcon from '@/components/icons/LinkIcon';
 import Textarea from '@/components/inputs/textarea/Textarea';
 
@@ -20,6 +19,7 @@ import ProjectDropdown from '../project-dropdown/ProjectDropdown';
 interface Props extends ReviewListItem {
   category: ReviewType;
   index: number;
+  text: string;
 }
 
 export const CurrentWeekReviewItem = ({
@@ -44,27 +44,15 @@ export const CurrentWeekReviewItem = ({
     );
   };
 
-  const selectProject = (item: DropdownItem) => {
-    const setter =
-      category === 'highLight' ? setHighLightList : setLowLightList;
-    setter((prev) =>
-      prev.map((review) =>
-        review.id === id
-          ? { ...review, project: item.value as string }
-          : review,
-      ),
-    );
-  };
-
   useEffect(() => {
     if (category === 'highLight') {
-      if (highLightList[0]?.text.length > 0) {
+      if (highLightList[0]?.content.length > 0) {
         setPageButtonStates((prev) => ({ ...prev, step2: true }));
       } else {
         setPageButtonStates((prev) => ({ ...prev, step2: false }));
       }
     } else {
-      if (lowLightList[0]?.text.length > 0) {
+      if (lowLightList[0]?.content.length > 0) {
         setPageButtonStates((prev) => ({ ...prev, step3: true }));
       } else {
         setPageButtonStates((prev) => ({ ...prev, step3: false }));
@@ -86,13 +74,12 @@ export const CurrentWeekReviewItem = ({
             id={projectList['id']}
             items={projectList['items']}
             className="mt-2"
-            initialItem={project}
-            onSelect={selectProject}
+            initialItem={project.content}
           />
         </div>
       </div>
       {/* TODO: 에러 텍스트 추가 예정 */}
-      {index !== 0 && <DeleteButton id={id} category={category} />}
+      {index !== 0 && <DeleteButton id={String(id)} category={category} />}
     </div>
   );
 };

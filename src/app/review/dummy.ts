@@ -87,7 +87,6 @@ export const MEMO_LIST: MemoItem[] = [
 
 export const LAST_HIGHLIGHT: LastWeekReviewListItem[] = [
   {
-    id: 'last-highlight-1',
     text: '신규 서비스 기획 초기 방향성을 일찍 공유해서, 시간을 단축할 수 있었다.',
     project: '모멘투스 신규 서비스 기획',
     progressCount: 44,
@@ -96,7 +95,6 @@ export const LAST_HIGHLIGHT: LastWeekReviewListItem[] = [
 
 export const LAST_LOWLIGHT: LastWeekReviewListItem[] = [
   {
-    id: 'last-lowlight-1',
     text: '리더님한테 보고할 때 피그마보단 위키에 내용 정리해서 공유드리자..!',
     project: '일하는 방식 최적화',
     progressCount: 50,

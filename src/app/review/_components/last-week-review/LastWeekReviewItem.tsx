@@ -1,7 +1,6 @@
+import { LastWeekReviewListItem } from '@/app/review/types';
 import LinkIcon from '@/components/icons/LinkIcon';
 import ProgressChip from '@/components/progress-chip/ProgressChip';
-
-import { LastWeekReviewListItem } from '../../types';
 
 export const LastWeekReviewItem = ({
   text,

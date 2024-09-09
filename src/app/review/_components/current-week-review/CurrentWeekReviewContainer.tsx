@@ -23,6 +23,7 @@ export const CurrentWeekReviewContainer = ({
           key={index}
           category={category}
           index={index}
+          text=""
           {...el}
         />
       ))}

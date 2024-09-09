@@ -61,7 +61,6 @@ export const ReviewDetail = ({ weekNumber }: Props) => {
           {highlights.map((highlight) => (
             <LastWeekReviewItem
               key={`highlight-${highlight.id}`}
-              id={String(highlight.id)}
               text={highlight.content}
               project="연동된 프로젝트"
               progressCount={37}
@@ -79,7 +78,6 @@ export const ReviewDetail = ({ weekNumber }: Props) => {
           {lowlights.map((lowlight) => (
             <LastWeekReviewItem
               key={`lowlight-${lowlight.id}`}
-              id={String(lowlight.id)}
               text={lowlight.content}
               project="연동된 프로젝트"
               progressCount={79}
