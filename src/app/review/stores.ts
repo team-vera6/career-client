@@ -1,7 +1,5 @@
 import { atom } from 'jotai';
 
-import { DropdownItem } from '@/components/dropdown/Dropdown';
-
 import { MemoItem, ReviewListItem, TodoListItem } from './types';
 
 // progressDots activeCount
@@ -14,7 +12,11 @@ export const pageButtonStatesAtom = atom({
   step3: false,
 });
 
-// FIXME: api 연동 후 더미 제거
+// get한 todo list
+export const initialCurrentTodoListAtom = atom<TodoListItem[]>([]);
+export const initialNextTodoListAtom = atom<TodoListItem[]>([]);
+
+// 수정된 todo list
 export const currentTodoListAtom = atom<TodoListItem[]>([]);
 export const nextTodoListAtom = atom<TodoListItem[]>([]);
 

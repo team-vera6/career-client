@@ -1,11 +1,13 @@
 'use client';
 
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useMemo } from 'react';
 
 import { getTodos } from '@/apis/review/get';
 import {
   currentTodoListAtom,
+  initialCurrentTodoListAtom,
+  initialNextTodoListAtom,
   nextTodoListAtom,
   pageButtonStatesAtom,
 } from '@/app/review/stores';
@@ -18,8 +20,12 @@ const { year, month, week: weekNumber } = getCurrentWeek();
 const { nextYear, nextMonth, nextWeek } = getNextWeek();
 
 export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
+  const setInitialCurrentTodoList = useSetAtom(initialCurrentTodoListAtom);
+  const setInitialNextTodoList = useSetAtom(initialNextTodoListAtom);
+
   const [currentTodoList, setCurrentTodoList] = useAtom(currentTodoListAtom);
   const [nextTodoList, setNextTodoList] = useAtom(nextTodoListAtom);
+
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
 
   useEffect(() => {
@@ -31,14 +37,15 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
           week: weekNumber,
         });
 
-        setCurrentTodoList(
-          response.todos.map((el) => ({
-            week: 'current',
-            isChecked: el.status === 'DONE',
-            todo: el.content,
-            id: String(el.id),
-          })),
-        );
+        const newList: TodoListItem[] = response.todos.map((el) => ({
+          week: 'current',
+          isChecked: el.status === 'DONE',
+          todo: el.content,
+          id: String(el.id),
+        }));
+
+        setCurrentTodoList(newList);
+        setInitialCurrentTodoList(newList);
       })();
     } else if (week === 'next' && !pageButtonStates.step1) {
       (async () => {
@@ -48,17 +55,25 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
           week: nextWeek,
         });
 
-        setNextTodoList(
-          response.todos.map((el) => ({
-            week: 'next',
-            isChecked: el.status === 'DONE',
-            todo: el.content,
-            id: String(el.id),
-          })),
-        );
+        const newList: TodoListItem[] = response.todos.map((el) => ({
+          week: 'current',
+          isChecked: el.status === 'DONE',
+          todo: el.content,
+          id: String(el.id),
+        }));
+
+        setNextTodoList(newList);
+        setInitialNextTodoList(newList);
       })();
     }
-  }, [pageButtonStates.step1, setCurrentTodoList, setNextTodoList, week]);
+  }, [
+    pageButtonStates.step1,
+    setCurrentTodoList,
+    setInitialCurrentTodoList,
+    setInitialNextTodoList,
+    setNextTodoList,
+    week,
+  ]);
 
   const onChangeText = (id: string, val: string) => {
     if (week === 'current') {
