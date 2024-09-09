@@ -1,10 +1,8 @@
-import { useSetAtom } from 'jotai';
 import { useState } from 'react';
 
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import Alert from '@/components/modal/Alert';
 
-import { highLightListAtom, lowLightListAtom } from '../../stores';
 import { ReviewType } from '../../types';
 
 interface Props {
@@ -13,16 +11,10 @@ interface Props {
 }
 
 export const DeleteButton = ({ category, id }: Props) => {
-  const setHighLightList = useSetAtom(highLightListAtom);
-  const setLowLightList = useSetAtom(lowLightListAtom);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
   const onClickDelete = () => {
-    if (category === 'highLight') {
-      setHighLightList((prev) => prev.filter((el) => el.id !== id));
-    } else {
-      setLowLightList((prev) => prev.filter((el) => el.id !== id));
-    }
+    console.log(category, id);
   };
 
   return (

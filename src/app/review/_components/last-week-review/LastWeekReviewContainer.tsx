@@ -19,7 +19,7 @@ export const LastWeekReviewContainer = ({
   return (
     <div className="flex flex-col gap-3">
       {list.map((el, index) => (
-        <LastWeekReviewItem key={index} {...el} />
+        <LastWeekReviewItem key={index} text="" progressCount={0} project="" />
       ))}
     </div>
   );

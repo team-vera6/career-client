@@ -24,10 +24,8 @@ export const getProject = async (id: number) => {
   return response;
 };
 
-export type ProjectTitleListResponse = Array<
-  Pick<ProjectDetail, 'id' | 'title'>
->;
 export const getProjectTitleList = async () => {
-  const response = await typedGet<ProjectTitleListResponse>('/projects/title');
+  const response =
+    await typedGet<{ id: string; title: string }[]>('/projects/title');
   return response;
 };
