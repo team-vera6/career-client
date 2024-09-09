@@ -1,13 +1,22 @@
 'use client';
 
 import { useAtomValue } from 'jotai';
+import { useRouter } from 'next/navigation';
 
-import { pageButtonStatesAtom } from '@/app/review/stores';
+import { pageButtonStatesAtom, reviewIdAtom } from '@/app/review/stores';
 import { usePagingButton } from '@/app/review/utils';
 
 export const PagingButton = () => {
+  const router = useRouter();
+
   const { onClickPagingButton } = usePagingButton();
+
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
+  const reviewId = useAtomValue(reviewIdAtom);
+
+  if (!reviewId || !pageButtonStates.step1) {
+    router.push('/review/step1');
+  }
 
   return (
     <div className="flex justify-end">
