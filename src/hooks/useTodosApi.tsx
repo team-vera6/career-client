@@ -40,13 +40,13 @@ export const useTodosApi = () => {
   const newIdList = [...getIdsList(newCurrentList), ...getIdsList(newNextList)];
 
   // POST 초기 배열엔 없으나 새로운 배열에 생긴 id
-  const postIdList = getNewIds(initialIdList, newIdList);
+  const postIdList = getNewIds(newIdList, initialIdList);
 
   // PUT 초기 배열과 새로운 배열에 동일하게 있는 id
   const putIdList = getPutIds(initialIdList, newIdList);
 
   // DELETE 초기 배열엔 있으나 새로운 배열에는 없는 id
-  const deleteIdList = getNewIds(newIdList, initialIdList);
+  const deleteIdList = getNewIds(initialIdList, newIdList);
 
   const postCurrentTodos = newCurrentList.filter((el) =>
     postIdList.includes(el.id),
@@ -58,10 +58,10 @@ export const useTodosApi = () => {
   );
   const putNextTodos = newNextList.filter((el) => putIdList.includes(el.id));
 
-  const deleteCurrentTodos = newCurrentList.filter((el) =>
+  const deleteCurrentTodos = initialCurrentList.filter((el) =>
     deleteIdList.includes(el.id),
   );
-  const deleteNextTodos = newNextList.filter((el) =>
+  const deleteNextTodos = initialNextList.filter((el) =>
     deleteIdList.includes(el.id),
   );
 
