@@ -20,7 +20,6 @@ import ProjectDropdown from '../project-dropdown/ProjectDropdown';
 interface Props extends ReviewListItem {
   category: ReviewType;
   index: number;
-  onSelect: (item: DropdownItem, reviewId: string | number) => void;
 }
 
 export const CurrentWeekReviewItem = ({
@@ -29,7 +28,6 @@ export const CurrentWeekReviewItem = ({
   content,
   project,
   index,
-  onSelect,
 }: Props) => {
   const [projectList, setProjectList] = useState<DropdownItem[]>([]);
   const [highLightList, setHighLightList] = useAtom(highLightListAtom);
@@ -43,6 +41,27 @@ export const CurrentWeekReviewItem = ({
       prev.map((review) =>
         String(review.id) === String(id)
           ? { ...review, content: value }
+          : review,
+      ),
+    );
+  };
+
+  const selectProject = (item: DropdownItem, reviewId: string | number) => {
+    const selectedItem = {
+      id: item.id,
+      content: item.name,
+      progressRate: 0,
+    };
+    const setter =
+      category === 'highLight' ? setHighLightList : setLowLightList;
+
+    setter((prev) =>
+      prev.map((review) =>
+        String(review.id) === String(reviewId)
+          ? {
+              ...review,
+              project: selectedItem,
+            }
           : review,
       ),
     );
@@ -94,7 +113,7 @@ export const CurrentWeekReviewItem = ({
             initialItem={
               project.content !== '' ? project.content : '프로젝트 선택'
             }
-            onSelect={onSelect}
+            onSelect={selectProject}
           />
         </div>
       </div>
