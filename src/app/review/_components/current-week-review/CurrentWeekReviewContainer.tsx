@@ -20,10 +20,9 @@ export const CurrentWeekReviewContainer = ({
     <div className="w-full p-5 bg-surface-foreground rounded-xl flex flex-col gap-6 mb-3">
       {reviewList.map((el, index) => (
         <CurrentWeekReviewItem
-          key={index}
+          key={String(el.id)}
           category={category}
           index={index}
-          text=""
           {...el}
         />
       ))}

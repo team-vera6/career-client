@@ -20,7 +20,6 @@ import ProjectDropdown from '../project-dropdown/ProjectDropdown';
 interface Props extends ReviewListItem {
   category: ReviewType;
   index: number;
-  text: string;
 }
 
 export const CurrentWeekReviewItem = ({
@@ -48,6 +47,11 @@ export const CurrentWeekReviewItem = ({
   };
 
   const selectProject = (item: DropdownItem) => {
+    const selectedItem = {
+      id: item.id,
+      content: item.name,
+      progressRate: 0,
+    };
     const setter =
       category === 'highLight' ? setHighLightList : setLowLightList;
 
@@ -56,11 +60,7 @@ export const CurrentWeekReviewItem = ({
         String(review.id) === String(item.id)
           ? {
               ...review,
-              project: {
-                id: Number(item.id),
-                content: item.name,
-                progressRate: 0,
-              },
+              project: selectedItem,
             }
           : review,
       ),
@@ -86,7 +86,6 @@ export const CurrentWeekReviewItem = ({
   useEffect(() => {
     (async () => {
       const response = await getProjectTitleList();
-      console.log(response);
       const newList = response?.projects.map((el) => ({
         id: el.id,
         name: el.title,
