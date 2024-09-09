@@ -12,6 +12,7 @@ import PlusIcon from '@/components/icons/PlusIcon';
 import Memo from '@/components/memo/Memo';
 import TextEditorModal from '@/components/modal/text-editor';
 import { displayWeekAtom } from '@/stores/week/displayWeek';
+import { CurrentWeek } from '@/types/currentWeek';
 import { getMemoCreateDate } from '@/utils/date';
 
 const MemoList = () => {
@@ -19,11 +20,11 @@ const MemoList = () => {
   const [memos, setMemos] = useAtom(memoListAtom);
   const currentWeek = useAtomValue(displayWeekAtom);
 
-  const getMemoList = async () => {
+  const getMemoList = async ({ year, month, week }: CurrentWeek) => {
     const data = await getMemos({
-      year: currentWeek.year,
-      month: currentWeek.month,
-      week: currentWeek.week,
+      year,
+      month,
+      week,
     });
     setMemos(
       data.memos.map((memo) => {
@@ -38,8 +39,12 @@ const MemoList = () => {
   };
 
   useEffect(() => {
-    getMemoList();
-  }, []);
+    getMemoList({
+      year: currentWeek.year,
+      month: currentWeek.month,
+      week: currentWeek.week,
+    });
+  }, [currentWeek]);
 
   const addMemo = async (content: string) => {
     try {

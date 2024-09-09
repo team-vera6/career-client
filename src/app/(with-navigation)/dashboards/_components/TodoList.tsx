@@ -1,5 +1,6 @@
 'use client';
 
+import { useAtomValue } from 'jotai';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -11,20 +12,20 @@ import EmptyTodoImage from '@/assets/images/todo-empty.png';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import PlusIcon from '@/components/icons/PlusIcon';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
+import { displayWeekAtom } from '@/stores/week/displayWeek';
+import { CurrentWeek } from '@/types/currentWeek';
 import { Todo } from '@/types/todo';
-import { getCurrentWeek } from '@/utils/date';
-
-const { year, month, week } = getCurrentWeek();
 
 const TodoList = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [addNewTodo, setAddNewTodo] = useState(false);
+  const { year, month, week } = useAtomValue(displayWeekAtom);
 
   useEffect(() => {
-    getCurrentWeekTodos();
-  }, []);
+    getCurrentWeekTodos({ year, month, week });
+  }, [year, month, week]);
 
-  const getCurrentWeekTodos = async () => {
+  const getCurrentWeekTodos = async ({ year, month, week }: CurrentWeek) => {
     const response = await getTodos({ year, month, week });
     setTodos(response.todos);
   };
@@ -42,7 +43,7 @@ const TodoList = () => {
 
     try {
       await changeTodos(updatedTodos);
-      await getCurrentWeekTodos();
+      await getCurrentWeekTodos({ year, month, week });
     } catch (error) {
       console.error('fail to change checkbox', error);
     }
@@ -56,7 +57,7 @@ const TodoList = () => {
           .filter((todo) => todo.id < 1)
           .map((todo) => ({ content: todo.content })),
       });
-      await getCurrentWeekTodos();
+      await getCurrentWeekTodos({ year, month, week });
     } catch (error) {
       console.error('fail to add todos', error);
     }
