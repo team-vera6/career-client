@@ -13,7 +13,7 @@ import {
   lowLightListAtom,
   nextTodoListAtom,
 } from '../../stores';
-import { WeekType } from '../../types';
+import { ReviewListItem, WeekType } from '../../types';
 
 interface Props {
   category: 'currentTodo' | 'nextTodo' | 'highLight' | 'lowLight';
@@ -23,8 +23,8 @@ export const AddButton = ({ category }: Props) => {
   const [currentTodoList, setCurrentTodoList] = useAtom(currentTodoListAtom);
   const [nextTodoList, setNextTodoList] = useAtom(nextTodoListAtom);
 
-  const highLightList = useAtomValue(highLightListAtom);
-  const lowLightList = useAtomValue(lowLightListAtom);
+  const [highLightList, setHighLightList] = useAtom(highLightListAtom);
+  const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -66,28 +66,36 @@ export const AddButton = ({ category }: Props) => {
         ]);
         setListLengths((prev) => ({ ...prev, next: prev.next + 1 }));
         break;
-      case 'highLight':
-        setHighLightList((prev) => [
-          ...prev,
-          {
-            id: `highLight-${listLengths.highlight + 1}`,
-            text: '',
-            project: '',
+      case 'highLight': {
+        const newList: ReviewListItem = {
+          id: `highlight-${listLengths.highlight + 1}`,
+          content: '',
+          project: {
+            id: '',
+            content: '',
+            progressRate: 0,
           },
-        ]);
+        };
+
+        setHighLightList((prev) => [...prev, newList]);
         setListLengths((prev) => ({ ...prev, highlight: prev.highlight + 1 }));
         break;
-      case 'lowLight':
-        setLowLightList((prev) => [
-          ...prev,
-          {
-            id: `lowLight-${listLengths.lowlight + 1}`,
-            text: '',
-            project: '',
+      }
+      case 'lowLight': {
+        const newList: ReviewListItem = {
+          id: `lowlight-${listLengths.lowlight} + 1`,
+          content: '',
+          project: {
+            id: '',
+            content: '',
+            progressRate: 0,
           },
-        ]);
+        };
+
+        setLowLightList((prev) => [...prev, newList]);
         setListLengths((prev) => ({ ...prev, highlight: prev.lowlight + 1 }));
         break;
+      }
       default:
         break;
     }

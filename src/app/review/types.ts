@@ -15,7 +15,7 @@ export interface TodoListItem {
 }
 
 export interface ReviewListItem {
-  id: number;
+  id: number | string;
   content: string;
   project: {
     id: number | string;
