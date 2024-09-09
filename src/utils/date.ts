@@ -161,9 +161,9 @@ export const getPrevWeek = (initialDate?: Date) => {
 };
 
 export const getMemoCreateDate = (createdAt: string) => {
-  const [date, time] = createdAt.split(' ');
+  const [date] = createdAt.split(' ');
 
-  const [year, month, day] = date.split('-');
+  const [, month, day] = date.split('-');
 
   return `${month}.${day}`;
 };

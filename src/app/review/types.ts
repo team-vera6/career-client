@@ -32,3 +32,9 @@ export interface MemoItem {
   date: string; // FIXME: date 형식 조정 필요
   className?: ClassName;
 }
+
+export interface LastWeekReviewListItem {
+  text: string;
+  project: string;
+  progressCount: number;
+}

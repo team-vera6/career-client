@@ -20,6 +20,7 @@ import ProjectDropdown from '../project-dropdown/ProjectDropdown';
 interface Props extends ReviewListItem {
   category: ReviewType;
   index: number;
+  text: string;
 }
 
 export const CurrentWeekReviewItem = ({
@@ -115,7 +116,7 @@ export const CurrentWeekReviewItem = ({
         </div>
       </div>
       {/* TODO: 에러 텍스트 추가 예정 */}
-      {index !== 0 && <DeleteButton id={id} category={category} />}
+      {index !== 0 && <DeleteButton id={String(id)} category={category} />}
     </div>
   );
 };

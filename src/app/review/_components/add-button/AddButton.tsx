@@ -23,8 +23,8 @@ export const AddButton = ({ category }: Props) => {
   const [currentTodoList, setCurrentTodoList] = useAtom(currentTodoListAtom);
   const [nextTodoList, setNextTodoList] = useAtom(nextTodoListAtom);
 
-  const [highLightList, setHighLightList] = useAtom(highLightListAtom);
-  const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
+  const highLightList = useAtomValue(highLightListAtom);
+  const lowLightList = useAtomValue(lowLightListAtom);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
