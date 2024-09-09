@@ -7,21 +7,18 @@ import { getTodos } from '@/apis/review/get';
 import {
   currentTodoListAtom,
   initialCurrentTodoListAtom,
-  initialNextTodoListAtom,
   nextTodoListAtom,
   pageButtonStatesAtom,
 } from '@/app/review/stores';
 import { TodoListItem } from '@/app/review/types';
-import { getCurrentWeek, getNextWeek } from '@/utils/date';
+import { getCurrentWeek } from '@/utils/date';
 
 import { ListItem } from './ListItem';
 
 const { year, month, week: weekNumber } = getCurrentWeek();
-const { nextYear, nextMonth, nextWeek } = getNextWeek();
 
 export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
   const setInitialCurrentTodoList = useSetAtom(initialCurrentTodoListAtom);
-  const setInitialNextTodoList = useSetAtom(initialNextTodoListAtom);
 
   const [currentTodoList, setCurrentTodoList] = useAtom(currentTodoListAtom);
   const [nextTodoList, setNextTodoList] = useAtom(nextTodoListAtom);
@@ -46,31 +43,11 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
         setCurrentTodoList(newList);
         setInitialCurrentTodoList(newList);
       })();
-    } else if (week === 'next' && !pageButtonStates.step1) {
-      (async () => {
-        const response = await getTodos({
-          year: nextYear,
-          month: nextMonth,
-          week: nextWeek,
-        });
-
-        const newList: TodoListItem[] = response.todos.map((el) => ({
-          week: 'current',
-          isChecked: el.status === 'DONE',
-          todo: el.content,
-          id: String(el.id),
-        }));
-
-        setNextTodoList(newList);
-        setInitialNextTodoList(newList);
-      })();
     }
   }, [
     pageButtonStates.step1,
     setCurrentTodoList,
     setInitialCurrentTodoList,
-    setInitialNextTodoList,
-    setNextTodoList,
     week,
   ]);
 
