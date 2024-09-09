@@ -17,7 +17,7 @@ interface ReviewListResponse {
 }
 
 export const getReviewList = async () => {
-  const response = await typedGet<ReviewListResponse>('/review');
+  const response = await typedGet<ReviewListResponse>('/reviews/page');
   return response;
 };
 

@@ -57,7 +57,7 @@ export const ReviewDetail = ({ weekNumber }: Props) => {
           <HighlightCircleIcon size={24} />
           <p className="font-title-14 text-text-strong">하이라이트</p>
         </div>
-        <div className="pl-8">
+        <div className="pl-8 flex flex-col gap-2">
           {highlights.map((highlight) => (
             <LastWeekReviewItem
               key={`highlight-${highlight.id}`}
@@ -75,7 +75,7 @@ export const ReviewDetail = ({ weekNumber }: Props) => {
           <LowlightCircleIcon size={24} />
           <p className="font-title-14 text-text-strong">로우라이트</p>
         </div>
-        <div className="pl-8">
+        <div className="pl-8 flex flex-col gap-2">
           {lowlights.map((lowlight) => (
             <LastWeekReviewItem
               key={`lowlight-${lowlight.id}`}
@@ -90,7 +90,7 @@ export const ReviewDetail = ({ weekNumber }: Props) => {
 
       <div className="flex flex-col gap-4">
         <p className="font-title-14 text-text-strong">완료한 일</p>
-        <div className="pl-8">
+        <div className="pl-8 flex flex-col gap-2">
           {completedTodos.map((todo) => (
             <DeletableInput key={`todo-${todo.id}`} value={todo.content} />
           ))}

@@ -1,33 +1,98 @@
 'use client';
 
+import { useAtomValue } from 'jotai';
 import { useEffect, useState } from 'react';
 
 import { AllMemosResponse, getAllMemos } from '@/apis/memo/get';
+import { showOnlyBookmarkAtom } from '@/stores/bookmark/showOnlyBookmarkAtom';
+import { Memo } from '@/types/memo';
+import { sortByWeek } from '@/types/sort';
 
 import EmptyMemoHistory from './EmptyMemoHistory';
+import MemoWeekGroup from './MemoWeekGroup';
+
+interface MemoList {
+  weekNumber: { year: number; month: number; week: number };
+  memos: Memo[];
+}
 
 const MemoHistory = () => {
-  const [memos, setMemos] = useState<AllMemosResponse>();
+  const showBookmarkOnly = useAtomValue(showOnlyBookmarkAtom);
+
+  const [memos, setMemos] = useState<MemoList[]>([]);
+  const [memosForDisplay, setMemosForDisplay] = useState<MemoList[]>([]);
+
+  const groupMemosByWeek = (receivedMemos: AllMemosResponse) => {
+    const groupedMemos = receivedMemos.contents.reduce(
+      (acc, cur) => {
+        const { year, month, week } = cur.weekNumber;
+
+        const item = {
+          id: cur.id,
+          content: cur.content,
+          isMarked: cur.isMarked,
+          updatedAt: cur.updatedAt,
+        };
+
+        const key = `${year}-${month}-${week}`;
+        if (acc[key]) {
+          acc[key].memos.push(item);
+        } else {
+          acc[key] = {
+            weekNumber: cur.weekNumber,
+            memos: [item],
+          };
+        }
+
+        return acc;
+      },
+      {} as Record<string, MemoList>,
+    );
+
+    return Object.values(groupedMemos).sort(sortByWeek);
+  };
+
+  const filterOnlyBookmark = (receivedMemos: MemoList[]) => {
+    const onlyBookmarkedMemos = receivedMemos.map((week) => ({
+      weekNumber: week.weekNumber,
+      memos: week.memos.filter((memo) => memo.isMarked),
+    }));
+
+    const removedEmptyWeeks = onlyBookmarkedMemos.filter(
+      (week) => week.memos.length > 0,
+    );
+
+    return removedEmptyWeeks;
+  };
 
   useEffect(() => {
     (async () => {
       const response = await getAllMemos({});
-      setMemos(response);
+
+      const sorted = groupMemosByWeek(response);
+      setMemos(sorted);
     })();
   }, []);
 
-  if (!memos || memos.contents.length === 0) return <EmptyMemoHistory />;
+  useEffect(() => {
+    if (!showBookmarkOnly) {
+      setMemosForDisplay(memos);
+    } else {
+      setMemosForDisplay(filterOnlyBookmark(memos));
+    }
+  }, [memos, showBookmarkOnly]);
+
+  if (memos.length === 0) return <EmptyMemoHistory />;
 
   return (
     <>
-      {/* {memos.contents.map(({ weekNumber, memos }) => (
+      {memosForDisplay.map(({ weekNumber, memos }) => (
         <MemoWeekGroup
           key={`${weekNumber.year}-${weekNumber.month}-${weekNumber.week}`}
           currentWeek={weekNumber}
           memos={memos}
         />
-      ))} */}
-      <p>memo</p>
+      ))}
     </>
   );
 };
