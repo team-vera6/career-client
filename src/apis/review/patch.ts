@@ -1,4 +1,4 @@
-import { typedPut } from '..';
+import { typedPatch } from '..';
 
 export interface modifyScoreRequest {
   id: number;
@@ -6,6 +6,6 @@ export interface modifyScoreRequest {
 }
 
 export const modifyScore = async (body: modifyScoreRequest) => {
-  const response = await typedPut('/reviews', body);
+  const response = await typedPatch('/reviews', body);
   return response;
 };
