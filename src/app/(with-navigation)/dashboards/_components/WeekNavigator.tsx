@@ -58,8 +58,13 @@ const WeekNavigator = () => {
       </p>
       <div className="flex gap-1.5">
         <button
-          className="bg-surface-foreground w-7 h-7 rounded-md flex items-center justify-center"
+          className="bg-surface-foreground w-7 h-7 rounded-md flex items-center justify-center disabled:bg-surface-foregroundOn"
           onClick={handleClickPrev}
+          disabled={
+            currentDisplayWeek.year === 2024 &&
+            currentDisplayWeek.month === 1 &&
+            currentDisplayWeek.week === 1
+          }
         >
           <ChevronLeft20Icon size={20} />
         </button>
