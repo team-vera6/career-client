@@ -22,7 +22,7 @@ const MemoWeekGroup = ({ currentWeek, memos }: Props) => {
           <Memo
             key={item.id}
             id={String(item.id)}
-            title={item.content}
+            memo={item.content}
             date="7.22"
             isBookmark={item.isMarked}
             className="w-[229px] h-[10rem]"

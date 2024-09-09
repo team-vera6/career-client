@@ -1,10 +1,12 @@
 'use client';
 
+import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import PlusIcon from '@/components/icons/PlusIcon';
 import ToggleSwitch from '@/components/toggle-switch/ToggleSwitch';
+import { showOnlyBookmarkAtom } from '@/stores/bookmark/showOnlyBookmarkAtom';
 import { cn } from '@/utils/tailwind';
 
 import { dummy } from '../memo/_components/MemoHistory/dummy';
@@ -22,6 +24,8 @@ const menus = [
 
 const Category = () => {
   const currentPathname = usePathname();
+
+  const [showBookmarkOnly, setShowBookmarkOnly] = useAtom(showOnlyBookmarkAtom);
 
   return (
     <div className="flex items-center justify-between mb-5">
@@ -44,7 +48,10 @@ const Category = () => {
         {currentPathname === '/history/memo' && dummy.length > 0 && (
           <div className="flex items-center gap-1">
             <p className="font-body-14 text-text-normal">북마크만 보기</p>
-            <ToggleSwitch />
+            <ToggleSwitch
+              initialState={showBookmarkOnly}
+              onChange={setShowBookmarkOnly}
+            />
           </div>
         )}
       </div>
