@@ -1,10 +1,9 @@
 'use client';
 
 import { useAtom, useSetAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { getProjectTitleList } from '@/apis/projects/get';
-import { DropdownItem } from '@/components/dropdown/Dropdown';
+import { DropdownProps } from '@/components/dropdown/Dropdown';
 import LinkIcon from '@/components/icons/LinkIcon';
 import Textarea from '@/components/inputs/textarea/Textarea';
 
@@ -17,19 +16,20 @@ import { ReviewListItem, ReviewType } from '../../types';
 import { DeleteButton } from '../delete-button/DeleteButton';
 import ProjectDropdown from '../project-dropdown/ProjectDropdown';
 
-interface Props extends ReviewListItem {
+interface Props extends ReviewListItem, DropdownProps {
   category: ReviewType;
   index: number;
 }
 
 export const CurrentWeekReviewItem = ({
-  id,
+  reviewId,
   category,
   content,
   project,
   index,
+  items,
+  onSelect,
 }: Props) => {
-  const [projectList, setProjectList] = useState<DropdownItem[]>([]);
   const [highLightList, setHighLightList] = useAtom(highLightListAtom);
   const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
@@ -39,29 +39,8 @@ export const CurrentWeekReviewItem = ({
       category === 'highLight' ? setHighLightList : setLowLightList;
     setter((prev) =>
       prev.map((review) =>
-        String(review.id) === String(id)
-          ? { ...review, content: value }
-          : review,
-      ),
-    );
-  };
-
-  const selectProject = (item: DropdownItem, reviewId: string | number) => {
-    const selectedItem = {
-      id: item.id,
-      content: item.name,
-      progressRate: 0,
-    };
-    const setter =
-      category === 'highLight' ? setHighLightList : setLowLightList;
-
-    setter((prev) =>
-      prev.map((review) =>
         String(review.id) === String(reviewId)
-          ? {
-              ...review,
-              project: selectedItem,
-            }
+          ? { ...review, content: value }
           : review,
       ),
     );
@@ -83,19 +62,6 @@ export const CurrentWeekReviewItem = ({
     }
   }, [category, highLightList, lowLightList, setPageButtonStates]);
 
-  useEffect(() => {
-    (async () => {
-      const response = await getProjectTitleList();
-      const newList = response?.projects.map((el) => ({
-        id: el.id,
-        name: el.title,
-        value: el.title,
-      }));
-
-      setProjectList([INITIAL_PROJECT, ...newList]);
-    })();
-  }, [setProjectList]);
-
   return (
     <div className="flex flex-col gap-1">
       <div>
@@ -107,24 +73,20 @@ export const CurrentWeekReviewItem = ({
         <div className="flex">
           <LinkIcon size={36} />
           <ProjectDropdown
-            reviewId={id}
-            items={projectList}
+            reviewId={reviewId}
+            items={items}
             className="mt-2"
             initialItem={
               project.content !== '' ? project.content : '프로젝트 선택'
             }
-            onSelect={selectProject}
+            onSelect={onSelect}
           />
         </div>
       </div>
       {/* TODO: 에러 텍스트 추가 예정 */}
-      {index !== 0 && <DeleteButton id={String(id)} category={category} />}
+      {index !== 0 && (
+        <DeleteButton id={String(reviewId)} category={category} />
+      )}
     </div>
   );
-};
-
-const INITIAL_PROJECT: DropdownItem = {
-  id: 0,
-  name: '프로젝트 선택',
-  value: '프로젝트 선택',
 };

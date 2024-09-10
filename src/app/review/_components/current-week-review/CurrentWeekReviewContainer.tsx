@@ -1,12 +1,18 @@
 'use client';
 
-import { useAtom } from 'jotai';
-import { useEffect } from 'react';
+import { useAtom, useAtomValue } from 'jotai';
+import { useEffect, useState } from 'react';
 
+import { getProjectTitleList } from '@/apis/projects/get';
 import { getHighlightList, getLowlightList } from '@/apis/review/get';
+import { DropdownItem } from '@/components/dropdown/Dropdown';
 import { getCurrentWeek } from '@/utils/date';
 
-import { highLightListAtom, lowLightListAtom } from '../../stores';
+import {
+  highLightListAtom,
+  lowLightListAtom,
+  reviewIdAtom,
+} from '../../stores';
 import { ReviewType } from '../../types';
 import { CurrentWeekReviewItem } from './CurrentWeekReviewItem';
 
@@ -25,6 +31,29 @@ export const CurrentWeekReviewContainer = ({
 }) => {
   const [highLightList, setHighLightList] = useAtom(highLightListAtom);
   const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
+  const reviewId = useAtomValue(reviewIdAtom);
+  const [projectList, setProjectList] = useState<DropdownItem[]>([]);
+
+  const selectProject = (item: DropdownItem, reviewId: string | number) => {
+    const selectedItem = {
+      id: item.id,
+      content: item.name,
+      progressRate: 0,
+    };
+    const setter =
+      category === 'highLight' ? setHighLightList : setLowLightList;
+
+    setter((prev) =>
+      prev.map((review) =>
+        String(review.id) === String(reviewId)
+          ? {
+              ...review,
+              project: selectedItem,
+            }
+          : review,
+      ),
+    );
+  };
 
   useEffect(() => {
     if (category === 'highLight') {
@@ -46,6 +75,19 @@ export const CurrentWeekReviewContainer = ({
     setLowLightList,
   ]);
 
+  useEffect(() => {
+    (async () => {
+      const response = await getProjectTitleList();
+      const newList = response?.projects.map((el) => ({
+        id: el.id,
+        name: el.title,
+        value: el.title,
+      }));
+
+      setProjectList([INITIAL_PROJECT, ...newList]);
+    })();
+  }, [setProjectList]);
+
   return (
     <div className="w-full p-5 bg-surface-foreground rounded-xl flex flex-col gap-6 mb-3">
       {category === 'highLight'
@@ -54,6 +96,9 @@ export const CurrentWeekReviewContainer = ({
               key={String(el.id)}
               category={category}
               index={index}
+              items={projectList}
+              onSelect={selectProject}
+              reviewId={reviewId}
               {...el}
             />
           ))
@@ -62,9 +107,18 @@ export const CurrentWeekReviewContainer = ({
               key={String(el.id)}
               category={category}
               index={index}
+              items={projectList}
+              onSelect={selectProject}
+              reviewId={reviewId}
               {...el}
             />
           ))}
     </div>
   );
+};
+
+const INITIAL_PROJECT: DropdownItem = {
+  id: 0,
+  name: '프로젝트 선택',
+  value: '프로젝트 선택',
 };

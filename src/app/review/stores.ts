@@ -29,4 +29,4 @@ export const memoListAtom = atom<MemoItem[]>([]);
 
 export const scoreAtom = atom<number>(0);
 
-export const reviewIdAtom = atom<number | null>(null);
+export const reviewIdAtom = atom<number>(0);
