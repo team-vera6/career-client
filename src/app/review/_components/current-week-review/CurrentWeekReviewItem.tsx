@@ -1,17 +1,12 @@
 'use client';
 
-import { useAtom, useSetAtom } from 'jotai';
-import { useEffect } from 'react';
+import { useAtom } from 'jotai';
 
 import { DropdownProps } from '@/components/dropdown/Dropdown';
 import LinkIcon from '@/components/icons/LinkIcon';
 import Textarea from '@/components/inputs/textarea/Textarea';
 
-import {
-  highLightListAtom,
-  lowLightListAtom,
-  pageButtonStatesAtom,
-} from '../../stores';
+import { highLightListAtom, lowLightListAtom } from '../../stores';
 import { ReviewListItem, ReviewType } from '../../types';
 import { DeleteButton } from '../delete-button/DeleteButton';
 import ProjectDropdown from '../project-dropdown/ProjectDropdown';
@@ -32,7 +27,6 @@ export const CurrentWeekReviewItem = ({
 }: Props) => {
   const [highLightList, setHighLightList] = useAtom(highLightListAtom);
   const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
-  const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
 
   const writeReview = (value: string) => {
     const setter =
@@ -45,22 +39,6 @@ export const CurrentWeekReviewItem = ({
       ),
     );
   };
-
-  useEffect(() => {
-    if (category === 'highLight') {
-      if (highLightList[0]?.content?.length > 0) {
-        setPageButtonStates((prev) => ({ ...prev, step2: true }));
-      } else {
-        setPageButtonStates((prev) => ({ ...prev, step2: false }));
-      }
-    } else {
-      if (lowLightList[0]?.content?.length > 0) {
-        setPageButtonStates((prev) => ({ ...prev, step3: true }));
-      } else {
-        setPageButtonStates((prev) => ({ ...prev, step3: false }));
-      }
-    }
-  }, [category, highLightList, lowLightList, setPageButtonStates]);
 
   return (
     <div className="flex flex-col gap-1">

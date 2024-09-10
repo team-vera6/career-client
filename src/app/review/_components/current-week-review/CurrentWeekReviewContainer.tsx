@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
 import { getProjectTitleList } from '@/apis/projects/get';
@@ -11,6 +11,7 @@ import { getCurrentWeek } from '@/utils/date';
 import {
   highLightListAtom,
   lowLightListAtom,
+  pageButtonStatesAtom,
   reviewIdAtom,
 } from '../../stores';
 import { ReviewType } from '../../types';
@@ -31,7 +32,10 @@ export const CurrentWeekReviewContainer = ({
 }) => {
   const [highLightList, setHighLightList] = useAtom(highLightListAtom);
   const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
+
+  const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
   const reviewId = useAtomValue(reviewIdAtom);
+
   const [projectList, setProjectList] = useState<DropdownItem[]>([]);
 
   const selectProject = (item: DropdownItem, reviewId: string | number) => {
@@ -54,6 +58,22 @@ export const CurrentWeekReviewContainer = ({
       ),
     );
   };
+
+  useEffect(() => {
+    if (category === 'highLight') {
+      if (highLightList[0]?.content?.length > 0) {
+        setPageButtonStates((prev) => ({ ...prev, step2: true }));
+      } else {
+        setPageButtonStates((prev) => ({ ...prev, step2: false }));
+      }
+    } else {
+      if (lowLightList[0]?.content?.length > 0) {
+        setPageButtonStates((prev) => ({ ...prev, step3: true }));
+      } else {
+        setPageButtonStates((prev) => ({ ...prev, step3: false }));
+      }
+    }
+  }, [category, highLightList, lowLightList, setPageButtonStates]);
 
   useEffect(() => {
     if (category === 'highLight') {
