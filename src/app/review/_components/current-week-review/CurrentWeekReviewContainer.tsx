@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
 import { getProjectTitleList } from '@/apis/projects/get';
@@ -12,7 +12,6 @@ import {
   highLightListAtom,
   lowLightListAtom,
   pageButtonStatesAtom,
-  reviewIdAtom,
 } from '../../stores';
 import { ReviewType } from '../../types';
 import { CurrentWeekReviewItem } from './CurrentWeekReviewItem';
@@ -34,9 +33,20 @@ export const CurrentWeekReviewContainer = ({
   const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
 
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
-  const reviewId = useAtomValue(reviewIdAtom);
 
   const [projectList, setProjectList] = useState<DropdownItem[]>([]);
+
+  const writeReview = (value: string, id: string | number) => {
+    const setter =
+      category === 'highLight' ? setHighLightList : setLowLightList;
+    setter((prev) =>
+      prev.map((review) =>
+        String(review.id) === String(id)
+          ? { ...review, content: value }
+          : review,
+      ),
+    );
+  };
 
   const selectProject = (item: DropdownItem, reviewId: string | number) => {
     const selectedItem = {
@@ -118,7 +128,7 @@ export const CurrentWeekReviewContainer = ({
               index={index}
               items={projectList}
               onSelect={selectProject}
-              reviewId={reviewId}
+              writeReview={writeReview}
               {...el}
             />
           ))
@@ -129,7 +139,7 @@ export const CurrentWeekReviewContainer = ({
               index={index}
               items={projectList}
               onSelect={selectProject}
-              reviewId={reviewId}
+              writeReview={writeReview}
               {...el}
             />
           ))}

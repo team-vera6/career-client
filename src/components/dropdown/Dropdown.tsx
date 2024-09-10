@@ -14,7 +14,7 @@ export interface DropdownItem extends CSSProperties {
 }
 
 export interface DropdownProps {
-  reviewId: string | number;
+  id: string | number;
   initialItem?: string | number;
   items: Array<DropdownItem>;
   className?: ClassName;
@@ -22,7 +22,7 @@ export interface DropdownProps {
 }
 
 const Dropdown = ({
-  reviewId,
+  id,
   initialItem = '',
   items,
   className,
@@ -74,7 +74,7 @@ const Dropdown = ({
               className="h-[2.75rem] py-3 px-5 hover:bg-surface-background"
               key={item.value}
               value={item.value}
-              onClick={() => onClickItem(item, reviewId)}
+              onClick={() => onClickItem(item, id)}
               id={String(item.id)}
             >
               {item.name}
