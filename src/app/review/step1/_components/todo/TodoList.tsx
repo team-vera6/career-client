@@ -7,31 +7,42 @@ import { getTodos } from '@/apis/review/get';
 import {
   currentTodoListAtom,
   initialCurrentTodoListAtom,
+  initialNextTodoListAtom,
   nextTodoListAtom,
   pageButtonStatesAtom,
 } from '@/app/review/stores';
 import { TodoListItem } from '@/app/review/types';
-import { getCurrentWeek } from '@/utils/date';
+import { getCurrentWeek, getNextWeek } from '@/utils/date';
 
 import { ListItem } from './ListItem';
 
 const { year, month, week: weekNumber } = getCurrentWeek();
+const { nextYear, nextMonth, nextWeek } = getNextWeek();
+
+const currentWeekInfo = {
+  year,
+  month,
+  week: weekNumber,
+};
+
+const nextWeekInfo = {
+  year: nextYear,
+  month: nextMonth,
+  week: nextWeek,
+};
 
 export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
   const setInitialCurrentTodoList = useSetAtom(initialCurrentTodoListAtom);
+  const setInitialNextTodoList = useSetAtom(initialNextTodoListAtom);
 
   const [currentTodoList, setCurrentTodoList] = useAtom(currentTodoListAtom);
   const [nextTodoList, setNextTodoList] = useAtom(nextTodoListAtom);
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
 
   useEffect(() => {
-    if (week === 'current' && !pageButtonStates.step1) {
+    if (week === 'current') {
       (async () => {
-        const response = await getTodos({
-          year,
-          month,
-          week: weekNumber,
-        });
+        const response = await getTodos(currentWeekInfo);
 
         const newList: TodoListItem[] = response.todos.map((el) => ({
           week: 'current',
@@ -43,11 +54,27 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
         setCurrentTodoList(newList);
         setInitialCurrentTodoList(newList);
       })();
+    } else if (week === 'next') {
+      (async () => {
+        const response = await getTodos(nextWeekInfo);
+
+        const newList: TodoListItem[] = response.todos.map((el) => ({
+          week: 'next',
+          isChecked: el.status === 'DONE',
+          todo: el.content,
+          id: String(el.id),
+        }));
+
+        setNextTodoList(newList);
+        setInitialNextTodoList(newList);
+      })();
     }
   }, [
     pageButtonStates.step1,
     setCurrentTodoList,
     setInitialCurrentTodoList,
+    setInitialNextTodoList,
+    setNextTodoList,
     week,
   ]);
 

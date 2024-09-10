@@ -37,6 +37,7 @@ export const Score = () => {
 
       if (reviewIdResponse?.id) {
         setReviewId(reviewIdResponse.id);
+        setSelectedScore(reviewIdResponse.like);
         return;
       }
 

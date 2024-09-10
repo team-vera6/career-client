@@ -36,8 +36,8 @@ export const getLowlightList = async ({ year, month, week }: CurrentWeek) => {
 };
 
 export interface ReviewIdResponse {
-  id?: number;
-  like?: number;
+  id: number;
+  like: number;
 }
 
 export const getReviewId = async ({ year, month, week }: CurrentWeek) => {
