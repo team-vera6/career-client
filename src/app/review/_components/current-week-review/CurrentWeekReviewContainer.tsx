@@ -1,42 +1,70 @@
 'use client';
 
-import { useAtomValue } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
+import { useEffect } from 'react';
+
+import { getHighlightList, getLowlightList } from '@/apis/review/get';
+import { getCurrentWeek } from '@/utils/date';
 
 import { highLightListAtom, lowLightListAtom } from '../../stores';
 import { ReviewType } from '../../types';
 import { CurrentWeekReviewItem } from './CurrentWeekReviewItem';
+
+const { year, month, week } = getCurrentWeek();
+
+const currentWeekInfo = {
+  year,
+  month,
+  week,
+};
 
 export const CurrentWeekReviewContainer = ({
   category,
 }: {
   category: ReviewType;
 }) => {
-  const highLightList = useAtomValue(highLightListAtom);
-  const lowLightList = useAtomValue(lowLightListAtom);
-
-  const [reviewList, setReviewList] = useState(
-    category === 'highLight' ? highLightList : lowLightList,
-  );
+  const [highLightList, setHighLightList] = useAtom(highLightListAtom);
+  const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
 
   useEffect(() => {
     if (category === 'highLight') {
-      setReviewList(highLightList);
+      async () => {
+        const response = await getHighlightList(currentWeekInfo);
+        setHighLightList(response.highlights);
+      };
     } else {
-      setReviewList(lowLightList);
+      async () => {
+        const response = await getLowlightList(currentWeekInfo);
+        setLowLightList(response.lowlights);
+      };
     }
-  }, [highLightList, lowLightList, category]);
+  }, [
+    highLightList,
+    lowLightList,
+    category,
+    setHighLightList,
+    setLowLightList,
+  ]);
 
   return (
     <div className="w-full p-5 bg-surface-foreground rounded-xl flex flex-col gap-6 mb-3">
-      {reviewList.map((el, index) => (
-        <CurrentWeekReviewItem
-          key={String(el.id)}
-          category={category}
-          index={index}
-          {...el}
-        />
-      ))}
+      {category === 'highLight'
+        ? highLightList.map((el, index) => (
+            <CurrentWeekReviewItem
+              key={String(el.id)}
+              category={category}
+              index={index}
+              {...el}
+            />
+          ))
+        : lowLightList.map((el, index) => (
+            <CurrentWeekReviewItem
+              key={String(el.id)}
+              category={category}
+              index={index}
+              {...el}
+            />
+          ))}
     </div>
   );
 };
