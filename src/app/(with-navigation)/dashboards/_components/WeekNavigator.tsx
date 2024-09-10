@@ -20,11 +20,14 @@ const WeekNavigator = () => {
       ),
       currentDisplayWeek.day,
     );
-    const { year, month, week } = getCurrentWeek(prevWeek);
+
+    console.log('prevWeek', prevWeek);
+
+    const { week } = getCurrentWeek(prevWeek);
 
     setCurrentDisplayWeek({
-      year,
-      month,
+      year: prevWeek.getFullYear(),
+      month: prevWeek.getMonth() + 1,
       week,
       date: prevWeek.getDate(),
       day: prevWeek.getDay(),
@@ -40,11 +43,11 @@ const WeekNavigator = () => {
       ),
       currentDisplayWeek.day as Day,
     );
-    const { year, month, week } = getCurrentWeek(nextWeek);
+    const { week } = getCurrentWeek(nextWeek);
 
     setCurrentDisplayWeek({
-      year,
-      month,
+      year: nextWeek.getFullYear(),
+      month: nextWeek.getMonth() + 1,
       week,
       date: nextWeek.getDate(),
       day: nextWeek.getDay(),

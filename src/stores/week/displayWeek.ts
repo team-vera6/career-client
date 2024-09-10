@@ -10,5 +10,5 @@ export const displayWeekAtom = atom({
   month,
   week,
   date: now.getDate(),
-  day: now.getDay(),
+  day: now.getDay() === 0 ? now.getDay() : 4,
 });
