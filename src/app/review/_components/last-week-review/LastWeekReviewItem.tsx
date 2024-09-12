@@ -16,9 +16,9 @@ export const LastWeekReviewItem = ({ content, project }: ReviewListItem) => {
         <LinkIcon size={36} />
         <div className="w-[calc(100%-2.2rem)] flex items-center justify-between gap-2 py-1.5 pl-3 pr-2 mt-2 border border-line-normal rounded-lg bg-surface-foregroundOn">
           <p className="truncate font-body-14 text-text-strong">
-            {project.content}
+            {project?.content}
           </p>
-          <ProgressChip percentage={project.progressRate} />
+          <ProgressChip percentage={project?.progressRate ?? 0} />
         </div>
       </div>
     </div>
