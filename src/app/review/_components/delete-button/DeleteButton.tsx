@@ -22,7 +22,7 @@ export const DeleteButton = ({ category, id }: Props) => {
     const setter =
       category === 'highLight' ? setHighlightList : setLowlightList;
 
-    setter((prev) => prev.filter((review) => review.id !== id));
+    setter((prev) => prev.filter((review) => String(review.id) !== String(id)));
   };
 
   return (
