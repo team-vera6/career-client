@@ -3,8 +3,12 @@
 import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
 
-import { pageButtonStatesAtom } from '@/app/review/stores';
+import { deleteLowlights } from '@/apis/review/delete';
+import { addLowlights } from '@/apis/review/post';
+import { editLowlight } from '@/apis/review/put';
+import { pageButtonStatesAtom, reviewIdAtom } from '@/app/review/stores';
 import { usePagingButton } from '@/app/review/utils';
+import { useReviewsApi } from '@/hooks/useReviewsApi';
 import useToast from '@/hooks/useToast';
 
 export const PagingButton = () => {
@@ -12,15 +16,75 @@ export const PagingButton = () => {
 
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
 
+  const reviewId = useAtomValue(reviewIdAtom);
+
+  const { postLowlights, putLowlights, deleteLowlightIds } = useReviewsApi();
+
+  if (!reviewId || !pageButtonStates.step1 || !pageButtonStates.step2) {
+    router.push('/review/step1');
+  }
+
   const { onClickPagingButton } = usePagingButton();
   const { addToast } = useToast();
 
-  const onSubmit = () => {
-    addToast({
-      message: '이번주 회고가 성공적으로 등록됐어요.',
-      iconType: 'success',
-    });
-    router.push('/dashboards');
+  const onSubmit = async () => {
+    const newPostLowlights = postLowlights.map((el) => ({
+      content: el.content,
+      projectId: Number(el.project?.id) ?? null,
+    }));
+
+    const newPutLowlights = putLowlights.map((el) => ({
+      id: el.id,
+      content: el.content,
+      projectId: Number(el.project?.id) ?? null,
+    }));
+
+    try {
+      await Promise.all([
+        // newPostLowlights가 있을 때만 addLowlights 호출
+        ...(newPostLowlights.length > 0
+          ? [
+              addLowlights({
+                reviewId,
+                lowlights: newPostLowlights,
+              }),
+            ]
+          : []),
+
+        // newPutLowlights를 Promise.all로
+        ...(newPutLowlights.length > 0
+          ? [
+              Promise.all(
+                newPutLowlights.map((el) =>
+                  editLowlight(el.id, {
+                    content: el.content,
+                    projectId: el.projectId,
+                  }),
+                ),
+              ),
+            ]
+          : []),
+
+        // deleteLowtlightIds를 Promise.all로
+        ...(deleteLowlightIds.length > 0
+          ? [Promise.all(deleteLowlightIds.map((el) => deleteLowlights(el)))]
+          : []),
+      ]);
+
+      onClickPagingButton({ path: 'step3', activePage: 3 });
+
+      addToast({
+        message: '이번주 회고가 성공적으로 등록됐어요.',
+        iconType: 'success',
+      });
+
+      router.push('/dashboards');
+    } catch (error) {
+      addToast({
+        iconType: 'error',
+        message: '다시 시도해 주세요.',
+      });
+    }
   };
 
   return (
@@ -36,11 +100,6 @@ export const PagingButton = () => {
         <button
           type="button"
           className="button-primary button-large"
-          // disabled={
-          //   !pageButtonStates.step1 &&
-          //   !pageButtonStates.step2 &&
-          //   !pageButtonStates.step3
-          // } FIXME: 데모데이 끝나고 주석 풀기
           disabled={!pageButtonStates.step3}
           onClick={onSubmit}
         >
