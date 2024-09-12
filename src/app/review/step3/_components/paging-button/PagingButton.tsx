@@ -3,14 +3,12 @@
 import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
 
-import { addHighlights, addLowlights } from '@/apis/review/post';
-import {
-  highLightListAtom,
-  lowLightListAtom,
-  pageButtonStatesAtom,
-  reviewIdAtom,
-} from '@/app/review/stores';
+import { deleteLowlights } from '@/apis/review/delete';
+import { addLowlights } from '@/apis/review/post';
+import { editLowlight } from '@/apis/review/put';
+import { pageButtonStatesAtom, reviewIdAtom } from '@/app/review/stores';
 import { usePagingButton } from '@/app/review/utils';
+import { useReviewsApi } from '@/hooks/useReviewsApi';
 import useToast from '@/hooks/useToast';
 
 export const PagingButton = () => {
@@ -20,8 +18,7 @@ export const PagingButton = () => {
 
   const reviewId = useAtomValue(reviewIdAtom);
 
-  const highlights = useAtomValue(highLightListAtom);
-  const lowlights = useAtomValue(lowLightListAtom);
+  const { postLowlights, putLowlights, deleteLowlightIds } = useReviewsApi();
 
   if (!reviewId || !pageButtonStates.step1 || !pageButtonStates.step2) {
     router.push('/review/step1');
@@ -31,21 +28,50 @@ export const PagingButton = () => {
   const { addToast } = useToast();
 
   const onSubmit = async () => {
-    const newHighlights = highlights.map((el) => ({
+    const newPostLowlights = postLowlights.map((el) => ({
       content: el.content,
-      projectId: el.id ? Number(el.id) : 0,
+      projectId: Number(el.project?.id) ?? null,
     }));
-    const newLowlights = lowlights.map((el) => ({
+
+    const newPutLowlights = putLowlights.map((el) => ({
+      id: el.id,
       content: el.content,
-      projectId: el.id ? Number(el.id) : 0,
+      projectId: Number(el.project?.id) ?? null,
     }));
 
     try {
-      const responses = await Promise.all([
-        // 하이라이트 / 로우라이트
-        addHighlights({ reviewId: reviewId ?? 0, highlights: newHighlights }), // 하이라이트 추가
-        addLowlights({ reviewId: reviewId ?? 0, lowlights: newLowlights }), // 로우라이트 추가
+      await Promise.all([
+        // newPostLowlights가 있을 때만 addLowlights 호출
+        ...(newPostLowlights.length > 0
+          ? [
+              addLowlights({
+                reviewId,
+                lowlights: newPostLowlights,
+              }),
+            ]
+          : []),
+
+        // newPutLowlights를 Promise.all로
+        ...(newPutLowlights.length > 0
+          ? [
+              Promise.all(
+                newPutLowlights.map((el) =>
+                  editLowlight(el.id, {
+                    content: el.content,
+                    projectId: el.projectId,
+                  }),
+                ),
+              ),
+            ]
+          : []),
+
+        // deleteLowtlightIds를 Promise.all로
+        ...(deleteLowlightIds.length > 0
+          ? [Promise.all(deleteLowlightIds.map((el) => deleteLowlights(el)))]
+          : []),
       ]);
+
+      onClickPagingButton({ path: 'step3', activePage: 3 });
 
       addToast({
         message: '이번주 회고가 성공적으로 등록됐어요.',
@@ -53,9 +79,11 @@ export const PagingButton = () => {
       });
 
       router.push('/dashboards');
-      return responses;
     } catch (error) {
-      console.log(error);
+      addToast({
+        iconType: 'error',
+        message: '다시 시도해 주세요.',
+      });
     }
   };
 
