@@ -10,6 +10,8 @@ import { getCurrentWeek } from '@/utils/date';
 
 import {
   highLightListAtom,
+  initialHighLightListAtom,
+  initialLowLightListAtom,
   lowLightListAtom,
   pageButtonStatesAtom,
 } from '../../stores';
@@ -32,42 +34,100 @@ export const CurrentWeekReviewContainer = ({
   const [highLightList, setHighLightList] = useAtom(highLightListAtom);
   const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
 
+  const setInitialHighLightList = useSetAtom(initialHighLightListAtom);
+  const setInitialLowLightList = useSetAtom(initialLowLightListAtom);
+
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
 
   const [projectList, setProjectList] = useState<DropdownItem[]>([]);
-
   const writeReview = (value: string, id: string | number) => {
-    const setter =
-      category === 'highLight' ? setHighLightList : setLowLightList;
-    setter((prev) =>
-      prev.map((review) =>
-        String(review.id) === String(id)
-          ? { ...review, content: value }
-          : review,
-      ),
-    );
+    if (category === 'highLight') {
+      setHighLightList((prev) =>
+        prev.map((review) =>
+          String(review.id) === String(id)
+            ? { ...review, content: value }
+            : review,
+        ),
+      );
+    } else {
+      setLowLightList((prev) =>
+        prev.map((review) =>
+          String(review.id) === String(id)
+            ? { ...review, content: value }
+            : review,
+        ),
+      );
+    }
   };
 
   const selectProject = (item: DropdownItem, reviewId: string | number) => {
     const selectedItem = {
-      id: item.id,
+      id: Number(item.id),
       content: item.name,
       progressRate: 0,
     };
-    const setter =
-      category === 'highLight' ? setHighLightList : setLowLightList;
 
-    setter((prev) =>
-      prev.map((review) =>
-        String(review.id) === String(reviewId)
-          ? {
-              ...review,
-              project: selectedItem,
-            }
-          : review,
-      ),
-    );
+    if (category === 'highLight') {
+      setHighLightList((prev) =>
+        prev.map((review) =>
+          String(review.id) === String(reviewId)
+            ? {
+                ...review,
+                id: review.id,
+                project: selectedItem,
+              }
+            : review,
+        ),
+      );
+    } else {
+      setLowLightList((prev) =>
+        prev.map((review) =>
+          String(review.id) === String(reviewId)
+            ? {
+                ...review,
+                id: review.id,
+                project: selectedItem,
+              }
+            : review,
+        ),
+      );
+    }
   };
+
+  useEffect(() => {
+    if (category === 'highLight') {
+      (async () => {
+        const response = await getHighlightList(currentWeekInfo);
+        setInitialHighLightList(response.highlights);
+        setHighLightList(response.highlights);
+      })();
+    } else {
+      (async () => {
+        const response = await getLowlightList(currentWeekInfo);
+        setInitialLowLightList(response.lowlights);
+        setLowLightList(response.lowlights);
+      })();
+    }
+  }, [
+    category,
+    setHighLightList,
+    setInitialHighLightList,
+    setInitialLowLightList,
+    setLowLightList,
+  ]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getProjectTitleList();
+      const newList = response?.projects.map((el) => ({
+        id: el.id,
+        name: el.title,
+        value: el.title,
+      }));
+
+      setProjectList([INITIAL_PROJECT, ...newList]);
+    })();
+  }, [setProjectList]);
 
   useEffect(() => {
     if (category === 'highLight') {
@@ -84,39 +144,6 @@ export const CurrentWeekReviewContainer = ({
       }
     }
   }, [category, highLightList, lowLightList, setPageButtonStates]);
-
-  useEffect(() => {
-    if (category === 'highLight') {
-      async () => {
-        const response = await getHighlightList(currentWeekInfo);
-        setHighLightList(response.highlights);
-      };
-    } else {
-      async () => {
-        const response = await getLowlightList(currentWeekInfo);
-        setLowLightList(response.lowlights);
-      };
-    }
-  }, [
-    highLightList,
-    lowLightList,
-    category,
-    setHighLightList,
-    setLowLightList,
-  ]);
-
-  useEffect(() => {
-    (async () => {
-      const response = await getProjectTitleList();
-      const newList = response?.projects.map((el) => ({
-        id: el.id,
-        name: el.title,
-        value: el.title,
-      }));
-
-      setProjectList([INITIAL_PROJECT, ...newList]);
-    })();
-  }, [setProjectList]);
 
   return (
     <div className="w-full p-5 bg-surface-foreground rounded-xl flex flex-col gap-6 mb-3">

@@ -33,7 +33,6 @@ export const CurrentWeekReviewItem = ({
           value={content}
           onChange={(val: string) => {
             writeReview(val, id);
-            console.log(val);
           }}
         />
         <div className="flex">
@@ -43,7 +42,9 @@ export const CurrentWeekReviewItem = ({
             items={items}
             className="mt-2"
             initialItem={
-              project.content !== '' ? project.content : '프로젝트 선택'
+              project && project.content !== ''
+                ? project.content
+                : '프로젝트 선택'
             }
             onSelect={onSelect}
           />
