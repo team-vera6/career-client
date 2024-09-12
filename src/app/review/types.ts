@@ -15,10 +15,10 @@ export interface TodoListItem {
 }
 
 export interface ReviewListItem {
-  id: number | string;
+  id: string | number;
   content: string;
-  project: {
-    id: number | string;
+  project?: {
+    id: string | number;
     content: string;
     progressRate: number;
   };
