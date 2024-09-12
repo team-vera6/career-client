@@ -30,14 +30,11 @@ export const Score = () => {
 
   useEffect(() => {
     (async () => {
-      if (!reviewId) {
-        // 이미 회고 id를 발급 받은 경우 - get으로 id, score 가져오기
-        const reviewIdResponse = await getReviewId(WeekInfo);
+      const reviewIdResponse = await getReviewId(WeekInfo);
 
-        if (reviewIdResponse?.id) {
-          setReviewId(reviewIdResponse.id);
-          setSelectedScore(reviewIdResponse.like);
-        }
+      if (reviewIdResponse?.id) {
+        setReviewId(reviewIdResponse.id);
+        setSelectedScore(reviewIdResponse.like);
       }
     })();
   }, [reviewId, setReviewId, setSelectedScore]);
@@ -45,6 +42,8 @@ export const Score = () => {
   const onClickPickScore = async (count: number) => {
     setSelectedScore(count);
     setPageButtonStates((prev) => ({ ...prev, step1: true }));
+
+    if (reviewId) return;
 
     // 처음 회고를 이용하는 경우 - post로 id 발급
     try {
