@@ -43,8 +43,8 @@ const Dropdown = ({
 
   useEffect(() => {
     const defaultItem = items.filter((el) => el.value === selectedValue)[0];
-    setSelectedName(defaultItem?.name ?? '');
-  }, [items, selectedValue]);
+    setSelectedName(defaultItem?.name ?? initialItem);
+  }, [initialItem, items, selectedValue]);
 
   return (
     <div className={cn('relative w-full h-[2.75rem]', className)} {...rest}>
