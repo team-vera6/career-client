@@ -1,11 +1,17 @@
 'use client';
 
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
+import { useEffect } from 'react';
 
+import { modifyScore } from '@/apis/review/patch';
 import { deleteTodo } from '@/apis/todos/delete';
 import { addTodoList } from '@/apis/todos/post';
 import { modifyTodoList } from '@/apis/todos/put';
-import { pageButtonStatesAtom } from '@/app/review/stores';
+import {
+  pageButtonStatesAtom,
+  reviewIdAtom,
+  scoreAtom,
+} from '@/app/review/stores';
 import { usePagingButton } from '@/app/review/utils';
 import useToast from '@/hooks/useToast';
 import { useTodosApi } from '@/hooks/useTodosApi';
@@ -27,8 +33,9 @@ const nextWeekInfo = {
 };
 
 export const PagingButton = () => {
-  // const reviewId = useAtomValue(reviewIdAtom);
-  // const score = useAtomValue(scoreAtom);
+  const reviewId = useAtomValue(reviewIdAtom);
+  const score = useAtomValue(scoreAtom);
+  const [pageButtonStates, setPageButtonStates] = useAtom(pageButtonStatesAtom);
 
   const { onClickPagingButton } = usePagingButton();
   const { addToast } = useToast();
@@ -42,10 +49,10 @@ export const PagingButton = () => {
   } = useTodosApi();
 
   const onSubmit = async () => {
-    // const reviewInfo = {
-    //   id: reviewId ?? 0,
-    //   like: score,
-    // };
+    const reviewInfo = {
+      id: reviewId ?? 0,
+      like: score,
+    };
 
     const newCurrentTodos = postCurrentTodos.map((el) => ({
       content: el.todo,
@@ -69,7 +76,7 @@ export const PagingButton = () => {
     try {
       const responses = await Promise.all([
         // 만족도
-        // modifyScore(reviewInfo),
+        modifyScore(reviewInfo),
         // 할일
         addTodoList({ weekNumber: currentWeekInfo, contents: newCurrentTodos }), // 이번주할일 추가
         addTodoList({ weekNumber: nextWeekInfo, contents: newNextTodos }), // 다음주할일 추가
@@ -92,7 +99,14 @@ export const PagingButton = () => {
     }
   };
 
-  const pageButtonStates = useAtomValue(pageButtonStatesAtom);
+  useEffect(() => {
+    if (reviewId) {
+      setPageButtonStates((prev) => ({
+        ...prev,
+        step1: true,
+      }));
+    }
+  }, [reviewId, setPageButtonStates]);
 
   return (
     <div className="flex justify-end">
