@@ -39,11 +39,7 @@ const MemoList = () => {
   };
 
   useEffect(() => {
-    getMemoList({
-      year: currentWeek.year,
-      month: currentWeek.month,
-      week: currentWeek.week,
-    });
+    getMemoList(currentWeek);
   }, [currentWeek]);
 
   const addMemo = async (content: string) => {
