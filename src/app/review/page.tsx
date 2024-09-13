@@ -24,9 +24,11 @@ export default function ReviewPage() {
 
   useEffect(() => {
     setReviewSteps({ direction: '', activePage: 1 });
+    setPosition(0);
   }, []);
 
   useEffect(() => {
+    if (position >= SIZE * 2) return;
     if (reviewSteps.direction === 'prev') {
       setPosition((prev) => prev - SIZE);
     } else if (reviewSteps.direction === 'next') {
