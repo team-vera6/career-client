@@ -2,6 +2,7 @@
 
 import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import { deleteLowlights } from '@/apis/review/delete';
 import { addLowlights } from '@/apis/review/post';
@@ -19,10 +20,6 @@ export const PagingButton = () => {
   const reviewId = useAtomValue(reviewIdAtom);
 
   const { postLowlights, putLowlights, deleteLowlightIds } = useReviewsApi();
-
-  if (!reviewId || !pageButtonStates.step1 || !pageButtonStates.step2) {
-    router.push('/review');
-  }
 
   const { onClickPagingButton } = usePagingButton();
   const { addToast } = useToast();
@@ -86,6 +83,12 @@ export const PagingButton = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (!reviewId || !pageButtonStates.step1 || !pageButtonStates.step2) {
+      router.push('/review');
+    }
+  }, [reviewId, pageButtonStates, router]);
 
   return (
     <div className="flex justify-end">

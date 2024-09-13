@@ -4,10 +4,13 @@ import { reviewStepsAtom } from './stores';
 import { PagingButtonProps } from './types';
 
 export const usePagingButton = () => {
-  const setActivePage = useSetAtom(reviewStepsAtom);
+  const setReviewStep = useSetAtom(reviewStepsAtom);
 
-  const onClickPagingButton = ({ direction, activePage }: PagingButtonProps) => {
-    setActivePage({direction, activePage});
+  const onClickPagingButton = ({
+    direction,
+    activePage,
+  }: PagingButtonProps) => {
+    setReviewStep({ direction, activePage });
   };
 
   return { onClickPagingButton };

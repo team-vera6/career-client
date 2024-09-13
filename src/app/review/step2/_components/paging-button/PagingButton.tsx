@@ -2,6 +2,7 @@
 
 import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import { deleteHighlights } from '@/apis/review/delete';
 import { addHighlights } from '@/apis/review/post';
@@ -22,10 +23,6 @@ export const PagingButton = () => {
 
   const { postHighlights, putHighlights, deleteHightlightIds } =
     useReviewsApi();
-
-  if (!reviewId || !pageButtonStates.step1) {
-    router.push('/review');
-  }
 
   const onSubmit = async () => {
     const newPostHighlights = postHighlights.map((el) => ({
@@ -85,6 +82,12 @@ export const PagingButton = () => {
     }
   };
 
+  useEffect(() => {
+    if (!reviewId || !pageButtonStates.step1) {
+      router.push('/review');
+    }
+  }, [reviewId, pageButtonStates, router]);
+
   return (
     <div className="flex justify-end">
       <div className="flex justify-between gap-2.5">
@@ -101,7 +104,6 @@ export const PagingButton = () => {
           type="button"
           className="button-primary button-large"
           onClick={onSubmit}
-          // disabled={!pageButtonStates.step1 && !pageButtonStates.step2} FIXME: 데모데이 끝나고 주석 풀기
           disabled={!pageButtonStates.step2}
         >
           다음
