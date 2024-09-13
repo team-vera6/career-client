@@ -21,7 +21,7 @@ export const PagingButton = () => {
   const { postLowlights, putLowlights, deleteLowlightIds } = useReviewsApi();
 
   if (!reviewId || !pageButtonStates.step1 || !pageButtonStates.step2) {
-    router.push('/review/step1');
+    router.push('/review');
   }
 
   const { onClickPagingButton } = usePagingButton();
@@ -71,7 +71,7 @@ export const PagingButton = () => {
           : []),
       ]);
 
-      onClickPagingButton({ path: 'step3', activePage: 3 });
+      onClickPagingButton({ direction: 'next', activePage: 3 });
 
       addToast({
         message: '이번주 회고가 성공적으로 등록됐어요.',
@@ -93,7 +93,9 @@ export const PagingButton = () => {
         <button
           type="button"
           className="button-secondary button-large"
-          onClick={() => onClickPagingButton({ path: 'step2', activePage: 2 })}
+          onClick={() =>
+            onClickPagingButton({ direction: 'prev', activePage: 2 })
+          }
         >
           이전
         </button>

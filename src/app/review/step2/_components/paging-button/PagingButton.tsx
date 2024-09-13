@@ -24,7 +24,7 @@ export const PagingButton = () => {
     useReviewsApi();
 
   if (!reviewId || !pageButtonStates.step1) {
-    router.push('/review/step1');
+    router.push('/review');
   }
 
   const onSubmit = async () => {
@@ -76,7 +76,7 @@ export const PagingButton = () => {
         iconType: 'success',
       });
 
-      onClickPagingButton({ path: 'step3', activePage: 3 });
+      onClickPagingButton({ direction: 'next', activePage: 3 });
     } catch (error) {
       addToast({
         iconType: 'error',
@@ -91,7 +91,9 @@ export const PagingButton = () => {
         <button
           type="button"
           className="button-secondary button-large"
-          onClick={() => onClickPagingButton({ path: 'step1', activePage: 1 })}
+          onClick={() =>
+            onClickPagingButton({ direction: 'prev', activePage: 1 })
+          }
         >
           이전
         </button>

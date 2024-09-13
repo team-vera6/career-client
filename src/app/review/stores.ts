@@ -2,8 +2,10 @@ import { atom } from 'jotai';
 
 import { MemoItem, ReviewListItem, TodoListItem } from './types';
 
-// progressDots activeCount
-export const reviewPageAtom = atom(1);
+export const reviewStepsAtom = atom({
+  direction: '',
+  activePage: 1,
+});
 
 // 페이지 이동 버튼 활성홭 여부
 export const pageButtonStatesAtom = atom({

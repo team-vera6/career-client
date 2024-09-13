@@ -89,7 +89,7 @@ export const PagingButton = () => {
         iconType: 'success',
         message: '임시저장 되었습니다.',
       });
-      onClickPagingButton({ path: 'step2', activePage: 2 });
+      onClickPagingButton({ direction: 'next', activePage: 2 });
       return responses;
     } catch (error) {
       addToast({
