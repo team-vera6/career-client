@@ -4,6 +4,7 @@ import { TodoListItem } from '@/app/review/types';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
 
 import { DeleteButton, MoveNextButton } from './Buttons';
+import { NextTodoInput } from './NextTodoInput';
 
 interface ListItemProps extends TodoListItem {
   setIsChecked: () => void;
@@ -21,13 +22,17 @@ export const ListItem = ({
 }: ListItemProps) => {
   return (
     <div className="h-12 flex items-center">
-      <CheckboxInput
-        value={todo}
-        onChange={setTodo}
-        checked={isChecked}
-        onClickCheckbox={setIsChecked}
-        category="review"
-      />
+      {week === 'current' ? (
+        <CheckboxInput
+          value={todo}
+          onChange={setTodo}
+          checked={isChecked}
+          onClickCheckbox={setIsChecked}
+          category="review"
+        />
+      ) : (
+        <NextTodoInput value={todo} onChange={setTodo} />
+      )}
       <div className="flex items-center gap-2">
         <MoveNextButton week={week} id={id} isMoved={isMoved} />
         <DeleteButton week={week} id={id} />
