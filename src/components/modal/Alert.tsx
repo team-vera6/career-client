@@ -1,3 +1,5 @@
+'use client';
+
 import { createPortal } from 'react-dom';
 
 import { ClassName } from '@/types/attributes';
@@ -20,6 +22,10 @@ interface Props extends ModalProps {
 }
 
 const Alert = ({ title, content, buttons, ...rest }: Props) => {
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
   return createPortal(
     <ModalContainer {...rest}>
       <div className="w-full h-full flex items-center justify-center z-30 relative">

@@ -10,6 +10,10 @@ import { Toast } from './Toast';
 const ToastContainer = () => {
   const toasts = useAtomValue(toastAtom);
 
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
   if (toasts.length === 0) {
     return null;
   }
