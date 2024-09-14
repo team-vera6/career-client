@@ -4,12 +4,12 @@ import { useAtomValue } from 'jotai';
 
 import ProgressDots from '@/components/progress-dots/ProgressDots';
 
-import { reviewStepsAtom } from '../../stores';
+import { reviewStepAtom } from '../../stores';
 
 export const ActivePage = () => {
-  const { activePage } = useAtomValue(reviewStepsAtom);
+  const reviewStep = useAtomValue(reviewStepAtom);
 
   return (
-    <ProgressDots totalCount={3} activeCount={activePage} displayType="step" />
+    <ProgressDots totalCount={3} activeCount={reviewStep} displayType="step" />
   );
 };

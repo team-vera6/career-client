@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 
 import { modifyScore } from '@/apis/review/patch';
@@ -10,9 +10,9 @@ import { modifyTodoList } from '@/apis/todos/put';
 import {
   pageButtonStatesAtom,
   reviewIdAtom,
+  reviewStepAtom,
   scoreAtom,
 } from '@/app/review/stores';
-import { usePagingButton } from '@/app/review/utils';
 import useToast from '@/hooks/useToast';
 import { useTodosApi } from '@/hooks/useTodosApi';
 import { getCurrentWeek, getNextWeek } from '@/utils/date';
@@ -36,8 +36,8 @@ export const PagingButton = () => {
   const reviewId = useAtomValue(reviewIdAtom);
   const score = useAtomValue(scoreAtom);
   const [pageButtonStates, setPageButtonStates] = useAtom(pageButtonStatesAtom);
+  const setReviewStep = useSetAtom(reviewStepAtom);
 
-  const { onClickPagingButton } = usePagingButton();
   const { addToast } = useToast();
   const {
     postCurrentTodos,
@@ -89,7 +89,7 @@ export const PagingButton = () => {
         iconType: 'success',
         message: '임시저장 되었습니다.',
       });
-      onClickPagingButton({ direction: 'next', activePage: 2 });
+      setReviewStep(2);
       return responses;
     } catch (error) {
       addToast({

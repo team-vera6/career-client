@@ -1,14 +1,17 @@
 'use client';
 
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { deleteHighlights } from '@/apis/review/delete';
 import { addHighlights } from '@/apis/review/post';
 import { editHighlight } from '@/apis/review/put';
-import { pageButtonStatesAtom, reviewIdAtom } from '@/app/review/stores';
-import { usePagingButton } from '@/app/review/utils';
+import {
+  pageButtonStatesAtom,
+  reviewIdAtom,
+  reviewStepAtom,
+} from '@/app/review/stores';
 import { useReviewsApi } from '@/hooks/useReviewsApi';
 import useToast from '@/hooks/useToast';
 
@@ -17,8 +20,8 @@ export const PagingButton = () => {
 
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
   const reviewId = useAtomValue(reviewIdAtom);
+  const setReviewStep = useSetAtom(reviewStepAtom);
 
-  const { onClickPagingButton } = usePagingButton();
   const { addToast } = useToast();
 
   const { postHighlights, putHighlights, deleteHightlightIds } =
@@ -73,7 +76,7 @@ export const PagingButton = () => {
         iconType: 'success',
       });
 
-      onClickPagingButton({ direction: 'next', activePage: 3 });
+      setReviewStep(3);
     } catch (error) {
       addToast({
         iconType: 'error',
@@ -94,9 +97,7 @@ export const PagingButton = () => {
         <button
           type="button"
           className="button-secondary button-large"
-          onClick={() =>
-            onClickPagingButton({ direction: 'prev', activePage: 1 })
-          }
+          onClick={() => setReviewStep(1)}
         >
           이전
         </button>

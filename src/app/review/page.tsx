@@ -1,14 +1,14 @@
 'use client';
 
 import { useAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { cn } from '@/utils/tailwind';
 
 import { Step1 } from './step1/Step1';
 import { Step2 } from './step2/page';
 import { Step3 } from './step3/page';
-import { reviewStepsAtom } from './stores';
+import { reviewStepAtom } from './stores';
 
 const steps = [
   <Step1 key="step1" />,
@@ -19,24 +19,13 @@ const steps = [
 const SIZE = 53.625; // width + gap 150px
 
 export default function ReviewPage() {
-  const [reviewSteps, setReviewSteps] = useAtom(reviewStepsAtom);
-  const [position, setPosition] = useState(0);
+  const [reviewStep, setReviewStep] = useAtom(reviewStepAtom);
 
   useEffect(() => {
-    setReviewSteps({ direction: '', activePage: 1 });
-    setPosition(0);
-  }, []);
+    setReviewStep(1);
+  }, [setReviewStep]);
 
-  useEffect(() => {
-    if (position >= SIZE * 2) return;
-    if (reviewSteps.direction === 'prev') {
-      setPosition((prev) => prev - SIZE);
-    } else if (reviewSteps.direction === 'next') {
-      setPosition((prev) => prev + SIZE);
-    } else {
-      setPosition(0);
-    }
-  }, [reviewSteps]);
+  const position = SIZE * (reviewStep - 1);
 
   return (
     <div className="w-fit flex gap-[150px]">
@@ -44,10 +33,12 @@ export default function ReviewPage() {
         <div
           key={`Step-${index}`}
           className={cn(
-            'w-[44.25rem] transform transition-transform-opacity duration-500',
-            `-translate-x-[${position}rem]`,
-            reviewSteps.activePage - 1 === index ? 'opacity-100' : 'opacity-0',
+            'w-[44.25rem] transition duration-500',
+            reviewStep - 1 === index ? 'opacity-100' : 'opacity-0',
           )}
+          style={{
+            transform: `translateX(-${position}rem)`,
+          }}
         >
           {el}
         </div>
