@@ -117,7 +117,7 @@ export const getCurrentWeek = (initialDate?: Date) => {
   const { endDate, endYear, endMonth, endDay } = getEndDateInfo(initialDate);
 
   return {
-    year,
+    year: year + 1,
     month,
     week,
     totalWeek,

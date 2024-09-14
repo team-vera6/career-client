@@ -15,6 +15,12 @@ export const pageButtonStatesAtom = atom({
   step3: false,
 });
 
+export const disabledClickAttemptAtom = atom({
+  step1: false,
+  step2: false,
+  step3: false,
+});
+
 // get한 todo list
 export const initialCurrentTodoListAtom = atom<TodoListItem[]>([]);
 export const initialNextTodoListAtom = atom<TodoListItem[]>([]);
