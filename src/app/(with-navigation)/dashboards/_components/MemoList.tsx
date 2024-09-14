@@ -14,7 +14,6 @@ import Memo from '@/components/memo/Memo';
 import TextEditorModal from '@/components/modal/text-editor';
 import { displayWeekAtom } from '@/stores/week/displayWeek';
 import { CurrentWeek } from '@/types/currentWeek';
-import { getMemoCreateDate } from '@/utils/date';
 
 const MemoList = () => {
   const [openTextEditor, setOpenTextEditor] = useState(false);
@@ -33,7 +32,7 @@ const MemoList = () => {
           id: String(memo.id),
           isBookmark: memo.isMarked,
           memo: memo.content,
-          date: getMemoCreateDate(memo.updatedAt),
+          date: memo.updatedAt,
         };
       }),
     );
@@ -96,7 +95,7 @@ const MemoList = () => {
               id: new Date().toString(),
               title: '',
               memo: text,
-              date: getMemoCreateDate(format(new Date(), 'yyyy-MM-dd HH:mm')),
+              date: format(new Date(), 'yyyy-MM-dd HH:mm'),
             },
           ]);
         }}
