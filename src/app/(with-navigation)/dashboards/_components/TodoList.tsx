@@ -108,6 +108,7 @@ const TodoList = () => {
             <CheckboxInput
               key={index}
               value={todo.content}
+              placeholder="이번 주의 나에게"
               checked={todo.status === 'DONE'}
               onChange={(value) =>
                 setTodos((prev) =>
