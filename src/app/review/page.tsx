@@ -44,9 +44,9 @@ export default function ReviewPage() {
         <div
           key={`Step-${index}`}
           className={cn(
-            'w-[44.25rem] transform transition-transform-opacity  duration-500',
+            'w-[44.25rem] transform transition-transform-opacity duration-500',
             `-translate-x-[${position}rem]`,
-            reviewSteps.activePage - 1 === index ? ' opacity-100' : 'opacity-0',
+            reviewSteps.activePage - 1 === index ? 'opacity-100' : 'opacity-0',
           )}
         >
           {el}
