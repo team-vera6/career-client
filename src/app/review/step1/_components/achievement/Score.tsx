@@ -15,11 +15,6 @@ import useToast from '@/hooks/useToast';
 import { getCurrentWeek } from '@/utils/date';
 
 const { year, month, week } = getCurrentWeek();
-const WeekInfo = {
-  year,
-  month,
-  week,
-};
 
 export const Score = () => {
   const { addToast } = useToast();
@@ -30,7 +25,7 @@ export const Score = () => {
 
   useEffect(() => {
     (async () => {
-      const reviewIdResponse = await getReviewId(WeekInfo);
+      const reviewIdResponse = await getReviewId({ year, month, week });
 
       if (reviewIdResponse?.id) {
         setReviewId(reviewIdResponse.id);
