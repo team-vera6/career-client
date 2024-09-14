@@ -1,5 +1,6 @@
 'use client';
 
+import { format } from 'date-fns';
 import { useAtom, useAtomValue } from 'jotai';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -95,7 +96,7 @@ const MemoList = () => {
               id: new Date().toString(),
               title: '',
               memo: text,
-              date: '7.22',
+              date: getMemoCreateDate(format(new Date(), 'yyyy-MM-dd HH:mm')),
             },
           ]);
         }}

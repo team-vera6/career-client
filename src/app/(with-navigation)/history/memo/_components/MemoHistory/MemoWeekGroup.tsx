@@ -1,6 +1,7 @@
 import Memo from '@/components/memo/Memo';
 import { CurrentWeek } from '@/types/currentWeek';
 import { Memo as MemoType } from '@/types/memo';
+import { getMemoCreateDate } from '@/utils/date';
 
 interface Props {
   currentWeek: CurrentWeek;
@@ -23,7 +24,7 @@ const MemoWeekGroup = ({ currentWeek, memos }: Props) => {
             key={item.id}
             id={String(item.id)}
             memo={item.content}
-            date="7.22"
+            date={getMemoCreateDate(item.updatedAt)}
             isBookmark={item.isMarked}
             className="w-[229px] h-[10rem]"
           />
