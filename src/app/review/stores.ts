@@ -2,6 +2,10 @@ import { atom } from 'jotai';
 
 import { MemoItem, ReviewListItem, TodoListItem } from './types';
 
+export const scoreAtom = atom(0);
+
+export const reviewIdAtom = atom(0);
+
 export const reviewStepAtom = atom(1);
 
 // 페이지 이동 버튼 활성홭 여부
@@ -31,7 +35,3 @@ export const lastHighLightListAtom = atom<ReviewListItem[]>([]);
 export const lastLowLightListAtom = atom<ReviewListItem[]>([]);
 
 export const memoListAtom = atom<MemoItem[]>([]);
-
-export const scoreAtom = atom<number>(0);
-
-export const reviewIdAtom = atom<number>(0);
