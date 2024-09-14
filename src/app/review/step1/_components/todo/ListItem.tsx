@@ -1,5 +1,3 @@
-'use client';
-
 import { TodoListItem } from '@/app/review/types';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
 
