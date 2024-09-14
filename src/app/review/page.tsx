@@ -6,8 +6,8 @@ import { useEffect } from 'react';
 import { cn } from '@/utils/tailwind';
 
 import { Step1 } from './step1/Step1';
-import { Step2 } from './step2/page';
-import { Step3 } from './step3/page';
+import { Step2 } from './step2/Step2';
+import { Step3 } from './step3/Step3';
 import { reviewStepAtom } from './stores';
 
 const steps = [
