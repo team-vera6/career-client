@@ -1,13 +1,17 @@
 'use client';
 
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import { deleteLowlights } from '@/apis/review/delete';
 import { addLowlights } from '@/apis/review/post';
 import { editLowlight } from '@/apis/review/put';
-import { pageButtonStatesAtom, reviewIdAtom } from '@/app/review/stores';
-import { usePagingButton } from '@/app/review/utils';
+import {
+  pageButtonStatesAtom,
+  reviewIdAtom,
+  reviewStepAtom,
+} from '@/app/review/stores';
 import { useReviewsApi } from '@/hooks/useReviewsApi';
 import useToast from '@/hooks/useToast';
 
@@ -15,16 +19,11 @@ export const PagingButton = () => {
   const router = useRouter();
 
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
-
   const reviewId = useAtomValue(reviewIdAtom);
+  const setReviewStep = useSetAtom(reviewStepAtom);
 
   const { postLowlights, putLowlights, deleteLowlightIds } = useReviewsApi();
 
-  if (!reviewId || !pageButtonStates.step1 || !pageButtonStates.step2) {
-    router.push('/review/step1');
-  }
-
-  const { onClickPagingButton } = usePagingButton();
   const { addToast } = useToast();
 
   const onSubmit = async () => {
@@ -71,7 +70,7 @@ export const PagingButton = () => {
           : []),
       ]);
 
-      onClickPagingButton({ path: 'step3', activePage: 3 });
+      setReviewStep(3);
 
       addToast({
         message: '이번주 회고가 성공적으로 등록됐어요.',
@@ -87,13 +86,19 @@ export const PagingButton = () => {
     }
   };
 
+  useEffect(() => {
+    if (!reviewId || !pageButtonStates.step1 || !pageButtonStates.step2) {
+      router.push('/review');
+    }
+  }, [reviewId, pageButtonStates, router]);
+
   return (
     <div className="flex justify-end">
       <div className="flex justify-between gap-2.5">
         <button
           type="button"
           className="button-secondary button-large"
-          onClick={() => onClickPagingButton({ path: 'step2', activePage: 2 })}
+          onClick={() => setReviewStep(2)}
         >
           이전
         </button>

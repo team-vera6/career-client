@@ -3,7 +3,7 @@ import { ClassName } from '@/types/attributes';
 export type WeekType = 'current' | 'next';
 export type ReviewType = 'highLight' | 'lowLight';
 export interface PagingButtonProps {
-  path: string;
+  direction: string;
   activePage: number;
 }
 export interface TodoListItem {

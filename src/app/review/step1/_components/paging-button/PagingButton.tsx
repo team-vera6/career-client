@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 
 import { modifyScore } from '@/apis/review/patch';
@@ -8,14 +8,16 @@ import { deleteTodo } from '@/apis/todos/delete';
 import { addTodoList } from '@/apis/todos/post';
 import { modifyTodoList } from '@/apis/todos/put';
 import {
+  disabledClickAttemptAtom,
   pageButtonStatesAtom,
   reviewIdAtom,
+  reviewStepAtom,
   scoreAtom,
 } from '@/app/review/stores';
-import { usePagingButton } from '@/app/review/utils';
 import useToast from '@/hooks/useToast';
 import { useTodosApi } from '@/hooks/useTodosApi';
 import { getCurrentWeek, getNextWeek } from '@/utils/date';
+import { cn } from '@/utils/tailwind';
 
 const { year, month, week } = getCurrentWeek();
 const { nextYear, nextMonth, nextWeek } = getNextWeek();
@@ -36,8 +38,9 @@ export const PagingButton = () => {
   const reviewId = useAtomValue(reviewIdAtom);
   const score = useAtomValue(scoreAtom);
   const [pageButtonStates, setPageButtonStates] = useAtom(pageButtonStatesAtom);
+  const setReviewStep = useSetAtom(reviewStepAtom);
+  const setDisabledClickAttempt = useSetAtom(disabledClickAttemptAtom);
 
-  const { onClickPagingButton } = usePagingButton();
   const { addToast } = useToast();
   const {
     postCurrentTodos,
@@ -49,6 +52,13 @@ export const PagingButton = () => {
   } = useTodosApi();
 
   const onSubmit = async () => {
+    if (!pageButtonStates['step1']) {
+      setDisabledClickAttempt((prev) => ({
+        ...prev,
+        step1: true,
+      }));
+      return;
+    }
     const reviewInfo = {
       id: reviewId ?? 0,
       like: score,
@@ -89,7 +99,7 @@ export const PagingButton = () => {
         iconType: 'success',
         message: '임시저장 되었습니다.',
       });
-      onClickPagingButton({ path: 'step2', activePage: 2 });
+      setReviewStep(2);
       return responses;
     } catch (error) {
       addToast({
@@ -112,9 +122,13 @@ export const PagingButton = () => {
     <div className="flex justify-end">
       <button
         type="button"
-        className="button-primary button-large"
+        className={cn(
+          'button-primary button-large',
+          !pageButtonStates['step1'] &&
+            'bg-button-disabled text-text-neutral hover:bg-button-disabled',
+        )}
         onClick={onSubmit}
-        disabled={!pageButtonStates['step1']}
+        // disabled={!pageButtonStates['step1']} && ''
       >
         다음
       </button>

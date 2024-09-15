@@ -1,11 +1,11 @@
 import { typedPatch } from '..';
 
-export interface modifyScoreRequest {
+export interface ModifyScoreRequest {
   id: number;
   like: number;
 }
 
-export const modifyScore = async (body: modifyScoreRequest) => {
+export const modifyScore = async (body: ModifyScoreRequest) => {
   const response = await typedPatch('/reviews', body);
   return response;
 };
