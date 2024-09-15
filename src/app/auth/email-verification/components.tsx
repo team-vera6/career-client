@@ -27,7 +27,7 @@ const EmailComponents = () => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const [{ email, id }, setEmailAtom] = useAtom(emailCodeAtom);
-  const { userEmailVerification } = useUser();
+  const { userEmailCheck, userEmailVerification } = useUser();
 
   // 새로고침 등으로 store에 이메일 없는 경우
   useEffect(() => {
@@ -134,7 +134,13 @@ const EmailComponents = () => {
 
         <p className="font-body-14 text-center mt-10 whitespace-pre-wrap text-text-strong">
           {`메일이 오지 않으셨나요?\n스팸함을 확인하거나 인증 메일을 `}
-          <strong className="font-title-14">재전송</strong>해 주세요.
+          <strong
+            className="font-title-14 cursor-pointer"
+            onClick={async () => await userEmailCheck(email, true)}
+          >
+            재전송
+          </strong>
+          해 주세요.
         </p>
       </form>
     </>
