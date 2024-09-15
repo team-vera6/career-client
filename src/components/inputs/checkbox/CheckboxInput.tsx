@@ -33,33 +33,21 @@ const CheckboxInput = ({
 
   const [isHovered, setIsHovered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [isBlurring, setIsBlurring] = useState(false);
 
   const handleBlur = () => {
-    if (!isBlurring) return;
-
     setIsEditing(false);
     onBlur?.();
-
-    setIsBlurring(false);
-  };
-
-  const forceBlur = () => {
-    setIsBlurring(true);
-    setIsEditing(false);
-    onBlur?.();
-    inputRef.current?.blur();
   };
 
   const handleKeydown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (isBlurring) return;
+    if (e.nativeEvent.isComposing) return;
 
-    if (e.key === 'Enter' && e.nativeEvent.isComposing === false) {
-      forceBlur();
+    if (e.key === 'Enter') {
+      inputRef.current?.blur();
     }
 
-    if (e.key === 'Escape' && e.nativeEvent.isComposing === false) {
-      forceBlur();
+    if (e.key === 'Escape') {
+      inputRef.current?.blur();
     }
   };
 
