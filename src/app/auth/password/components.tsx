@@ -118,11 +118,19 @@ const PasswordComponents = () => {
 
       <p className="font-body-13 text-text-strong">
         서비스 가입 시{' '}
-        <Link href="/" className="underline">
+        <Link
+          href="https://ancient-gladiolus-215.notion.site/PITSTOP-c91558f34f8b4e32bd2f307ce4215447?pvs=4"
+          className="underline"
+          target="_blank"
+        >
           이용약관
         </Link>
         에 동의하며{' '}
-        <Link href="/" className="underline">
+        <Link
+          href="https://ancient-gladiolus-215.notion.site/PITSTOP-73e2c3e4dc87490aa6417b00ae060355?pvs=4"
+          className="underline"
+          target="_blank"
+        >
           개인정보 처리방침
         </Link>
         의 내용을 확인한 것으로 간주됩니다.
