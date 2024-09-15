@@ -27,10 +27,8 @@ export const Score = () => {
     (async () => {
       const reviewIdResponse = await getReviewId({ year, month, week });
 
-      if (reviewIdResponse?.id) {
-        setReviewId(reviewIdResponse.id);
-        setSelectedScore(reviewIdResponse.like);
-      }
+      setReviewId(reviewIdResponse.id);
+      setSelectedScore(reviewIdResponse.like);
     })();
   }, [reviewId, setReviewId, setSelectedScore]);
 
