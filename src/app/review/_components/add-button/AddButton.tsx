@@ -4,6 +4,7 @@ import { useAtom, useSetAtom } from 'jotai';
 import { useMemo, useState } from 'react';
 
 import PlusIcon from '@/components/icons/PlusIcon';
+import useToast from '@/hooks/useToast';
 import colors from '@/styles/colors';
 import { getRandomNumber } from '@/utils/number';
 import { cn } from '@/utils/tailwind';
@@ -21,6 +22,8 @@ interface Props {
 }
 
 export const AddButton = ({ category }: Props) => {
+  const { addToast } = useToast();
+
   const setCurrentTodoList = useSetAtom(currentTodoListAtom);
   const setNextTodoList = useSetAtom(nextTodoListAtom);
 
@@ -58,31 +61,45 @@ export const AddButton = ({ category }: Props) => {
         ]);
         break;
       case 'highLight': {
-        const newList: ReviewListItem = {
-          id: `highlight-${getRandomNumber()}`,
-          content: '',
-          project: {
-            id: '',
+        if (highLightList.length >= 3) {
+          addToast({
+            iconType: 'error',
+            message: 'Beta 버전에서는 최대 3개까지 작성할 수 있어요.',
+          });
+        } else {
+          const newList: ReviewListItem = {
+            id: `highlight-${getRandomNumber()}`,
             content: '',
-            progressRate: 0,
-          },
-        };
+            project: {
+              id: '',
+              content: '',
+              progressRate: 0,
+            },
+          };
 
-        setHighLightList((prev) => [...prev, newList]);
+          setHighLightList((prev) => [...prev, newList]);
+        }
         break;
       }
       case 'lowLight': {
-        const newList: ReviewListItem = {
-          id: `lowlight-${getRandomNumber()}`,
-          content: '',
-          project: {
-            id: '',
+        if (lowLightList.length >= 3) {
+          addToast({
+            iconType: 'error',
+            message: 'Beta 버전에서는 최대 3개까지 작성할 수 있어요.',
+          });
+        } else {
+          const newList: ReviewListItem = {
+            id: `lowlight-${getRandomNumber()}`,
             content: '',
-            progressRate: 0,
-          },
-        };
+            project: {
+              id: '',
+              content: '',
+              progressRate: 0,
+            },
+          };
 
-        setLowLightList((prev) => [...prev, newList]);
+          setLowLightList((prev) => [...prev, newList]);
+        }
         break;
       }
       default:
@@ -93,8 +110,10 @@ export const AddButton = ({ category }: Props) => {
   const isDisabled = useMemo(() => {
     if (category === 'highLight') {
       return highLightList.length >= 3;
+    } else if (category === 'lowLight') {
+      return lowLightList.length >= 3;
     }
-    return lowLightList.length >= 3;
+    return false;
   }, [category, highLightList.length, lowLightList.length]);
 
   return (
@@ -105,11 +124,11 @@ export const AddButton = ({ category }: Props) => {
           ? 'button-text text-center'
           : 'button-line hover:bg-surface-blank hover:opacity-100',
         isHovered ? 'text-text-neutral' : 'text-text-strong',
+        isDisabled && 'bg-surface-blank text-text-neutral',
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onClickAddButton(category)}
-      disabled={isDisabled}
     >
       {isTodo ? (
         <PlusIcon size={20} stroke={colors.text.normal} />
