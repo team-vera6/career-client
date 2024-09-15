@@ -8,25 +8,38 @@ import { deleteLowlights } from '@/apis/review/delete';
 import { addLowlights } from '@/apis/review/post';
 import { editLowlight } from '@/apis/review/put';
 import {
+  disabledClickAttemptAtom,
   pageButtonStatesAtom,
   reviewIdAtom,
   reviewStepAtom,
 } from '@/app/review/stores';
 import { useReviewsApi } from '@/hooks/useReviewsApi';
 import useToast from '@/hooks/useToast';
+import { cn } from '@/utils/tailwind';
 
 export const PagingButton = () => {
   const router = useRouter();
 
-  const pageButtonStates = useAtomValue(pageButtonStatesAtom);
   const reviewId = useAtomValue(reviewIdAtom);
+
+  const pageButtonStates = useAtomValue(pageButtonStatesAtom);
   const setReviewStep = useSetAtom(reviewStepAtom);
+  const setDisabledClickAttempt = useSetAtom(disabledClickAttemptAtom);
 
   const { postLowlights, putLowlights, deleteLowlightIds } = useReviewsApi();
 
   const { addToast } = useToast();
 
   const onSubmit = async () => {
+    console.log(pageButtonStates);
+    if (!pageButtonStates['step3']) {
+      setDisabledClickAttempt((prev) => ({
+        ...prev,
+        step3: true,
+      }));
+      return;
+    }
+
     const newPostLowlights = postLowlights.map((el) => ({
       content: el.content,
       projectId: Number(el.project?.id) ?? null,
@@ -104,8 +117,11 @@ export const PagingButton = () => {
         </button>
         <button
           type="button"
-          className="button-primary button-large"
-          disabled={!pageButtonStates.step3}
+          className={cn(
+            'button-primary button-large',
+            !pageButtonStates['step3'] &&
+              'bg-button-disabled text-text-neutral hover:bg-button-disabled',
+          )}
           onClick={onSubmit}
         >
           등록

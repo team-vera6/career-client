@@ -37,6 +37,7 @@ const nextWeekInfo = {
 export const PagingButton = () => {
   const reviewId = useAtomValue(reviewIdAtom);
   const score = useAtomValue(scoreAtom);
+
   const [pageButtonStates, setPageButtonStates] = useAtom(pageButtonStatesAtom);
   const setReviewStep = useSetAtom(reviewStepAtom);
   const setDisabledClickAttempt = useSetAtom(disabledClickAttemptAtom);
@@ -59,6 +60,7 @@ export const PagingButton = () => {
       }));
       return;
     }
+
     const reviewInfo = {
       id: reviewId ?? 0,
       like: score,
@@ -128,7 +130,6 @@ export const PagingButton = () => {
             'bg-button-disabled text-text-neutral hover:bg-button-disabled',
         )}
         onClick={onSubmit}
-        // disabled={!pageButtonStates['step1']} && ''
       >
         다음
       </button>
