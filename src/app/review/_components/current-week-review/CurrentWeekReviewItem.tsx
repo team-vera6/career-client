@@ -13,6 +13,8 @@ interface Props extends ReviewListItem, DropdownProps {
   category: ReviewType;
   index: number;
   writeReview: (val: string, id: string | number) => void;
+  isRequiredError: boolean;
+  isShowErrorText: boolean;
 }
 
 export const CurrentWeekReviewItem = ({
@@ -20,10 +22,12 @@ export const CurrentWeekReviewItem = ({
   category,
   content,
   project,
-  index,
   items,
+  index,
   onSelect,
   writeReview,
+  isRequiredError,
+  isShowErrorText,
 }: Props) => {
   return (
     <div className="flex flex-col gap-1">
@@ -52,7 +56,23 @@ export const CurrentWeekReviewItem = ({
         </div>
       </div>
       {/* TODO: 에러 텍스트 추가 예정 */}
-      {index !== 0 && <DeleteButton id={String(id)} category={category} />}
+      <div className="grid">
+        {isRequiredError && (
+          <p className="font-body-12 text-state-negative justify-self-start">
+            최소 1개의 하이라이트를 작성해 주세요
+          </p>
+        )}
+        {isShowErrorText && (
+          <p className="font-body-12 text-state-negative justify-self-start">
+            필수 항목입니다
+          </p>
+        )}
+        {index !== 0 && (
+          <div className="justify-self-end">
+            <DeleteButton id={String(id)} category={category} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
