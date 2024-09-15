@@ -12,7 +12,7 @@ const Header = () => {
   const [openSettingModal, setOpenSettingModal] = useState(false);
 
   return (
-    <header className="h-[4.875rem] w-full min-w-[1440px] sticky top-0 left-0 right-0 bg-surface-invert flex items-center justify-center z-10">
+    <header className="h-[3.25rem] w-full min-w-[1440px] sticky top-0 left-0 right-0 bg-surface-invert flex items-center justify-center z-10">
       <div className="w-full max-w-[1696px] flex items-center justify-between px-12">
         <Link href="/dashboards">
           <TextLogo />
