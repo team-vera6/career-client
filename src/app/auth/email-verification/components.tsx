@@ -42,8 +42,21 @@ const EmailComponents = () => {
   });
 
   const handleChange = (val: string, idx: number) => {
-    const hasNumber = /^[0-9]$/.test(val);
+    const hasNumber = /^[0-9]+$/.test(val);
+
     if (val !== '' && !hasNumber) return;
+
+    if (val.length > 1) {
+      const newArray = [...codeArray];
+
+      for (let i = 0; i < val.length && idx + i < 6; i++) {
+        newArray[idx + i] = val[i];
+      }
+
+      setCodeArray(newArray);
+      inputRefs.current[Math.min(5, idx + val.length)]?.focus();
+      return;
+    }
 
     const newArray = [...codeArray];
     newArray[idx] = val;
