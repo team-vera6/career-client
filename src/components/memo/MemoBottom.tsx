@@ -7,6 +7,7 @@ import { bookmarkMemo } from '@/apis/memo/put';
 import { memoListAtom } from '@/app/review/stores';
 import { MemoItem } from '@/app/review/types';
 import colors from '@/styles/colors';
+import { getMemoCreateDate } from '@/utils/date';
 
 import BookmarkIcon from '../icons/BookmarkIcon';
 
@@ -42,7 +43,9 @@ const MemoBottom = ({
 
   return (
     <div className="w-full flex items-center justify-between">
-      <p className="font-body-12 text-text-neutral">{date}</p>
+      <p className="font-body-12 text-text-neutral">
+        {getMemoCreateDate(date)}
+      </p>
       <button
         type="button"
         onClick={async (e) => {
