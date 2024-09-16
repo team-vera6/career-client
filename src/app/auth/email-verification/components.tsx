@@ -27,7 +27,7 @@ const EmailComponents = () => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const [{ email, id }, setEmailAtom] = useAtom(emailCodeAtom);
-  const { userEmailVerification } = useUser();
+  const { userEmailCheck, userEmailVerification } = useUser();
 
   // 새로고침 등으로 store에 이메일 없는 경우
   useEffect(() => {
@@ -37,13 +37,26 @@ const EmailComponents = () => {
   }, [email, router]);
 
   // timer
-  const { isTimeExpired, minutes, seconds } = useTimer({
+  const { isTimeExpired, minutes, seconds, setCurrentTime } = useTimer({
     timeLimit: TIME_LIMIT,
   });
 
   const handleChange = (val: string, idx: number) => {
-    const hasNumber = /^[0-9]$/.test(val);
+    const hasNumber = /^[0-9]+$/.test(val);
+
     if (val !== '' && !hasNumber) return;
+
+    if (val.length > 1) {
+      const newArray = [...codeArray];
+
+      for (let i = 0; i < val.length && idx + i < 6; i++) {
+        newArray[idx + i] = val[i];
+      }
+
+      setCodeArray(newArray);
+      inputRefs.current[Math.min(5, idx + val.length)]?.focus();
+      return;
+    }
 
     const newArray = [...codeArray];
     newArray[idx] = val;
@@ -78,6 +91,11 @@ const EmailComponents = () => {
     if (res === 'success') {
       router.push('/auth/password');
     }
+  };
+
+  const resendEmail = async () => {
+    await userEmailCheck(email, true);
+    setCurrentTime(TIME_LIMIT);
   };
 
   const submitEnabled = useMemo(() => {
@@ -134,7 +152,13 @@ const EmailComponents = () => {
 
         <p className="font-body-14 text-center mt-10 whitespace-pre-wrap text-text-strong">
           {`메일이 오지 않으셨나요?\n스팸함을 확인하거나 인증 메일을 `}
-          <strong className="font-title-14">재전송</strong>해 주세요.
+          <strong
+            className="font-title-14 cursor-pointer"
+            onClick={resendEmail}
+          >
+            재전송
+          </strong>
+          해 주세요.
         </p>
       </form>
     </>
