@@ -21,12 +21,12 @@ export const SignUpSuccessModal = () => {
           height={172}
           alt="no-memo-history"
         />
-        <p className="mt-6 mb-2 text-text-strong font-normal text-xl">
-          이제, <strong className="font-semibold">매주 금요일 13시</strong>에
-          <br /> 회고 메일을 보내드릴게요.
-        </p>
+        <div className="mt-6 mb-2 flex flex-col items-center font-head-20 text-text-strong">
+          <strong style={{ fontWeight: 600 }}>매주 금요일 13시!</strong>
+          <p style={{ fontWeight: 400 }}>회고 메일을 보내드릴게요</p>
+        </div>
         <p className="mb-5 font-body-14 text-text-strong">
-          회고를 위해 이번 주 할 일을 작성해 보세요!
+          피트스탑과 함께 성공적인 한주를 이뤄봐요👍
         </p>
         <button
           className="mb-7 button-primary button-large"
