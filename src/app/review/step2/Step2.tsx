@@ -3,14 +3,14 @@ import { LastWeekReview } from '../_components/last-week-review/LastWeekReview';
 import { Tip } from '../_components/tip/Tip';
 import { PagingButton } from './_components/paging-button/PagingButton';
 
-export default function Step3Page() {
+export const Step2 = () => {
   return (
     <>
-      <LastWeekReview category="lowLight" />
-      <CurrentWeekReview category="lowLight" />
-      <Tip category="lowLight" />
+      <LastWeekReview category="highLight" />
+      <CurrentWeekReview category="highLight" />
+      <Tip category="highLight" />
 
       <PagingButton />
     </>
   );
-}
+};

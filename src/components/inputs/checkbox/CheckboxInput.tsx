@@ -8,6 +8,7 @@ import { cn } from '@/utils/tailwind';
 
 interface Props {
   value: string;
+  placeholder?: string;
   onChange?: (value: string) => void;
   checked: boolean;
   onClickCheckbox?: () => void;
@@ -19,6 +20,7 @@ interface Props {
 
 const CheckboxInput = ({
   value,
+  placeholder,
   onChange,
   checked,
   onClickCheckbox,
@@ -63,6 +65,7 @@ const CheckboxInput = ({
           type="text"
           className="w-full font-body-16 outline-none bg-transparent"
           value={value}
+          placeholder={placeholder}
           onChange={(e) => onChange?.(e.currentTarget.value)}
           onBlurCapture={onBlur}
           style={{

@@ -1,26 +1,21 @@
 'use client';
 
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { useEffect, useState } from 'react';
 
 import { AllMemosResponse, getAllMemos } from '@/apis/memo/get';
 import { showOnlyBookmarkAtom } from '@/stores/bookmark/showOnlyBookmarkAtom';
-import { Memo } from '@/types/memo';
+import { historyMemoListAtom, MemoList } from '@/stores/memos/memos';
 import { sortByWeek } from '@/types/sort';
 
 import EmptyMemoHistory from './EmptyMemoHistory';
 import MemoWeekGroup from './MemoWeekGroup';
 
-interface MemoList {
-  weekNumber: { year: number; month: number; week: number };
-  memos: Memo[];
-}
-
 const MemoHistory = () => {
   const showBookmarkOnly = useAtomValue(showOnlyBookmarkAtom);
 
-  const [memos, setMemos] = useState<MemoList[]>([]);
-  const [memosForDisplay, setMemosForDisplay] = useState<MemoList[]>([]);
+  const [memos, setMemos] = useAtom(historyMemoListAtom); // grouping 된 전체 메모 리스트
+  const [memosForDisplay, setMemosForDisplay] = useState<MemoList[]>([]); // 북마크만 보기 옵션 적용된 메모 리스트
 
   const groupMemosByWeek = (receivedMemos: AllMemosResponse) => {
     const groupedMemos = receivedMemos.contents.reduce(

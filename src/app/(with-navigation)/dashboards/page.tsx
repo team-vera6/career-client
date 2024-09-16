@@ -73,7 +73,7 @@ export default function DashboardPage() {
         <section className="flex items-center justify-between mb-6">
           <WeekNavigator />
 
-          <Link href="/review/step1">
+          <Link href="/review">
             <button className="button-primary button-large">회고하기</button>
           </Link>
         </section>

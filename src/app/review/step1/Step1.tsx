@@ -4,7 +4,7 @@ import { Achievement } from './_components/achievement/Achievement';
 import { PagingButton } from './_components/paging-button/PagingButton';
 import { Todo } from './_components/todo/Todo';
 
-export default function Step1Page() {
+export const Step1 = () => {
   const { month, week } = getCurrentWeek();
 
   return (
@@ -26,4 +26,4 @@ export default function Step1Page() {
       <PagingButton />
     </>
   );
-}
+};
