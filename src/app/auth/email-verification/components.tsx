@@ -37,7 +37,7 @@ const EmailComponents = () => {
   }, [email, router]);
 
   // timer
-  const { isTimeExpired, minutes, seconds } = useTimer({
+  const { isTimeExpired, minutes, seconds, setCurrentTime } = useTimer({
     timeLimit: TIME_LIMIT,
   });
 
@@ -91,6 +91,11 @@ const EmailComponents = () => {
     if (res === 'success') {
       router.push('/auth/password');
     }
+  };
+
+  const resendEmail = async () => {
+    await userEmailCheck(email, true);
+    setCurrentTime(TIME_LIMIT);
   };
 
   const submitEnabled = useMemo(() => {
@@ -149,7 +154,7 @@ const EmailComponents = () => {
           {`메일이 오지 않으셨나요?\n스팸함을 확인하거나 인증 메일을 `}
           <strong
             className="font-title-14 cursor-pointer"
-            onClick={async () => await userEmailCheck(email, true)}
+            onClick={resendEmail}
           >
             재전송
           </strong>
