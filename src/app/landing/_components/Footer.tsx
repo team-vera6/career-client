@@ -5,7 +5,7 @@ import LogoGray from '@/assets/logos/LogoGray.png';
 
 const Footer = () => {
   return (
-    <footer className="w-[1120px] mt-20 mb-10">
+    <footer className="w-full max-w-[1120px] mt-20 mb-10">
       <hr className="w-full border-line-normal mb-9" />
 
       <Image
