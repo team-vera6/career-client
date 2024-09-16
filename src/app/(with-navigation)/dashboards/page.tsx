@@ -13,6 +13,7 @@ import { CurrentWeek } from '@/types/currentWeek';
 
 import MemoList from './_components/MemoList';
 import Metrics from './_components/Metrics';
+import { SignUpSuccessModal } from './_components/SignUpSuccessModal';
 import TodoList from './_components/TodoList';
 import WeekNavigator from './_components/WeekNavigator';
 
@@ -82,6 +83,7 @@ export default function DashboardPage() {
           <MemoList />
         </div>
       </div>
+      <SignUpSuccessModal />
     </div>
   );
 }

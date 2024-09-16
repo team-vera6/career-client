@@ -24,7 +24,6 @@ const NumberInput = forwardRef<HTMLInputElement, Props>(
           }
           value={value}
           onChange={onChange}
-          maxLength={1}
           size={1}
           ref={ref}
           {...rest}
