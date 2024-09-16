@@ -77,7 +77,9 @@ const MemoHistory = () => {
     }
   }, [memos, showBookmarkOnly]);
 
-  if (memos.length === 0) return <EmptyMemoHistory />;
+  if (memos.length === 0) {
+    return <EmptyMemoHistory />;
+  }
 
   return (
     <>

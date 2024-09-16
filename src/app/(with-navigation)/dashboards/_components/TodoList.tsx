@@ -147,7 +147,9 @@ const TodoList = () => {
         </div>
       ) : (
         <div className="w-full flex items-center flex-col gap-5 mt-[3.75rem]">
-          <p className="font-body-16 text-text-normal">작성한 할 일이 없어요</p>
+          <p className="font-body-16 text-text-normal">
+            할 일을 한곳에 기록해두고 필요할 때 찾아봐요!
+          </p>
           <Image src={EmptyTodoImage} width={100} height={100} alt="no memo" />
         </div>
       )}

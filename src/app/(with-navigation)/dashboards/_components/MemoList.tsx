@@ -77,7 +77,9 @@ const MemoList = () => {
         </div>
       ) : (
         <div className="w-[15.75rem] flex items-center flex-col gap-5 mt-[3.75rem]">
-          <p className="font-body-16 text-text-normal">남긴 메모가 없어요</p>
+          <p className="font-body-16 text-text-normal">
+            번뜩이는 아이디어는 메모에 남겨봐요.
+          </p>
           <Image src={EmptyMemoImage} width={100} height={100} alt="no memo" />
         </div>
       )}

@@ -76,7 +76,7 @@ const WeekNavigator = () => {
   return (
     <div className="flex items-center gap-2">
       <p className="font-head-20 text-text-strong">
-        {currentDisplayWeek.month}월 {currentDisplayWeek.week}주차
+        {currentDisplayWeek.month}월 {currentDisplayWeek.week}주차 레이스
       </p>
       <div className="flex gap-1.5 items-center">
         <button
