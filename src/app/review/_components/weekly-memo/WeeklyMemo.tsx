@@ -4,29 +4,23 @@ import { useEffect, useState } from 'react';
 
 import { getMemos } from '@/apis/memo/get';
 import Memo from '@/components/memo/Memo';
+import { Memo as MemoType } from '@/types/memo';
 import { getCurrentWeek } from '@/utils/date';
-
-interface WeeklyMemoType {
-  id: string;
-  memo: string;
-  isBookmark: boolean;
-  date: string;
-}
 
 const { year, month, week } = getCurrentWeek();
 
 const WeeklyMemo = () => {
-  const [memos, setMemos] = useState<WeeklyMemoType[]>([]);
+  const [memos, setMemos] = useState<MemoType[]>([]);
 
   const getMemoList = async () => {
     const data = await getMemos({ year, month, week });
     setMemos(
       data.memos.map((memo) => {
         return {
-          id: String(memo.id),
-          isBookmark: memo.isMarked,
-          memo: memo.content,
-          date: `${month}.${week}`,
+          id: memo.id,
+          isMarked: memo.isMarked,
+          content: memo.content,
+          updatedAt: memo.updatedAt,
         };
       }),
     );
@@ -36,21 +30,20 @@ const WeeklyMemo = () => {
     getMemoList();
   }, []);
 
+  if (memos.length === 0) return null;
+
   return (
-    <>
-      {memos.length > 0 ? (
-        <div className="flex flex-col gap-3">
-          {memos.map((memo, index) => (
-            <Memo
-              id={String(index)}
-              key={index}
-              memo={memo.memo}
-              date={memo.date}
-            />
-          ))}
-        </div>
-      ) : null}
-    </>
+    <div className="flex flex-col gap-3">
+      {memos.map((memo, index) => (
+        <Memo
+          id={String(memo.id)}
+          key={String(index)}
+          memo={memo.content}
+          date={memo.updatedAt}
+          disabledEditor
+        />
+      ))}
+    </div>
   );
 };
 

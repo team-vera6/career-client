@@ -31,6 +31,7 @@ export interface MemoItem {
   memo?: string; // TODO: 마크다운 적용 후 수정 필요
   date: string; // FIXME: date 형식 조정 필요
   className?: ClassName;
+  disabledEditor?: boolean;
 }
 
 export interface LastWeekReviewListItem {

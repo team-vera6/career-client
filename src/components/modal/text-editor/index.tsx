@@ -12,16 +12,19 @@ import { ModalProps } from '../ModalContainer';
 interface Props {
   onSaveText: (text: string) => void;
   value: string;
+  disabledEditor?: boolean;
 }
 
 const TextEditorModal = ({
   onSaveText,
   value,
+  disabledEditor = false,
   ...rest
 }: ModalProps & Props) => {
   const editor = useEditor({
     extensions: [StarterKit, Underline],
     content: value,
+    editable: !disabledEditor,
   });
 
   return (
