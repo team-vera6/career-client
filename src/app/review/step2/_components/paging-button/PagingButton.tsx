@@ -1,13 +1,17 @@
 'use client';
 
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import { deleteHighlights } from '@/apis/review/delete';
 import { addHighlights } from '@/apis/review/post';
 import { editHighlight } from '@/apis/review/put';
-import { pageButtonStatesAtom, reviewIdAtom } from '@/app/review/stores';
-import { usePagingButton } from '@/app/review/utils';
+import {
+  pageButtonStatesAtom,
+  reviewIdAtom,
+  reviewStepAtom,
+} from '@/app/review/stores';
 import { useReviewsApi } from '@/hooks/useReviewsApi';
 import useToast from '@/hooks/useToast';
 
@@ -16,16 +20,12 @@ export const PagingButton = () => {
 
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
   const reviewId = useAtomValue(reviewIdAtom);
+  const setReviewStep = useSetAtom(reviewStepAtom);
 
-  const { onClickPagingButton } = usePagingButton();
   const { addToast } = useToast();
 
   const { postHighlights, putHighlights, deleteHightlightIds } =
     useReviewsApi();
-
-  if (!reviewId || !pageButtonStates.step1) {
-    router.push('/review/step1');
-  }
 
   const onSubmit = async () => {
     const newPostHighlights = postHighlights.map((el) => ({
@@ -76,7 +76,7 @@ export const PagingButton = () => {
         iconType: 'success',
       });
 
-      onClickPagingButton({ path: 'step3', activePage: 3 });
+      setReviewStep(3);
     } catch (error) {
       addToast({
         iconType: 'error',
@@ -85,13 +85,19 @@ export const PagingButton = () => {
     }
   };
 
+  useEffect(() => {
+    if (!reviewId || !pageButtonStates.step1) {
+      router.push('/review');
+    }
+  }, [reviewId, pageButtonStates, router]);
+
   return (
     <div className="flex justify-end">
       <div className="flex justify-between gap-2.5">
         <button
           type="button"
           className="button-secondary button-large"
-          onClick={() => onClickPagingButton({ path: 'step1', activePage: 1 })}
+          onClick={() => setReviewStep(1)}
         >
           이전
         </button>
@@ -99,7 +105,6 @@ export const PagingButton = () => {
           type="button"
           className="button-primary button-large"
           onClick={onSubmit}
-          // disabled={!pageButtonStates.step1 && !pageButtonStates.step2} FIXME: 데모데이 끝나고 주석 풀기
           disabled={!pageButtonStates.step2}
         >
           다음
