@@ -25,12 +25,18 @@ export const CurrentWeekReviewItem = ({
   onSelect,
   writeReview,
 }: Props) => {
+  const placeholder =
+    category === 'highLight'
+      ? `주목할만한 성취가 아니어도 괜찮아요.\n작은 기록이 모여, 큰 변화를 만들어 줄거예요.`
+      : `이번 주에 아쉬웠던 것은 무엇인가요?\n누구나 실수할 수 있지만 반복하지 않는 것이 중요해요.`;
+
   return (
     <div className="flex flex-col gap-1">
       <div>
         <Textarea
           className="min-h-[6.5rem]"
           value={content}
+          placeholder={placeholder}
           onChange={(val: string) => {
             writeReview(val, id);
           }}
