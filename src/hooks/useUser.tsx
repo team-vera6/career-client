@@ -40,7 +40,7 @@ export const useUser = () => {
     }
   };
 
-  const userEmailCheck = async (email: string) => {
+  const userEmailCheck = async (email: string, retry?: boolean) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
@@ -58,7 +58,9 @@ export const useUser = () => {
       setEmailCode(res);
 
       addToast({
-        message: '인증 메일을 전송했어요.',
+        message: retry
+          ? '인증 메일을 다시 전송했어요.'
+          : '인증 메일을 전송했어요.',
         iconType: 'success',
       });
 
