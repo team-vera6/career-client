@@ -20,6 +20,6 @@ export const keyframes = {
 };
 
 export const animation = {
-  'fade-up': 'fadeUp 0.5s ease-out',
+  'fade-up': 'fadeUp 0.2s ease-out',
   'slide-in-right': 'slideInRight 0.3s ease-in-out',
 };

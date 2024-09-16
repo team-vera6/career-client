@@ -110,7 +110,7 @@ const Category = () => {
           onClick={() => setOpenTextEditor(true)}
         >
           <PlusIcon size={20} stroke="#fff" />
-          <p className="font-body-14 text-text-invert">추가</p>
+          <p className="font-body-14 text-text-invert">메모 추가</p>
         </button>
       )}
 

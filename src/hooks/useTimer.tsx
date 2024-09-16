@@ -34,5 +34,6 @@ export const useTimer = ({ timeLimit, interval = 1000 }: UseTimerProps) => {
     isTimeExpired,
     minutes,
     seconds,
+    setCurrentTime,
   };
 };
