@@ -17,6 +17,11 @@ interface Props extends ReviewListItem, DropdownProps {
   isShowErrorText: boolean;
 }
 
+const PLACE_HOLDER = {
+  highLight: `주목할만한 성취가 아니어도 괜찮아요.\n작은 기록이 모여, 큰 변화를 만들어 줄거예요.`,
+  lowLight: `이번 주에 아쉬웠던 것은 무엇인가요?\n누구나 실수할 수 있지만 반복하지 않는 것이 중요해요.`,
+};
+
 export const CurrentWeekReviewItem = ({
   id,
   category,
@@ -38,7 +43,7 @@ export const CurrentWeekReviewItem = ({
           onChange={(val: string) => {
             writeReview(val, id);
           }}
-          placeholder={`인정받은 것이 있다면 어떤 노력을 했는지 떠올려 보세요.\n주목할만한 성취가 아니어도 괜찮아요.`}
+          placeholder={PLACE_HOLDER[category]}
         />
         <div className="flex">
           <LinkIcon size={36} />
