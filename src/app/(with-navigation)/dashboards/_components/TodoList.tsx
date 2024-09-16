@@ -12,6 +12,7 @@ import EmptyTodoImage from '@/assets/images/todo-empty.png';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import PlusIcon from '@/components/icons/PlusIcon';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
+import Alert from '@/components/modal/Alert';
 import { displayWeekAtom } from '@/stores/week/displayWeek';
 import { CurrentWeek } from '@/types/currentWeek';
 import { Todo } from '@/types/todo';
@@ -19,6 +20,8 @@ import { Todo } from '@/types/todo';
 const TodoList = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [addNewTodo, setAddNewTodo] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [selectedTodoId, setSelectedTodoId] = useState(-1);
   const { year, month, week } = useAtomValue(displayWeekAtom);
 
   useEffect(() => {
@@ -71,9 +74,12 @@ const TodoList = () => {
     }
   };
 
-  const deleteSelectedTodo = async (todoId: string) => {
+  const deleteSelectedTodo = async (todoId: number) => {
     try {
-      await deleteTodo([todoId]);
+      await deleteTodo([String(todoId)]);
+
+      setTodos((prev) => prev.filter((todo) => todo.id !== selectedTodoId));
+      setShowDeleteAlert(false);
     } catch (error) {
       console.error('fail to delete todo', error);
     }
@@ -120,9 +126,9 @@ const TodoList = () => {
               onClickCheckbox={() => onClickCheckbox(todo.id)}
               buttons={
                 <button
-                  onClick={async () => {
-                    await deleteSelectedTodo(String(todo.id));
-                    setTodos((prev) => prev.filter((items) => items !== todo));
+                  onClick={() => {
+                    setSelectedTodoId(todo.id);
+                    setShowDeleteAlert(true);
                   }}
                 >
                   <DeleteIcon size={20} />
@@ -145,6 +151,27 @@ const TodoList = () => {
           <Image src={EmptyTodoImage} width={100} height={100} alt="no memo" />
         </div>
       )}
+
+      <Alert
+        isOpen={showDeleteAlert}
+        onDismiss={() => setShowDeleteAlert(false)}
+        title="정말로 삭제하시겠어요?"
+        buttons={{
+          left: {
+            text: '취소',
+            className:
+              'button-secondary button-medium font-body-14 text-text-strong',
+          },
+          right: {
+            text: '확인',
+            className:
+              'button-primary button-medium font-body-14 text-text-invert',
+            onClick: async () => {
+              await deleteSelectedTodo(selectedTodoId);
+            },
+          },
+        }}
+      />
     </section>
   );
 };
