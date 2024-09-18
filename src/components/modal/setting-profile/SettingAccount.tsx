@@ -2,9 +2,13 @@
 
 import { useState } from 'react';
 
+import { useUser } from '@/hooks/useUser';
+
 import Alert from '../Alert';
 
 const SettingAccount = () => {
+  const { userLogout } = useUser();
+
   const [showConfirmAlert, setShowConfirmAlert] = useState(false);
 
   return (
@@ -22,7 +26,10 @@ const SettingAccount = () => {
           >
             회원탈퇴
           </button>
-          <button className="button-line button-medium text-text-strong flex-1">
+          <button
+            className="button-line button-medium text-text-strong flex-1"
+            onClick={userLogout}
+          >
             로그아웃
           </button>
         </div>

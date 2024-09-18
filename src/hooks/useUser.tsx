@@ -40,6 +40,12 @@ export const useUser = () => {
     }
   };
 
+  const userLogout = () => {
+    localStorage.removeItem('accessToken');
+    setUserToken((prev) => ({ ...prev, accessToken: '' }));
+    router.push('/auth/login');
+  };
+
   const userEmailCheck = async (email: string, retry?: boolean) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -120,6 +126,7 @@ export const useUser = () => {
 
   return {
     userLogin,
+    userLogout,
     userEmailCheck,
     userEmailVerification,
     userSignUp,
