@@ -1,8 +1,8 @@
 import { typedGet } from '..';
 
-interface UserDetail {
+export interface UserDetail {
   email: string;
-  nickname: string;
+  nickname?: string;
 }
 
 export const getUserDetail = async () => {
