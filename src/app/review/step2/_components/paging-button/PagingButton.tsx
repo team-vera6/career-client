@@ -8,12 +8,14 @@ import { deleteHighlights } from '@/apis/review/delete';
 import { addHighlights } from '@/apis/review/post';
 import { editHighlight } from '@/apis/review/put';
 import {
+  disabledClickAttemptAtom,
   pageButtonStatesAtom,
   reviewIdAtom,
   reviewStepAtom,
 } from '@/app/review/stores';
 import { useReviewsApi } from '@/hooks/useReviewsApi';
 import useToast from '@/hooks/useToast';
+import { cn } from '@/utils/tailwind';
 
 export const PagingButton = () => {
   const router = useRouter();
@@ -21,6 +23,7 @@ export const PagingButton = () => {
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
   const reviewId = useAtomValue(reviewIdAtom);
   const setReviewStep = useSetAtom(reviewStepAtom);
+  const setDisabledClickAttempt = useSetAtom(disabledClickAttemptAtom);
 
   const { addToast } = useToast();
 
@@ -28,6 +31,14 @@ export const PagingButton = () => {
     useReviewsApi();
 
   const onSubmit = async () => {
+    if (!pageButtonStates['step2']) {
+      setDisabledClickAttempt((prev) => ({
+        ...prev,
+        step2: true,
+      }));
+
+      return;
+    }
     const newPostHighlights = postHighlights.map((el) => ({
       content: el.content,
       projectId: Number(el.project?.id) ?? null,
@@ -103,9 +114,12 @@ export const PagingButton = () => {
         </button>
         <button
           type="button"
-          className="button-primary button-large"
+          className={cn(
+            'button-primary button-large',
+            !pageButtonStates['step2'] &&
+              'bg-button-disabled text-text-neutral hover:bg-button-disabled',
+          )}
           onClick={onSubmit}
-          disabled={!pageButtonStates.step2}
         >
           다음
         </button>

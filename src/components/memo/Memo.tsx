@@ -16,6 +16,7 @@ const Memo = ({
   date,
   id,
   className,
+  disabledEditor,
 }: MemoItem) => {
   const [showMemo, setShowMemo] = useState(false);
   const [textValue, setTextValue] = useState(memo ?? '');
@@ -64,6 +65,7 @@ const Memo = ({
       </div>
 
       <TextEditorModal
+        disabledEditor={disabledEditor}
         isOpen={showMemo}
         onDismiss={onClickCloseModal}
         onSaveText={async (val) => {

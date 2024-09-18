@@ -7,7 +7,6 @@ export const Step2 = () => {
     <>
       <LastWeekReview category="highLight" />
       <CurrentWeekReview category="highLight" />
-      {/* <Tip category="highLight" /> */}
 
       <PagingButton />
     </>

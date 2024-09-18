@@ -5,6 +5,8 @@ import {
   startOfMonth,
 } from 'date-fns';
 
+const KST = 9 * 60 * 60 * 1000;
+
 // 현재 기준 년, 월, 주차 정보
 const getCurrentDate = (initialDate?: Date) => {
   const date = initialDate ?? new Date();
@@ -75,6 +77,7 @@ const getStartDateInfo = (initialDate?: Date) => {
 
   // 시작일, 현재 요일 - 월요일까지의 차
   const startDate = new Date();
+  startDate.setTime(startDate.getTime() + KST);
   startDate.setDate(startDate.getDate() - daysFromMonday);
 
   const newStartDate = startDate.toISOString().split('T')[0];
@@ -96,6 +99,7 @@ const getEndDateInfo = (initialDate?: Date) => {
 
   // 종료일, 시작일 + 6일
   const endDate = new Date();
+  endDate.setTime(endDate.getTime() + KST);
   endDate.setDate(startDate.getDate() + 6);
 
   const newEndDate = endDate.toISOString().split('T')[0];

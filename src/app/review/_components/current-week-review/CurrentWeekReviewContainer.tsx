@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
 import { getProjectTitleList } from '@/apis/projects/get';
@@ -9,6 +9,7 @@ import { DropdownItem } from '@/components/dropdown/Dropdown';
 import { getCurrentWeek } from '@/utils/date';
 
 import {
+  disabledClickAttemptAtom,
   highLightListAtom,
   initialHighLightListAtom,
   initialLowLightListAtom,
@@ -38,8 +39,10 @@ export const CurrentWeekReviewContainer = ({
   const setInitialLowLightList = useSetAtom(initialLowLightListAtom);
 
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
+  const disabledClickAttempt = useAtomValue(disabledClickAttemptAtom);
 
   const [projectList, setProjectList] = useState<DropdownItem[]>([]);
+
   const writeReview = (value: string, id: string | number) => {
     if (category === 'highLight') {
       setHighLightList((prev) =>
@@ -131,13 +134,19 @@ export const CurrentWeekReviewContainer = ({
 
   useEffect(() => {
     if (category === 'highLight') {
-      if (highLightList[0]?.content?.length > 0) {
+      if (
+        highLightList.length > 0 &&
+        highLightList.every((item) => item?.content?.length > 0)
+      ) {
         setPageButtonStates((prev) => ({ ...prev, step2: true }));
       } else {
         setPageButtonStates((prev) => ({ ...prev, step2: false }));
       }
     } else {
-      if (lowLightList[0]?.content?.length > 0) {
+      if (
+        lowLightList.length > 0 &&
+        lowLightList.every((item) => item?.content?.length > 0)
+      ) {
         setPageButtonStates((prev) => ({ ...prev, step3: true }));
       } else {
         setPageButtonStates((prev) => ({ ...prev, step3: false }));
@@ -146,16 +155,26 @@ export const CurrentWeekReviewContainer = ({
   }, [category, highLightList, lowLightList, setPageButtonStates]);
 
   return (
-    <div className="w-full p-5 bg-surface-foreground rounded-xl flex flex-col gap-6 mb-3">
+    <div className="w-full p-5 bg-surface-foreground rounded-xl flex flex-col gap-6 mb-8">
       {category === 'highLight'
         ? highLightList.map((el, index) => (
             <CurrentWeekReviewItem
               key={String(el.id)}
               category={category}
-              index={index}
               items={projectList}
+              index={index}
               onSelect={selectProject}
               writeReview={writeReview}
+              isRequiredError={
+                highLightList.length === 1 &&
+                el.content.length === 0 &&
+                disabledClickAttempt.step2
+              }
+              isShowErrorText={
+                highLightList.length > 1 &&
+                el.content.length === 0 &&
+                disabledClickAttempt.step2
+              }
               {...el}
             />
           ))
@@ -163,10 +182,20 @@ export const CurrentWeekReviewContainer = ({
             <CurrentWeekReviewItem
               key={String(el.id)}
               category={category}
-              index={index}
               items={projectList}
+              index={index}
               onSelect={selectProject}
               writeReview={writeReview}
+              isRequiredError={
+                lowLightList.length === 1 &&
+                el.content.length === 0 &&
+                disabledClickAttempt.step3
+              }
+              isShowErrorText={
+                lowLightList.length > 1 &&
+                el.content.length === 0 &&
+                disabledClickAttempt.step3
+              }
               {...el}
             />
           ))}
