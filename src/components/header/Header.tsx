@@ -2,6 +2,7 @@
 
 import { useAtom } from 'jotai';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { getUserDetail } from '@/apis/user/get';
@@ -12,6 +13,8 @@ import SettingProfileModal from '../modal/setting-profile';
 import WeekInfo from './WeekInfo';
 
 const Header = () => {
+  const router = useRouter();
+
   const [openSettingModal, setOpenSettingModal] = useState(false);
   const [userInfo, setUserInfo] = useAtom(userInfoAtom);
 
@@ -37,7 +40,11 @@ const Header = () => {
 
         <button
           className="w-10 h-10 bg-surface-alternative rounded-[14px] flex items-center justify-center text-text-invert select-none"
-          onClick={() => setOpenSettingModal(true)}
+          onClick={() =>
+            userInfo.email
+              ? setOpenSettingModal(true)
+              : router.push('/auth/login')
+          }
         >
           {userInfo.nickname ? userInfo.nickname[0] : userInfo.email[0]}
         </button>
