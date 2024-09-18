@@ -7,18 +7,18 @@ import { ModalProps } from '../ModalContainer';
 import SettingAccount from './SettingAccount';
 import SettingProfile from './SettingProfile';
 
-const menus = [
-  {
-    label: '프로필',
-    component: <SettingProfile />,
-  },
-  {
-    label: '계정',
-    component: <SettingAccount />,
-  },
-];
-
 const SettingProfileModal = (props: ModalProps) => {
+  const menus = [
+    {
+      label: '프로필',
+      component: <SettingProfile />,
+    },
+    {
+      label: '계정',
+      component: <SettingAccount />,
+    },
+  ];
+
   const [currentMenu, setCurrentMenu] = useState(menus[0].label);
 
   return (
