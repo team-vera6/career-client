@@ -4,7 +4,10 @@ import '@/components/text-editor/editor.css';
 import Underline from '@tiptap/extension-underline';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { useSetAtom } from 'jotai';
 
+import { deleteMemo } from '@/apis/memo/delete';
+import { memoListAtom } from '@/app/review/stores';
 import MenuBar from '@/components/text-editor/MenuBar';
 import TextEditorBottom from '@/components/text-editor/TextEditorBottom';
 
@@ -29,15 +32,22 @@ const TextEditorModal = ({
   isBookmark,
   ...rest
 }: ModalProps & Props) => {
+  const setMemoList = useSetAtom(memoListAtom);
+
   const editor = useEditor({
     extensions: [StarterKit, Underline],
     content: value,
     editable: !disabledEditor,
   });
 
-  const onClickDelete = () => {
+  const onClickDelete = async () => {
     if (lastUpdated) {
-      console.log('delete memo api');
+      try {
+        await deleteMemo(Number(id));
+        setMemoList((prev) => prev.filter((memo) => memo.id !== id));
+      } catch (error) {
+        console.error('fail to delete memo', error);
+      }
     } else {
       onSaveText('');
       rest.onDismiss?.();
