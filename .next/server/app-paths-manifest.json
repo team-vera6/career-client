@@ -2,13 +2,13 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/landing/page": "app/landing/page.js",
-  "/auth/enter-email/page": "app/auth/enter-email/page.js",
-  "/auth/email-verification/page": "app/auth/email-verification/page.js",
-  "/review/page": "app/review/page.js",
-  "/auth/password/page": "app/auth/password/page.js",
-  "/auth/login/page": "app/auth/login/page.js",
-  "/(with-navigation)/project/page": "app/(with-navigation)/project/page.js",
-  "/(with-navigation)/history/review/page": "app/(with-navigation)/history/review/page.js",
   "/(with-navigation)/dashboards/page": "app/(with-navigation)/dashboards/page.js",
-  "/(with-navigation)/history/memo/page": "app/(with-navigation)/history/memo/page.js"
+  "/(with-navigation)/history/memo/page": "app/(with-navigation)/history/memo/page.js",
+  "/(with-navigation)/history/review/page": "app/(with-navigation)/history/review/page.js",
+  "/(with-navigation)/project/page": "app/(with-navigation)/project/page.js",
+  "/auth/enter-email/page": "app/auth/enter-email/page.js",
+  "/auth/password/page": "app/auth/password/page.js",
+  "/auth/email-verification/page": "app/auth/email-verification/page.js",
+  "/auth/login/page": "app/auth/login/page.js",
+  "/review/page": "app/review/page.js"
 }
