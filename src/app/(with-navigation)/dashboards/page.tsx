@@ -83,6 +83,7 @@ export default function DashboardPage() {
           <MemoList />
         </div>
       </div>
+
       <SignUpSuccessModal />
     </div>
   );

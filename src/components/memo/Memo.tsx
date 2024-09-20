@@ -73,6 +73,9 @@ const Memo = ({
           setTextValue(val);
         }}
         value={textValue}
+        id={id}
+        lastUpdated={date}
+        isBookmark={isBookmark}
       />
     </>
   );
