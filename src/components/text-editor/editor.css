@@ -4,6 +4,8 @@
   font-size: 0.875rem;
   font-weight: 400;
 
+  height: 15rem;
+
   &:first-child {
     margin-top: 0;
   }
@@ -117,6 +119,10 @@
     border-top: 1px solid var(--gray-2);
     margin: 2rem 0;
   }
+
+  /* p {
+    padding-bottom: 24px;
+  } */
 }
 
 .ProseMirror-focused {
