@@ -3,7 +3,7 @@ import { ClassName } from '@/types/attributes';
 export type WeekType = 'current' | 'next';
 export type ReviewType = 'highLight' | 'lowLight';
 export interface PagingButtonProps {
-  path: string;
+  direction: string;
   activePage: number;
 }
 export interface TodoListItem {
@@ -15,10 +15,10 @@ export interface TodoListItem {
 }
 
 export interface ReviewListItem {
-  id: number;
+  id: string | number;
   content: string;
-  project: {
-    id: number;
+  project?: {
+    id: string | number;
     content: string;
     progressRate: number;
   };
@@ -31,6 +31,7 @@ export interface MemoItem {
   memo?: string; // TODO: 마크다운 적용 후 수정 필요
   date: string; // FIXME: date 형식 조정 필요
   className?: ClassName;
+  disabledEditor?: boolean;
 }
 
 export interface LastWeekReviewListItem {

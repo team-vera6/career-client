@@ -1,13 +1,106 @@
 'use client';
 
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-import { pageButtonStatesAtom } from '@/app/review/stores';
-import { usePagingButton } from '@/app/review/utils';
+import { deleteHighlights } from '@/apis/review/delete';
+import { addHighlights } from '@/apis/review/post';
+import { editHighlight } from '@/apis/review/put';
+import {
+  disabledClickAttemptAtom,
+  pageButtonStatesAtom,
+  reviewIdAtom,
+  reviewStepAtom,
+} from '@/app/review/stores';
+import { useReviewsApi } from '@/hooks/useReviewsApi';
+import useToast from '@/hooks/useToast';
+import { cn } from '@/utils/tailwind';
 
 export const PagingButton = () => {
-  const { onClickPagingButton } = usePagingButton();
+  const router = useRouter();
+
   const pageButtonStates = useAtomValue(pageButtonStatesAtom);
+  const reviewId = useAtomValue(reviewIdAtom);
+  const setReviewStep = useSetAtom(reviewStepAtom);
+  const setDisabledClickAttempt = useSetAtom(disabledClickAttemptAtom);
+
+  const { addToast } = useToast();
+
+  const { postHighlights, putHighlights, deleteHightlightIds } =
+    useReviewsApi();
+
+  const onSubmit = async () => {
+    if (!pageButtonStates['step2']) {
+      setDisabledClickAttempt((prev) => ({
+        ...prev,
+        step2: true,
+      }));
+
+      return;
+    }
+    const newPostHighlights = postHighlights.map((el) => ({
+      content: el.content,
+      projectId: Number(el.project?.id) ?? null,
+    }));
+
+    const newPutHighlights = putHighlights.map((el) => ({
+      id: el.id,
+      content: el.content,
+      projectId: Number(el.project?.id) ?? null,
+    }));
+
+    try {
+      await Promise.all([
+        // newPostHighlights가 있을 때만 addHighlights 호출
+        ...(newPostHighlights.length > 0
+          ? [
+              addHighlights({
+                reviewId,
+                highlights: newPostHighlights,
+              }),
+            ]
+          : []),
+
+        // newPutHighlights를 Promise.all로
+        ...(newPutHighlights.length > 0
+          ? [
+              Promise.all(
+                newPutHighlights.map((el) =>
+                  editHighlight(el.id, {
+                    content: el.content,
+                    projectId: el.projectId,
+                  }),
+                ),
+              ),
+            ]
+          : []),
+
+        // deleteHightlightIds를 Promise.all로
+        ...(deleteHightlightIds.length > 0
+          ? [Promise.all(deleteHightlightIds.map((el) => deleteHighlights(el)))]
+          : []),
+      ]);
+
+      addToast({
+        message: '임시저장 되었습니다.',
+        iconType: 'success',
+      });
+
+      setReviewStep(3);
+    } catch (error) {
+      addToast({
+        iconType: 'error',
+        message: '다시 시도해 주세요.',
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (!reviewId || !pageButtonStates.step1) {
+      router.push('/review');
+    }
+  }, [reviewId, pageButtonStates, router]);
 
   return (
     <div className="flex justify-end">
@@ -15,16 +108,18 @@ export const PagingButton = () => {
         <button
           type="button"
           className="button-secondary button-large"
-          onClick={() => onClickPagingButton({ path: 'step1', activePage: 1 })}
+          onClick={() => setReviewStep(1)}
         >
           이전
         </button>
         <button
           type="button"
-          className="button-primary button-large"
-          onClick={() => onClickPagingButton({ path: 'step3', activePage: 3 })}
-          // disabled={!pageButtonStates.step1 && !pageButtonStates.step2} FIXME: 데모데이 끝나고 주석 풀기
-          disabled={!pageButtonStates.step2}
+          className={cn(
+            'button-primary button-large',
+            !pageButtonStates['step2'] &&
+              'bg-button-disabled text-text-neutral hover:bg-button-disabled',
+          )}
+          onClick={onSubmit}
         >
           다음
         </button>

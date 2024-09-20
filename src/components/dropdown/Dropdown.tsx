@@ -8,16 +8,17 @@ import { cn } from '@/utils/tailwind';
 import ChevronDown20Icon from '../icons/ChevronDown20Icon';
 
 export interface DropdownItem extends CSSProperties {
+  id: string | number;
   name: string;
   value: string | number;
 }
 
 export interface DropdownProps {
-  id: string;
+  id: string | number;
   initialItem?: string | number;
   items: Array<DropdownItem>;
   className?: ClassName;
-  onSelect?: (item: DropdownItem) => void;
+  onSelect?: (item: DropdownItem, id: string | number) => void;
 }
 
 const Dropdown = ({
@@ -33,23 +34,22 @@ const Dropdown = ({
   const [selectedValue, setSelectedValue] = useState(initialItem);
   const [selectedName, setSelectedName] = useState('');
 
-  const onClickItem = (item: DropdownItem) => {
+  const onClickItem = (item: DropdownItem, id: string | number) => {
     setSelectedValue(item.value);
     setShowOptions(false);
 
-    onSelect && onSelect(item);
+    onSelect && onSelect(item, id);
   };
 
   useEffect(() => {
     const defaultItem = items.filter((el) => el.value === selectedValue)[0];
-    setSelectedName(defaultItem?.name ?? '');
-  }, [items, selectedValue]);
+    setSelectedName(defaultItem?.name ?? initialItem);
+  }, [initialItem, items, selectedValue]);
 
   return (
     <div className={cn('relative w-full h-[2.75rem]', className)} {...rest}>
       <button
         type="button"
-        id={id}
         className="appearance-none w-full h-full p-3 font-body-14 cursor-pointer
         border border-line-normal rounded-lg
         flex items-center justify-between
@@ -74,7 +74,8 @@ const Dropdown = ({
               className="h-[2.75rem] py-3 px-5 hover:bg-surface-background"
               key={item.value}
               value={item.value}
-              onClick={() => onClickItem(item)}
+              onClick={() => onClickItem(item, id)}
+              id={String(item.id)}
             >
               {item.name}
             </li>

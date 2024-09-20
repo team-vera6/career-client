@@ -70,3 +70,12 @@ export const typedDelete = async <T>(
   const response = await apiInstance.delete<T>(url, config);
   return response.data;
 };
+
+export const typedPatch = async <T>(
+  url: string,
+  data: unknown,
+  config?: AxiosRequestConfig,
+) => {
+  const response = await apiInstance.patch<T>(url, data, config);
+  return response.data;
+};

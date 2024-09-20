@@ -1,5 +1,6 @@
 'use client';
 
+import { useAtomValue } from 'jotai';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -11,20 +12,23 @@ import EmptyTodoImage from '@/assets/images/todo-empty.png';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import PlusIcon from '@/components/icons/PlusIcon';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
+import Alert from '@/components/modal/Alert';
+import { displayWeekAtom } from '@/stores/week/displayWeek';
+import { CurrentWeek } from '@/types/currentWeek';
 import { Todo } from '@/types/todo';
-import { getCurrentWeek } from '@/utils/date';
-
-const { year, month, week } = getCurrentWeek();
 
 const TodoList = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [addNewTodo, setAddNewTodo] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [selectedTodoId, setSelectedTodoId] = useState(-1);
+  const { year, month, week } = useAtomValue(displayWeekAtom);
 
   useEffect(() => {
-    getCurrentWeekTodos();
-  }, []);
+    getCurrentWeekTodos({ year, month, week });
+  }, [year, month, week]);
 
-  const getCurrentWeekTodos = async () => {
+  const getCurrentWeekTodos = async ({ year, month, week }: CurrentWeek) => {
     const response = await getTodos({ year, month, week });
     setTodos(response.todos);
   };
@@ -42,7 +46,7 @@ const TodoList = () => {
 
     try {
       await changeTodos(updatedTodos);
-      await getCurrentWeekTodos();
+      await getCurrentWeekTodos({ year, month, week });
     } catch (error) {
       console.error('fail to change checkbox', error);
     }
@@ -56,7 +60,7 @@ const TodoList = () => {
           .filter((todo) => todo.id < 1)
           .map((todo) => ({ content: todo.content })),
       });
-      await getCurrentWeekTodos();
+      await getCurrentWeekTodos({ year, month, week });
     } catch (error) {
       console.error('fail to add todos', error);
     }
@@ -70,9 +74,12 @@ const TodoList = () => {
     }
   };
 
-  const deleteSelectedTodo = async (todoId: string) => {
+  const deleteSelectedTodo = async (todoId: number) => {
     try {
-      await deleteTodo([todoId]);
+      await deleteTodo([String(todoId)]);
+
+      setTodos((prev) => prev.filter((todo) => todo.id !== selectedTodoId));
+      setShowDeleteAlert(false);
     } catch (error) {
       console.error('fail to delete todo', error);
     }
@@ -107,6 +114,7 @@ const TodoList = () => {
             <CheckboxInput
               key={index}
               value={todo.content}
+              placeholder="할 일을 입력해 주세요"
               checked={todo.status === 'DONE'}
               onChange={(value) =>
                 setTodos((prev) =>
@@ -118,9 +126,9 @@ const TodoList = () => {
               onClickCheckbox={() => onClickCheckbox(todo.id)}
               buttons={
                 <button
-                  onClick={async () => {
-                    await deleteSelectedTodo(String(todo.id));
-                    setTodos((prev) => prev.filter((items) => items !== todo));
+                  onClick={() => {
+                    setSelectedTodoId(todo.id);
+                    setShowDeleteAlert(true);
                   }}
                 >
                   <DeleteIcon size={20} />
@@ -139,10 +147,33 @@ const TodoList = () => {
         </div>
       ) : (
         <div className="w-full flex items-center flex-col gap-5 mt-[3.75rem]">
-          <p className="font-body-16 text-text-normal">작성한 할 일이 없어요</p>
+          <p className="font-body-16 text-text-normal">
+            할 일을 한곳에 기록해두고 필요할 때 찾아봐요!
+          </p>
           <Image src={EmptyTodoImage} width={100} height={100} alt="no memo" />
         </div>
       )}
+
+      <Alert
+        isOpen={showDeleteAlert}
+        onDismiss={() => setShowDeleteAlert(false)}
+        title="정말로 삭제하시겠어요?"
+        buttons={{
+          left: {
+            text: '취소',
+            className:
+              'button-secondary button-medium font-body-14 text-text-strong',
+          },
+          right: {
+            text: '확인',
+            className:
+              'button-primary button-medium font-body-14 text-text-invert',
+            onClick: async () => {
+              await deleteSelectedTodo(selectedTodoId);
+            },
+          },
+        }}
+      />
     </section>
   );
 };

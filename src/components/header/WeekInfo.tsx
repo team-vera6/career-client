@@ -1,15 +1,31 @@
+import { useAtomValue } from 'jotai';
+import { useEffect, useState } from 'react';
+
+import { displayWeekAtom } from '@/stores/week/displayWeek';
+import { getCurrentWeek } from '@/utils/date';
 import { cn } from '@/utils/tailwind';
 
-interface Props {
-  totalWeek: number;
-  currentWeek: number;
-}
+const WeekInfo = () => {
+  const [totalWeek, setTotalWeek] = useState(5);
 
-const WeekInfo = ({ totalWeek, currentWeek }: Props) => {
+  const currentWeek = useAtomValue(displayWeekAtom);
+
+  useEffect(() => {
+    const weekInfo = getCurrentWeek(
+      new Date(currentWeek.year, currentWeek.month - 1, currentWeek.date),
+    );
+
+    setTotalWeek(weekInfo.totalWeek);
+  }, [currentWeek]);
+
   return (
     <div className="flex items-center gap-1">
       {Array.from({ length: totalWeek }, (_, i) => (
-        <WeekItem key={i} currentWeek={i + 1} active={currentWeek === i + 1} />
+        <WeekItem
+          key={i}
+          currentWeek={i + 1}
+          active={currentWeek.week === i + 1}
+        />
       ))}
     </div>
   );
@@ -17,7 +33,8 @@ const WeekInfo = ({ totalWeek, currentWeek }: Props) => {
 
 export default WeekInfo;
 
-interface WeekItemProps extends Pick<Props, 'currentWeek'> {
+interface WeekItemProps {
+  currentWeek: number;
   active?: boolean;
 }
 

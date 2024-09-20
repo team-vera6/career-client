@@ -1,10 +1,12 @@
 'use client';
 
-import { useAtomValue, useSetAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useAtom, useSetAtom } from 'jotai';
+import { useMemo, useState } from 'react';
 
 import PlusIcon from '@/components/icons/PlusIcon';
+import useToast from '@/hooks/useToast';
 import colors from '@/styles/colors';
+import { getRandomNumber } from '@/utils/number';
 import { cn } from '@/utils/tailwind';
 
 import {
@@ -13,21 +15,22 @@ import {
   lowLightListAtom,
   nextTodoListAtom,
 } from '../../stores';
-import { WeekType } from '../../types';
+import { ReviewListItem, WeekType } from '../../types';
 
 interface Props {
   category: 'currentTodo' | 'nextTodo' | 'highLight' | 'lowLight';
 }
 
 export const AddButton = ({ category }: Props) => {
+  const { addToast } = useToast();
+
   const setCurrentTodoList = useSetAtom(currentTodoListAtom);
   const setNextTodoList = useSetAtom(nextTodoListAtom);
 
-  const highLightList = useAtomValue(highLightListAtom);
-  const lowLightList = useAtomValue(lowLightListAtom);
+  const [highLightList, setHighLightList] = useAtom(highLightListAtom);
+  const [lowLightList, setLowLightList] = useAtom(lowLightListAtom);
 
   const [isHovered, setIsHovered] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
 
   const isTodo = category === 'currentTodo' || category === 'nextTodo';
 
@@ -39,7 +42,7 @@ export const AddButton = ({ category }: Props) => {
         setCurrentTodoList((prev) => [
           ...prev,
           {
-            id: `current-${prev.length + 1}`,
+            id: `current-${getRandomNumber()}`,
             week: weekInfo as WeekType,
             isChecked: false,
             todo: '',
@@ -50,28 +53,68 @@ export const AddButton = ({ category }: Props) => {
         setNextTodoList((prev) => [
           ...prev,
           {
-            id: `next-${prev.length + 1}`,
+            id: `next-${getRandomNumber()}`,
             week: weekInfo as WeekType,
             isChecked: false,
             todo: '',
           },
         ]);
         break;
-      case 'highLight':
+      case 'highLight': {
+        if (highLightList.length >= 3) {
+          addToast({
+            iconType: 'error',
+            message: 'Beta 버전에서는 최대 3개까지 작성할 수 있어요.',
+          });
+        } else {
+          const newList: ReviewListItem = {
+            id: `highlight-${getRandomNumber()}`,
+            content: '',
+            project: {
+              id: '',
+              content: '',
+              progressRate: 0,
+            },
+          };
+
+          setHighLightList((prev) => [...prev, newList]);
+        }
         break;
-      case 'lowLight':
+      }
+      case 'lowLight': {
+        if (lowLightList.length >= 3) {
+          addToast({
+            iconType: 'error',
+            message: 'Beta 버전에서는 최대 3개까지 작성할 수 있어요.',
+          });
+        } else {
+          const newList: ReviewListItem = {
+            id: `lowlight-${getRandomNumber()}`,
+            content: '',
+            project: {
+              id: '',
+              content: '',
+              progressRate: 0,
+            },
+          };
+
+          setLowLightList((prev) => [...prev, newList]);
+        }
         break;
+      }
       default:
         break;
     }
   };
 
-  useEffect(() => {
-    category === 'highLight' &&
-      highLightList.length >= 3 &&
-      setIsDisabled(true);
-    category === 'lowLight' && lowLightList.length >= 3 && setIsDisabled(true);
-  }, [category, highLightList, lowLightList]);
+  const isDisabled = useMemo(() => {
+    if (category === 'highLight') {
+      return highLightList.length >= 3;
+    } else if (category === 'lowLight') {
+      return lowLightList.length >= 3;
+    }
+    return false;
+  }, [category, highLightList.length, lowLightList.length]);
 
   return (
     <button
@@ -81,11 +124,11 @@ export const AddButton = ({ category }: Props) => {
           ? 'button-text text-center'
           : 'button-line hover:bg-surface-blank hover:opacity-100',
         isHovered ? 'text-text-neutral' : 'text-text-strong',
+        isDisabled && 'bg-surface-blank text-text-neutral',
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onClickAddButton(category)}
-      disabled={isDisabled}
     >
       {isTodo ? (
         <PlusIcon size={20} stroke={colors.text.normal} />

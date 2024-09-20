@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, ReactNode, useState } from 'react';
+import { KeyboardEvent, memo, ReactNode, useRef, useState } from 'react';
 
 import RectangleCheckIcon from '@/components/icons/RectangleCheckIcon';
 import colors from '@/styles/colors';
@@ -8,6 +8,7 @@ import { cn } from '@/utils/tailwind';
 
 interface Props {
   value: string;
+  placeholder?: string;
   onChange?: (value: string) => void;
   checked: boolean;
   onClickCheckbox?: () => void;
@@ -19,6 +20,7 @@ interface Props {
 
 const CheckboxInput = ({
   value,
+  placeholder,
   onChange,
   checked,
   onClickCheckbox,
@@ -27,8 +29,27 @@ const CheckboxInput = ({
   buttons,
   category = 'dashboard',
 }: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [isHovered, setIsHovered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
+  const handleBlur = () => {
+    setIsEditing(false);
+    onBlur?.();
+  };
+
+  const handleKeydown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) return;
+
+    if (e.key === 'Enter') {
+      inputRef.current?.blur();
+    }
+
+    if (e.key === 'Escape') {
+      inputRef.current?.blur();
+    }
+  };
 
   const showRightButtons =
     (category === 'dashboard' && isHovered && !isEditing) ||
@@ -60,16 +81,18 @@ const CheckboxInput = ({
           {checked ? <RectangleCheckIcon size={20} /> : <UnCheckedIcon />}
         </button>
         <input
+          ref={inputRef}
           type="text"
           className="w-full font-body-16 outline-none bg-transparent"
           value={value}
+          placeholder={placeholder}
           onChange={(e) => onChange?.(e.currentTarget.value)}
-          onBlurCapture={onBlur}
           style={{
             color: checked ? colors.text.normal : colors.text.strong,
           }}
           onFocus={() => setIsEditing(true)}
-          onBlur={() => setIsEditing(false)}
+          onBlur={handleBlur}
+          onKeyDown={handleKeydown}
         />
       </div>
 

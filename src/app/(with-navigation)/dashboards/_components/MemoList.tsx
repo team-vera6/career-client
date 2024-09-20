@@ -1,6 +1,7 @@
 'use client';
 
-import { useAtom } from 'jotai';
+import { format } from 'date-fns';
+import { useAtom, useAtomValue } from 'jotai';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -11,31 +12,35 @@ import EmptyMemoImage from '@/assets/images/memo-empty.png';
 import PlusIcon from '@/components/icons/PlusIcon';
 import Memo from '@/components/memo/Memo';
 import TextEditorModal from '@/components/modal/text-editor';
-import { getCurrentWeek, getMemoCreateDate } from '@/utils/date';
-
-const { year, month, week } = getCurrentWeek();
+import { displayWeekAtom } from '@/stores/week/displayWeek';
+import { CurrentWeek } from '@/types/currentWeek';
 
 const MemoList = () => {
   const [openTextEditor, setOpenTextEditor] = useState(false);
   const [memos, setMemos] = useAtom(memoListAtom);
+  const currentWeek = useAtomValue(displayWeekAtom);
 
-  const getMemoList = async () => {
-    const data = await getMemos({ year, month, week: week - 1 });
+  const getMemoList = async ({ year, month, week }: CurrentWeek) => {
+    const data = await getMemos({
+      year,
+      month,
+      week,
+    });
     setMemos(
       data.memos.map((memo) => {
         return {
           id: String(memo.id),
           isBookmark: memo.isMarked,
           memo: memo.content,
-          date: getMemoCreateDate(memo.updatedAt),
+          date: memo.updatedAt,
         };
       }),
     );
   };
 
   useEffect(() => {
-    getMemoList();
-  }, []);
+    getMemoList(currentWeek);
+  }, [currentWeek]);
 
   const addMemo = async (content: string) => {
     try {
@@ -72,7 +77,9 @@ const MemoList = () => {
         </div>
       ) : (
         <div className="w-[15.75rem] flex items-center flex-col gap-5 mt-[3.75rem]">
-          <p className="font-body-16 text-text-normal">남긴 메모가 없어요</p>
+          <p className="font-body-16 text-text-normal">
+            번뜩이는 아이디어는 메모에 남겨봐요.
+          </p>
           <Image src={EmptyMemoImage} width={100} height={100} alt="no memo" />
         </div>
       )}
@@ -90,7 +97,7 @@ const MemoList = () => {
               id: new Date().toString(),
               title: '',
               memo: text,
-              date: '7.22',
+              date: format(new Date(), 'yyyy-MM-dd HH:mm'),
             },
           ]);
         }}

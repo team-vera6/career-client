@@ -1,34 +1,39 @@
 'use client';
 
 import { AxiosError } from 'axios';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { DashboardDataResponse, getDashboardData } from '@/apis/dashboard/get';
 import { currentTodoListAtom } from '@/app/review/stores';
 import { useUser } from '@/hooks/useUser';
-import { getCurrentWeek } from '@/utils/date';
+import { displayWeekAtom } from '@/stores/week/displayWeek';
+import { CurrentWeek } from '@/types/currentWeek';
 
 import MemoList from './_components/MemoList';
 import Metrics from './_components/Metrics';
+import { SignUpSuccessModal } from './_components/SignUpSuccessModal';
 import TodoList from './_components/TodoList';
 import WeekNavigator from './_components/WeekNavigator';
 
-const { year, month, week } = getCurrentWeek();
-
 export default function DashboardPage() {
   const setTodos = useSetAtom(currentTodoListAtom);
+  const currentWeek = useAtomValue(displayWeekAtom);
 
   const { userExpired } = useUser();
 
   const [data, setData] = useState<DashboardDataResponse>();
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData({
+      year: currentWeek.year,
+      month: currentWeek.month,
+      week: currentWeek.week,
+    });
+  }, [currentWeek]);
 
-  const getData = async () => {
+  const getData = async ({ year, month, week }: CurrentWeek) => {
     try {
       const data = await getDashboardData({ year, month, week });
       setData(data);
@@ -68,7 +73,7 @@ export default function DashboardPage() {
         <section className="flex items-center justify-between mb-6">
           <WeekNavigator />
 
-          <Link href="/review/step1">
+          <Link href="/review">
             <button className="button-primary button-large">회고하기</button>
           </Link>
         </section>
@@ -78,6 +83,7 @@ export default function DashboardPage() {
           <MemoList />
         </div>
       </div>
+      <SignUpSuccessModal />
     </div>
   );
 }

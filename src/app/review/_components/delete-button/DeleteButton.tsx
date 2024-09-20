@@ -1,20 +1,30 @@
+'use client';
+
+import { useSetAtom } from 'jotai';
 import { useState } from 'react';
 
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import Alert from '@/components/modal/Alert';
 
+import { highLightListAtom, lowLightListAtom } from '../../stores';
 import { ReviewType } from '../../types';
 
 interface Props {
   category: ReviewType;
-  id: string;
+  id: string | number;
 }
 
 export const DeleteButton = ({ category, id }: Props) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
+  const setHighlightList = useSetAtom(highLightListAtom);
+  const setLowlightList = useSetAtom(lowLightListAtom);
+
   const onClickDelete = () => {
-    console.log(category, id);
+    const setter =
+      category === 'highLight' ? setHighlightList : setLowlightList;
+
+    setter((prev) => prev.filter((review) => String(review.id) !== String(id)));
   };
 
   return (

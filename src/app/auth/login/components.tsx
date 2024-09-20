@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 
 import Input from '@/components/inputs/input/Input';
 import PasswordInput from '@/components/inputs/password/PasswordInput';
@@ -38,6 +38,10 @@ const LoginComponents = () => {
     }
   };
 
+  const isLoginDisabled = useMemo(() => {
+    return !formData.email || formData.password.length < 8;
+  }, [formData.email, formData.password]);
+
   return (
     <div>
       <form
@@ -59,7 +63,11 @@ const LoginComponents = () => {
           />
         </div>
         <div className="flex flex-col gap-3">
-          <button type="submit" className="button-primary h-12 rounded-xl">
+          <button
+            type="submit"
+            className="button-primary h-12 rounded-xl"
+            disabled={isLoginDisabled}
+          >
             로그인
           </button>
           <button

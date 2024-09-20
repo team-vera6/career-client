@@ -2,17 +2,13 @@ import { CurrentWeek } from '@/types/currentWeek';
 
 import { typedPost } from '..';
 
-export interface Score {
+export interface ScoreRequest {
   weekNumber: CurrentWeek;
   like: number;
 }
 
-export interface ScoreResponse {
-  id: number;
-}
-
-export const addScore = async (body: Score) => {
-  const response = await typedPost<ScoreResponse>('/reviews', body);
+export const addScore = async (body: ScoreRequest) => {
+  const response = await typedPost<{ id: number }>('/reviews', body);
   return response;
 };
 
