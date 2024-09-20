@@ -29,7 +29,7 @@ const TextEditorModal = ({
 
   return (
     <Modal closeIcon {...rest}>
-      <div className="h-[25rem] py-3.5 w-[28.5rem] ">
+      <div className="h-[25rem] py-3.5 w-[28.5rem]">
         <div className="px-6 mb-2">
           <MenuBar editor={editor} />
         </div>
