@@ -5,6 +5,7 @@ import Underline from '@tiptap/extension-underline';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useSetAtom } from 'jotai';
+import { useEffect } from 'react';
 
 import { deleteMemo } from '@/apis/memo/delete';
 import { memoListAtom } from '@/app/review/stores';
@@ -38,7 +39,16 @@ const TextEditorModal = ({
     extensions: [StarterKit, Underline],
     content: value,
     editable: !disabledEditor,
+    autofocus: 'end',
   });
+
+  useEffect(() => {
+    if (!editor) return;
+
+    if (rest.isOpen) {
+      editor.chain().focus('end', { scrollIntoView: true });
+    }
+  }, [editor, rest.isOpen]);
 
   const onClickDelete = async () => {
     if (lastUpdated) {
