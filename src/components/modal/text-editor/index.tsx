@@ -59,7 +59,6 @@ const TextEditorModal = ({
         console.error('fail to delete memo', error);
       }
     } else {
-      onSaveText('');
       rest.onDismiss?.();
     }
   };
