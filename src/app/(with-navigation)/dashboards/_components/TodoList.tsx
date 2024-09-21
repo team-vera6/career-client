@@ -13,6 +13,7 @@ import DeleteIcon from '@/components/icons/DeleteIcon';
 import PlusIcon from '@/components/icons/PlusIcon';
 import CheckboxInput from '@/components/inputs/checkbox/CheckboxInput';
 import Alert from '@/components/modal/Alert';
+import useToast from '@/hooks/useToast';
 import { displayWeekAtom } from '@/stores/week/displayWeek';
 import { CurrentWeek } from '@/types/currentWeek';
 import { Todo } from '@/types/todo';
@@ -23,6 +24,8 @@ const TodoList = () => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [selectedTodoId, setSelectedTodoId] = useState(-1);
   const { year, month, week } = useAtomValue(displayWeekAtom);
+
+  const { addToast } = useToast();
 
   useEffect(() => {
     getCurrentWeekTodos({ year, month, week });
@@ -85,6 +88,23 @@ const TodoList = () => {
     }
   };
 
+  const onChangeTodoInput = (value: string, todo: Todo) => {
+    if (value.length > 54) {
+      addToast({
+        iconType: 'error',
+        message: '최대 글자수를 초과했습니다.',
+      });
+
+      return;
+    }
+
+    setTodos((prev) =>
+      prev.map((item) =>
+        item.id === todo.id ? { ...item, content: value } : item,
+      ),
+    );
+  };
+
   return (
     <section className="w-full">
       <div className="flex items-center justify-between w-full">
@@ -113,16 +133,12 @@ const TodoList = () => {
           {todos.map((todo, index) => (
             <CheckboxInput
               key={index}
+              id={todo.id}
               value={todo.content}
               placeholder="할 일을 입력해 주세요"
               checked={todo.status === 'DONE'}
-              onChange={(value) =>
-                setTodos((prev) =>
-                  prev.map((item) =>
-                    item.id === todo.id ? { ...item, content: value } : item,
-                  ),
-                )
-              }
+              maxLength={55}
+              onChange={(value) => onChangeTodoInput(value, todo)}
               onClickCheckbox={() => onClickCheckbox(todo.id)}
               buttons={
                 <button

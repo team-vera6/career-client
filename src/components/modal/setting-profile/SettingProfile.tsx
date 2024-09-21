@@ -32,7 +32,7 @@ const SettingProfile = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 w-full">
+    <div className="flex flex-col gap-5 w-full mt-1">
       <div>
         <p className="font-body-14 text-text-strong mb-2">가입한 이메일</p>
         <Input value={userInfo.email} readOnly />

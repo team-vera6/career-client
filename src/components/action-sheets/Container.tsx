@@ -13,6 +13,7 @@ interface Props {
   isOpen: boolean;
   closeActionSheet: () => void;
   buttons: ActionSheetButton[];
+  disableAnimation?: boolean;
 }
 
 const RightActionSheetContainer = ({
@@ -20,6 +21,7 @@ const RightActionSheetContainer = ({
   isOpen,
   closeActionSheet,
   buttons,
+  disableAnimation,
 }: PropsWithChildren<Props>) => {
   if (!isOpen) return null;
 
@@ -33,7 +35,12 @@ const RightActionSheetContainer = ({
         />
 
         {/* action sheet */}
-        <div className="fixed h-full w-[37.5rem] bg-surface-foreground animate-slide-in-right top-0 bottom-0 right-0 z-20">
+        <div
+          className={cn(
+            'fixed h-full w-[37.5rem] bg-surface-foreground top-0 bottom-0 right-0 z-20',
+            !disableAnimation && 'animate-slide-in-right',
+          )}
+        >
           <div className="w-full h-full px-9 pt-8">
             {/* sheet header */}
             <div className="w-full flex items-center justify-between">

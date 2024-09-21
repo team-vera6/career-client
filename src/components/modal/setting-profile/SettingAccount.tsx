@@ -13,7 +13,7 @@ const SettingAccount = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-16 w-full">
+      <div className="flex flex-col gap-16 w-full mt-1">
         <div>
           <p className="font-body-14 text-text-strong mb-4">이용약관</p>
           <p className="font-body-14 text-text-strong">개인정보 처리방침</p>

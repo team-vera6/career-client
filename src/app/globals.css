@@ -19,6 +19,18 @@
     'Segoe UI Emoji',
     'Segoe UI Symbol',
     sans-serif;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #999ca1;
+    border-width: 1px;
+    border-color: #cecece;
+    border-radius: 4px;
+  }
 }
 
 @layer utilities {

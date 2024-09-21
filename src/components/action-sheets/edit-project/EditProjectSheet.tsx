@@ -1,6 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { editProject } from '@/apis/projects/put';
 import DateRangeInput from '@/components/inputs/date/DateRangeInput';
@@ -56,6 +63,25 @@ const EditProjectSheet = ({
     setGoal(initialGoal ?? '');
   }, [isOpen, initialTitle, initialDate, initialGoal, initialDescription]);
 
+  const hasChanges = useMemo(() => {
+    return (
+      title !== initialTitle ||
+      dateRange.start !== initialDate?.start ||
+      dateRange.end !== initialDate?.end ||
+      goal !== initialGoal ||
+      description !== initialDescription
+    );
+  }, [
+    title,
+    dateRange,
+    description,
+    goal,
+    initialTitle,
+    initialDate,
+    initialDescription,
+    initialGoal,
+  ]);
+
   const onClickSave = async () => {
     const body = {
       title,
@@ -80,10 +106,30 @@ const EditProjectSheet = ({
     }
   };
 
+  const handleMaxLength = (
+    e: ChangeEvent<HTMLInputElement>,
+    maxLength: number,
+    setter: Dispatch<SetStateAction<string>>,
+  ) => {
+    if (e.currentTarget.value.length > maxLength) {
+      addToast({
+        iconType: 'error',
+        message: '최대 글자수를 초과했습니다',
+      });
+
+      return;
+    }
+
+    setter(e.currentTarget.value);
+  };
+
   return (
     <RightActionSheetContainer
+      disableAnimation
       isOpen={isOpen}
-      closeActionSheet={() => setShowDismissAlert(true)}
+      closeActionSheet={() =>
+        hasChanges ? setShowDismissAlert(true) : closeSheet()
+      }
       buttons={[
         {
           text: '저장',
@@ -95,8 +141,9 @@ const EditProjectSheet = ({
         placeholder="프로젝트 이름"
         className="!font-bold"
         value={title}
-        onChange={(e) => setTitle(e.currentTarget.value)}
+        onChange={(e) => handleMaxLength(e, 73, setTitle)}
         id={String(projectId)}
+        autoFocus
       />
 
       <div className="flex flex-col gap-4 mb-6 mt-3">
@@ -110,7 +157,7 @@ const EditProjectSheet = ({
             placeholder="목표를 입력해주세요"
             maxLength={50}
             value={goal}
-            onChange={(e) => setGoal(e.currentTarget.value)}
+            onChange={(e) => handleMaxLength(e, 50, setGoal)}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -120,7 +167,18 @@ const EditProjectSheet = ({
             maxLength={160}
             className="h-[9.6875rem]"
             value={description}
-            onChange={(val) => setDescription(val)}
+            onChange={(val) => {
+              if (val.length > 500) {
+                addToast({
+                  iconType: 'error',
+                  message: '최대 글자수를 초과했습니다',
+                });
+
+                return;
+              }
+
+              setDescription(val);
+            }}
           />
         </div>
       </div>

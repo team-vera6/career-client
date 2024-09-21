@@ -171,3 +171,11 @@ export const getMemoCreateDate = (createdAt: string) => {
 
   return `${month}.${day}`;
 };
+
+export const getUpdatedDate = (updatedAt: string) => {
+  const [date] = updatedAt.split(' ');
+
+  const [year, month, day] = date.split('-');
+
+  return `${year}.${month}.${day}`;
+};

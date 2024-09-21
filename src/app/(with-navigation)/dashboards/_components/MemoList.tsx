@@ -72,6 +72,7 @@ const MemoList = () => {
               title={memo.title}
               memo={memo.memo}
               date={memo.date}
+              isBookmark={memo.isBookmark}
             />
           ))}
         </div>
