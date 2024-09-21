@@ -5,6 +5,7 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
@@ -62,6 +63,25 @@ const EditProjectSheet = ({
     setGoal(initialGoal ?? '');
   }, [isOpen, initialTitle, initialDate, initialGoal, initialDescription]);
 
+  const hasChanges = useMemo(() => {
+    return (
+      title !== initialTitle ||
+      dateRange.start !== initialDate?.start ||
+      dateRange.end !== initialDate?.end ||
+      goal !== initialGoal ||
+      description !== initialDescription
+    );
+  }, [
+    title,
+    dateRange,
+    description,
+    goal,
+    initialTitle,
+    initialDate,
+    initialDescription,
+    initialGoal,
+  ]);
+
   const onClickSave = async () => {
     const body = {
       title,
@@ -106,7 +126,9 @@ const EditProjectSheet = ({
   return (
     <RightActionSheetContainer
       isOpen={isOpen}
-      closeActionSheet={() => setShowDismissAlert(true)}
+      closeActionSheet={() =>
+        hasChanges ? setShowDismissAlert(true) : closeSheet()
+      }
       buttons={[
         {
           text: '저장',
