@@ -76,7 +76,7 @@ const Category = () => {
 
   return (
     <div className="flex items-center justify-between mb-5">
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-5 h-11">
         {menus.map((el) => (
           <Link key={el.path} href={el.path}>
             <p
