@@ -95,7 +95,7 @@ const TodoList = () => {
         message: '최대 글자수를 초과했습니다.',
       });
 
-      value = value.slice(0, 54);
+      return;
     }
 
     setTodos((prev) =>

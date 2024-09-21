@@ -1,6 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 
 import { editProject } from '@/apis/projects/put';
 import DateRangeInput from '@/components/inputs/date/DateRangeInput';
@@ -80,6 +86,23 @@ const EditProjectSheet = ({
     }
   };
 
+  const handleMaxLength = (
+    e: ChangeEvent<HTMLInputElement>,
+    maxLength: number,
+    setter: Dispatch<SetStateAction<string>>,
+  ) => {
+    if (e.currentTarget.value.length > maxLength) {
+      addToast({
+        iconType: 'error',
+        message: '최대 글자수를 초과했습니다',
+      });
+
+      return;
+    }
+
+    setter(e.currentTarget.value);
+  };
+
   return (
     <RightActionSheetContainer
       isOpen={isOpen}
@@ -95,7 +118,7 @@ const EditProjectSheet = ({
         placeholder="프로젝트 이름"
         className="!font-bold"
         value={title}
-        onChange={(e) => setTitle(e.currentTarget.value)}
+        onChange={(e) => handleMaxLength(e, 73, setTitle)}
         id={String(projectId)}
         autoFocus
       />
@@ -111,7 +134,7 @@ const EditProjectSheet = ({
             placeholder="목표를 입력해주세요"
             maxLength={50}
             value={goal}
-            onChange={(e) => setGoal(e.currentTarget.value)}
+            onChange={(e) => handleMaxLength(e, 50, setGoal)}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -121,7 +144,18 @@ const EditProjectSheet = ({
             maxLength={160}
             className="h-[9.6875rem]"
             value={description}
-            onChange={(val) => setDescription(val)}
+            onChange={(val) => {
+              if (val.length > 500) {
+                addToast({
+                  iconType: 'error',
+                  message: '최대 글자수를 초과했습니다',
+                });
+
+                return;
+              }
+
+              setDescription(val);
+            }}
           />
         </div>
       </div>

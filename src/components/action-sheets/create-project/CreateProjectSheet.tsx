@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 
 import { addProject } from '@/apis/projects/post';
 import DateRangeInput from '@/components/inputs/date/DateRangeInput';
@@ -71,6 +71,23 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
     }
   };
 
+  const handleMaxLength = (
+    e: ChangeEvent<HTMLInputElement>,
+    maxLength: number,
+    setter: Dispatch<SetStateAction<string>>,
+  ) => {
+    if (e.currentTarget.value.length > maxLength) {
+      addToast({
+        iconType: 'error',
+        message: '최대 글자수를 초과했습니다',
+      });
+
+      return;
+    }
+
+    setter(e.currentTarget.value);
+  };
+
   return (
     <>
       <RightActionSheetContainer
@@ -89,7 +106,8 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
             placeholder="프로젝트 이름"
             className="!font-bold"
             value={title}
-            onChange={(e) => setTitle(e.currentTarget.value)}
+            onChange={(e) => handleMaxLength(e, 73, setTitle)}
+            maxLength={74}
             autoFocus
           />
         </div>
@@ -103,19 +121,30 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
             <p className="font-body-14 text-text-normal">목표</p>
             <Input
               placeholder="목표를 입력해주세요"
-              maxLength={50}
+              maxLength={51}
               value={goal}
-              onChange={(e) => setGoal(e.currentTarget.value)}
+              onChange={(e) => handleMaxLength(e, 50, setGoal)}
             />
           </div>
           <div className="flex flex-col gap-1">
             <p className="font-body-14 text-text-normal">내용</p>
             <Textarea
               placeholder="내용을 입력해주세요"
-              maxLength={160}
+              maxLength={501}
               className="h-[9.6875rem]"
               value={description}
-              onChange={(val) => setDescription(val)}
+              onChange={(val) => {
+                if (val.length > 500) {
+                  addToast({
+                    iconType: 'error',
+                    message: '최대 글자수를 초과했습니다',
+                  });
+
+                  return;
+                }
+
+                setDescription(val);
+              }}
             />
           </div>
         </div>
