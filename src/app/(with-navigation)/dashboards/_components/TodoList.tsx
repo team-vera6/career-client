@@ -133,6 +133,7 @@ const TodoList = () => {
           {todos.map((todo, index) => (
             <CheckboxInput
               key={index}
+              id={todo.id}
               value={todo.content}
               placeholder="할 일을 입력해 주세요"
               checked={todo.status === 'DONE'}

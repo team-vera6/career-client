@@ -17,6 +17,7 @@ interface Props {
   buttons?: ReactNode;
   category?: 'dashboard' | 'review';
   maxLength?: number;
+  id?: number;
 }
 
 const CheckboxInput = ({
@@ -30,6 +31,7 @@ const CheckboxInput = ({
   buttons,
   category = 'dashboard',
   maxLength,
+  id,
 }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -96,6 +98,7 @@ const CheckboxInput = ({
           onBlur={handleBlur}
           onKeyDown={handleKeydown}
           maxLength={maxLength}
+          autoFocus={id && id < 1 ? true : false}
         />
       </div>
 
