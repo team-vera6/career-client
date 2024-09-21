@@ -90,6 +90,7 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
             className="!font-bold"
             value={title}
             onChange={(e) => setTitle(e.currentTarget.value)}
+            autoFocus
           />
         </div>
 

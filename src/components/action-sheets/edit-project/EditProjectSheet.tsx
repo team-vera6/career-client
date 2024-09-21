@@ -97,6 +97,7 @@ const EditProjectSheet = ({
         value={title}
         onChange={(e) => setTitle(e.currentTarget.value)}
         id={String(projectId)}
+        autoFocus
       />
 
       <div className="flex flex-col gap-4 mb-6 mt-3">
