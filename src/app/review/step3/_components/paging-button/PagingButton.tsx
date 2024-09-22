@@ -42,13 +42,13 @@ export const PagingButton = () => {
 
     const newPostLowlights = postLowlights.map((el) => ({
       content: el.content,
-      projectId: Number(el.project?.id) ?? null,
+      projectId: Number(el.project?.id) !== 0 ? Number(el.project?.id) : null,
     }));
 
     const newPutLowlights = putLowlights.map((el) => ({
       id: el.id,
       content: el.content,
-      projectId: Number(el.project?.id) ?? null,
+      projectId: Number(el.project?.id) !== 0 ? Number(el.project?.id) : null,
     }));
 
     try {
