@@ -22,12 +22,21 @@ export const Score = () => {
 
   useEffect(() => {
     (async () => {
-      const reviewIdResponse = await getReviewId({ year, month, week });
+      try {
+        const reviewIdResponse = await getReviewId({ year, month, week });
 
-      setReviewId(reviewIdResponse.id);
-      setSelectedScore(reviewIdResponse.like);
+        setReviewId(reviewIdResponse?.id);
+        setSelectedScore(reviewIdResponse?.like);
+
+        setPageButtonStates((prev) => ({
+          ...prev,
+          step1: !!reviewIdResponse?.id,
+        }));
+      } catch (error) {
+        setPageButtonStates((prev) => ({ ...prev, step1: false }));
+      }
     })();
-  }, [reviewId, setReviewId, setSelectedScore]);
+  }, [reviewId, setPageButtonStates, setReviewId, setSelectedScore]);
 
   const onClickPickScore = async (count: number) => {
     setSelectedScore(count);
@@ -43,8 +52,9 @@ export const Score = () => {
           month,
           week,
         },
-        like: selectedScore,
+        like: count,
       });
+
       setReviewId(response.id);
     } catch (err) {
       console.log(err);
