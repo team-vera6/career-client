@@ -128,7 +128,7 @@ export const CurrentWeekReviewContainer = ({
         value: el.title,
       }));
 
-      setProjectList([INITIAL_PROJECT, ...newList]);
+      setProjectList(newList);
     })();
   }, [setProjectList]);
 
@@ -201,10 +201,4 @@ export const CurrentWeekReviewContainer = ({
           ))}
     </div>
   );
-};
-
-const INITIAL_PROJECT: DropdownItem = {
-  id: 0,
-  name: '프로젝트 선택',
-  value: '프로젝트 선택',
 };
