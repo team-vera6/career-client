@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { getReviewId } from '@/apis/review/get';
 import { addScore } from '@/apis/review/post';
 import {
+  disabledClickAttemptAtom,
   pageButtonStatesAtom,
   reviewIdAtom,
   scoreAtom,
@@ -17,6 +18,8 @@ const { year, month, week } = getCurrentWeek();
 
 export const Score = () => {
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
+  const setDisabledClickAttempt = useSetAtom(disabledClickAttemptAtom);
+
   const [selectedScore, setSelectedScore] = useAtom(scoreAtom);
   const [reviewId, setReviewId] = useAtom(reviewIdAtom);
 
@@ -41,6 +44,7 @@ export const Score = () => {
   const onClickPickScore = async (count: number) => {
     setSelectedScore(count);
     setPageButtonStates((prev) => ({ ...prev, step1: true }));
+    setDisabledClickAttempt((prev) => ({ ...prev, step1: false }));
 
     if (reviewId) return;
 
