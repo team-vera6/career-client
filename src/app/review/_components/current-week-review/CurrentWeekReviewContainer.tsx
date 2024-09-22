@@ -15,6 +15,7 @@ import {
   initialLowLightListAtom,
   lowLightListAtom,
   pageButtonStatesAtom,
+  reviewStepAtom,
 } from '../../stores';
 import { ReviewType } from '../../types';
 import { CurrentWeekReviewItem } from './CurrentWeekReviewItem';
@@ -40,6 +41,7 @@ export const CurrentWeekReviewContainer = ({
 
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
   const disabledClickAttempt = useAtomValue(disabledClickAttemptAtom);
+  const reviewStep = useAtomValue(reviewStepAtom);
 
   const [projectList, setProjectList] = useState<DropdownItem[]>([]);
 
@@ -62,6 +64,7 @@ export const CurrentWeekReviewContainer = ({
       );
     }
   };
+
 
   const selectProject = (item: DropdownItem, reviewId: string | number) => {
     const selectedItem = {
@@ -98,21 +101,25 @@ export const CurrentWeekReviewContainer = ({
   };
 
   useEffect(() => {
-    if (category === 'highLight') {
+    if (reviewStep === 2) {
       (async () => {
         const response = await getHighlightList(currentWeekInfo);
-        setInitialHighLightList(response.highlights);
-        setHighLightList(response.highlights);
+        if (response?.highlights.length > 0) {
+          setInitialHighLightList(response.highlights);
+          setHighLightList(response.highlights);
+        }
       })();
     } else {
       (async () => {
         const response = await getLowlightList(currentWeekInfo);
-        setInitialLowLightList(response.lowlights);
-        setLowLightList(response.lowlights);
+        if (response?.lowlights.length > 0) {
+          setInitialLowLightList(response.lowlights);
+          setLowLightList(response.lowlights);
+        }
       })();
     }
   }, [
-    category,
+    reviewStep,
     setHighLightList,
     setInitialHighLightList,
     setInitialLowLightList,
