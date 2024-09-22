@@ -11,14 +11,11 @@ import {
   scoreAtom,
 } from '@/app/review/stores';
 import ScorePicker from '@/components/score-picker/ScorePicker';
-import useToast from '@/hooks/useToast';
 import { getCurrentWeek } from '@/utils/date';
 
 const { year, month, week } = getCurrentWeek();
 
 export const Score = () => {
-  const { addToast } = useToast();
-
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
   const [selectedScore, setSelectedScore] = useAtom(scoreAtom);
   const [reviewId, setReviewId] = useAtom(reviewIdAtom);
@@ -50,10 +47,7 @@ export const Score = () => {
       });
       setReviewId(response.id);
     } catch (err) {
-      addToast({
-        message: '다시 시도해 주세요.',
-        iconType: 'error',
-      });
+      console.log(err);
     }
   };
 
