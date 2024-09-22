@@ -97,10 +97,7 @@ export const PagingButton = () => {
         deleteTodo(newDeleteCurrentTodos), // 이번주할일 삭제
         deleteTodo(newDeleteNextTodos), // 다음주할일 삭제
       ]);
-      addToast({
-        iconType: 'success',
-        message: '임시저장 되었습니다.',
-      });
+
       setReviewStep(2);
       return responses;
     } catch (error) {

@@ -84,11 +84,6 @@ export const PagingButton = () => {
           : []),
       ]);
 
-      addToast({
-        message: '임시저장 되었습니다.',
-        iconType: 'success',
-      });
-
       setReviewStep(3);
     } catch (error) {
       addToast({
