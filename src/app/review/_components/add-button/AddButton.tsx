@@ -42,7 +42,7 @@ export const AddButton = ({ category }: Props) => {
         setCurrentTodoList((prev) => [
           ...prev,
           {
-            id: `current-${getRandomNumber()}`,
+            id: -Math.abs(getRandomNumber()),
             week: weekInfo as WeekType,
             isChecked: false,
             todo: '',
@@ -53,7 +53,7 @@ export const AddButton = ({ category }: Props) => {
         setNextTodoList((prev) => [
           ...prev,
           {
-            id: `next-${getRandomNumber()}`,
+            id: -Math.abs(getRandomNumber()),
             week: weekInfo as WeekType,
             isChecked: false,
             todo: '',

@@ -29,6 +29,7 @@ export const NextTodoInput = ({ value, onChange }: Props) => {
         onChange={(e) => onChange?.(e.currentTarget.value)}
         onFocus={() => setIsEditing(true)}
         onBlur={() => setIsEditing(false)}
+        placeholder="할 일을 입력해 주세요"
       />
     </div>
   );
