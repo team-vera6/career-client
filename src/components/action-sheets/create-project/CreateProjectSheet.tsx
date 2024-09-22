@@ -113,6 +113,7 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
             text: '저장',
             onClick: enrollProject,
             buttonStyle: 'primary',
+            disabled: !title || !dateRange.start || !dateRange.end,
           },
         ]}
       >
