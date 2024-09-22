@@ -109,7 +109,6 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
   const todoList = useMemo(() => {
     return week === 'current' ? currentTodoList : nextTodoList;
   }, [currentTodoList, nextTodoList, week]);
-  console.log(currentTodoList);
 
   return (
     <div className="flex flex-col">
