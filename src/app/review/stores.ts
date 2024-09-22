@@ -1,5 +1,7 @@
 import { atom } from 'jotai';
 
+import { DropdownItem } from '@/components/dropdown/Dropdown';
+
 import { MemoItem, ReviewListItem, TodoListItem } from './types';
 
 export const scoreAtom = atom(0);
@@ -50,3 +52,5 @@ export const lastHighLightListAtom = atom<ReviewListItem[]>([]);
 export const lastLowLightListAtom = atom<ReviewListItem[]>([]);
 
 export const memoListAtom = atom<MemoItem[]>([]);
+
+export const projectListAtom = atom<DropdownItem[]>([]);

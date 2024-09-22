@@ -1,7 +1,7 @@
 'use client';
 
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { getProjectTitleList } from '@/apis/projects/get';
 import { getHighlightList, getLowlightList } from '@/apis/review/get';
@@ -15,6 +15,7 @@ import {
   initialLowLightListAtom,
   lowLightListAtom,
   pageButtonStatesAtom,
+  projectListAtom,
   reviewStepAtom,
 } from '../../stores';
 import { ReviewType } from '../../types';
@@ -43,7 +44,7 @@ export const CurrentWeekReviewContainer = ({
   const disabledClickAttempt = useAtomValue(disabledClickAttemptAtom);
   const reviewStep = useAtomValue(reviewStepAtom);
 
-  const [projectList, setProjectList] = useState<DropdownItem[]>([]);
+  const [projectList, setProjectList] = useAtom(projectListAtom);
 
   const writeReview = (value: string, id: string | number) => {
     if (category === 'highLight') {
@@ -64,7 +65,6 @@ export const CurrentWeekReviewContainer = ({
       );
     }
   };
-
 
   const selectProject = (item: DropdownItem, reviewId: string | number) => {
     const selectedItem = {
