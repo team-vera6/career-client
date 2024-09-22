@@ -9,9 +9,10 @@ interface Props {
   onChange?: (value: string) => void;
   onBlur?: () => void;
   width?: string;
+  id: number;
 }
 
-export const NextTodoInput = ({ value, onChange }: Props) => {
+export const NextTodoInput = ({ id, value, onChange }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -30,6 +31,7 @@ export const NextTodoInput = ({ value, onChange }: Props) => {
         onFocus={() => setIsEditing(true)}
         onBlur={() => setIsEditing(false)}
         placeholder="할 일을 입력해 주세요"
+        autoFocus={id < 1}
       />
     </div>
   );
