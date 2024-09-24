@@ -44,8 +44,6 @@ export const PagingButton = () => {
       projectId: Number(el.project?.id) !== 0 ? Number(el.project?.id) : null,
     }));
 
-    console.log(newPostHighlights);
-
     const newPutHighlights = putHighlights.map((el) => ({
       id: el.id,
       content: el.content,

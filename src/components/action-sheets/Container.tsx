@@ -27,6 +27,7 @@ const RightActionSheetContainer = ({
   disableAnimation,
 }: PropsWithChildren<Props>) => {
   if (!isOpen) return null;
+
   if (typeof document === 'undefined') {
     return null;
   }

@@ -85,6 +85,7 @@ const TextEditorModal = ({
             }}
           />
         </div>
+
         {!disabledEditor && (
           <TextEditorBottom
             id={id}
