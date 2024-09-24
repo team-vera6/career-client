@@ -40,6 +40,17 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
     setDescription('');
   };
 
+  const resetProject = async () => {
+    const response = await getProjectTitleList();
+    const newList = response?.projects.map((el) => ({
+      id: el.id,
+      name: el.title,
+      value: el.title,
+    }));
+
+    setProjectList(newList);
+  };
+
   const enrollProject = async () => {
     const [startYear, startMonth, startDay] = dateRange.start.split('.');
     const [endYear, endMonth, endDay] = dateRange.end.split('.');
@@ -54,15 +65,7 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
 
     try {
       await addProject(body);
-
-      const response = await getProjectTitleList();
-      const newList = response?.projects.map((el) => ({
-        id: el.id,
-        name: el.title,
-        value: el.title,
-      }));
-
-      setProjectList(newList);
+      await resetProject();
 
       addToast({
         message: '프로젝트 내용이 저장되었어요.',
