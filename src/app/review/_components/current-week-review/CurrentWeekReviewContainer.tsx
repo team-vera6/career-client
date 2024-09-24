@@ -1,7 +1,7 @@
 'use client';
 
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { getProjectTitleList } from '@/apis/projects/get';
 import { getHighlightList, getLowlightList } from '@/apis/review/get';
@@ -15,6 +15,8 @@ import {
   initialLowLightListAtom,
   lowLightListAtom,
   pageButtonStatesAtom,
+  projectListAtom,
+  reviewStepAtom,
 } from '../../stores';
 import { ReviewType } from '../../types';
 import { CurrentWeekReviewItem } from './CurrentWeekReviewItem';
@@ -40,8 +42,9 @@ export const CurrentWeekReviewContainer = ({
 
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
   const disabledClickAttempt = useAtomValue(disabledClickAttemptAtom);
+  const reviewStep = useAtomValue(reviewStepAtom);
 
-  const [projectList, setProjectList] = useState<DropdownItem[]>([]);
+  const [projectList, setProjectList] = useAtom(projectListAtom);
 
   const writeReview = (value: string, id: string | number) => {
     if (category === 'highLight') {
@@ -98,21 +101,25 @@ export const CurrentWeekReviewContainer = ({
   };
 
   useEffect(() => {
-    if (category === 'highLight') {
+    if (reviewStep === 2) {
       (async () => {
         const response = await getHighlightList(currentWeekInfo);
-        setInitialHighLightList(response.highlights);
-        setHighLightList(response.highlights);
+        if (response?.highlights.length > 0) {
+          setInitialHighLightList(response.highlights);
+          setHighLightList(response.highlights);
+        }
       })();
     } else {
       (async () => {
         const response = await getLowlightList(currentWeekInfo);
-        setInitialLowLightList(response.lowlights);
-        setLowLightList(response.lowlights);
+        if (response?.lowlights.length > 0) {
+          setInitialLowLightList(response.lowlights);
+          setLowLightList(response.lowlights);
+        }
       })();
     }
   }, [
-    category,
+    reviewStep,
     setHighLightList,
     setInitialHighLightList,
     setInitialLowLightList,
@@ -128,7 +135,7 @@ export const CurrentWeekReviewContainer = ({
         value: el.title,
       }));
 
-      setProjectList([INITIAL_PROJECT, ...newList]);
+      setProjectList(newList);
     })();
   }, [setProjectList]);
 
@@ -201,10 +208,4 @@ export const CurrentWeekReviewContainer = ({
           ))}
     </div>
   );
-};
-
-const INITIAL_PROJECT: DropdownItem = {
-  id: 0,
-  name: '프로젝트 선택',
-  value: '프로젝트 선택',
 };

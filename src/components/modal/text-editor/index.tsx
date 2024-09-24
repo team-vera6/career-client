@@ -86,12 +86,14 @@ const TextEditorModal = ({
           />
         </div>
 
-        <TextEditorBottom
-          id={id}
-          isBookmark={isBookmark}
-          updatedAt={lastUpdated}
-          deleteMemo={onClickDelete}
-        />
+        {!disabledEditor && (
+          <TextEditorBottom
+            id={id}
+            isBookmark={isBookmark}
+            updatedAt={lastUpdated}
+            deleteMemo={onClickDelete}
+          />
+        )}
       </div>
     </Modal>
   );

@@ -22,14 +22,16 @@ export const ListItem = ({
     <div className="h-12 flex items-center">
       {week === 'current' ? (
         <CheckboxInput
+          id={id}
           value={todo}
           onChange={setTodo}
           checked={isChecked}
           onClickCheckbox={setIsChecked}
           category="review"
+          placeholder="할 일을 입력해 주세요"
         />
       ) : (
-        <NextTodoInput value={todo} onChange={setTodo} />
+        <NextTodoInput id={id} value={todo} onChange={setTodo} />
       )}
       <div className="flex items-center gap-2">
         <MoveNextButton week={week} id={id} isMoved={isMoved} />

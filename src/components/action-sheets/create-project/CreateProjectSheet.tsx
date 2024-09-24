@@ -1,8 +1,11 @@
 'use client';
 
+import { useSetAtom } from 'jotai';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 
+import { getProjectTitleList } from '@/apis/projects/get';
 import { addProject } from '@/apis/projects/post';
+import { projectListAtom } from '@/app/review/stores';
 import DateRangeInput from '@/components/inputs/date/DateRangeInput';
 import Input from '@/components/inputs/input/Input';
 import LineInput from '@/components/inputs/line/LineInput';
@@ -21,6 +24,8 @@ interface Props {
 const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
   const { addToast } = useToast();
 
+  const setProjectList = useSetAtom(projectListAtom);
+
   const [title, setTitle] = useState('');
   const [dateRange, setDateRange] = useState({ start: '', end: '' });
   const [goal, setGoal] = useState('');
@@ -33,6 +38,17 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
     setDateRange({ start: '', end: '' });
     setGoal('');
     setDescription('');
+  };
+
+  const resetProject = async () => {
+    const response = await getProjectTitleList();
+    const newList = response?.projects.map((el) => ({
+      id: el.id,
+      name: el.title,
+      value: el.title,
+    }));
+
+    setProjectList(newList);
   };
 
   const enrollProject = async () => {
@@ -49,6 +65,8 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
 
     try {
       await addProject(body);
+      await resetProject();
+
       addToast({
         message: '프로젝트 내용이 저장되었어요.',
         iconType: 'success',
@@ -98,6 +116,7 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
             text: '저장',
             onClick: enrollProject,
             buttonStyle: 'primary',
+            disabled: !title || !dateRange.start || !dateRange.end,
           },
         ]}
       >

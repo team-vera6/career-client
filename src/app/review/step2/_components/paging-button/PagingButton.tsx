@@ -41,13 +41,13 @@ export const PagingButton = () => {
     }
     const newPostHighlights = postHighlights.map((el) => ({
       content: el.content,
-      projectId: Number(el.project?.id) ?? null,
+      projectId: Number(el.project?.id) !== 0 ? Number(el.project?.id) : null,
     }));
 
     const newPutHighlights = putHighlights.map((el) => ({
       id: el.id,
       content: el.content,
-      projectId: Number(el.project?.id) ?? null,
+      projectId: Number(el.project?.id) !== 0 ? Number(el.project?.id) : null,
     }));
 
     try {
@@ -81,11 +81,6 @@ export const PagingButton = () => {
           ? [Promise.all(deleteHightlightIds.map((el) => deleteHighlights(el)))]
           : []),
       ]);
-
-      addToast({
-        message: '임시저장 되었습니다.',
-        iconType: 'success',
-      });
 
       setReviewStep(3);
     } catch (error) {

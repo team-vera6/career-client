@@ -39,7 +39,7 @@ const LoginComponents = () => {
   };
 
   const isLoginDisabled = useMemo(() => {
-    return !formData.email || formData.password.length < 8;
+    return !formData.email || !formData.password;
   }, [formData.email, formData.password]);
 
   return (

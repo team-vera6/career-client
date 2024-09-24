@@ -1,4 +1,7 @@
+'use client';
+
 import type { PropsWithChildren } from 'react';
+import { createPortal } from 'react-dom';
 
 import { Button } from '@/types/button';
 import { cn } from '@/utils/tailwind';
@@ -25,7 +28,11 @@ const RightActionSheetContainer = ({
 }: PropsWithChildren<Props>) => {
   if (!isOpen) return null;
 
-  return (
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
+  return createPortal(
     <div className="w-screen h-screen fixed z-30">
       <div className="w-screen h-screen relative">
         {/* background dimmer */}
@@ -84,7 +91,8 @@ const RightActionSheetContainer = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };
 

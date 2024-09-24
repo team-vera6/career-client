@@ -24,54 +24,63 @@ const MenuBar = ({ editor }: Props) => {
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleBold().run()}
+        disabled={!editor.isEditable}
       >
         <BoldIcon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleItalic().run()}
+        disabled={!editor.isEditable}
       >
         <ItalicIcon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleUnderline().run()}
+        disabled={!editor.isEditable}
       >
         <UnderlineIcon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleCode().run()}
+        disabled={!editor.isEditable}
       >
         <CodeBlockIcon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+        disabled={!editor.isEditable}
       >
         <Header1Icon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        disabled={!editor.isEditable}
       >
         <Header2Icon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+        disabled={!editor.isEditable}
       >
         <Header3Icon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        disabled={!editor.isEditable}
       >
         <OrderedListIcon size={24} />
       </button>
       <button
         className="w-6 h-6"
         onClick={() => editor.chain().focus().toggleBulletList().run()}
+        disabled={!editor.isEditable}
       >
         <UnorderedListIcon size={24} />
       </button>
