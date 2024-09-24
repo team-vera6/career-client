@@ -179,3 +179,13 @@ export const getUpdatedDate = (updatedAt: string) => {
 
   return `${year}.${month}.${day}`;
 };
+
+export const getDateForDatePicker = (inputDate: string) => {
+  const date = new Date(inputDate);
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  return `${year}.${month}.${day}`;
+};
