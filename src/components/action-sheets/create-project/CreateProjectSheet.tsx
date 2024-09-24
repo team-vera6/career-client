@@ -19,9 +19,10 @@ import RightActionSheetContainer from '../Container';
 interface Props {
   isOpen: boolean;
   closeSheet: () => void;
+  fetchProjects?: () => Promise<void>;
 }
 
-const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
+const CreateProjectSheet = ({ isOpen, closeSheet, fetchProjects }: Props) => {
   const { addToast } = useToast();
 
   const setProjectList = useSetAtom(projectListAtom);
@@ -71,6 +72,8 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
         message: '프로젝트 내용이 저장되었어요.',
         iconType: 'success',
       });
+
+      await fetchProjects?.();
       closeSheet();
       clearAllInputs();
     } catch (error) {
