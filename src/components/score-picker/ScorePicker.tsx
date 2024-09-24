@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 import { cn } from '@/utils/tailwind';
 
@@ -10,12 +10,24 @@ interface Props {
 }
 
 const ScorePicker = ({ score, setScore }: Props) => {
+  const [hoveredScore, setHoveredScore] = useState(score);
+
   return (
-    <div className="flex items-center gap-2">
+    <div
+      className="flex items-center gap-2"
+      onMouseLeave={() => setHoveredScore(score)}
+    >
       {breakPoints.map((point) => (
         <Fragment key={point}>
-          <Checkpoint active={score >= point} onClick={() => setScore(point)} />
-          {point !== 7 && <Connection active={score > point} />}
+          <Checkpoint
+            active={hoveredScore >= point}
+            onHover={() => setHoveredScore(point)}
+            onClick={() => {
+              setHoveredScore(point);
+              setScore(point);
+            }}
+          />
+          {point !== 7 && <Connection active={hoveredScore > point} />}
         </Fragment>
       ))}
     </div>
@@ -24,15 +36,14 @@ const ScorePicker = ({ score, setScore }: Props) => {
 
 export default ScorePicker;
 
-const Checkpoint = ({
-  active = false,
-  onClick,
-}: {
+interface CheckpointProps {
   active?: boolean;
   onClick?: () => void;
-}) => {
+  onHover?: () => void;
+}
+const Checkpoint = ({ active = false, onClick, onHover }: CheckpointProps) => {
   return (
-    <div className="cursor-pointer" onClick={onClick}>
+    <div className="cursor-pointer" onClick={onClick} onMouseOver={onHover}>
       {active ? (
         <div className="w-9 h-9 rounded-full border border-text-primary bg-surface-foreground flex items-center justify-center">
           <div className="w-4 h-4 rounded-full bg-text-primary" />

@@ -16,6 +16,7 @@ import LineInput from '@/components/inputs/line/LineInput';
 import Textarea from '@/components/inputs/textarea/Textarea';
 import Alert from '@/components/modal/Alert';
 import useToast from '@/hooks/useToast';
+import { getDateForDatePicker } from '@/utils/date';
 
 import RightActionSheetContainer from '../Container';
 import RelatedReview from '../project-detail/_components/RelatedReview';
@@ -57,7 +58,14 @@ const EditProjectSheet = ({
     }
 
     setTitle(initialTitle ?? '');
-    setDateRange(initialDate ?? { start: '', end: '' });
+    setDateRange(
+      initialDate
+        ? {
+            start: getDateForDatePicker(initialDate.start),
+            end: getDateForDatePicker(initialDate.end),
+          }
+        : { start: '', end: '' },
+    );
     setGoal(initialGoal ?? '');
     setDescription(initialDescription ?? '');
     setGoal(initialGoal ?? '');
@@ -189,7 +197,7 @@ const EditProjectSheet = ({
         <div className="flex flex-col gap-3">
           {reviews?.map((review) => (
             <RelatedReview
-              key={review.id}
+              key={`${review.type}-${review.id}`}
               type={review.type}
               review={review.content}
               week={review.weekNumber}

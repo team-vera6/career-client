@@ -4,7 +4,7 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import './date-picker.css';
 
-import { addWeeks, format } from 'date-fns';
+import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
 import { DateRange, Range } from 'react-date-range';
@@ -29,7 +29,7 @@ const DatePicker = ({ date, setDate }: Props) => {
       : [
           {
             startDate: new Date(),
-            endDate: addWeeks(new Date(), 1),
+            endDate: new Date(),
             key: 'selection',
           },
         ],

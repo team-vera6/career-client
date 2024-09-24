@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import DatePicker from '@/components/date-picker/DatePicker';
 
@@ -11,6 +11,15 @@ interface Props {
 
 const DateRangeInput = ({ date, setDate }: Props) => {
   const [showPicker, setShowPicker] = useState(false);
+
+  useEffect(() => {
+    // 시작일과 종료일이 모두 선택되면 DatePicker를 닫는다.
+    if (date.start && date.end) {
+      if (date.start !== date.end) {
+        setShowPicker(false);
+      }
+    }
+  }, [date.start, date.end]);
 
   return (
     <div className="relative">
