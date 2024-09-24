@@ -52,7 +52,7 @@ export const CurrentWeekReviewItem = ({
             initialItem={
               project && project.content !== ''
                 ? project.content
-                : '프로젝트 선택'
+                : '관련 프로젝트 (선택)'
             }
             onSelect={onSelect}
           />

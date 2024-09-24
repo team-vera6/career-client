@@ -34,7 +34,7 @@ export const Toast = ({ ...props }: ToastProps) => {
 
     const timer = setTimeout(() => {
       setShow(false);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);

@@ -41,6 +41,7 @@ const WeeklyMemo = () => {
           memo={memo.content}
           date={memo.updatedAt}
           disabledEditor
+          isBookmark={memo.isMarked}
         />
       ))}
     </div>

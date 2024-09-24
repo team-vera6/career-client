@@ -50,7 +50,7 @@ export default function DashboardPage() {
           week: 'current',
           isChecked: false,
           todo: todo.content,
-          id: String(todo.id),
+          id: todo.id,
           isMoved: false,
         };
       }),
@@ -83,6 +83,7 @@ export default function DashboardPage() {
           <MemoList />
         </div>
       </div>
+
       <SignUpSuccessModal />
     </div>
   );

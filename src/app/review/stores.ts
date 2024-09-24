@@ -1,5 +1,7 @@
 import { atom } from 'jotai';
 
+import { DropdownItem } from '@/components/dropdown/Dropdown';
+
 import { MemoItem, ReviewListItem, TodoListItem } from './types';
 
 export const scoreAtom = atom(0);
@@ -29,15 +31,26 @@ export const initialNextTodoListAtom = atom<TodoListItem[]>([]);
 export const currentTodoListAtom = atom<TodoListItem[]>([]);
 export const nextTodoListAtom = atom<TodoListItem[]>([]);
 
+const InitialReviewItem = {
+  id: 0,
+  content: '',
+};
+
 // get한 하이라이트 / 로우라이트 list
-export const initialHighLightListAtom = atom<ReviewListItem[]>([]);
-export const initialLowLightListAtom = atom<ReviewListItem[]>([]);
+export const initialHighLightListAtom = atom<ReviewListItem[]>([
+  InitialReviewItem,
+]);
+export const initialLowLightListAtom = atom<ReviewListItem[]>([
+  InitialReviewItem,
+]);
 
 // 수정된 하이라이트 / 로우라이트 list
-export const highLightListAtom = atom<ReviewListItem[]>([]);
-export const lowLightListAtom = atom<ReviewListItem[]>([]);
+export const highLightListAtom = atom<ReviewListItem[]>([InitialReviewItem]);
+export const lowLightListAtom = atom<ReviewListItem[]>([InitialReviewItem]);
 
 export const lastHighLightListAtom = atom<ReviewListItem[]>([]);
 export const lastLowLightListAtom = atom<ReviewListItem[]>([]);
 
 export const memoListAtom = atom<MemoItem[]>([]);
+
+export const projectListAtom = atom<DropdownItem[]>([]);

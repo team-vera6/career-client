@@ -1,8 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useSetAtom } from 'jotai';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 
+import { getProjectTitleList } from '@/apis/projects/get';
 import { addProject } from '@/apis/projects/post';
+import { projectListAtom } from '@/app/review/stores';
 import DateRangeInput from '@/components/inputs/date/DateRangeInput';
 import Input from '@/components/inputs/input/Input';
 import LineInput from '@/components/inputs/line/LineInput';
@@ -21,6 +24,8 @@ interface Props {
 const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
   const { addToast } = useToast();
 
+  const setProjectList = useSetAtom(projectListAtom);
+
   const [title, setTitle] = useState('');
   const [dateRange, setDateRange] = useState({ start: '', end: '' });
   const [goal, setGoal] = useState('');
@@ -33,6 +38,17 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
     setDateRange({ start: '', end: '' });
     setGoal('');
     setDescription('');
+  };
+
+  const resetProject = async () => {
+    const response = await getProjectTitleList();
+    const newList = response?.projects.map((el) => ({
+      id: el.id,
+      name: el.title,
+      value: el.title,
+    }));
+
+    setProjectList(newList);
   };
 
   const enrollProject = async () => {
@@ -49,6 +65,8 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
 
     try {
       await addProject(body);
+      await resetProject();
+
       addToast({
         message: '프로젝트 내용이 저장되었어요.',
         iconType: 'success',
@@ -71,6 +89,23 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
     }
   };
 
+  const handleMaxLength = (
+    e: ChangeEvent<HTMLInputElement>,
+    maxLength: number,
+    setter: Dispatch<SetStateAction<string>>,
+  ) => {
+    if (e.currentTarget.value.length > maxLength) {
+      addToast({
+        iconType: 'error',
+        message: '최대 글자수를 초과했습니다',
+      });
+
+      return;
+    }
+
+    setter(e.currentTarget.value);
+  };
+
   return (
     <>
       <RightActionSheetContainer
@@ -81,6 +116,7 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
             text: '저장',
             onClick: enrollProject,
             buttonStyle: 'primary',
+            disabled: !title || !dateRange.start || !dateRange.end,
           },
         ]}
       >
@@ -89,7 +125,9 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
             placeholder="프로젝트 이름"
             className="!font-bold"
             value={title}
-            onChange={(e) => setTitle(e.currentTarget.value)}
+            onChange={(e) => handleMaxLength(e, 73, setTitle)}
+            maxLength={74}
+            autoFocus
           />
         </div>
 
@@ -102,19 +140,30 @@ const CreateProjectSheet = ({ isOpen, closeSheet }: Props) => {
             <p className="font-body-14 text-text-normal">목표</p>
             <Input
               placeholder="목표를 입력해주세요"
-              maxLength={50}
+              maxLength={51}
               value={goal}
-              onChange={(e) => setGoal(e.currentTarget.value)}
+              onChange={(e) => handleMaxLength(e, 50, setGoal)}
             />
           </div>
           <div className="flex flex-col gap-1">
             <p className="font-body-14 text-text-normal">내용</p>
             <Textarea
               placeholder="내용을 입력해주세요"
-              maxLength={160}
+              maxLength={501}
               className="h-[9.6875rem]"
               value={description}
-              onChange={(val) => setDescription(val)}
+              onChange={(val) => {
+                if (val.length > 500) {
+                  addToast({
+                    iconType: 'error',
+                    message: '최대 글자수를 초과했습니다',
+                  });
+
+                  return;
+                }
+
+                setDescription(val);
+              }}
             />
           </div>
         </div>

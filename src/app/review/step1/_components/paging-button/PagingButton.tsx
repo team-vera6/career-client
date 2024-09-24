@@ -72,18 +72,18 @@ export const PagingButton = () => {
     const newNextTodos = postNextTodos.map((el) => ({ content: el.todo }));
 
     const newPutCurrentTodos = putCurrentTodos.map((el) => ({
-      id: Number(el.id),
+      id: el.id,
       content: el.todo,
       status: el.isChecked ? 'DONE' : 'ONGOING',
     }));
     const newPutNextTodos = putNextTodos.map((el) => ({
-      id: Number(el.id),
+      id: el.id,
       content: el.todo,
       status: el.isChecked ? 'DONE' : 'ONGOING',
     }));
 
-    const newDeleteCurrentTodos = deleteCurrentTodos.map((el) => el.id);
-    const newDeleteNextTodos = deleteNextTodos.map((el) => el.id);
+    const newDeleteCurrentTodos = deleteCurrentTodos.map((el) => String(el.id));
+    const newDeleteNextTodos = deleteNextTodos.map((el) => String(el.id));
 
     try {
       const responses = await Promise.all([
@@ -97,10 +97,7 @@ export const PagingButton = () => {
         deleteTodo(newDeleteCurrentTodos), // 이번주할일 삭제
         deleteTodo(newDeleteNextTodos), // 다음주할일 삭제
       ]);
-      addToast({
-        iconType: 'success',
-        message: '임시저장 되었습니다.',
-      });
+
       setReviewStep(2);
       return responses;
     } catch (error) {

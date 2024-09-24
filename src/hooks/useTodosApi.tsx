@@ -20,14 +20,14 @@ export const useTodosApi = () => {
   };
 
   // 비교 배열엔 없으나 새로운 배열에서 생긴 id
-  const getNewIds = (list1: string[], list2: string[]) => {
+  const getNewIds = (list1: number[], list2: number[]) => {
     const differentIdList = list1.filter((id) => !list2.includes(id));
 
     return differentIdList;
   };
 
   // 초기 배열, 새로운 배열에서 동일한 id
-  const getPutIds = (list1: string[], list2: string[]) => {
+  const getPutIds = (list1: number[], list2: number[]) => {
     const commonIdList = list1.filter((id) => list2.includes(id));
 
     return commonIdList;

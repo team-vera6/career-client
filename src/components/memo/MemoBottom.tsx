@@ -15,7 +15,8 @@ const MemoBottom = ({
   isBookmark,
   date,
   id,
-}: Pick<MemoItem, 'isBookmark' | 'date' | 'id'>) => {
+  disabledEditor = false,
+}: Pick<MemoItem, 'isBookmark' | 'date' | 'id' | 'disabledEditor'>) => {
   const [isMark, setIsMark] = useState(isBookmark);
   const setMemoList = useSetAtom(memoListAtom);
 
@@ -46,19 +47,22 @@ const MemoBottom = ({
       <p className="font-body-12 text-text-neutral">
         {getMemoCreateDate(date)}
       </p>
-      <button
-        type="button"
-        onClick={async (e) => {
-          e.stopPropagation();
-          await onClickBookmark();
-        }}
-      >
-        <BookmarkIcon
-          fill={isMark ? colors.line.focus : 'none'}
-          stroke={isMark ? colors.line.focus : colors.text.neutral}
-          className="cursor-pointer"
-        />
-      </button>
+      {((disabledEditor && isMark) || !disabledEditor) && (
+        <button
+          type="button"
+          onClick={async (e) => {
+            e.stopPropagation();
+            await onClickBookmark();
+          }}
+          disabled={disabledEditor}
+        >
+          <BookmarkIcon
+            fill={isMark ? colors.line.focus : 'none'}
+            stroke={isMark ? colors.line.focus : colors.text.neutral}
+            className={disabledEditor ? 'cursor-default' : 'cursor-pointer'}
+          />
+        </button>
+      )}
     </div>
   );
 };

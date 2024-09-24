@@ -14,7 +14,7 @@ export const addScore = async (body: ScoreRequest) => {
 
 export interface ReviewProject {
   content: string;
-  projectId: number;
+  projectId: number | null;
 }
 
 export interface HighlightsRequest {

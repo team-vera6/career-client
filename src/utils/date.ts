@@ -171,3 +171,21 @@ export const getMemoCreateDate = (createdAt: string) => {
 
   return `${month}.${day}`;
 };
+
+export const getUpdatedDate = (updatedAt: string) => {
+  const [date] = updatedAt.split(' ');
+
+  const [year, month, day] = date.split('-');
+
+  return `${year}.${month}.${day}`;
+};
+
+export const getDateForDatePicker = (inputDate: string) => {
+  const date = new Date(inputDate);
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  return `${year}.${month}.${day}`;
+};

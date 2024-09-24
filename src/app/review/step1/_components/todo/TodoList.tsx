@@ -48,7 +48,7 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
           week: 'current',
           isChecked: el.status === 'DONE',
           todo: el.content,
-          id: String(el.id),
+          id: el.id,
         }));
 
         setCurrentTodoList(newList);
@@ -62,7 +62,7 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
           week: 'next',
           isChecked: el.status === 'DONE',
           todo: el.content,
-          id: String(el.id),
+          id: el.id,
         }));
 
         setNextTodoList(newList);
@@ -78,7 +78,7 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
     week,
   ]);
 
-  const onChangeText = (id: string, val: string) => {
+  const onChangeText = (id: number, val: string) => {
     if (week === 'current') {
       setCurrentTodoList((prev) =>
         prev.map((item) => (item.id === id ? { ...item, todo: val } : item)),
@@ -90,7 +90,7 @@ export const TodoList = ({ week }: Pick<TodoListItem, 'week'>) => {
     }
   };
 
-  const onToggleChecked = (id: string) => {
+  const onToggleChecked = (id: number) => {
     if (week === 'current') {
       setCurrentTodoList((prev) =>
         prev.map((item) =>

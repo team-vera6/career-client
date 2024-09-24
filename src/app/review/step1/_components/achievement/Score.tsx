@@ -6,35 +6,45 @@ import { useEffect } from 'react';
 import { getReviewId } from '@/apis/review/get';
 import { addScore } from '@/apis/review/post';
 import {
+  disabledClickAttemptAtom,
   pageButtonStatesAtom,
   reviewIdAtom,
   scoreAtom,
 } from '@/app/review/stores';
 import ScorePicker from '@/components/score-picker/ScorePicker';
-import useToast from '@/hooks/useToast';
 import { getCurrentWeek } from '@/utils/date';
 
 const { year, month, week } = getCurrentWeek();
 
 export const Score = () => {
-  const { addToast } = useToast();
-
   const setPageButtonStates = useSetAtom(pageButtonStatesAtom);
+  const setDisabledClickAttempt = useSetAtom(disabledClickAttemptAtom);
+
   const [selectedScore, setSelectedScore] = useAtom(scoreAtom);
   const [reviewId, setReviewId] = useAtom(reviewIdAtom);
 
   useEffect(() => {
     (async () => {
-      const reviewIdResponse = await getReviewId({ year, month, week });
+      try {
+        const reviewIdResponse = await getReviewId({ year, month, week });
 
-      setReviewId(reviewIdResponse.id);
-      setSelectedScore(reviewIdResponse.like);
+        setReviewId(reviewIdResponse?.id);
+        setSelectedScore(reviewIdResponse?.like);
+
+        setPageButtonStates((prev) => ({
+          ...prev,
+          step1: !!reviewIdResponse?.id,
+        }));
+      } catch (error) {
+        setPageButtonStates((prev) => ({ ...prev, step1: false }));
+      }
     })();
-  }, [reviewId, setReviewId, setSelectedScore]);
+  }, [reviewId, setPageButtonStates, setReviewId, setSelectedScore]);
 
   const onClickPickScore = async (count: number) => {
     setSelectedScore(count);
     setPageButtonStates((prev) => ({ ...prev, step1: true }));
+    setDisabledClickAttempt((prev) => ({ ...prev, step1: false }));
 
     if (reviewId) return;
 
@@ -46,14 +56,12 @@ export const Score = () => {
           month,
           week,
         },
-        like: selectedScore,
+        like: count,
       });
+
       setReviewId(response.id);
     } catch (err) {
-      addToast({
-        message: '다시 시도해 주세요.',
-        iconType: 'error',
-      });
+      console.log(err);
     }
   };
 

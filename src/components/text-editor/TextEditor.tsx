@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 'use client';
 
 import './editor.css';

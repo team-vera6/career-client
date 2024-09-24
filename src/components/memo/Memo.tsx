@@ -61,7 +61,12 @@ const Memo = ({
           )}
         </div>
 
-        <MemoBottom id={id} isBookmark={isBookmark} date={date} />
+        <MemoBottom
+          id={id}
+          isBookmark={isBookmark}
+          date={date}
+          disabledEditor={disabledEditor}
+        />
       </div>
 
       <TextEditorModal
@@ -73,6 +78,9 @@ const Memo = ({
           setTextValue(val);
         }}
         value={textValue}
+        id={id}
+        lastUpdated={date}
+        isBookmark={isBookmark}
       />
     </>
   );
