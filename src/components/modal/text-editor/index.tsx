@@ -71,7 +71,7 @@ const TextEditorModal = ({
         </div>
         <div className="w-full bg-line-assistive h-[1px]" />
 
-        <div className="px-6 py-4 h-[calc(100% - 2.2rem)] overflow-y-scroll">
+        <div className="px-6 py-4 h-[calc(100% - 2.2rem)] overflow-y-auto">
           <EditorContent
             editor={editor}
             onKeyDown={(e) => {
