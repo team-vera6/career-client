@@ -57,7 +57,7 @@ const ProgressChip = ({ percentage }: Props) => {
       )}
       {percentage > 0 && percentage < 100 && (
         <p className="font-body-13 text-text-primary pt-[.0625rem]">
-          {percentage}%
+          {Math.round(percentage)}%
         </p>
       )}
     </div>
