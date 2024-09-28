@@ -22,7 +22,7 @@ export default function ProjectPage() {
 
   return (
     <div className="w-[60rem]">
-      <AddButton />
+      <AddButton fetchProjects={getProjects} />
 
       <div className="w-full flex flex-col gap-3">
         {projects.length > 0 ? (

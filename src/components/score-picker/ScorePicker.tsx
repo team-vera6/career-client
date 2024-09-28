@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { cn } from '@/utils/tailwind';
 
@@ -11,6 +11,10 @@ interface Props {
 
 const ScorePicker = ({ score, setScore }: Props) => {
   const [hoveredScore, setHoveredScore] = useState(score);
+
+  useEffect(() => {
+    setHoveredScore(score);
+  }, [score]);
 
   return (
     <div

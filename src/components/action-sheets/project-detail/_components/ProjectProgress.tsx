@@ -13,7 +13,9 @@ const ProjectProgress = ({ startDate, endDate, percentage }: Props) => {
         <p className="font-body-14 text-text-strong">
           {startDate} - {endDate}
         </p>
-        <p className="font-body-14 text-text-primary">{percentage}%</p>
+        <p className="font-body-14 text-text-primary">
+          {Math.round(percentage)}%
+        </p>
       </div>
 
       <ProgressLine percentage={percentage} />

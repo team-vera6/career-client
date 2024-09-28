@@ -9,3 +9,8 @@ export const deleteLowlights = async (id: number) => {
   const response = await typedDelete(`/lowlights/${id}`);
   return response;
 };
+
+export const deleteReview = async (id: number) => {
+  const response = await typedDelete(`/reviews/${id}`);
+  return response;
+};

@@ -12,7 +12,6 @@ interface Props extends ReviewListItem, DropdownProps {
   index: number;
   writeReview: (val: string, id: string | number) => void;
   isRequiredError: boolean;
-  isShowErrorText: boolean;
 }
 
 const PLACE_HOLDER = {
@@ -30,7 +29,6 @@ export const CurrentWeekReviewItem = ({
   onSelect,
   writeReview,
   isRequiredError,
-  isShowErrorText,
 }: Props) => {
   return (
     <div className="flex flex-col gap-1">
@@ -63,11 +61,6 @@ export const CurrentWeekReviewItem = ({
         {isRequiredError && (
           <p className="font-body-12 text-state-negative justify-self-start">
             최소 1개의 하이라이트를 작성해 주세요
-          </p>
-        )}
-        {isShowErrorText && (
-          <p className="font-body-12 text-state-negative justify-self-start">
-            필수 항목입니다
           </p>
         )}
         {index !== 0 && (

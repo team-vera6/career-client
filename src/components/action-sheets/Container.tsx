@@ -1,6 +1,6 @@
 'use client';
 
-import type { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Button } from '@/types/button';
@@ -26,6 +26,16 @@ const RightActionSheetContainer = ({
   buttons,
   disableAnimation,
 }: PropsWithChildren<Props>) => {
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   if (typeof document === 'undefined') {
@@ -38,7 +48,7 @@ const RightActionSheetContainer = ({
         {/* background dimmer */}
         <div
           className="fixed w-full h-full top-0 bottom-0 left-0 right-0 z-10 bg-surface-dimmer opacity-[0.76]"
-          onClick={closeActionSheet}
+          onClick={() => closeActionSheet()}
         />
 
         {/* action sheet */}
@@ -48,7 +58,7 @@ const RightActionSheetContainer = ({
             !disableAnimation && 'animate-slide-in-right',
           )}
         >
-          <div className="w-full h-full px-9 pt-8">
+          <div className="w-full h-full px-9 pt-8 overflow-y-auto">
             {/* sheet header */}
             <div className="w-full flex items-center justify-between">
               <CloseIcon
@@ -87,7 +97,7 @@ const RightActionSheetContainer = ({
               </div>
             </div>
 
-            <section className="mt-2">{children}</section>
+            <section className="mt-2 h-screen">{children}</section>
           </div>
         </div>
       </div>

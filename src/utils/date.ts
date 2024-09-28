@@ -5,8 +5,6 @@ import {
   startOfMonth,
 } from 'date-fns';
 
-const KST = 9 * 60 * 60 * 1000;
-
 // 현재 기준 년, 월, 주차 정보
 const getCurrentDate = (initialDate?: Date) => {
   const date = initialDate ?? new Date();
@@ -77,11 +75,18 @@ const getStartDateInfo = (initialDate?: Date) => {
 
   // 시작일, 현재 요일 - 월요일까지의 차
   const startDate = new Date();
-  startDate.setTime(startDate.getTime() + KST);
+  startDate.setHours(0, 0, 1, 0);
   startDate.setDate(startDate.getDate() - daysFromMonday);
 
-  const newStartDate = startDate.toISOString().split('T')[0];
-  const [startYear, startMonth, startDay] = newStartDate.split('-');
+  const newStartDate = startDate.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  const [startYear, startMonth, startDay] = newStartDate
+    .split('.')
+    .map((s) => s.trim());
 
   return {
     startDate,
@@ -99,11 +104,18 @@ const getEndDateInfo = (initialDate?: Date) => {
 
   // 종료일, 시작일 + 6일
   const endDate = new Date();
-  endDate.setTime(endDate.getTime() + KST);
+  endDate.setHours(23, 59, 59, 0);
   endDate.setDate(startDate.getDate() + 6);
 
-  const newEndDate = endDate.toISOString().split('T')[0];
-  const [endYear, endMonth, endDay] = newEndDate.split('-');
+  const newEndDate = endDate.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  const [endYear, endMonth, endDay] = newEndDate
+    .split('.')
+    .map((s) => s.trim());
 
   return { endDate, endYear, endMonth, endDay };
 };
@@ -188,4 +200,10 @@ export const getDateForDatePicker = (inputDate: string) => {
   const day = date.getDate();
 
   return `${year}.${month}.${day}`;
+};
+
+export const formatToServerDate = (date: string) => {
+  const [year, month, day] = date.split('.');
+
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
 };

@@ -27,19 +27,19 @@ export const Score = () => {
     (async () => {
       try {
         const reviewIdResponse = await getReviewId({ year, month, week });
-
-        setReviewId(reviewIdResponse?.id);
-        setSelectedScore(reviewIdResponse?.like);
-
-        setPageButtonStates((prev) => ({
-          ...prev,
-          step1: !!reviewIdResponse?.id,
-        }));
+        if (reviewIdResponse) {
+          setReviewId(reviewIdResponse.id);
+          setSelectedScore(reviewIdResponse.like);
+          setPageButtonStates((prev) => ({
+            ...prev,
+            step1: !!reviewIdResponse.id,
+          }));
+        }
       } catch (error) {
         setPageButtonStates((prev) => ({ ...prev, step1: false }));
       }
     })();
-  }, [reviewId, setPageButtonStates, setReviewId, setSelectedScore]);
+  }, [setPageButtonStates, setReviewId, setSelectedScore]);
 
   const onClickPickScore = async (count: number) => {
     setSelectedScore(count);

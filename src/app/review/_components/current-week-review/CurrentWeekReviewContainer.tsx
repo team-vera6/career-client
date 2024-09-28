@@ -177,11 +177,6 @@ export const CurrentWeekReviewContainer = ({
                 el.content.length === 0 &&
                 disabledClickAttempt.step2
               }
-              isShowErrorText={
-                highLightList.length > 1 &&
-                el.content.length === 0 &&
-                disabledClickAttempt.step2
-              }
               {...el}
             />
           ))
@@ -195,11 +190,6 @@ export const CurrentWeekReviewContainer = ({
               writeReview={writeReview}
               isRequiredError={
                 lowLightList.length === 1 &&
-                el.content.length === 0 &&
-                disabledClickAttempt.step3
-              }
-              isShowErrorText={
-                lowLightList.length > 1 &&
                 el.content.length === 0 &&
                 disabledClickAttempt.step3
               }
