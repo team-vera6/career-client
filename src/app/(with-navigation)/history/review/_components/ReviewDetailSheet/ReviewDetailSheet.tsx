@@ -4,6 +4,7 @@ import { Dispatch, useState } from 'react';
 import { deleteReview } from '@/apis/review/delete';
 import RightActionSheetContainer from '@/components/action-sheets/Container';
 import Alert from '@/components/modal/Alert';
+import useToast from '@/hooks/useToast';
 import { CurrentWeek } from '@/types/currentWeek';
 
 // eslint-disable-next-line import/no-named-as-default
@@ -25,6 +26,8 @@ export const ReviewDetailSheet = ({
   weekNumber,
   fetchList,
 }: Props) => {
+  const { addToast } = useToast();
+
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
   const onClickDelete = async () => {
@@ -47,7 +50,16 @@ export const ReviewDetailSheet = ({
           buttonStyle: 'line',
           onClick: () => setShowDeleteAlert(true),
         },
-        { text: '수정', buttonStyle: 'line' },
+        {
+          text: '수정',
+          buttonStyle: 'line',
+          onClick: () => {
+            addToast({
+              iconType: 'error',
+              message: '준비 중인 기능이에요.',
+            });
+          },
+        },
       ]}
     >
       <section className="flex flex-col">
