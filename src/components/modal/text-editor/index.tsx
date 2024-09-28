@@ -40,6 +40,10 @@ const TextEditorModal = ({
     content: value,
     editable: !disabledEditor,
     autofocus: 'end',
+    onFocus: () =>
+      value
+        ? editor?.commands.setContent(value)
+        : editor?.commands.clearContent(),
   });
 
   useEffect(() => {
