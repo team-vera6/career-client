@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { editMemo } from '@/apis/memo/put';
 import { MemoItem } from '@/app/review/types';
@@ -20,6 +20,10 @@ const Memo = ({
 }: MemoItem) => {
   const [showMemo, setShowMemo] = useState(false);
   const [textValue, setTextValue] = useState(memo ?? '');
+
+  useEffect(() => {
+    setTextValue(memo ?? '');
+  }, [memo]);
 
   const onClickCloseModal = () => {
     setShowMemo(false);
