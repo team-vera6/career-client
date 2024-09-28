@@ -1,8 +1,8 @@
+// eslint-disable-next-line camelcase
 import './globals.css';
 
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
-// eslint-disable-next-line camelcase
 import { Chakra_Petch } from 'next/font/google';
 import localFont from 'next/font/local';
 

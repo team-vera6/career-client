@@ -1,6 +1,3 @@
-'use client';
-
-import { format } from 'date-fns';
 import { useAtom, useAtomValue } from 'jotai';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -12,6 +9,7 @@ import EmptyMemoImage from '@/assets/images/memo-empty.png';
 import PlusIcon from '@/components/icons/PlusIcon';
 import Memo from '@/components/memo/Memo';
 import TextEditorModal from '@/components/modal/text-editor';
+import useToast from '@/hooks/useToast';
 import { displayWeekAtom } from '@/stores/week/displayWeek';
 import { CurrentWeek } from '@/types/currentWeek';
 
@@ -19,6 +17,7 @@ const MemoList = () => {
   const [openTextEditor, setOpenTextEditor] = useState(false);
   const [memos, setMemos] = useAtom(memoListAtom);
   const currentWeek = useAtomValue(displayWeekAtom);
+  const { addToast } = useToast();
 
   const getMemoList = async ({ year, month, week }: CurrentWeek) => {
     const data = await getMemos({
@@ -26,6 +25,7 @@ const MemoList = () => {
       month,
       week,
     });
+
     setMemos(
       data.memos.map((memo) => {
         return {
@@ -39,7 +39,9 @@ const MemoList = () => {
   };
 
   useEffect(() => {
-    getMemoList(currentWeek);
+    (async () => {
+      await getMemoList(currentWeek);
+    })();
   }, [currentWeek]);
 
   const addMemo = async (content: string) => {
@@ -48,6 +50,16 @@ const MemoList = () => {
     } catch (error) {
       console.log('fail to add memo', error);
     }
+  };
+
+  const onSaveMemo = async (text: string) => {
+    await addMemo(text);
+    await getMemoList(currentWeek);
+
+    addToast({
+      iconType: 'success',
+      message: '이번 주 메모에 추가되었습니다',
+    });
   };
 
   return (
@@ -90,18 +102,7 @@ const MemoList = () => {
         onDismiss={() => {
           setOpenTextEditor(false);
         }}
-        onSaveText={async (text) => {
-          await addMemo(text);
-          setMemos((prev) => [
-            ...prev,
-            {
-              id: new Date().toString(),
-              title: '',
-              memo: text,
-              date: format(new Date(), 'yyyy-MM-dd HH:mm'),
-            },
-          ]);
-        }}
+        onSaveText={onSaveMemo}
         value={''}
       />
     </section>

@@ -5,7 +5,10 @@ import { useState } from 'react';
 import CreateProjectSheet from '@/components/action-sheets/create-project/CreateProjectSheet';
 import PlusIcon from '@/components/icons/PlusIcon';
 
-const AddButton = () => {
+interface Props {
+  fetchProjects: () => Promise<void>;
+}
+const AddButton = ({ fetchProjects }: Props) => {
   const [showSheet, setShowSheet] = useState(false);
 
   return (
@@ -24,6 +27,7 @@ const AddButton = () => {
       <CreateProjectSheet
         isOpen={showSheet}
         closeSheet={() => setShowSheet(false)}
+        fetchProjects={fetchProjects}
       />
     </>
   );

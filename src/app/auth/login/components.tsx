@@ -34,7 +34,7 @@ const LoginComponents = () => {
     const login = await userLogin(formData.email, formData.password);
 
     if (login === 'success') {
-      router.push('/');
+      router.push('/dashboards');
     }
   };
 

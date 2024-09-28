@@ -16,7 +16,7 @@ import LineInput from '@/components/inputs/line/LineInput';
 import Textarea from '@/components/inputs/textarea/Textarea';
 import Alert from '@/components/modal/Alert';
 import useToast from '@/hooks/useToast';
-import { getDateForDatePicker } from '@/utils/date';
+import { formatToServerDate, getDateForDatePicker } from '@/utils/date';
 
 import RightActionSheetContainer from '../Container';
 import RelatedReview from '../project-detail/_components/RelatedReview';
@@ -93,8 +93,8 @@ const EditProjectSheet = ({
   const onClickSave = async () => {
     const body = {
       title,
-      startDate: dateRange.start,
-      endDate: dateRange.end,
+      startDate: formatToServerDate(dateRange.start),
+      endDate: formatToServerDate(dateRange.end),
       goal,
       content: description,
     };
