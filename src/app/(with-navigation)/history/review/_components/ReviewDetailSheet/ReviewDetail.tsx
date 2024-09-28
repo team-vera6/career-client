@@ -90,7 +90,11 @@ export const ReviewDetail = ({ weekNumber }: Props) => {
         <p className="font-title-14 text-text-strong">완료한 일</p>
         <div className="pl-8 flex flex-col gap-2">
           {completedTodos.map((todo) => (
-            <DeletableInput key={`todo-${todo.id}`} value={todo.content} />
+            <DeletableInput
+              key={`todo-${todo.id}`}
+              value={todo.content}
+              disabled
+            />
           ))}
         </div>
       </div>

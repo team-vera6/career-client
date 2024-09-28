@@ -9,9 +9,15 @@ interface Props {
   value: string;
   onChange?: (value: string) => void;
   onClickDelete?: () => void;
+  disabled?: boolean;
 }
 
-const DeletableInput = ({ value, onChange, onClickDelete }: Props) => {
+const DeletableInput = ({
+  value,
+  onChange,
+  onClickDelete,
+  disabled,
+}: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   return (
@@ -34,6 +40,7 @@ const DeletableInput = ({ value, onChange, onClickDelete }: Props) => {
           onChange={(e) => onChange?.(e.currentTarget.value)}
           onFocus={() => setIsEditing(true)}
           onBlur={() => setIsEditing(false)}
+          disabled={disabled}
         />
       </div>
 
