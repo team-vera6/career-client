@@ -4,6 +4,7 @@ import { Dispatch } from 'react';
 import RightActionSheetContainer from '@/components/action-sheets/Container';
 import { CurrentWeek } from '@/types/currentWeek';
 
+// eslint-disable-next-line import/no-named-as-default
 import Score from '../../../_components/review/Score';
 import { ReviewDetail } from './ReviewDetail';
 
