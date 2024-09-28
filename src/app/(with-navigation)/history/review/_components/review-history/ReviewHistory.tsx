@@ -97,6 +97,11 @@ const ReviewHistory = () => {
         selectedReviewId={selectedReviewId}
         setShowDetail={setShowDetail}
         weekNumber={selectedReviewWeek}
+        fetchList={async () => {
+          const response = await getReviewList();
+          const sorted = groupReviewsByWeek(response.reviews);
+          setReviews(sorted);
+        }}
       />
     </>
   );

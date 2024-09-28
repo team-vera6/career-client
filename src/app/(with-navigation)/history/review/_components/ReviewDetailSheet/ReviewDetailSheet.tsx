@@ -1,7 +1,9 @@
 import { SetStateAction } from 'jotai';
-import { Dispatch } from 'react';
+import { Dispatch, useState } from 'react';
 
+import { deleteReview } from '@/apis/review/delete';
 import RightActionSheetContainer from '@/components/action-sheets/Container';
+import Alert from '@/components/modal/Alert';
 import { CurrentWeek } from '@/types/currentWeek';
 
 // eslint-disable-next-line import/no-named-as-default
@@ -13,19 +15,38 @@ interface Props {
   selectedReviewId: number;
   setShowDetail: Dispatch<SetStateAction<boolean>>;
   weekNumber: CurrentWeek;
+  fetchList: () => Promise<void>;
 }
 
 export const ReviewDetailSheet = ({
   isOpen,
+  selectedReviewId,
   setShowDetail,
   weekNumber,
+  fetchList,
 }: Props) => {
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+
+  const onClickDelete = async () => {
+    try {
+      await deleteReview(selectedReviewId);
+      await fetchList();
+      setShowDetail(false);
+    } catch (error) {
+      console.error('fail to delete review', error);
+    }
+  };
+
   return (
     <RightActionSheetContainer
       closeActionSheet={() => setShowDetail(false)}
       isOpen={isOpen}
       buttons={[
-        { text: '삭제', buttonStyle: 'line' },
+        {
+          text: '삭제',
+          buttonStyle: 'line',
+          onClick: () => setShowDeleteAlert(true),
+        },
         { text: '수정', buttonStyle: 'line' },
       ]}
     >
@@ -43,6 +64,17 @@ export const ReviewDetailSheet = ({
 
         <ReviewDetail weekNumber={weekNumber} />
       </section>
+
+      <Alert
+        isOpen={showDeleteAlert}
+        onDismiss={() => setShowDeleteAlert(false)}
+        title="정말로 삭제하시겠어요?"
+        content=""
+        buttons={{
+          left: { text: '취소' },
+          right: { text: '확인', onClick: onClickDelete },
+        }}
+      />
     </RightActionSheetContainer>
   );
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Button } from '@/types/button';
@@ -26,13 +26,21 @@ const RightActionSheetContainer = ({
   buttons,
   disableAnimation,
 }: PropsWithChildren<Props>) => {
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   if (typeof document === 'undefined') {
     return null;
   }
-
-  document.body.style.overflow = 'hidden';
 
   return createPortal(
     <div className="w-screen h-screen fixed z-30">
@@ -40,10 +48,7 @@ const RightActionSheetContainer = ({
         {/* background dimmer */}
         <div
           className="fixed w-full h-full top-0 bottom-0 left-0 right-0 z-10 bg-surface-dimmer opacity-[0.76]"
-          onClick={() => {
-            closeActionSheet();
-            document.body.style.overflow = 'auto';
-          }}
+          onClick={() => closeActionSheet()}
         />
 
         {/* action sheet */}
