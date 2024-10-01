@@ -5,10 +5,11 @@ import Underline from '@tiptap/extension-underline';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useSetAtom } from 'jotai';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { deleteMemo } from '@/apis/memo/delete';
 import { memoListAtom } from '@/app/review/stores';
+import Alert from '@/components/modal/Alert';
 import MenuBar from '@/components/text-editor/MenuBar';
 import TextEditorBottom from '@/components/text-editor/TextEditorBottom';
 
@@ -33,6 +34,8 @@ const TextEditorModal = ({
   isBookmark,
   ...rest
 }: ModalProps & Props) => {
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+
   const setMemoList = useSetAtom(memoListAtom);
 
   const editor = useEditor({
@@ -59,6 +62,7 @@ const TextEditorModal = ({
       try {
         await deleteMemo(Number(id));
         setMemoList((prev) => prev.filter((memo) => memo.id !== id));
+        rest.onDismiss?.();
       } catch (error) {
         console.error('fail to delete memo', error);
       }
@@ -95,9 +99,19 @@ const TextEditorModal = ({
             id={id}
             isBookmark={isBookmark}
             updatedAt={lastUpdated}
-            deleteMemo={onClickDelete}
+            deleteMemo={() => setShowDeleteAlert(true)}
           />
         )}
+
+        <Alert
+          isOpen={showDeleteAlert}
+          onDismiss={() => setShowDeleteAlert(false)}
+          title="정말로 삭제하시겠어요?"
+          buttons={{
+            left: { text: '취소' },
+            right: { text: '확인', onClick: onClickDelete },
+          }}
+        />
       </div>
     </Modal>
   );
