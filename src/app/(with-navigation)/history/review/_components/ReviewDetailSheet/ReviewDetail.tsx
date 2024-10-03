@@ -1,55 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import { getHighlights, getLowlights, getTodos } from '@/apis/reports/get';
 import { LastWeekReviewItem } from '@/app/review/_components/last-week-review/LastWeekReviewItem';
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
 import LowlightCircleIcon from '@/components/icons/LowlightCircleIcon';
 import DeletableInput from '@/components/inputs/deletable-input/DeletableInput';
-import { CurrentWeek } from '@/types/currentWeek';
 import { Highlight } from '@/types/highlight';
 import { Todo } from '@/types/todo';
 
 interface Props {
-  weekNumber: CurrentWeek;
+  highlights: Omit<Highlight, 'currentWeek'>[];
+  lowlights: Omit<Highlight, 'currentWeek'>[];
+  completedTodos: Todo[];
 }
 
-export const ReviewDetail = ({ weekNumber }: Props) => {
-  const [highlights, setHighlights] = useState<
-    Omit<Highlight, 'currentWeek'>[]
-  >([]);
-  const [lowlights, setLowlights] = useState<Omit<Highlight, 'currentWeek'>[]>(
-    [],
-  );
-  const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      Promise.all([
-        getHighlights({
-          year: weekNumber.year,
-          month: weekNumber.month,
-          week: weekNumber.week,
-        }).then((res) => setHighlights(res.highlights)),
-        getLowlights({
-          year: weekNumber.year,
-          month: weekNumber.month,
-          week: weekNumber.week,
-        }).then((res) => setLowlights(res.lowlights)),
-        getTodos({
-          year: weekNumber.year,
-          month: weekNumber.month,
-          week: weekNumber.week,
-        }).then((res) => setCompletedTodos(res.todos)),
-      ]);
-
-      setCompletedTodos((prev) =>
-        prev.filter((todo) => todo.status === 'done'),
-      );
-    })();
-  }, [weekNumber]);
-
+export const ReviewDetail = ({
+  highlights,
+  lowlights,
+  completedTodos,
+}: Props) => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2.5">
