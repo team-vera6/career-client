@@ -10,7 +10,7 @@ import { Todo } from '@/types/todo';
 interface Props {
   isOpen: boolean;
   selectedReviewId: number;
-  setShowDetail: Dispatch<SetStateAction<boolean>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   weekNumber: CurrentWeek;
   highlights: Omit<Highlight, 'currentWeek'>[];
   lowlights: Omit<Highlight, 'currentWeek'>[];
@@ -19,8 +19,7 @@ interface Props {
 
 export const ReviewEditSheet = ({
   isOpen,
-  selectedReviewId,
-  setShowDetail,
+  setIsOpen,
   weekNumber,
   highlights,
   lowlights,
@@ -28,8 +27,9 @@ export const ReviewEditSheet = ({
 }: Props) => {
   return (
     <RightActionSheetContainer
+      disableAnimation
       isOpen={isOpen}
-      closeActionSheet={() => setShowDetail(false)}
+      closeActionSheet={() => setIsOpen(false)}
       buttons={[
         {
           text: '저장',
