@@ -5,12 +5,15 @@ import ProgressChip from '@/components/progress-chip/ProgressChip';
 
 interface Props extends ReviewListItem {
   editable?: boolean;
+  onClickDelete?: (id: number) => void;
 }
 
 export const LastWeekReviewItem = ({
+  id,
   content,
   project,
   editable = false,
+  onClickDelete,
 }: Props) => {
   return (
     <div className="w-full">
@@ -30,7 +33,10 @@ export const LastWeekReviewItem = ({
           <ProgressChip percentage={project?.progressRate ?? 0} />
 
           {editable && (
-            <button className="absolute -right-2.5">
+            <button
+              className="absolute -right-2.5"
+              onClick={() => onClickDelete?.(Number(id))}
+            >
               <CloseCircleIcon />
             </button>
           )}

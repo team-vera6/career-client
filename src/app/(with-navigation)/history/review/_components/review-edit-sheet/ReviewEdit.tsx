@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { deleteTodo } from '@/apis/todos/delete';
 import { LastWeekReviewItem } from '@/app/review/_components/last-week-review/LastWeekReviewItem';
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
@@ -19,6 +21,13 @@ export const ReviewEdit = ({
   lowlights,
   completedTodos,
 }: Props) => {
+  const [deletableHighlightIds, setDeletableHighlightIds] = useState<number[]>(
+    [],
+  );
+  const [deletableLowlightIds, setDeletableLowlightIds] = useState<number[]>(
+    [],
+  );
+
   const onClickDeleteTodo = async (id: number) => {
     try {
       await deleteTodo([String(id)]);
