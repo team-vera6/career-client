@@ -34,12 +34,33 @@ export const ReviewEdit = ({
     [],
   );
 
+  const [highlightsForDisplay, setHighlightsForDisplay] =
+    useState<Highlight[]>(highlights);
+  const [lowlightsForDisplay, setLowlightsForDisplay] =
+    useState<Highlight[]>(lowlights);
+
   const onClickDeleteTodo = async (id: number) => {
     try {
       await deleteTodo([String(id)]);
       await fetchList();
     } catch (error) {
       console.error('fail to delete todo', error);
+    }
+  };
+
+  const onClickDeleteProject = (id: number, type: 'highlight' | 'lowlight') => {
+    if (type === 'highlight') {
+      setDeletableHighlightIds([...deletableHighlightIds, id]);
+      setHighlightsForDisplay(
+        highlightsForDisplay.filter((highlight) => highlight.id !== id),
+      );
+    }
+
+    if (type === 'lowlight') {
+      setDeletableLowlightIds([...deletableLowlightIds, id]);
+      setLowlightsForDisplay(
+        lowlightsForDisplay.filter((lowlight) => lowlight.id !== id),
+      );
     }
   };
 
@@ -51,13 +72,16 @@ export const ReviewEdit = ({
           <p className="font-title-14 text-text-strong">하이라이트</p>
         </div>
         <div className="pl-8 flex flex-col gap-2">
-          {highlights.map((highlight) => (
+          {highlightsForDisplay.map((highlight) => (
             <LastWeekReviewItem
               key={`highlight-${highlight.id}`}
               id={highlight.id}
               project={highlight.project}
               content={highlight.content}
               editable
+              onClickDelete={() =>
+                onClickDeleteProject(highlight.id, 'highlight')
+              }
             />
           ))}
         </div>
@@ -69,13 +93,16 @@ export const ReviewEdit = ({
           <p className="font-title-14 text-text-strong">로우라이트</p>
         </div>
         <div className="pl-8 flex flex-col gap-2">
-          {lowlights.map((lowlight) => (
+          {lowlightsForDisplay.map((lowlight) => (
             <LastWeekReviewItem
               key={`lowlight-${lowlight.id}`}
               id={lowlight.id}
               project={lowlight.project}
               content={lowlight.content}
               editable
+              onClickDelete={() =>
+                onClickDeleteProject(lowlight.id, 'lowlight')
+              }
             />
           ))}
         </div>
