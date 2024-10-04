@@ -21,13 +21,13 @@ const CloseCircleIcon = ({
         r="8.25"
         fill="white"
         stroke={stroke}
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <path
         d="M7 7.37109L13 13.3711M13 7.37109L7 13.3711"
         stroke={stroke}
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
     </svg>
   );

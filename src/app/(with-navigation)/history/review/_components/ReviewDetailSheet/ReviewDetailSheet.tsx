@@ -40,33 +40,33 @@ export const ReviewDetailSheet = ({
   );
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
 
+  const fetchDatas = async () => {
+    Promise.all([
+      getHighlights({
+        year: weekNumber.year,
+        month: weekNumber.month,
+        week: weekNumber.week,
+      }).then((res) => setHighlights(res.highlights)),
+      getLowlights({
+        year: weekNumber.year,
+        month: weekNumber.month,
+        week: weekNumber.week,
+      }).then((res) => setLowlights(res.lowlights)),
+      getTodos({
+        year: weekNumber.year,
+        month: weekNumber.month,
+        week: weekNumber.week,
+      }).then((res) => setCompletedTodos(res.todos)),
+    ]);
+
+    setCompletedTodos((prev) => prev.filter((todo) => todo.status === 'done'));
+  };
+
   useEffect(() => {
     if (!isOpen) return;
 
-    (async () => {
-      Promise.all([
-        getHighlights({
-          year: weekNumber.year,
-          month: weekNumber.month,
-          week: weekNumber.week,
-        }).then((res) => setHighlights(res.highlights)),
-        getLowlights({
-          year: weekNumber.year,
-          month: weekNumber.month,
-          week: weekNumber.week,
-        }).then((res) => setLowlights(res.lowlights)),
-        getTodos({
-          year: weekNumber.year,
-          month: weekNumber.month,
-          week: weekNumber.week,
-        }).then((res) => setCompletedTodos(res.todos)),
-      ]);
-
-      setCompletedTodos((prev) =>
-        prev.filter((todo) => todo.status === 'done'),
-      );
-    })();
-  }, [weekNumber]);
+    fetchDatas();
+  }, [weekNumber, isOpen]);
 
   const onClickDelete = async () => {
     try {
@@ -135,6 +135,7 @@ export const ReviewDetailSheet = ({
         highlights={highlights}
         lowlights={lowlights}
         completedTodos={completedTodos}
+        fetchList={fetchDatas}
       />
     </>
   );

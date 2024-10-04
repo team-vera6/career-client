@@ -7,6 +7,7 @@ import { LastWeekReviewItem } from '@/app/review/_components/last-week-review/La
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
 import LowlightCircleIcon from '@/components/icons/LowlightCircleIcon';
 import DeletableInput from '@/components/inputs/deletable-input/DeletableInput';
+import Alert from '@/components/modal/Alert';
 import { Highlight } from '@/types/highlight';
 import { Todo } from '@/types/todo';
 
@@ -14,13 +15,18 @@ interface Props {
   highlights: Highlight[];
   lowlights: Highlight[];
   completedTodos: Todo[];
+  fetchList: () => Promise<void>;
 }
 
 export const ReviewEdit = ({
   highlights,
   lowlights,
   completedTodos,
+  fetchList,
 }: Props) => {
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [selectedTodoId, setSelectedTodoId] = useState(-1);
+
   const [deletableHighlightIds, setDeletableHighlightIds] = useState<number[]>(
     [],
   );
@@ -31,6 +37,7 @@ export const ReviewEdit = ({
   const onClickDeleteTodo = async (id: number) => {
     try {
       await deleteTodo([String(id)]);
+      await fetchList();
     } catch (error) {
       console.error('fail to delete todo', error);
     }
@@ -81,11 +88,27 @@ export const ReviewEdit = ({
             <DeletableInput
               key={`todo-${todo.id}`}
               value={todo.content}
-              onClickDelete={() => onClickDeleteTodo(todo.id)}
+              onClickDelete={() => {
+                setSelectedTodoId(todo.id);
+                setShowDeleteAlert(true);
+              }}
             />
           ))}
         </div>
       </div>
+
+      <Alert
+        isOpen={showDeleteAlert}
+        onDismiss={() => setShowDeleteAlert(false)}
+        title="정말로 삭제하시겠어요?"
+        buttons={{
+          left: { text: '취소' },
+          right: {
+            text: '확인',
+            onClick: () => onClickDeleteTodo(selectedTodoId),
+          },
+        }}
+      />
     </div>
   );
 };

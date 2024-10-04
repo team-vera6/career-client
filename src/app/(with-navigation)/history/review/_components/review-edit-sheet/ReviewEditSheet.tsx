@@ -15,6 +15,7 @@ interface Props {
   highlights: Omit<Highlight, 'currentWeek'>[];
   lowlights: Omit<Highlight, 'currentWeek'>[];
   completedTodos: Todo[];
+  fetchList: () => Promise<void>;
 }
 
 export const ReviewEditSheet = ({
@@ -24,6 +25,7 @@ export const ReviewEditSheet = ({
   highlights,
   lowlights,
   completedTodos,
+  fetchList,
 }: Props) => {
   return (
     <RightActionSheetContainer
@@ -54,6 +56,7 @@ export const ReviewEditSheet = ({
           highlights={highlights}
           lowlights={lowlights}
           completedTodos={completedTodos}
+          fetchList={fetchList}
         />
       </section>
     </RightActionSheetContainer>
