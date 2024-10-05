@@ -1,8 +1,10 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
+import { editHighlight } from '@/apis/review/put';
 import Score from '@/app/(with-navigation)/history/_components/review/Score';
 import { ReviewEdit } from '@/app/(with-navigation)/history/review/_components/review-edit-sheet/ReviewEdit';
 import RightActionSheetContainer from '@/components/action-sheets/Container';
+import useToast from '@/hooks/useToast';
 import { CurrentWeek } from '@/types/currentWeek';
 import { Highlight } from '@/types/highlight';
 import { Todo } from '@/types/todo';
@@ -27,16 +29,96 @@ export const ReviewEditSheet = ({
   completedTodos,
   fetchList,
 }: Props) => {
+  const { addToast } = useToast();
+
+  const [deletableHighlightIds, setDeletableHighlightIds] = useState<number[]>(
+    [],
+  );
+  const [deletableLowlightIds, setDeletableLowlightIds] = useState<number[]>(
+    [],
+  );
+
+  const [highlightsForDisplay, setHighlightsForDisplay] = useState<Highlight[]>(
+    [],
+  );
+  const [lowlightsForDisplay, setLowlightsForDisplay] = useState<Highlight[]>(
+    [],
+  );
+
+  useEffect(() => {
+    setHighlightsForDisplay(highlights);
+    setLowlightsForDisplay(lowlights);
+  }, [highlights, lowlights]);
+
+  const onClickDeleteProject = (id: number, type: 'highlight' | 'lowlight') => {
+    if (type === 'highlight') {
+      setDeletableHighlightIds([...deletableHighlightIds, id]);
+
+      setHighlightsForDisplay(
+        highlightsForDisplay.map((highlight) =>
+          highlight.id === id
+            ? { ...highlight, project: { id: 0, content: '', progressRate: 0 } }
+            : highlight,
+        ),
+      );
+    }
+
+    if (type === 'lowlight') {
+      setDeletableLowlightIds([...deletableLowlightIds, id]);
+
+      setLowlightsForDisplay(
+        lowlightsForDisplay.map((lowlight) =>
+          lowlight.id === id
+            ? { ...lowlight, project: { id: 0, content: '', progressRate: 0 } }
+            : lowlight,
+        ),
+      );
+    }
+  };
+
+  const saveDeletedProjects = async () => {
+    try {
+      deletableHighlightIds.forEach(async (id) => {
+        const currentContent =
+          highlights.find((highlight) => highlight.id === id)?.content ?? '';
+
+        await editHighlight(id, { content: currentContent, projectId: null });
+      });
+
+      deletableLowlightIds.forEach(async (id) => {
+        const currentContent =
+          lowlights.find((lowlight) => lowlight.id === id)?.content ?? '';
+
+        await editHighlight(id, { content: currentContent, projectId: null });
+      });
+    } catch (error) {
+      console.error('fail to delete projects', error);
+    }
+  };
+
   return (
     <RightActionSheetContainer
       disableAnimation
       isOpen={isOpen}
-      closeActionSheet={() => setIsOpen(false)}
+      closeActionSheet={() => {
+        setIsOpen(false);
+        setHighlightsForDisplay(highlights);
+        setLowlightsForDisplay(lowlights);
+        setDeletableHighlightIds([]);
+        setDeletableLowlightIds([]);
+      }}
       buttons={[
         {
           text: '저장',
           buttonStyle: 'primary',
-          onClick: () => console.log('저장'),
+          onClick: async () => {
+            await saveDeletedProjects();
+            setIsOpen(false);
+            addToast({
+              iconType: 'success',
+              message: '프로젝트 내용이 수정되었어요.',
+            });
+          },
         },
       ]}
     >
@@ -53,10 +135,11 @@ export const ReviewEditSheet = ({
         </div>
 
         <ReviewEdit
-          highlights={highlights}
-          lowlights={lowlights}
+          highlights={highlightsForDisplay}
+          lowlights={lowlightsForDisplay}
           completedTodos={completedTodos}
           fetchList={fetchList}
+          onClickDeleteProject={onClickDeleteProject}
         />
       </section>
     </RightActionSheetContainer>

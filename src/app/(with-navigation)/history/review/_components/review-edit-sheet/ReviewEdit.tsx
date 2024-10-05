@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 
 import { deleteTodo } from '@/apis/todos/delete';
@@ -16,6 +14,7 @@ interface Props {
   lowlights: Highlight[];
   completedTodos: Todo[];
   fetchList: () => Promise<void>;
+  onClickDeleteProject: (id: number, type: 'highlight' | 'lowlight') => void;
 }
 
 export const ReviewEdit = ({
@@ -23,21 +22,10 @@ export const ReviewEdit = ({
   lowlights,
   completedTodos,
   fetchList,
+  onClickDeleteProject,
 }: Props) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [selectedTodoId, setSelectedTodoId] = useState(-1);
-
-  const [deletableHighlightIds, setDeletableHighlightIds] = useState<number[]>(
-    [],
-  );
-  const [deletableLowlightIds, setDeletableLowlightIds] = useState<number[]>(
-    [],
-  );
-
-  const [highlightsForDisplay, setHighlightsForDisplay] =
-    useState<Highlight[]>(highlights);
-  const [lowlightsForDisplay, setLowlightsForDisplay] =
-    useState<Highlight[]>(lowlights);
 
   const onClickDeleteTodo = async (id: number) => {
     try {
@@ -45,22 +33,6 @@ export const ReviewEdit = ({
       await fetchList();
     } catch (error) {
       console.error('fail to delete todo', error);
-    }
-  };
-
-  const onClickDeleteProject = (id: number, type: 'highlight' | 'lowlight') => {
-    if (type === 'highlight') {
-      setDeletableHighlightIds([...deletableHighlightIds, id]);
-      setHighlightsForDisplay(
-        highlightsForDisplay.filter((highlight) => highlight.id !== id),
-      );
-    }
-
-    if (type === 'lowlight') {
-      setDeletableLowlightIds([...deletableLowlightIds, id]);
-      setLowlightsForDisplay(
-        lowlightsForDisplay.filter((lowlight) => lowlight.id !== id),
-      );
     }
   };
 
@@ -72,7 +44,7 @@ export const ReviewEdit = ({
           <p className="font-title-14 text-text-strong">하이라이트</p>
         </div>
         <div className="pl-8 flex flex-col gap-2">
-          {highlightsForDisplay.map((highlight) => (
+          {highlights.map((highlight) => (
             <LastWeekReviewItem
               key={`highlight-${highlight.id}`}
               id={highlight.id}
@@ -93,7 +65,7 @@ export const ReviewEdit = ({
           <p className="font-title-14 text-text-strong">로우라이트</p>
         </div>
         <div className="pl-8 flex flex-col gap-2">
-          {lowlightsForDisplay.map((lowlight) => (
+          {lowlights.map((lowlight) => (
             <LastWeekReviewItem
               key={`lowlight-${lowlight.id}`}
               id={lowlight.id}

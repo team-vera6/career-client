@@ -1,5 +1,5 @@
 import { SetStateAction } from 'jotai';
-import { Dispatch, useEffect, useState } from 'react';
+import { Dispatch, useCallback, useEffect, useState } from 'react';
 
 import { getHighlights, getLowlights, getTodos } from '@/apis/reports/get';
 import { deleteReview } from '@/apis/review/delete';
@@ -40,7 +40,7 @@ export const ReviewDetailSheet = ({
   );
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
 
-  const fetchDatas = async () => {
+  const fetchDatas = useCallback(async () => {
     Promise.all([
       getHighlights({
         year: weekNumber.year,
@@ -60,13 +60,13 @@ export const ReviewDetailSheet = ({
     ]);
 
     setCompletedTodos((prev) => prev.filter((todo) => todo.status === 'done'));
-  };
+  }, [weekNumber]);
 
   useEffect(() => {
     if (!isOpen) return;
 
     fetchDatas();
-  }, [weekNumber, isOpen]);
+  }, [weekNumber, isOpen, fetchDatas]);
 
   const onClickDelete = async () => {
     try {
