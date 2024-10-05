@@ -1,3 +1,6 @@
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
+
 import { CurrentWeek } from '@/types/currentWeek';
 
 import { Score } from '../../../_components/review/Score';
@@ -17,6 +20,21 @@ const ReviewItem = ({
   id,
   onClickReview,
 }: Props) => {
+  const searchParams = useSearchParams();
+  const year = searchParams.get('year');
+  const month = searchParams.get('month');
+  const week = searchParams.get('week');
+
+  useEffect(() => {
+    if (
+      Number(year) === weekNumber.year &&
+      Number(month) === weekNumber.month &&
+      Number(week) === weekNumber.week
+    ) {
+      onClickReview(id, weekNumber);
+    }
+  }, [year, month, week]);
+
   return (
     <li
       className="w-full h-14 flex items-center pl-6 pr-5 bg-surface-foregroundOn rounded-2xl cursor-pointer"
