@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { useAtom, useSetAtom } from 'jotai';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { DashboardDataResponse, getDashboardData } from '@/apis/dashboard/get';
 import { currentTodoListAtom } from '@/app/review/stores';
@@ -92,7 +92,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <Suspense fallback={<>loading...</>}>
+    <div>
       <Metrics
         weekStreak={data.laps}
         reviewCount={data.reviewCount}
@@ -123,6 +123,6 @@ export default function DashboardPage() {
       </div>
 
       <SignUpSuccessModal />
-    </Suspense>
+    </div>
   );
 }
