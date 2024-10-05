@@ -24,7 +24,7 @@ const ReviewHistory = () => {
   const groupReviewsByWeek = (receivedReviews: Review[]) => {
     const groupedReviews = receivedReviews.reduce(
       (acc, cur) => {
-        const { year, month, week } = cur.weekNumber;
+        const { year, month } = cur.weekNumber;
 
         const item = {
           id: cur.id,
@@ -32,7 +32,7 @@ const ReviewHistory = () => {
           highlightSummary: cur.highlightSummary,
         };
 
-        const key = `${year}-${month}-${week}`;
+        const key = `${year}-${month}`;
         if (acc[key]) {
           acc[key].reviews.push(item);
         } else {
