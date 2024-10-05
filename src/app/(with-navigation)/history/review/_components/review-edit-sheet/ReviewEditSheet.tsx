@@ -99,6 +99,7 @@ export const ReviewEditSheet = ({
   return (
     <RightActionSheetContainer
       disableAnimation
+      disableDimmer
       isOpen={isOpen}
       closeActionSheet={() => {
         setIsOpen(false);

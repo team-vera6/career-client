@@ -134,6 +134,7 @@ const EditProjectSheet = ({
   return (
     <RightActionSheetContainer
       disableAnimation
+      disableDimmer
       isOpen={isOpen}
       closeActionSheet={() =>
         hasChanges ? setShowDismissAlert(true) : closeSheet()
