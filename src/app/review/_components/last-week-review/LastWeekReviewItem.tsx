@@ -24,24 +24,26 @@ export const LastWeekReviewItem = ({
         {content}
       </div>
 
-      <div className="flex">
-        <LinkIcon size={36} />
-        <div className="w-[calc(100%-2.2rem)] flex items-center justify-between gap-2 py-1.5 pl-3 pr-2 mt-2 border border-line-normal rounded-lg bg-surface-foregroundOn relative">
-          <p className="truncate font-body-14 text-text-strong">
-            {project?.content}
-          </p>
-          <ProgressChip percentage={project?.progressRate ?? 0} />
+      {project?.id ? (
+        <div className="flex">
+          <LinkIcon size={36} />
+          <div className="w-[calc(100%-2.2rem)] flex items-center justify-between gap-2 py-1.5 pl-3 pr-2 mt-2 border border-line-normal rounded-lg bg-surface-foregroundOn relative">
+            <p className="truncate font-body-14 text-text-strong">
+              {project?.content}
+            </p>
+            <ProgressChip percentage={project?.progressRate ?? 0} />
 
-          {editable && (
-            <button
-              className="absolute -right-2.5"
-              onClick={() => onClickDelete?.(Number(id))}
-            >
-              <CloseCircleIcon />
-            </button>
-          )}
+            {editable && (
+              <button
+                className="absolute -right-2.5"
+                onClick={() => onClickDelete?.(Number(id))}
+              >
+                <CloseCircleIcon />
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };
