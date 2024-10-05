@@ -1,7 +1,10 @@
+import { useRouter } from 'next/navigation';
+
 import { ReviewListItem } from '@/app/review/types';
 import CloseCircleIcon from '@/components/icons/CloseCircleIcon';
 import LinkIcon from '@/components/icons/LinkIcon';
 import ProgressChip from '@/components/progress-chip/ProgressChip';
+import { cn } from '@/utils/tailwind';
 
 interface Props extends ReviewListItem {
   editable?: boolean;
@@ -15,6 +18,8 @@ export const LastWeekReviewItem = ({
   editable = false,
   onClickDelete,
 }: Props) => {
+  const router = useRouter();
+
   return (
     <div className="w-full">
       <div
@@ -25,7 +30,12 @@ export const LastWeekReviewItem = ({
       </div>
 
       {project?.id ? (
-        <div className="flex">
+        <div
+          className={cn('flex', !editable && 'cursor-pointer')}
+          onClick={() =>
+            !editable && router.push(`/project?project=${project.id}`)
+          }
+        >
           <LinkIcon size={36} />
           <div className="w-[calc(100%-2.2rem)] flex items-center justify-between gap-2 py-1.5 pl-3 pr-2 mt-2 border border-line-normal rounded-lg bg-surface-foregroundOn relative">
             <p className="truncate font-body-14 text-text-strong">

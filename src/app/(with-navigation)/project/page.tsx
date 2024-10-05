@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { getProjectList, ProjectListResponse } from '@/apis/projects/get';
@@ -9,6 +10,9 @@ import NoItem from './_components/project-item/NoItem';
 import ProjectItem from './_components/project-item/ProjectItem';
 
 export default function ProjectPage() {
+  const searchParams = useSearchParams();
+  const initialProjectId = searchParams.get('project');
+
   const [projects, setProjects] = useState<ProjectListResponse['projects']>([]);
 
   useEffect(() => {
@@ -34,6 +38,7 @@ export default function ProjectPage() {
                 title={project.title}
                 progress={project.progress}
                 onClose={getProjects}
+                initialOpen={project.id === Number(initialProjectId)}
               />
             ))}
           </>
