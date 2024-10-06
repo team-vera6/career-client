@@ -1,6 +1,7 @@
 import { atom } from 'jotai';
 
 import { DropdownItem } from '@/components/dropdown/Dropdown';
+import { getRandomNumber } from '@/utils/number';
 
 import { MemoItem, ReviewListItem, TodoListItem } from './types';
 
@@ -30,17 +31,13 @@ export const currentTodoListAtom = atom<TodoListItem[]>([]);
 export const nextTodoListAtom = atom<TodoListItem[]>([]);
 
 export const initialReviewItem = {
-  id: 0,
+  id: getRandomNumber(),
   content: '',
 };
 
 // get한 하이라이트 / 로우라이트 list
-export const initialHighLightListAtom = atom<ReviewListItem[]>([
-  initialReviewItem,
-]);
-export const initialLowLightListAtom = atom<ReviewListItem[]>([
-  initialReviewItem,
-]);
+export const initialHighLightListAtom = atom<ReviewListItem[]>([]);
+export const initialLowLightListAtom = atom<ReviewListItem[]>([]);
 
 // 수정된 하이라이트 / 로우라이트 list
 export const highLightListAtom = atom<ReviewListItem[]>([initialReviewItem]);
