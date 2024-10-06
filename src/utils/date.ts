@@ -104,8 +104,8 @@ const getEndDateInfo = (initialDate?: Date) => {
 
   // 종료일, 시작일 + 6일
   const endDate = new Date();
+  endDate.setDate(startDate.getDate() + 7);
   endDate.setHours(23, 59, 59, 0);
-  endDate.setDate(startDate.getDate() + 6);
 
   const newEndDate = endDate.toLocaleDateString('ko-KR', {
     year: 'numeric',
