@@ -8,7 +8,7 @@ import { memoListAtom } from '@/app/review/stores';
 import EmptyMemoImage from '@/assets/images/memo-empty.png';
 import PlusIcon from '@/components/icons/PlusIcon';
 import Memo from '@/components/memo/Memo';
-import TextEditorModal from '@/components/modal/text-editor';
+import MemoEditor from '@/components/modal/memo-editor/MemoEditor';
 import useToast from '@/hooks/useToast';
 import { displayWeekAtom } from '@/stores/week/displayWeek';
 import { CurrentWeek } from '@/types/currentWeek';
@@ -97,7 +97,7 @@ const MemoList = () => {
         </div>
       )}
 
-      <TextEditorModal
+      <MemoEditor
         isOpen={openTextEditor}
         onDismiss={() => {
           setOpenTextEditor(false);

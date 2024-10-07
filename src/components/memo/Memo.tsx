@@ -6,7 +6,7 @@ import { editMemo } from '@/apis/memo/put';
 import { MemoItem } from '@/app/review/types';
 import { cn } from '@/utils/tailwind';
 
-import TextEditorModal from '../modal/text-editor';
+import MemoEditor from '../modal/memo-editor/MemoEditor';
 import MemoBottom from './MemoBottom';
 
 const Memo = ({
@@ -58,10 +58,7 @@ const Memo = ({
         <div className="w-full h-full pr-1 break-keep overflow-hidden whitespace-pre-wrap line-clamp-4">
           {!!title && <p className="font-title-14 text-text-strong">{title}</p>}
           {!!memo && (
-            <p
-              className="font-body-14 text-text-strong"
-              dangerouslySetInnerHTML={{ __html: textValue }}
-            />
+            <p className="font-body-14 text-text-strong">{textValue}</p>
           )}
         </div>
 
@@ -73,8 +70,8 @@ const Memo = ({
         />
       </div>
 
-      <TextEditorModal
-        disabledEditor={disabledEditor}
+      <MemoEditor
+        readonly={disabledEditor}
         isOpen={showMemo}
         onDismiss={onClickCloseModal}
         onSaveText={async (val) => {
@@ -82,7 +79,7 @@ const Memo = ({
           setTextValue(val);
         }}
         value={textValue}
-        id={id}
+        id={Number(id)}
         lastUpdated={date}
         isBookmark={isBookmark}
       />
