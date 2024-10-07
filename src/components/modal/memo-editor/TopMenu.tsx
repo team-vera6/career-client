@@ -12,9 +12,16 @@ interface Props {
   readonly: boolean;
   lastUpdated?: string;
   onDismiss?: () => void;
+  onSaveText?: () => void;
 }
 
-const TopMenu = ({ id, readonly, lastUpdated, onDismiss }: Props) => {
+const TopMenu = ({
+  id,
+  readonly,
+  lastUpdated,
+  onDismiss,
+  onSaveText,
+}: Props) => {
   const setMemoList = useSetAtom(memoListAtom);
 
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
@@ -52,7 +59,14 @@ const TopMenu = ({ id, readonly, lastUpdated, onDismiss }: Props) => {
           >
             삭제
           </button>
-          <button className="button-small button-primary" type="button">
+          <button
+            className="button-small button-primary"
+            type="button"
+            onClick={() => {
+              onSaveText?.();
+              onDismiss?.();
+            }}
+          >
             저장
           </button>
         </div>
