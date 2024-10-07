@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const isSameObject = (obj1: any, obj2: any) => {
+  if (typeof obj1 !== 'object' || typeof obj2 !== 'object') {
+    throw new Error('obj1 and obj2 must be objects');
+  }
+
   const obj1Sorted = Object.keys(obj1)
     .sort()
     .reduce(
