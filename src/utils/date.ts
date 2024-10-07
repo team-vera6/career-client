@@ -102,7 +102,7 @@ const getEndDateInfo = (initialDate?: Date) => {
 
   const { startDate } = getStartDateInfo(date);
 
-  // 종료일, 시작일 + 6일
+  // 종료일, 시작일 + 7일
   const endDate = new Date();
   endDate.setDate(startDate.getDate() + 7);
   endDate.setHours(23, 59, 59, 0);
