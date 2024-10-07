@@ -1,5 +1,3 @@
-import { useRouter } from 'next/navigation';
-
 import { ReviewListItem } from '@/app/review/types';
 import CloseCircleIcon from '@/components/icons/CloseCircleIcon';
 import LinkIcon from '@/components/icons/LinkIcon';
@@ -18,8 +16,6 @@ export const LastWeekReviewItem = ({
   editable = false,
   onClickDelete,
 }: Props) => {
-  const router = useRouter();
-
   return (
     <div className="w-full">
       <div
@@ -33,7 +29,7 @@ export const LastWeekReviewItem = ({
         <div
           className={cn('flex', !editable && 'cursor-pointer')}
           onClick={() =>
-            !editable && router.push(`/project?project=${project.id}`)
+            !editable && window.open(`/project?project=${project.id}`)
           }
         >
           <LinkIcon size={36} />
