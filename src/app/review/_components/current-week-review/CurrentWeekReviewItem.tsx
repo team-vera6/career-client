@@ -48,9 +48,7 @@ export const CurrentWeekReviewItem = ({
             items={items}
             className="mt-2"
             initialItem={
-              project && project.content !== ''
-                ? project.content
-                : '관련 프로젝트 (선택)'
+              project && project.id !== '' ? project.id : '관련 프로젝트 (선택)'
             }
             onSelect={onSelect}
           />

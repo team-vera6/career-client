@@ -74,7 +74,7 @@ const PasswordComponents = () => {
 
     if (res === 'success') {
       setIsSignUp(true); // 최초 회원가입 시 띄워줄 모달 상태
-      router.push('/');
+      router.push('/dashboards');
     }
   };
 

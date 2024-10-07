@@ -1,13 +1,14 @@
 'use client';
 
 import { AxiosError } from 'axios';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { DashboardDataResponse, getDashboardData } from '@/apis/dashboard/get';
 import { currentTodoListAtom } from '@/app/review/stores';
 import { useUser } from '@/hooks/useUser';
+import useWeekParams from '@/hooks/useWeekParams';
 import { displayWeekAtom } from '@/stores/week/displayWeek';
 import { CurrentWeek } from '@/types/currentWeek';
 
@@ -18,8 +19,14 @@ import TodoList from './_components/TodoList';
 import WeekNavigator from './_components/WeekNavigator';
 
 export default function DashboardPage() {
+  const {
+    year: initialYear,
+    month: initialMonth,
+    week: initialWeek,
+  } = useWeekParams();
+
   const setTodos = useSetAtom(currentTodoListAtom);
-  const currentWeek = useAtomValue(displayWeekAtom);
+  const [currentWeek, setCurrentWeek] = useAtom(displayWeekAtom);
 
   const { userExpired } = useUser();
 
@@ -32,6 +39,30 @@ export default function DashboardPage() {
       week: currentWeek.week,
     });
   }, [currentWeek]);
+
+  useEffect(() => {
+    if (!initialYear || !initialMonth || !initialWeek) return;
+
+    const now = new Date(
+      Number(initialYear),
+      Number(initialMonth) - 1,
+      Number(initialWeek) * 7,
+    );
+
+    setCurrentWeek({
+      year: Number(initialYear),
+      month: Number(initialMonth),
+      week: Number(initialWeek),
+      date: now.getDate(),
+      day: now.getDay() === 0 ? now.getDay() : 4,
+    });
+
+    getData({
+      year: Number(initialYear),
+      month: Number(initialMonth),
+      week: Number(initialWeek),
+    });
+  }, [initialYear, initialMonth, initialWeek, setCurrentWeek]);
 
   const getData = async ({ year, month, week }: CurrentWeek) => {
     try {
@@ -73,9 +104,17 @@ export default function DashboardPage() {
         <section className="flex items-center justify-between mb-6">
           <WeekNavigator />
 
-          <Link href="/review">
-            <button className="button-primary button-large">회고하기</button>
-          </Link>
+          <button className="button-primary button-large">
+            {data.isReviewed ? (
+              <Link
+                href={`/history/review?year=${currentWeek.year}&month=${currentWeek.month}&week=${currentWeek.week}`}
+              >
+                작성한 회고 보기
+              </Link>
+            ) : (
+              <Link href="/review">회고하기</Link>
+            )}
+          </button>
         </section>
 
         <div className="flex gap-9">

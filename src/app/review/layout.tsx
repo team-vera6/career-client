@@ -13,7 +13,7 @@ export default function ReviewLayout({
   return (
     <div className="w-full h-full overflow-hidden px-12 max-w-[106rem] min-w-[74.25rem] pt-10 mx-auto">
       <header>
-        <Link href="/">
+        <Link href="/dashboards">
           <TextLogo />
         </Link>
       </header>

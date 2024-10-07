@@ -11,7 +11,7 @@ const ProjectProgress = ({ startDate, endDate, percentage }: Props) => {
     <div className="flex flex-col gap-2 mb-4">
       <div className="flex items-center justify-between">
         <p className="font-body-14 text-text-strong">
-          {startDate} - {endDate}
+          {startDate.replaceAll('-', '.')} - {endDate.replaceAll('-', '.')}
         </p>
         <p className="font-body-14 text-text-primary">
           {Math.round(percentage)}%

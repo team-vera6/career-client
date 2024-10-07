@@ -18,21 +18,22 @@ const ReviewHistory = () => {
     week: 0,
   });
   const [reviews, setReviews] = useState<
-    { weekNumber: CurrentWeek; reviews: Omit<Review, 'weekNumber'>[] }[]
+    { weekNumber: CurrentWeek; reviews: Review[] }[]
   >([]);
 
   const groupReviewsByWeek = (receivedReviews: Review[]) => {
     const groupedReviews = receivedReviews.reduce(
       (acc, cur) => {
-        const { year, month, week } = cur.weekNumber;
+        const { year, month } = cur.weekNumber;
 
         const item = {
           id: cur.id,
           like: cur.like,
           highlightSummary: cur.highlightSummary,
+          weekNumber: cur.weekNumber,
         };
 
-        const key = `${year}-${month}-${week}`;
+        const key = `${year}-${month}`;
         if (acc[key]) {
           acc[key].reviews.push(item);
         } else {
@@ -44,10 +45,7 @@ const ReviewHistory = () => {
 
         return acc;
       },
-      {} as Record<
-        string,
-        { weekNumber: CurrentWeek; reviews: Omit<Review, 'weekNumber'>[] }
-      >,
+      {} as Record<string, { weekNumber: CurrentWeek; reviews: Review[] }>,
     );
 
     return Object.values(groupedReviews).sort((a, b) => {
@@ -86,7 +84,6 @@ const ReviewHistory = () => {
       {reviews.map(({ weekNumber, reviews }) => (
         <ReviewWeekGroup
           key={`${weekNumber.year}-${weekNumber.month}-${weekNumber.week}`}
-          weekNumber={weekNumber}
           reviews={reviews}
           onClickReview={onClickReview}
         />

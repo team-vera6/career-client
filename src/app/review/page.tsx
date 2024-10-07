@@ -22,7 +22,6 @@ const SIZE = 53.625; // width + gap 150px
 export default function ReviewPage() {
   const reviewStep = useAtomValue(reviewStepAtom);
 
-
   const resetReview = useReviewReset();
 
   useEffect(() => {
@@ -32,7 +31,7 @@ export default function ReviewPage() {
   const position = SIZE * (reviewStep - 1);
 
   return (
-    <div className="w-fit flex gap-[150px]">
+    <div className="w-fit flex gap-[150px] overflow-hidden">
       {steps.map((el, index) => (
         <div
           key={`Step-${index}`}

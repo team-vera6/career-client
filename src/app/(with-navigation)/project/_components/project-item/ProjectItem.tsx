@@ -10,10 +10,11 @@ interface Props {
   title: string;
   progress: number;
   onClose?: () => void;
+  initialOpen?: boolean;
 }
 
-const ProjectItem = ({ id, title, progress, onClose }: Props) => {
-  const [showSheet, setShowSheet] = useState(false);
+const ProjectItem = ({ id, title, progress, onClose, initialOpen }: Props) => {
+  const [showSheet, setShowSheet] = useState(initialOpen ?? false);
 
   return (
     <>

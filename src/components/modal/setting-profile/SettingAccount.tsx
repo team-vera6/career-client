@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { deleteUser } from '@/apis/auth/delete';
 import { useUser } from '@/hooks/useUser';
 
 import Alert from '../Alert';
@@ -10,6 +11,15 @@ const SettingAccount = () => {
   const { userLogout } = useUser();
 
   const [showConfirmAlert, setShowConfirmAlert] = useState(false);
+
+  const deleteAccount = async () => {
+    try {
+      await deleteUser();
+      userLogout();
+    } catch (error) {
+      console.error('fail to delete user', error);
+    }
+  };
 
   return (
     <>
@@ -49,6 +59,7 @@ const SettingAccount = () => {
             text: '확인',
             className:
               'button-primary button-medium font-body-14 text-text-invert bg-state-negative',
+            onClick: deleteAccount,
           },
         }}
       />

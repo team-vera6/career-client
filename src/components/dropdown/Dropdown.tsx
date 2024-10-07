@@ -1,6 +1,12 @@
 'use client';
 
-import { CSSProperties, PropsWithChildren, useEffect, useState } from 'react';
+import {
+  CSSProperties,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { ClassName } from '@/types/attributes';
 import { cn } from '@/utils/tailwind';
@@ -31,7 +37,7 @@ const Dropdown = ({
   ...rest
 }: PropsWithChildren<DropdownProps>) => {
   const [showOptions, setShowOptions] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(initialItem);
+  const [selectedValue, setSelectedValue] = useState<string | number>('');
   const [selectedName, setSelectedName] = useState('');
 
   const onClickItem = (item: DropdownItem, id: string | number) => {
@@ -41,10 +47,14 @@ const Dropdown = ({
     onSelect && onSelect(item, id);
   };
 
+  const defaultItem = useMemo(() => {
+    return items.filter((el) => el.id === selectedValue)[0];
+  }, [items, selectedValue]);
+
   useEffect(() => {
-    const defaultItem = items.filter((el) => el.value === selectedValue)[0];
+    setSelectedValue(defaultItem?.id ?? initialItem);
     setSelectedName(defaultItem?.name ?? initialItem);
-  }, [initialItem, items, selectedValue]);
+  }, [defaultItem, initialItem, selectedValue]);
 
   return (
     <div className={cn('relative w-full h-[2.75rem]', className)} {...rest}>
@@ -57,7 +67,15 @@ const Dropdown = ({
         disabled:bg-surface-base disabled:cursor-not-allowed disabled:hover:border-line-normal"
         onClick={() => setShowOptions((prev) => !prev)}
       >
-        <span>{selectedName}</span>
+        <span
+          className={cn(
+            defaultItem && !!initialItem
+              ? 'text-text-strong'
+              : 'text-text-neutral',
+          )}
+        >
+          {selectedName}
+        </span>
         <ChevronDown20Icon />
       </button>
 

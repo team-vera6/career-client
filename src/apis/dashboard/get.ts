@@ -11,6 +11,7 @@ export interface DashboardDataResponse {
     id: number;
     content: string;
   }[];
+  isReviewed: boolean;
 }
 
 export const getDashboardData = async ({ year, month, week }: CurrentWeek) => {
