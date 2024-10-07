@@ -59,8 +59,8 @@ export const useReviewReset = () => {
     setCurrentTodoListAtom([]);
     setNextTodoListAtom([]);
 
-    setInitialHighLightListAtom([initialReviewItem]);
-    setInitialLowLightListAtom([initialReviewItem]);
+    setInitialHighLightListAtom([]);
+    setInitialLowLightListAtom([]);
     setHighLightListAtom([initialReviewItem]);
     setLowLightListAtom([initialReviewItem]);
     setLastHighLightListAtom([]);
