@@ -27,8 +27,10 @@ const MemoEditor = ({
   const [input, setInput] = useState(value);
 
   useEffect(() => {
+    if (!rest.isOpen) return;
+
     setInput(value);
-  }, [value]);
+  }, [value, rest.isOpen]);
 
   return (
     <ModalContainer {...rest}>
@@ -39,6 +41,7 @@ const MemoEditor = ({
           onDismiss={rest.onDismiss}
           lastUpdated={lastUpdated}
           onSaveText={() => onSaveText(input)}
+          hasChanges={input !== value}
         />
 
         <textarea
