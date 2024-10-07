@@ -13,6 +13,7 @@ interface Props {
   lastUpdated?: string;
   onDismiss?: () => void;
   onSaveText?: () => void;
+  hasChanges?: boolean;
 }
 
 const TopMenu = ({
@@ -21,6 +22,7 @@ const TopMenu = ({
   lastUpdated,
   onDismiss,
   onSaveText,
+  hasChanges,
 }: Props) => {
   const setMemoList = useSetAtom(memoListAtom);
 
@@ -66,6 +68,7 @@ const TopMenu = ({
               onSaveText?.();
               onDismiss?.();
             }}
+            disabled={!hasChanges}
           >
             저장
           </button>
