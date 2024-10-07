@@ -45,7 +45,11 @@ const TopMenu = ({ id, readonly, lastUpdated, onDismiss }: Props) => {
         </p>
       ) : (
         <div className="flex gap-2">
-          <button className="button-small button-secondary" type="button">
+          <button
+            className="button-small button-secondary"
+            type="button"
+            onClick={() => setShowDeleteAlert(true)}
+          >
             삭제
           </button>
           <button className="button-small button-primary" type="button">
