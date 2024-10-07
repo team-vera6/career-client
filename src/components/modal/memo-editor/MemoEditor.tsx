@@ -53,6 +53,12 @@ const MemoEditor = ({
               rest.onDismiss?.();
             }
           }}
+          onFocus={(e) =>
+            e.currentTarget.setSelectionRange(
+              e.currentTarget.value.length,
+              e.currentTarget.value.length,
+            )
+          }
         />
 
         <BottomMenu
