@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { AllMemosResponse, getAllMemos } from '@/apis/memo/get';
 import { addNewMemo } from '@/apis/memo/post';
 import PlusIcon from '@/components/icons/PlusIcon';
-import TextEditorModal from '@/components/modal/text-editor';
+import MemoEditor from '@/components/modal/memo-editor/MemoEditor';
 import ToggleSwitch from '@/components/toggle-switch/ToggleSwitch';
 import { showOnlyBookmarkAtom } from '@/stores/bookmark/showOnlyBookmarkAtom';
 import { historyMemoListAtom, MemoList } from '@/stores/memos/memos';
@@ -114,7 +114,7 @@ const Category = () => {
         </button>
       )}
 
-      <TextEditorModal
+      <MemoEditor
         isOpen={openTextEditor}
         onDismiss={() => {
           setOpenTextEditor(false);
