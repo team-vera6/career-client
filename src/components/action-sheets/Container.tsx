@@ -17,6 +17,7 @@ interface Props {
   closeActionSheet: () => void;
   buttons: ActionSheetButton[];
   disableAnimation?: boolean;
+  disableDimmer?: boolean;
 }
 
 const RightActionSheetContainer = ({
@@ -25,6 +26,7 @@ const RightActionSheetContainer = ({
   closeActionSheet,
   buttons,
   disableAnimation,
+  disableDimmer,
 }: PropsWithChildren<Props>) => {
   useEffect(() => {
     if (typeof document === 'undefined') return;
@@ -46,10 +48,12 @@ const RightActionSheetContainer = ({
     <div className="w-screen h-screen fixed z-30">
       <div className="w-screen h-screen relative">
         {/* background dimmer */}
-        <div
-          className="fixed w-full h-full top-0 bottom-0 left-0 right-0 z-10 bg-surface-dimmer opacity-[0.76]"
-          onClick={() => closeActionSheet()}
-        />
+        {!disableDimmer && (
+          <div
+            className="fixed w-full h-full top-0 bottom-0 left-0 right-0 z-10 bg-surface-dimmer opacity-[0.76]"
+            onClick={() => closeActionSheet()}
+          />
+        )}
 
         {/* action sheet */}
         <div

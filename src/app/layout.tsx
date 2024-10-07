@@ -5,6 +5,7 @@ import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Chakra_Petch } from 'next/font/google';
 import localFont from 'next/font/local';
+import { Suspense } from 'react';
 
 import ToastContainer from '@/components/toast/ToastContainer';
 
@@ -47,7 +48,7 @@ export default function RootLayout({
       <GoogleTagManager gtmId="GTM-W4V33S62" />
 
       <body className="font-pretendard bg-surface-background">
-        {children}
+        <Suspense fallback={<>loading...</>}>{children}</Suspense>
         <ToastContainer />
       </body>
 

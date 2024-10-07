@@ -1,4 +1,8 @@
+import { useEffect } from 'react';
+
+import useWeekParams from '@/hooks/useWeekParams';
 import { CurrentWeek } from '@/types/currentWeek';
+import { isSameObject } from '@/utils/object';
 
 import { Score } from '../../../_components/review/Score';
 
@@ -17,6 +21,14 @@ const ReviewItem = ({
   id,
   onClickReview,
 }: Props) => {
+  const weekParams = useWeekParams();
+
+  useEffect(() => {
+    if (isSameObject(weekParams, weekNumber)) {
+      onClickReview(id, weekNumber);
+    }
+  }, []);
+
   return (
     <li
       className="w-full h-14 flex items-center pl-6 pr-5 bg-surface-foregroundOn rounded-2xl cursor-pointer"

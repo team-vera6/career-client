@@ -1,23 +1,41 @@
-'use client';
+import { useState } from 'react';
 
+import { deleteTodo } from '@/apis/todos/delete';
 import { LastWeekReviewItem } from '@/app/review/_components/last-week-review/LastWeekReviewItem';
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
 import LowlightCircleIcon from '@/components/icons/LowlightCircleIcon';
 import DeletableInput from '@/components/inputs/deletable-input/DeletableInput';
+import Alert from '@/components/modal/Alert';
 import { Highlight } from '@/types/highlight';
 import { Todo } from '@/types/todo';
 
 interface Props {
-  highlights: Omit<Highlight, 'currentWeek'>[];
-  lowlights: Omit<Highlight, 'currentWeek'>[];
+  highlights: Highlight[];
+  lowlights: Highlight[];
   completedTodos: Todo[];
+  fetchList: () => Promise<void>;
+  onClickDeleteProject: (id: number, type: 'highlight' | 'lowlight') => void;
 }
 
-export const ReviewDetail = ({
+export const ReviewEdit = ({
   highlights,
   lowlights,
   completedTodos,
+  fetchList,
+  onClickDeleteProject,
 }: Props) => {
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [selectedTodoId, setSelectedTodoId] = useState(-1);
+
+  const onClickDeleteTodo = async (id: number) => {
+    try {
+      await deleteTodo([String(id)]);
+      await fetchList();
+    } catch (error) {
+      console.error('fail to delete todo', error);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2.5">
@@ -32,6 +50,10 @@ export const ReviewDetail = ({
               id={highlight.id}
               project={highlight.project}
               content={highlight.content}
+              editable
+              onClickDelete={() =>
+                onClickDeleteProject(highlight.id, 'highlight')
+              }
             />
           ))}
         </div>
@@ -49,6 +71,10 @@ export const ReviewDetail = ({
               id={lowlight.id}
               project={lowlight.project}
               content={lowlight.content}
+              editable
+              onClickDelete={() =>
+                onClickDeleteProject(lowlight.id, 'lowlight')
+              }
             />
           ))}
         </div>
@@ -61,11 +87,27 @@ export const ReviewDetail = ({
             <DeletableInput
               key={`todo-${todo.id}`}
               value={todo.content}
-              disabled
+              onClickDelete={() => {
+                setSelectedTodoId(todo.id);
+                setShowDeleteAlert(true);
+              }}
             />
           ))}
         </div>
       </div>
+
+      <Alert
+        isOpen={showDeleteAlert}
+        onDismiss={() => setShowDeleteAlert(false)}
+        title="정말로 삭제하시겠어요?"
+        buttons={{
+          left: { text: '취소' },
+          right: {
+            text: '확인',
+            onClick: () => onClickDeleteTodo(selectedTodoId),
+          },
+        }}
+      />
     </div>
   );
 };

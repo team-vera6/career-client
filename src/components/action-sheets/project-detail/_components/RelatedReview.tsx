@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import ChevronRight16Icon from '@/components/icons/ChevronRight16Icon';
 import HighlightCircleIcon from '@/components/icons/HighlightCircleIcon';
 import LowlightCircleIcon from '@/components/icons/LowlightCircleIcon';
@@ -28,9 +30,15 @@ const RelatedReview = ({ type, review, week, last }: Props) => {
           <p className="font-body-14 text-text-strong line-clamp-2">{review}</p>
         </div>
 
-        <div className="flex items-center gap-0.5 justify-end">
-          <p className="font-body-13 text-text-strong">{`${week.month}월 ${week.week}주차`}</p>
-          <ChevronRight16Icon size={16} />
+        <div className="w-full flex justify-end">
+          <Link
+            href={`/dashboards?year=${week.year}&month=${week.month}&week=${week.week}`}
+          >
+            <div className="flex items-center gap-0.5 w-fit">
+              <p className="font-body-13 text-text-strong">{`${week.month}월 ${week.week}주차`}</p>
+              <ChevronRight16Icon size={16} />
+            </div>
+          </Link>
         </div>
       </div>
     </div>
