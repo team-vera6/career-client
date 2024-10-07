@@ -3,12 +3,12 @@
 import { AxiosError } from 'axios';
 import { useAtom, useSetAtom } from 'jotai';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { DashboardDataResponse, getDashboardData } from '@/apis/dashboard/get';
 import { currentTodoListAtom } from '@/app/review/stores';
 import { useUser } from '@/hooks/useUser';
+import useWeekParams from '@/hooks/useWeekParams';
 import { displayWeekAtom } from '@/stores/week/displayWeek';
 import { CurrentWeek } from '@/types/currentWeek';
 
@@ -19,10 +19,11 @@ import TodoList from './_components/TodoList';
 import WeekNavigator from './_components/WeekNavigator';
 
 export default function DashboardPage() {
-  const searchParams = useSearchParams();
-  const initialYear = searchParams.get('year');
-  const initialMonth = searchParams.get('month');
-  const initialWeek = searchParams.get('week');
+  const {
+    year: initialYear,
+    month: initialMonth,
+    week: initialWeek,
+  } = useWeekParams();
 
   const setTodos = useSetAtom(currentTodoListAtom);
   const [currentWeek, setCurrentWeek] = useAtom(displayWeekAtom);

@@ -1,7 +1,8 @@
-import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
+import useWeekParams from '@/hooks/useWeekParams';
 import { CurrentWeek } from '@/types/currentWeek';
+import { isSameObject } from '@/utils/object';
 
 import { Score } from '../../../_components/review/Score';
 
@@ -20,20 +21,13 @@ const ReviewItem = ({
   id,
   onClickReview,
 }: Props) => {
-  const searchParams = useSearchParams();
-  const year = searchParams.get('year');
-  const month = searchParams.get('month');
-  const week = searchParams.get('week');
+  const weekParams = useWeekParams();
 
   useEffect(() => {
-    if (
-      Number(year) === weekNumber.year &&
-      Number(month) === weekNumber.month &&
-      Number(week) === weekNumber.week
-    ) {
+    if (isSameObject(weekParams, weekNumber)) {
       onClickReview(id, weekNumber);
     }
-  }, [year, month, week]);
+  }, []);
 
   return (
     <li
