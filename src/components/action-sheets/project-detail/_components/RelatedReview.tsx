@@ -33,6 +33,7 @@ const RelatedReview = ({ type, review, week, last }: Props) => {
         <div className="w-full flex justify-end">
           <Link
             href={`/dashboards?year=${week.year}&month=${week.month}&week=${week.week}`}
+            target="_blank"
           >
             <div className="flex items-center gap-0.5 w-fit">
               <p className="font-body-13 text-text-strong">{`${week.month}월 ${week.week}주차`}</p>
