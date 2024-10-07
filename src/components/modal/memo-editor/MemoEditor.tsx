@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import ModalContainer, { ModalProps } from '../ModalContainer';
 import BottomMenu from './BottomMenu';
@@ -26,6 +26,10 @@ const MemoEditor = ({
 
   const [input, setInput] = useState(value);
 
+  useEffect(() => {
+    setInput(value);
+  }, [value]);
+
   return (
     <ModalContainer {...rest}>
       <section className="flex flex-col justify-between">
@@ -34,6 +38,7 @@ const MemoEditor = ({
           readonly={readonly}
           onDismiss={rest.onDismiss}
           lastUpdated={lastUpdated}
+          onSaveText={() => onSaveText(input)}
         />
 
         <textarea
