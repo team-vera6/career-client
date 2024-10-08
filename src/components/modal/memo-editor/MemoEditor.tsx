@@ -36,6 +36,11 @@ const MemoEditor = ({
   }, [value, isOpen]);
 
   const onClickBackground = () => {
+    if (readonly) {
+      onDismiss?.();
+      return;
+    }
+
     if (input !== value) {
       setShowExitAlert(true);
     } else {
@@ -63,7 +68,10 @@ const MemoEditor = ({
           autoFocus
           value={input}
           onChange={(e) => setInput(e.currentTarget.value)}
+          readOnly={readonly}
           onKeyDown={(e) => {
+            if (readonly) return;
+
             if (
               (e.ctrlKey && e.key === 'Enter') ||
               (e.metaKey && e.key === 'Enter')
