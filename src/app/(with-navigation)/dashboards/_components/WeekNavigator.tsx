@@ -1,16 +1,40 @@
 import { Day, nextDay, previousDay } from 'date-fns';
 import { useAtom } from 'jotai';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
+import { getDashboardData } from '@/apis/dashboard/get';
 import ChevronLeft20Icon from '@/components/icons/ChevronLeft20Icon';
 import ChevronRight20Icon from '@/components/icons/ChevronRight20Icon';
 import { displayWeekAtom } from '@/stores/week/displayWeek';
-import { getCurrentWeek } from '@/utils/date';
+import { getCurrentWeek, getNextWeek } from '@/utils/date';
+import { isSameObject } from '@/utils/object';
 
 const { year, month, week } = getCurrentWeek();
 
 const WeekNavigator = () => {
   const [currentDisplayWeek, setCurrentDisplayWeek] = useAtom(displayWeekAtom);
+  const [hasNextWeekTodo, setHasNextWeekTodo] = useState(false);
+
+  // 다음 주 할 일이 있는지 확인합니다.
+  useEffect(() => {
+    const nextWeek = getNextWeek();
+
+    console.log('nextWeek', nextWeek);
+
+    (async () => {
+      if (!isSameObject(nextWeek, { year, month, week })) return;
+
+      const response = await getDashboardData({
+        year: nextWeek.nextYear,
+        month: nextWeek.nextMonth,
+        week: nextWeek.nextWeek,
+      });
+
+      if (response.todos.length > 0) {
+        setHasNextWeekTodo(true);
+      }
+    })();
+  }, []);
 
   const handleClickPrev = () => {
     const prevWeek = previousDay(
@@ -73,6 +97,18 @@ const WeekNavigator = () => {
     );
   }, [currentDisplayWeek]);
 
+  const isLastWeek = useMemo(() => {
+    const nextWeek = getNextWeek();
+
+    if (!hasNextWeekTodo) return true;
+
+    return (
+      nextWeek.nextYear === year &&
+      nextWeek.nextMonth === month &&
+      nextWeek.nextWeek === week
+    );
+  }, [hasNextWeekTodo]);
+
   return (
     <div className="flex items-center gap-2">
       <p className="font-head-20 text-text-strong">
@@ -95,7 +131,7 @@ const WeekNavigator = () => {
           type="button"
           className="bg-surface-foreground w-7 h-7 rounded-md flex items-center justify-center disabled:bg-surface-foregroundOn"
           onClick={handleClickNext}
-          disabled={isCurrentWeek}
+          disabled={isLastWeek}
         >
           <ChevronRight20Icon size={20} />
         </button>
