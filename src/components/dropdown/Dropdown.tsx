@@ -81,8 +81,10 @@ const Dropdown = ({
 
       {showOptions && (
         <ul
-          className="absolute w-full top-[2.75rem] left-0 py-1 z-10 cursor-pointer
-          border border-line-assistive rounded-lg  bg-surface-foreground"
+          className="absolute w-full max-h-[203px] top-[2.75rem] left-0 py-1 z-10 cursor-pointer
+          border border-line-assistive rounded-lg  bg-surface-foreground
+          overflow-scroll
+          "
           style={{
             boxShadow: '0px 8px 20px 0px #00000014, 0px 0px 2px 0px #0000000D',
           }}
