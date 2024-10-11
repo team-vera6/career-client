@@ -19,8 +19,6 @@ const WeekNavigator = () => {
   useEffect(() => {
     const nextWeek = getNextWeek();
 
-    console.log('nextWeek', nextWeek);
-
     (async () => {
       if (!isSameObject(nextWeek, { year, month, week })) return;
 
