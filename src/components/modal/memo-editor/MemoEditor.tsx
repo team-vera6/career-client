@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
+import Alert from '../Alert';
 import ModalContainer, { ModalProps } from '../ModalContainer';
 import BottomMenu from './BottomMenu';
 import TopMenu from './TopMenu';
@@ -20,20 +21,43 @@ const MemoEditor = ({
   lastUpdated,
   id,
   isBookmark,
-  ...rest
+  isOpen,
+  onDismiss,
 }: Props) => {
   const editorRef = useRef<HTMLTextAreaElement>(null);
 
   const [input, setInput] = useState(value);
+  const [showExitAlert, setShowExitAlert] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    setInput(value);
+  }, [value, isOpen]);
+
+  const onClickBackground = () => {
+    if (readonly) {
+      onDismiss?.();
+      return;
+    }
+
+    if (input !== value) {
+      setShowExitAlert(true);
+    } else {
+      onDismiss?.();
+    }
+  };
 
   return (
-    <ModalContainer {...rest}>
+    <ModalContainer isOpen={isOpen} onDismiss={onClickBackground}>
       <section className="flex flex-col justify-between">
         <TopMenu
           id={id}
           readonly={readonly}
-          onDismiss={rest.onDismiss}
+          onDismiss={onDismiss}
           lastUpdated={lastUpdated}
+          onSaveText={() => onSaveText(input)}
+          hasChanges={input !== value}
         />
 
         <textarea
@@ -44,13 +68,16 @@ const MemoEditor = ({
           autoFocus
           value={input}
           onChange={(e) => setInput(e.currentTarget.value)}
+          readOnly={readonly}
           onKeyDown={(e) => {
+            if (readonly) return;
+
             if (
               (e.ctrlKey && e.key === 'Enter') ||
               (e.metaKey && e.key === 'Enter')
             ) {
               onSaveText(input);
-              rest.onDismiss?.();
+              onDismiss?.();
             }
           }}
           onFocus={(e) =>
@@ -68,6 +95,22 @@ const MemoEditor = ({
           isBookmark={isBookmark}
         />
       </section>
+
+      <Alert
+        isOpen={showExitAlert}
+        onDismiss={() => setShowExitAlert(false)}
+        title="메모를 저장하시겠어요?"
+        buttons={{
+          left: { text: '아니오', onClick: onDismiss },
+          right: {
+            text: '예',
+            onClick: () => {
+              onSaveText(input);
+              onDismiss?.();
+            },
+          },
+        }}
+      />
     </ModalContainer>
   );
 };
