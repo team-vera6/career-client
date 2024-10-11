@@ -37,7 +37,7 @@ export default function ReviewPage() {
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const { height } = entry.contentRect;
-        setContainerHeight(`${height}px`);
+        setContainerHeight(`${height + 120}px`);
       }
     });
 
