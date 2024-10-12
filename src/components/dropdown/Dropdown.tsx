@@ -3,8 +3,10 @@
 import {
   CSSProperties,
   PropsWithChildren,
+  useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -40,12 +42,23 @@ const Dropdown = ({
   const [selectedValue, setSelectedValue] = useState<string | number>('');
   const [selectedName, setSelectedName] = useState('');
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const onClickItem = (item: DropdownItem, id: string | number) => {
     setSelectedValue(item.value);
     setShowOptions(false);
 
     onSelect && onSelect(item, id);
   };
+
+  const onClickOutside = useCallback((event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setShowOptions(false);
+    }
+  }, []);
 
   const defaultItem = useMemo(() => {
     return items.filter((el) => el.id === selectedValue)[0];
@@ -56,8 +69,20 @@ const Dropdown = ({
     setSelectedName(defaultItem?.name ?? initialItem);
   }, [defaultItem, initialItem, selectedValue]);
 
+  useEffect(() => {
+    document.addEventListener('mousedown', onClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', onClickOutside);
+    };
+  }, [onClickOutside]);
+
   return (
-    <div className={cn('relative w-full h-[2.75rem]', className)} {...rest}>
+    <div
+      className={cn('relative w-full h-[2.75rem]', className)}
+      ref={dropdownRef}
+      {...rest}
+    >
       <button
         type="button"
         className="appearance-none w-full h-full p-3 font-body-14 cursor-pointer
@@ -81,8 +106,10 @@ const Dropdown = ({
 
       {showOptions && (
         <ul
-          className="absolute w-full top-[2.75rem] left-0 py-1 z-10 cursor-pointer
-          border border-line-assistive rounded-lg  bg-surface-foreground"
+          className="absolute w-full max-h-[203px] top-[2.75rem] left-0 py-1 z-10 cursor-pointer
+          border border-line-assistive rounded-lg  bg-surface-foreground
+          overflow-scroll
+          "
           style={{
             boxShadow: '0px 8px 20px 0px #00000014, 0px 0px 2px 0px #0000000D',
           }}

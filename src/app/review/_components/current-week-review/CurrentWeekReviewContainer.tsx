@@ -162,7 +162,7 @@ export const CurrentWeekReviewContainer = ({
   }, [category, highLightList, lowLightList, setPageButtonStates]);
 
   return (
-    <div className="w-full p-5 bg-surface-foreground rounded-xl flex flex-col gap-6 mb-8">
+    <div className="w-full p-5 bg-surface-foreground rounded-xl flex flex-col gap-6">
       {category === 'highLight'
         ? highLightList.map((el, index) => (
             <CurrentWeekReviewItem

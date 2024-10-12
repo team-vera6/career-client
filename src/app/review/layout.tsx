@@ -24,7 +24,7 @@ export default function ReviewLayout({
           <WeeklyMemo />
         </aside>
 
-        <main className="h-full w-[44.25rem] mx-auto">
+        <main className="h-full w-[44.25rem] mx-auto pb-[3.75rem]">
           <WeekInfo />
           {children}
         </main>
