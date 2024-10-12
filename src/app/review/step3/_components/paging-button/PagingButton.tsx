@@ -31,7 +31,6 @@ export const PagingButton = () => {
   const { addToast } = useToast();
 
   const onSubmit = async () => {
-    console.log(pageButtonStates);
     if (!pageButtonStates['step3']) {
       setDisabledClickAttempt((prev) => ({
         ...prev,

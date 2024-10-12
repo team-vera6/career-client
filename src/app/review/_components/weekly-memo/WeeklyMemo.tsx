@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { getMemos } from '@/apis/memo/get';
+import NoMemoIcon from '@/components/icons/NoMemoIcon';
 import Memo from '@/components/memo/Memo';
 import { Memo as MemoType } from '@/types/memo';
 import { getCurrentWeek } from '@/utils/date';
@@ -30,7 +31,13 @@ const WeeklyMemo = () => {
     getMemoList();
   }, []);
 
-  if (memos.length === 0) return null;
+  if (memos.length === 0)
+    return (
+      <div className="w-[15.75rem] h-[8.75rem] flex flex-col items-center justify-center gap-3 bg-surface-foregroundOn rounded-lg">
+        <NoMemoIcon size={24} />
+        <p className="font-title-14 text-text-neutral">작성한 메모가 없어요</p>
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-3">

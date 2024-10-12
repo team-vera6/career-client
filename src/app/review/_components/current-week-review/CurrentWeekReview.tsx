@@ -9,7 +9,7 @@ interface Props {
 }
 export const CurrentWeekReview = ({ category }: Props) => {
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-3 mb-[6.5rem]">
       <div className="flex items-center justify-between">
         <div className="flex gap-2 items-center">
           {ITEMS[category].icon}
